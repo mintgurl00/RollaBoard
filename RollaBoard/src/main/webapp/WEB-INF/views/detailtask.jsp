@@ -17,11 +17,8 @@
 중요도 <input type="text" id="priority" placeholder="1~5중에 하나를 입력해주세요" size="40"><br/><br/><br/>
 선행TASK <input type="text" id="preTask" placeholder="Task id를 입력하시오" size="40"><br/><br/><br/>
 후행TASK <input type="text" id="postTask" placeholder="Task id를 입력하시오" size="40"><br/><br/><br/>
-<input type="submit" value="확인">
-<input type="button" value="취소" onclick = 'history.go(-1)'>
-
-
-
+<input type="submit" value="확인" onclick="location.href='./board.do';">
+<input type="button" value="취소" onclick='history.go(-1)'>
 </div>
 </body>
 </html>

@@ -46,6 +46,7 @@
 		<div id="task" onclick="location.href='./taskview.do';"><h3>TASK 이름</h3></div>
 		<div id="task" onclick="location.href='./taskview.do';"><h3>TASK 이름</h3></div>
 		<div id="task" onclick="location.href='./taskview.do';"><h3>TASK 이름</h3></div>
+		<input type="button" value="TASK생성" onclick="location.href='./createtask.do';">
 	</div>
 	
 	<div id="section">
