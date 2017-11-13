@@ -6,9 +6,9 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>dashboard</title>
 <style>
-#leftside{float:left; width:300px; height:960px; background-color:#B5B2FF}
-#rightside{float:left; width:1580px; height:960px; background-color:#DAD9FF}
-#task{float:left; width:200px; height:200px; margin-left:50px; margin-top:50px; background-color:#EAEAEA; text-align:center}
+#leftside{float:left; width:200px; height:960px; background-color:#B5B2FF}
+#rightside{float:left; width:1280px; height:960px; background-color:#DAD9FF}
+#task{float:left; width:200px; height:200px; margin-left:40px; margin-top:40px; background-color:#EAEAEA; text-align:center}
 </style>
 </head>
 <body>
@@ -18,6 +18,8 @@
 		<a href="./board.do">BOARD1</a><br/><br/><br/><br/><br/>
 		<a href=#>BOARD2</a><br/><br/><br/><br/><br/>
 		<a href=#>BOARD3</a><br/><br/><br/><br/><br/>
+		<a href = "newboard.do">추가</a>
+
 	</div>
 </div>
 

@@ -36,7 +36,7 @@
 
 <div id="filter">
 	<a href=#>관계 TASK보기</a>&nbsp;<a href=#>마감날짜순</a>&nbsp;<a href=#>시작날짜순</a>&nbsp;<a href=#>중요도순</a>
-	<input type="text" name="task_name" placeholder="task명을 입력하세요"><input type="button" value="검색">
+	<input type="text" name="task_name" placeholder="task명을 입력하세요."><input type="button" value="검색">
 </div>
 
 <div id="content">
