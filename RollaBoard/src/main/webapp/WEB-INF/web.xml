@@ -31,9 +31,7 @@
 	</servlet-mapping>
 	
 	<welcome-file-list>
-
 		<welcome-file>index.do</welcome-file>
-
 	</welcome-file-list>
 	<!-- Korean Filter -->
 	<filter>
