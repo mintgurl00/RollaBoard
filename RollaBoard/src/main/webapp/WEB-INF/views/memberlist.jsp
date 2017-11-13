@@ -11,6 +11,29 @@
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 </head>
 <body>
-맴버리스트
+<div class="container">
+  <h2>MEMBER 관리</h2>
+  <p>당신의 BOARD에 가입된 MEMBER입니다.</p>            
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>MEMBER 이름</th>
+        <th>ROLE</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+    <%for(int i = 0; i < 5; i++) {%>
+      <tr>
+        <td> 이름 <%=i %></td>
+        <td> 직책 </td>
+        <td align = right>
+       		<input type = button name = "role<%=i %>" value = "강퇴">
+       	</td>
+      </tr>
+   <%} %>
+    </tbody>
+  </table>
+</div>
 </body>
 </html>
