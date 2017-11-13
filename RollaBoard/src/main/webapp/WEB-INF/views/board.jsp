@@ -41,43 +41,43 @@
 
 <div id="content">
 	<div id="section">
-		<div id="task"><h3>TASK 이름</h3></div>
-		<div id="task"><h3>TASK 이름</h3></div>
-		<div id="task"><h3>TASK 이름</h3></div>
-		<div id="task"><h3>TASK 이름</h3></div>
-		<div id="task"><h3>TASK 이름</h3></div>
+		<div id="task" onclick="location.href='./taskview.do';"><h3>TASK 이름</h3></div>
+		<div id="task" onclick="location.href='./taskview.do';"><h3>TASK 이름</h3></div>
+		<div id="task" onclick="location.href='./taskview.do';"><h3>TASK 이름</h3></div>
+		<div id="task" onclick="location.href='./taskview.do';"><h3>TASK 이름</h3></div>
+		<div id="task" onclick="location.href='./taskview.do';"><h3>TASK 이름</h3></div>
 	</div>
 	
 	<div id="section">
-		<div id="task"><h3>TASK 이름</h3></div>
-		<div id="task"><h3>TASK 이름</h3></div>
-		<div id="task"><h3>TASK 이름</h3></div>
+		<div id="task" onclick="location.href='./taskview.do';"><h3>TASK 이름</h3></div>
+		<div id="task" onclick="location.href='./taskview.do';"><h3>TASK 이름</h3></div>
+		<div id="task" onclick="location.href='./taskview.do';"><h3>TASK 이름</h3></div>
 	</div>
 	
 	<div id="section">
-		<div id="task"><h3>TASK 이름</h3></div>
-		<div id="task"><h3>TASK 이름</h3></div>
-		<div id="task"><h3>TASK 이름</h3></div>
-		<div id="task"><h3>TASK 이름</h3></div>
+		<div id="task" onclick="location.href='./taskview.do';"><h3>TASK 이름</h3></div>
+		<div id="task" onclick="location.href='./taskview.do';"><h3>TASK 이름</h3></div>
+		<div id="task" onclick="location.href='./taskview.do';"><h3>TASK 이름</h3></div>
+		<div id="task" onclick="location.href='./taskview.do';"><h3>TASK 이름</h3></div>
 	</div>
 	
 	<div id="section">
-		<div id="task"><h3>TASK 이름</h3></div>
-		<div id="task"><h3>TASK 이름</h3></div>
-		<div id="task"><h3>TASK 이름</h3></div>
-		<div id="task"><h3>TASK 이름</h3></div>
-		<div id="task"><h3>TASK 이름</h3></div>
+		<div id="task" onclick="location.href='./taskview.do';"><h3>TASK 이름</h3></div>
+		<div id="task" onclick="location.href='./taskview.do';"><h3>TASK 이름</h3></div>
+		<div id="task" onclick="location.href='./taskview.do';"><h3>TASK 이름</h3></div>
+		<div id="task" onclick="location.href='./taskview.do';"><h3>TASK 이름</h3></div>
+		<div id="task" onclick="location.href='./taskview.do';"><h3>TASK 이름</h3></div>
 	</div>
 	
 	<div id="section">
-		<div id="task"><h3>TASK 이름</h3></div>
-		<div id="task"><h3>TASK 이름</h3></div>
-		<div id="task"><h3>TASK 이름</h3></div>
+		<div id="task" onclick="location.href='./taskview.do';"><h3>TASK 이름</h3></div>
+		<div id="task" onclick="location.href='./taskview.do';"><h3>TASK 이름</h3></div>
+		<div id="task" onclick="location.href='./taskview.do';"><h3>TASK 이름</h3></div>
 	</div>
 	
 	<div id="section">
-		<div id="task"><h3>TASK 이름</h3></div>
-		<div id="task"><h3>TASK 이름</h3></div>
+		<div id="task" onclick="location.href='./taskview.do';"><h3>TASK 이름</h3></div>
+		<div id="task" onclick="location.href='./taskview.do';"><h3>TASK 이름</h3></div>
 	</div>
 </div>
 
