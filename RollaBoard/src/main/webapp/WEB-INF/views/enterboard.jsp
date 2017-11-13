@@ -29,6 +29,12 @@
 	<button type = "submit" class = "btn btn-info">입장하기</button>
 	</div>
 </div>
+<div class = "row">
+	<center><div class = "col-xs-12 left">
+	<input type = "button" class = "btn btn-info" value = "취소" onclick = "location.href='newboard.do'">
+	</div></center>
+	
+</div>
 </form>
 </body>
 </html>
