@@ -37,7 +37,10 @@ function changeETC() {
 	</jsp:include>
 </div>
 <div class = "row">
-	<center><div class = "col-xs-12 left"><input type = "submit" value = "만들기"> &nbsp; <input type = "reset"></div></center>
+	<center><div class = "col-xs-12 left">
+	<input type = "submit" value = "만들기"> &nbsp; 
+	<input type = "button" value = "취소" onclick = "location.href='newboard.do'">
+	</div></center>
 	
 </div>
 
