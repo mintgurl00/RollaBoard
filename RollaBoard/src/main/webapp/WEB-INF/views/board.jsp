@@ -21,6 +21,7 @@
 <div id="header">
 <a href="./dashboard.do">로고</a>&nbsp;&nbsp;&nbsp;
 <font size="6">BOARD이름</font>
+<input type="button" value="board설정" onclick="location.href='./updateboard.do';">
 </div>
 
 <div id="logout" align="right">회원정보 수정 | logout&nbsp;</div>
