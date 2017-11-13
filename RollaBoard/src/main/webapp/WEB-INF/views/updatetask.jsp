@@ -1,30 +1,43 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+   pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>updatetask</title>
-
+<title>task 생성</title>
 <style>
-#header{float:left; width:1200px; height:70px; background-color:#B5B2FF}
-#logout{float:left; width:280px; height:70px; background-color:#B5B2FF}
-#ref_board{float:left; width:280px; height:50px; background-color:#DAD9FF}
-#filter{float:left; width:1200px; height:50px; background-color:#DAD9FF; text-align:right}
-#content{overflow:scroll; width:1480px; height:960px}
-#section{float:left; width:800px; height:900px; margin-left:40px; margin-top:40px; background-color:#DAD9FF; text-align:center}
-#task{width:800px; height:500px; margin-left:20px; margin-top:20px; background-color:#FFFFFF; text-align:center}
-#more{width:30px; height:30px ; align-right; backgroud-color:#B5B2FF; text-align:center}
-
+#frame{width:500px; height:700px; background-color:#DAD9FF ; margin-top:100px; margin-left:700px}
+#taskname{margin-top:20px; margin-left:10px}
+#content{margin-top:30px; margin-left:30px}
+#role{margin-top:30px; margin-left:30px}
+#settings{margin-top:5px; margin-left:380px}
+#button{margin-top:20px; margin-left:200px}
 </style>
 </head>
 <body>
+<div id="frame">
+    <div id="taskname">
+        <input type="text" id="taskname" placeholder="TASK 이름을 입력하시오." size="40">
+    </div>
+    
+    <div id="content">내용(필수X)<br/>
+        <input type="textarea" id="content" style="height:180px; width:380px;">
+    </div>
+    
+    <div id="role">Role 배정(필수X)<br/>
+        <input type="textarea" id="role" style="height:180px; width:380px;">
+    </div>
+    
+    <div id="settings">
+        <input type="button" value="고급설정" onclick="location.href='./detailtask.do';">
+    </div>
+    
+    <div id="button">
+        <input type="submit" value="확인" onclick='history.go(-1)'>
+        <input type="submit" value="취소" onclick='history.go(-1)'>
+    </div>
 
-<div id="content">
-	<div id="section"> task 이름 연동하기 ! </div>
-		<div id="task"><h3>TASK 이름</h3></div>
-		<div id="task"><h3>TASK 이름</h3></div>
-	<div id = "more"> 고급설정</div>
+</div>
 
 </body>
 </html>
