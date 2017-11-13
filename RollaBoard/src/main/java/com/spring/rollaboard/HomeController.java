@@ -21,7 +21,7 @@ public class HomeController {
 	
 	@RequestMapping("board.do")
 	public String gotoBoard() {
-		return "board";
+		return "board"; //수민
 	}
 	
 }
