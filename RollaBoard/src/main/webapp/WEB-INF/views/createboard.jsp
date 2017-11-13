@@ -38,8 +38,8 @@ function changeETC() {
 </div>
 <div class = "row">
 	<center><div class = "col-xs-12 left">
-	<input type = "submit" value = "만들기"> &nbsp; 
-	<input type = "button" value = "취소" onclick = "location.href='newboard.do'">
+	<input type = "submit" class = "btn btn-info" value = "만들기"> &nbsp; 
+	<input type = "button" class = "btn btn-info" value = "취소" onclick = "location.href='newboard.do'">
 	</div></center>
 	
 </div>
