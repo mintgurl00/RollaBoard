@@ -31,9 +31,8 @@
 	</servlet-mapping>
 	
 	<welcome-file-list>
-		<welcome-file>/.do</welcome-file>
+		<welcome-file>.do</welcome-file>
 	</welcome-file-list>
-	
 	<!-- Korean Filter -->
 	<filter>
 		<filter-name>CharacterEncodingFilter</filter-name>

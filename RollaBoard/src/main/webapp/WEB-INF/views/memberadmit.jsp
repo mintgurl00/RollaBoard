@@ -3,7 +3,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <title>rolelist</title>
+  <title>memberadmin</title>
   <meta charset="utf-8" Encoding = "UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
@@ -12,21 +12,21 @@
 </head>
 <body>
 <div class="container">
-  <h2>ROLE 관리</h2>
-  <p>당신의 BOARD에서 업무수행을 지시할 ROLE을 관리해주세요</p>            
+  <h2>MEMBER 승인</h2>
+  <p>당신의 BOARD에 가입을 원하는 MEMBER입니다.</p>            
   <table class="table table-striped">
     <thead>
       <tr>
-        <th>ROLE 이름</th>
+        <th>MEMBER 이름</th>
         <th></th>
       </tr>
     </thead>
     <tbody>
     <%for(int i = 0; i < 5; i++) {%>
       <tr>
-        <td>ROLE <%=i %></td>
+        <td>이름 <%=i %></td>
         <td align = right>
-        	<input type = button name = "role<%=i %>" value = "수정">&nbsp;&nbsp;
+        	<input type = button name = "role<%=i %>" value = "승인">&nbsp;&nbsp;
        		<input type = button name = "role<%=i %>" value = "삭제">
        	</td>
       </tr>
