@@ -8,8 +8,8 @@
 <body>
 
 <div id="task">
-	<div id="title">TASK 제목</div>
-	<idv id="descript">TASK 설명</idv>
+	<input type="text" id="title">TASK 제목</div>
+	<textarea id="descript">TASK 설명....</idv>
 
 </div>
 
