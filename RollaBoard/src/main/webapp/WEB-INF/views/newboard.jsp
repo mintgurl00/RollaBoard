@@ -21,7 +21,7 @@
 	<div class = "col-xs-6 col-sm-6">
 		<div class = "thumbnail">	
 			<a href ="#" target = "_blank">
-			<img src = "./image/new.jpg">
+			<img src = "image/new.jpg">
 			<center><p>새 board 생성</p></center>
 			</a>
 		</div>
@@ -38,13 +38,12 @@
 </div>
 <div class = "row">
 	<div class = col-xs-12>
-		<center> <input type="button" class="btn btn-info" value="돌아가기"></center>	
+		<center> <input type="button" class="btn btn-info" onclick = 'history.go(-1)' value="돌아가기"></center>	
 	</div>
 </div>
 <br/>
 <footer class = "page-footer center-on=small-only stylish-color-dark">
 	<div class = "footer-copyright">
-		The time on the server is ${serverTime}.
 	</div>
 </footer>
 
