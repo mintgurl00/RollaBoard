@@ -19,25 +19,24 @@
 		<a href=#>BOARD2</a><br/><br/><br/><br/><br/>
 		<a href=#>BOARD3</a><br/><br/><br/><br/><br/>
 		<a href = "newboard.do">추가</a>
-
 	</div>
 </div>
 
 <div id="rightside">
 <p align="right">회원정보 수정 | logout&nbsp;</p>
 <br/>
-<div id="task"><h3>TASK 이름</h3><br/><br/>BOARD 이름</div>
-<div id="task"><h3>TASK 이름</h3><br/><br/>BOARD 이름</div>
-<div id="task"><h3>TASK 이름</h3><br/><br/>BOARD 이름</div>
-<div id="task"><h3>TASK 이름</h3><br/><br/>BOARD 이름</div>
-<div id="task"><h3>TASK 이름</h3><br/><br/>BOARD 이름</div>
-<div id="task"><h3>TASK 이름</h3><br/><br/>BOARD 이름</div>
-<div id="task"><h3>TASK 이름</h3><br/><br/>BOARD 이름</div>
-<div id="task"><h3>TASK 이름</h3><br/><br/>BOARD 이름</div>
-<div id="task"><h3>TASK 이름</h3><br/><br/>BOARD 이름</div>
-<div id="task"><h3>TASK 이름</h3><br/><br/>BOARD 이름</div>
-<div id="task"><h3>TASK 이름</h3><br/><br/>BOARD 이름</div>
-<div id="task"><h3>TASK 이름</h3><br/><br/>BOARD 이름</div>
+<div id="task" onclick="location.href='./taskview.do';"><h3>TASK 이름</h3><br/><br/>BOARD 이름</div>
+<div id="task" onclick="location.href='./taskview.do';"><h3>TASK 이름</h3><br/><br/>BOARD 이름</div>
+<div id="task" onclick="location.href='./taskview.do';"><h3>TASK 이름</h3><br/><br/>BOARD 이름</div>
+<div id="task" onclick="location.href='./taskview.do';"><h3>TASK 이름</h3><br/><br/>BOARD 이름</div>
+<div id="task" onclick="location.href='./taskview.do';"><h3>TASK 이름</h3><br/><br/>BOARD 이름</div>
+<div id="task" onclick="location.href='./taskview.do';"><h3>TASK 이름</h3><br/><br/>BOARD 이름</div>
+<div id="task" onclick="location.href='./taskview.do';"><h3>TASK 이름</h3><br/><br/>BOARD 이름</div>
+<div id="task" onclick="location.href='./taskview.do';"><h3>TASK 이름</h3><br/><br/>BOARD 이름</div>
+<div id="task" onclick="location.href='./taskview.do';"><h3>TASK 이름</h3><br/><br/>BOARD 이름</div>
+<div id="task" onclick="location.href='./taskview.do';"><h3>TASK 이름</h3><br/><br/>BOARD 이름</div>
+<div id="task" onclick="location.href='./taskview.do';"><h3>TASK 이름</h3><br/><br/>BOARD 이름</div>
+<div id="task" onclick="location.href='./taskview.do';"><h3>TASK 이름</h3><br/><br/>BOARD 이름</div>
 
 
 </div>

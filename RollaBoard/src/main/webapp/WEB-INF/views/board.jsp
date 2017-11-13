@@ -7,11 +7,11 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>board</title>
 <style>
-#header{float:left; width:1200px; height:70px; background-color:#B5B2FF}
+#header{float:left; width:1580px; height:70px; background-color:#B5B2FF}
 #logout{float:left; width:280px; height:70px; background-color:#B5B2FF}
-#ref_board{float:left; width:280px; height:50px; background-color:#DAD9FF}
-#filter{float:left; width:1200px; height:50px; background-color:#DAD9FF; text-align:right}
-#content{overflow:scroll; width:1480px; height:960px}
+#ref_board{width:280px; height:50px; background-color:#DAD9FF}
+#filter{float:left; width:1860px; height:50px; background-color:#DAD9FF; text-align:right}
+#content{overflow:scroll; width:1880px; height:960px}
 #section{float:left; width:400px; height:900px; margin-left:40px; margin-top:40px; background-color:#DAD9FF; text-align:center}
 #task{width:350px; height:150px; margin-left:20px; margin-top:20px; background-color:#FFFFFF; text-align:center}
 
@@ -36,37 +36,49 @@
 
 <div id="filter">
 	<a href=#>관계 TASK보기</a>&nbsp;<a href=#>마감날짜순</a>&nbsp;<a href=#>시작날짜순</a>&nbsp;<a href=#>중요도순</a>
-	<input type="text" name="task_name" placeholder="task명을 입력하세요"><input type="button" value="검색">
+	<input type="text" name="task_name" placeholder="task명을 입력하세요."><input type="button" value="검색">
 </div>
 
 <div id="content">
 	<div id="section">
-		<div id="task"><h3>TASK 이름</h3></div>
-		<div id="task"><h3>TASK 이름</h3></div>
-		<div id="task"><h3>TASK 이름</h3></div>
-		<div id="task"><h3>TASK 이름</h3></div>
-		<div id="task"><h3>TASK 이름</h3></div>
+		<div id="task" onclick="location.href='./taskview.do';"><h3>TASK 이름</h3></div>
+		<div id="task" onclick="location.href='./taskview.do';"><h3>TASK 이름</h3></div>
+		<div id="task" onclick="location.href='./taskview.do';"><h3>TASK 이름</h3></div>
+		<div id="task" onclick="location.href='./taskview.do';"><h3>TASK 이름</h3></div>
+		<div id="task" onclick="location.href='./taskview.do';"><h3>TASK 이름</h3></div>
+		<input type="button" value="TASK생성" onclick="location.href='./createtask.do';">
 	</div>
 	
 	<div id="section">
-		<div id="task"><h3>TASK 이름</h3></div>
-		<div id="task"><h3>TASK 이름</h3></div>
-		<div id="task"><h3>TASK 이름</h3></div>
+		<div id="task" onclick="location.href='./taskview.do';"><h3>TASK 이름</h3></div>
+		<div id="task" onclick="location.href='./taskview.do';"><h3>TASK 이름</h3></div>
+		<div id="task" onclick="location.href='./taskview.do';"><h3>TASK 이름</h3></div>
 	</div>
 	
 	<div id="section">
-		<div id="task"><h3>TASK 이름</h3></div>
-		<div id="task"><h3>TASK 이름</h3></div>
-		<div id="task"><h3>TASK 이름</h3></div>
-		<div id="task"><h3>TASK 이름</h3></div>
+		<div id="task" onclick="location.href='./taskview.do';"><h3>TASK 이름</h3></div>
+		<div id="task" onclick="location.href='./taskview.do';"><h3>TASK 이름</h3></div>
+		<div id="task" onclick="location.href='./taskview.do';"><h3>TASK 이름</h3></div>
+		<div id="task" onclick="location.href='./taskview.do';"><h3>TASK 이름</h3></div>
 	</div>
 	
 	<div id="section">
-		<div id="task"><h3>TASK 이름</h3></div>
-		<div id="task"><h3>TASK 이름</h3></div>
-		<div id="task"><h3>TASK 이름</h3></div>
-		<div id="task"><h3>TASK 이름</h3></div>
-		<div id="task"><h3>TASK 이름</h3></div>
+		<div id="task" onclick="location.href='./taskview.do';"><h3>TASK 이름</h3></div>
+		<div id="task" onclick="location.href='./taskview.do';"><h3>TASK 이름</h3></div>
+		<div id="task" onclick="location.href='./taskview.do';"><h3>TASK 이름</h3></div>
+		<div id="task" onclick="location.href='./taskview.do';"><h3>TASK 이름</h3></div>
+		<div id="task" onclick="location.href='./taskview.do';"><h3>TASK 이름</h3></div>
+	</div>
+	
+	<div id="section">
+		<div id="task" onclick="location.href='./taskview.do';"><h3>TASK 이름</h3></div>
+		<div id="task" onclick="location.href='./taskview.do';"><h3>TASK 이름</h3></div>
+		<div id="task" onclick="location.href='./taskview.do';"><h3>TASK 이름</h3></div>
+	</div>
+	
+	<div id="section">
+		<div id="task" onclick="location.href='./taskview.do';"><h3>TASK 이름</h3></div>
+		<div id="task" onclick="location.href='./taskview.do';"><h3>TASK 이름</h3></div>
 	</div>
 </div>
 
