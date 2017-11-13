@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 public interface RoleDAO {
 	
-	public ArrayList<RoleVO> getRoles();
+	public ArrayList<RoleVO> getRoles(int id);
 	
 	public RoleVO getRole(int id);
 	

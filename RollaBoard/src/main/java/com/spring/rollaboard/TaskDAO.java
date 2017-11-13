@@ -3,7 +3,7 @@ package com.spring.rollaboard;
 import java.util.ArrayList;
 
 public interface TaskDAO {
-	public ArrayList<TaskVO> getTasks();
+	public ArrayList<TaskVO> getTasks(int id);
 
 	public TaskVO getTask(int id, CmtVO cmtVO);
 
