@@ -13,12 +13,10 @@
 </head>
 <script>
 function changeRole() {
-	$('#resultBlock').load("rolelist.jsp");
-	pageName = "rolelist.jsp"
+	$('#resultBlock').load("rolelist.do");
 }
 function changeMember() {
-	$('#resultBlock').load("memberlist.jsp");
-	pageName = "memberlist.jsp"
+	$('#resultBlock').load("memberlist.do");
 }
 </script>
 <body>
@@ -32,7 +30,7 @@ function changeMember() {
 	</div>
 </div>
 <div id=resultBlock class="wrapper">
-	<jsp:include page="<%=pageName %>" >
+	<jsp:include page="rolelist.jsp" >
 			<jsp:param name="page" value="Result" />
 	</jsp:include>
 </div>
