@@ -80,9 +80,11 @@
     
     <div class="form-group">        
       <div class="col-sm-offset-2 col-sm-10">
-        <button type="submit" class="btn btn-default" a href="javascript:check_input()">Login</a>&nbsp;&nbsp;
+        <button type="submit" class="btn btn-default" action="javascript:check_input()">Login&nbsp;&nbsp;
               
-        <button type="signup" class="btn btn-default" onclick="location.href='joinform.do'"></a>Sign Up</button>
+
+        <button type="button" class="btn btn-default" onclick="location.href='joinform.do'">Sign Up</button>
+
       </div>
     </div>
      
