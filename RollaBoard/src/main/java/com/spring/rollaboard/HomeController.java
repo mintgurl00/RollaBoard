@@ -1,64 +1,99 @@
 package com.spring.rollaboard;
 
-import java.text.DateFormat;
-import java.util.Date;
-import java.util.Locale;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 
-/**
- * Handles requests for the application home page.
- */
 @Controller("*.do")
 public class HomeController {
-	
-	private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
-	
-	/**
-	 * Simply selects the home view to render by returning its name.
-	 */
-//	@RequestMapping(value = "/", method = RequestMethod.GET)
-//	public String home(Locale locale, Model model) {
-//		logger.info("Welcome home! The client locale is {}.", locale);
-//		
-//		Date date = new Date();
-//		DateFormat dateFormat = DateFormat.getDateTimeInstance(DateFormat.LONG, DateFormat.LONG, locale);
-//		
-//		String formattedDate = dateFormat.format(date);
-//		
-//		model.addAttribute("serverTime", formattedDate );
-//		
-//		return "newboard";
-//	}
-	
-	@RequestMapping("enterboard.do")
-	public String enterboard() {
-		return "enterboard";
-	}
 	
 	@RequestMapping(value = "/")
     public String home() {
         return "dashboard";
     }
-    
-    @RequestMapping("dashboard.do")
-    public String gotoDashboard() {
-        return "dashboard";
+	
+    @RequestMapping("index.do")
+    public String index() {
+        return "index";
     }
     
-    @RequestMapping("board.do")
-    public String gotoBoard() {
-        return "board";
+    @RequestMapping("joinform.do")
+    public String joinform() {
+        return "joinform";
+    }
+    
+    @RequestMapping("dashboard.do")
+    public String dashboard() {
+        return "dashboard";
     }
     
     @RequestMapping("newboard.do")
     public String newboard() {
         return "newboard";
     }
+    
+    @RequestMapping("createboard.do")
+    public String createboard() {
+        return "createboard";
+    }
+    
+    @RequestMapping("rolelist.do")
+    public String rolelist() {
+        return "rolelist";
+    }
+    
+    @RequestMapping("memberlist.do")
+    public String memberlist() {
+        return "memberlist";
+    }
+    
+    @RequestMapping("memberadmit.do")
+    public String memberadmit() {
+        return "memberadmit";
+    }
+    
+    @RequestMapping("etc.do")
+    public String etc() {
+        return "etc";
+    }
+    
+    @RequestMapping("enterboard.do")
+    public String enterboard() {
+        return "enterboard";
+    }
+    
+    @RequestMapping("board.do")
+    public String board() {
+        return "board";
+    }
+    
+    @RequestMapping("updateboard.do")
+    public String updateboard() {
+        return "updateboard";
+    }
+    
+    @RequestMapping("taskview.do")
+    public String taskview() {
+        return "taskview";
+    }
+    
+    @RequestMapping("updatetask.do")
+    public String updatetask() {
+        return "updatetask";
+    }
+    
+	@RequestMapping("createtask.do")
+	public String createtask() {
+		return "createtask";
+	}
 	
+	@RequestMapping("detailtask.do")
+	public String detailtask() {
+		return "detailtask";
+	}
+    
+    @RequestMapping("updatememberform.do")
+    public String updatememberform() {
+        return "updatememberform";
+    }
+   
 }

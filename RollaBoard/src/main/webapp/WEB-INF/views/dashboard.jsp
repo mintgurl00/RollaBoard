@@ -19,7 +19,6 @@
 		<a href=#>BOARD2</a><br/><br/><br/><br/><br/>
 		<a href=#>BOARD3</a><br/><br/><br/><br/><br/>
 		<a href = "newboard.do">추가</a>
-
 	</div>
 </div>
 
