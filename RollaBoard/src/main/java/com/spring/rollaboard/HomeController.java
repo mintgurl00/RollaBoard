@@ -5,6 +5,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller("*.do")
 public class HomeController {
+
 	
 	@RequestMapping(value="/")
     public String home() {
@@ -96,3 +97,4 @@ public class HomeController {
         return "updatememberform";
     }
 }
+
