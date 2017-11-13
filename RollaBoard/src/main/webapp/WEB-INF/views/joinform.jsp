@@ -14,7 +14,7 @@ input[type=text], input[type=password] {
 }
 
 /* Set a style for all buttons */
-button {
+/* button {
     background-color: #4CAF50;
     color: white;
     padding: 14px 20px;
@@ -23,7 +23,8 @@ button {
     cursor: pointer;
     width: 100%;
 }
-
+ */
+ 
 /* Extra styles for the cancel button */
 .cancelbtn {
     padding: 14px 20px;
@@ -51,8 +52,14 @@ button {
     display: table;
 }
 
-
 </style>
+
+<meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
 <body>
 
 
@@ -62,7 +69,7 @@ button {
   <div class="container">
   <h2> 회원가입</h2>
     <label><b>ID</b></label>
-    <input type="text" placeholder="Enter Email" name="id" required>
+    <input type="text" placeholder="Enter ID" name="id" required>
 
     <label><b>Password</b></label>
     <input type="password" placeholder="Enter Password" name="psw" required>
@@ -74,8 +81,8 @@ button {
     <input type="text" placeholder="Enter Email" name="email" required>
   
     <div class="clearfix">
-      <button type="button" class="cancelbtn">다시 작성</button>
-      <button type="submit" class="signupbtn">Sign Up</button>
+      <button type="reset" class="btn btn-default">다시 작성 </button>&nbsp;&nbsp;&nbsp; 
+      <button type="submit" class="btn btn-default">회원가입</button>
     </div>
   </div>
 </form>
