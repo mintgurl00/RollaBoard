@@ -4,7 +4,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <title>newboard</title>
+  <title>updateboard</title>
   <meta charset="utf-8" Encoding = "UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
@@ -16,6 +16,14 @@ function changeRole() {
 	$('#resultBlock').load("rolelist.do");
 }
 
+function changeMember() {
+	$('#resultBlock').load("memberlist.do");
+}
+
+function changeAdmit() {
+	$('#resultBlock').load("memberadmit.do");
+}
+
 function changeETC() {
 	$('#resultBlock').load("etc.do");
 }
@@ -25,10 +33,12 @@ function changeETC() {
 <div class = "page-header">
 	<div class = "row">
 		<div class = "col-xs-1"></div>
-		<div class = "col-xs-4"><input type = "text" class = "form-control" id = "board_name" placeholder = "Board명을 입력하세요"></div>
-		<div class = "col-xs-3"><input type="button" name = "group" class="btn btn-primary" onclick = "changeRole()" value = "ROLE입력"/></div>
+		<div class = "col-xs-3"><input type = "text" class = "form-control" id = "board_name" placeholder = "Board명을 입력하세요"></div>
+		<div class = "col-xs-2"><input type="button" name = "group" class="btn btn-primary" onclick = "changeRole()" value = "ROLE관리"/></div>
+		<div class = "col-xs-2"><input type="button" name = "group" class="btn btn-primary" onclick = "changeMember()" value = "MEMBER관리"/></div>
+		<div class = "col-xs-2"><input type="button" name = "group" class="btn btn-primary" onclick = "changeAdmit()" value = "MEMBER승인"/></div>
 		<div class = "col-xs-2"><input type="button" name = "group" class="btn btn-primary" onclick = "changeETC()" value = "기타설정"/></div>
-		<div class = "col-xs-2"></div>
+
 	</div>
 </div>
 <div id=resultBlock class="wrapper">
