@@ -2,6 +2,9 @@ package com.spring.rollaboard;
 
 import java.util.Date;
 
+import org.springframework.stereotype.Component;
+
+@Component
 public class TaskVO {
 	
 	private int id;

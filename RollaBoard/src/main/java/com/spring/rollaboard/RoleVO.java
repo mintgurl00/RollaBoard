@@ -1,5 +1,8 @@
 package com.spring.rollaboard;
 
+import org.springframework.stereotype.Component;
+
+@Component
 public class RoleVO {
 	
 	private int id;
