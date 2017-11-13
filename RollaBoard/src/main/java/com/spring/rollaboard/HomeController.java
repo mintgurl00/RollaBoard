@@ -6,12 +6,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller("*.do")
 public class HomeController {
 
-	
-	@RequestMapping(value="/")
-    public String home() {
-        return "dashboard";
-    }
-	
     @RequestMapping("index.do")
     public String index() {
         return "index";

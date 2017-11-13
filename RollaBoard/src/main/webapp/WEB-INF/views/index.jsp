@@ -82,7 +82,9 @@
       <div class="col-sm-offset-2 col-sm-10">
         <button type="submit" class="btn btn-default" action="javascript:check_input()">Login&nbsp;&nbsp;
               
+
         <button type="button" class="btn btn-default" onclick="location.href='joinform.do'">Sign Up</button>
+
       </div>
     </div>
      
