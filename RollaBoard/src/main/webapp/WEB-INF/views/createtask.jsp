@@ -10,6 +10,7 @@
 <div id="task">
 	<input type="text" id="title">TASK 제목</div>
 	<textarea id="descript">TASK 설명....</idv>
+	
 
 </div>
 
