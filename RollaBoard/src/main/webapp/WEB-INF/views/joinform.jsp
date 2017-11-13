@@ -1,9 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-
-<html lang="en">
-
+<!DOCTYPE html>
+<html>
 <style>
 /* Full-width input fields */
 input[type=text], input[type=password] {
@@ -28,7 +26,8 @@ button {
 
 /* Extra styles for the cancel button */
 .cancelbtn {
-    padding: 20px 20px;
+    padding: 14px 20px;
+    color: black;
     background-color: white;
 }
 
@@ -36,15 +35,13 @@ button {
 .cancelbtn,.signupbtn {
     float: left;
     width: 50%;
-    
 }
 
 /* Add padding to container elements */
 .container {
     padding: 16px;
     margin-top : 10%;
-    margin-left: 30%
-    
+    margin-left: 30%;
 }
 
 /* Clear floats */
@@ -54,42 +51,35 @@ button {
     display: table;
 }
 
-/* Change styles for cancel button and signup button on extra small screens */
-@media screen and (max-width: 300px) {
-    .cancelbtn, .signupbtn {
-       width: 100%;
-    }
-}
+
 </style>
-<head>
- <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-
-
-  <title>회원가입 페이지 </title>
-  <meta charset="utf-8">
 <body>
 
-<form action="dashboard.do">
+
+
+<form action="dashboard.do" >
+
   <div class="container">
-  	<h1>Sign up Form</h1>
+  <h2> 회원가입</h2>
     <label><b>ID</b></label>
-    <input type="text" placeholder="Enter ID" name="id" required>
+    <input type="text" placeholder="Enter Email" name="id" required>
 
     <label><b>Password</b></label>
     <input type="password" placeholder="Enter Password" name="psw" required>
 
-    <label><b>Repeat Password</b></label>
-    <input type="password" placeholder="Repeat Password" name="psw-repeat" required>
-   
+    <label><b>이름</b></label>
+    <input type="text" placeholder="이름" name="name" required>
+    
+    <label><b>Email</b></label>
+    <input type="text" placeholder="Enter Email" name="email" required>
+  
     <div class="clearfix">
-      <button type="button" class="cancelbtn">Cancel</button> &nbsp;&nbsp;
-      <button type="button" class="signupbtn">Sign Up</button>
+      <button type="button" class="cancelbtn">다시 작성</button>
+      <button type="submit" class="signupbtn">Sign Up</button>
     </div>
   </div>
 </form>
 
 </body>
 </html>
+    
