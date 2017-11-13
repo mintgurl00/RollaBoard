@@ -1,4 +1,4 @@
---- 초기화 쿼리
+-- table 초기화 쿼리
 drop table task_conn;
 drop table cmt;
 drop sequence seq_cmt;
@@ -9,6 +9,7 @@ drop table section;
 drop sequence seq_section;
 drop table role_mem;
 drop table role;
+drop sequence seq_role;
 drop table board_mem;
 drop table board_ref;
 drop table board;
@@ -58,11 +59,18 @@ Create table board_mem (
     admin varchar2(5) default 'FALSE' not null CONSTRAINT chk_admin CHECK ( admin in ('TRUE', 'FALSE')),
     primary key(board_id, mem_id)
     );
+    
+-- 롤 아이디에 사용될 시퀀스
+--drop sequence seq_board;
+Create sequence seq_role
+start with 1
+increment by 1
+maxvalue 5000;
 
 -- 롤 테이블
 --drop table role;
 Create table ROLE (
-    id varchar2(20) primary key,
+    id number primary key,
     board_id references board(id) on delete cascade,
     name varchar2(20),
     description varchar2(100)
@@ -71,8 +79,8 @@ Create table ROLE (
 -- 롤-사람
 --drop table role_mem;
 Create table role_mem (
-    role_id varchar2(20) references role(id) on delete cascade,
-    mem_id varchar2(20) references mem(id) on delete cascade,
+    role_id  references role(id) on delete cascade,
+    mem_id references mem(id) on delete cascade,
     primary key(role_id, mem_id)
     );
 
