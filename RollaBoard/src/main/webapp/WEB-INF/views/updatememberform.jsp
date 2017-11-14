@@ -14,7 +14,7 @@
 
 <div class="container" style="margin-top:10%; margin-left:20%">
   <h2>회원정보 수정</h2>
-  <form class="form-horizontal" action="index.jsp">
+  <form class="form-horizontal" action="index.do">
     <div class="form-group">
       <label class="control-label col-sm-2" for="id">ID:</label>
       <div class="col-sm-10">
@@ -42,8 +42,8 @@
       </div>
     <div class="form-group"  >        
       <div class="col-sm-offset-2 col-sm-10">
-        <button type="submit" class="btn btn-default"  style="background-color: green"
-        >Submit</button>
+        <button type="submit" class="btn btn-default"  style="background-color: green" >수정완료 &nbsp;&nbsp;</button>
+         <button type="reset" class="btn btn-default" style="background-color: green">다시 작성 </button>
       </div>
     </div>
   </form>
