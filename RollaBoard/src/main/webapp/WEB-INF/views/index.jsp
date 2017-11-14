@@ -60,7 +60,8 @@
   
 </head>
 <body >
-
+-member 테이블의 id,password  저장
+-check input 
 <div class="container" style="margin-top:10%; margin-left:30%">
 	<br>  <br> <br> <br> <br>  <br> <br> <br>
   <h1>RollaBoard <br></h1>  <h2> LOGIN </h2>

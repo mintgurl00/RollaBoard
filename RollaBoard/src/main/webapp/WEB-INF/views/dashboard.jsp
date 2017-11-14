@@ -12,6 +12,7 @@
 </style>
 </head>
 <body>
+
 <div id="leftside">
 <h2 align="center">내 BOARD 보기</h2><br/><br/><br/>
 	<div style="text-align:center">
