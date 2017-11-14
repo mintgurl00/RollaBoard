@@ -5,8 +5,9 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.ModelAndView;
 
-@Controller("*.do")
+@Controller
 public class HomeController {
 
 	@Autowired
@@ -26,8 +27,11 @@ public class HomeController {
 	
 	// 시작화면
     @RequestMapping("index.do")
-    public String index() {
-        return "index";
+    public ModelAndView index() {
+    	System.out.println("들어감");
+    	ModelAndView result = new ModelAndView();
+    	result.setViewName("index");
+    	return result;
     }
     
     @RequestMapping("joinform.do")
