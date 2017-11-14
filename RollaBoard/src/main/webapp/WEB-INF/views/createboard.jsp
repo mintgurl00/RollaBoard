@@ -43,6 +43,6 @@ function changeETC() {
 	</div></center>
 	
 </div>
-
+</form>
 </body>
 </html>
