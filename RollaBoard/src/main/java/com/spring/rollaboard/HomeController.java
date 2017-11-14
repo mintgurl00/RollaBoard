@@ -1,5 +1,7 @@
 package com.spring.rollaboard;
 
+import javax.servlet.http.HttpSession;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,15 +37,14 @@ public class HomeController {
     
     @RequestMapping("login.do")
     public ModelAndView login(MemVO memVO) {
-    	System.out.println("컨트롤러 도착! memVO.getID : " + memVO.getId());
+    	System.out.println("login...memVO.getID : " + memVO.getId());
     	MemVO member = memDAOService.getMember(memVO);
     	ModelAndView result = new ModelAndView();
-    	System.out.println("확인 후 돌아온 컨트롤러 : " + member);
     	if (member == null) {
 			result.setViewName("index");
     		return result;
 		}
-    	result.addObject("ID", member.getId());
+    	result.addObject("id", member.getId());
     	result.setViewName("dashboard");
     	return result;
     }
@@ -63,8 +64,12 @@ public class HomeController {
     }
     
     @RequestMapping("dashboard.do")
-    public String dashboard() {
-        return "dashboard";
+    public ModelAndView dashboard(HttpSession session) {
+    	ModelAndView result = new ModelAndView();
+    	
+    	result.addObject("id", session.getAttribute("id"));
+    	result.setViewName("dashboard");
+        return result;
     }
     
     @RequestMapping("newboard.do")
@@ -133,8 +138,12 @@ public class HomeController {
 	}
     
     @RequestMapping("updatememberform.do")
-    public String updatememberform() {
-        return "updatememberform";
+    public ModelAndView updatememberform(HttpSession session) {
+    	ModelAndView result = new ModelAndView();
+    	MemVO memVO = memDAOService.getMemInfoToUpdate((String)session.getAttribute("id"));
+    	result.addObject("member", memVO);
+    	result.setViewName("updatememberform");
+        return result;
     }
     
 }

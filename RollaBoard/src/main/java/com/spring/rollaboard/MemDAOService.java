@@ -13,7 +13,7 @@ public class MemDAOService implements MemDAO {
 	private SqlSession sqlSession; // Mybatis(ibatis)라이브러리가 제공하는 클래스
 
 	@Override
-	public ArrayList<MemVO> getMembers(int id) {
+	public ArrayList<MemVO> getMembers(String id) {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -21,7 +21,6 @@ public class MemDAOService implements MemDAO {
 	@Override
 	public MemVO getMember(MemVO memVO) {
 		MemMapper memMapper = sqlSession.getMapper(MemMapper.class);
-		System.out.println("getMember로 왔다! : " + memMapper.getMember(memVO));
 		return memMapper.getMember(memVO);
 	}
 
@@ -39,9 +38,15 @@ public class MemDAOService implements MemDAO {
 	}
 
 	@Override
-	public void deleteMember(int id) {
+	public void deleteMember(String id) {
 		// TODO Auto-generated method stub
 		
+	}
+
+	@Override
+	public MemVO getMemInfoToUpdate(String id) {
+		MemMapper memMapper = sqlSession.getMapper(MemMapper.class);
+		return memMapper.getMemInfoToUpdate(id);
 	}
 	
 	

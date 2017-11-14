@@ -19,5 +19,8 @@
 		SELECT * FROM (SELECT * FROM MEM WHERE ID = #{id}) WHERE PASSWORD = #{password} 
 	</select>
 	
+	<select id = "getMemInfoToUpdate" resultMap = "MemResultMap">
+		SELECT * FROM mem WHERE ID = #{id} 
+	</select>
 	
 </mapper>
