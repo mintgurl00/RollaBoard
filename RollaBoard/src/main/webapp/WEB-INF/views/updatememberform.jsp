@@ -16,7 +16,7 @@
   <h2>회원정보 수정</h2>
 
   <form class="form-horizontal" action="#">
->>>>>>> branch 'master' of https://github.com/mintgurl00/RollaBoard.git
+
     <div class="form-group">
       <label class="control-label col-sm-2" for="id">ID:</label>
       <div class="col-sm-10">
