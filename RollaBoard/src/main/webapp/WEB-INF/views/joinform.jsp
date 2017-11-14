@@ -64,7 +64,7 @@ input[type=text], input[type=password] {
 
 -member 테이블, id, password, name, email 값 저장
 
-<form action="dashboard.do" >
+<form action="insertMember.do" >
 
   <div class="container">
   <h2> 회원가입</h2>
@@ -72,7 +72,7 @@ input[type=text], input[type=password] {
     <input type="text" placeholder="Enter ID" name="id" required>
 
     <label><b>Password</b></label>
-    <input type="password" placeholder="Enter Password" name="psw" required>
+    <input type="password" placeholder="Enter Password" name="password" required>
 
     <label><b>이름</b></label>
     <input type="text" placeholder="이름" name="name" required>

@@ -3,7 +3,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <title>updatememberform</title>
+  <title>update member form</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
@@ -14,7 +14,9 @@
 
 <div class="container" style="margin-top:10%; margin-left:20%">
   <h2>회원정보 수정</h2>
-  <form class="form-horizontal" action="index.do">
+
+  <form class="form-horizontal" action="#">
+>>>>>>> branch 'master' of https://github.com/mintgurl00/RollaBoard.git
     <div class="form-group">
       <label class="control-label col-sm-2" for="id">ID:</label>
       <div class="col-sm-10">
