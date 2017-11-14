@@ -28,29 +28,34 @@ public class HomeController {
 	// 시작화면
     @RequestMapping("index.do")
     public ModelAndView index() {
-    	System.out.println("들어감");
     	ModelAndView result = new ModelAndView();
     	result.setViewName("index");
     	return result;
     }
     
+    @RequestMapping("login.do")
+    public ModelAndView login(MemVO memVO) {
+    	System.out.println("컨트롤러 도착! memVO.getID : " + memVO.getId());
+    	MemVO member = memDAOService.getMember(memVO);
+    	ModelAndView result = new ModelAndView();
+    	System.out.println("확인 후 돌아온 컨트롤러 : " + member);
+    	if (member == null) {
+			result.setViewName("index");
+    		return result;
+		}
+    	result.addObject("ID", member.getId());
+    	result.setViewName("dashboard");
+    	return result;
+    }
+    
+    
     @RequestMapping("insertMember.do")
     public ModelAndView insertMember(MemVO memVO) {
     	memDAOService.insertMember(memVO);
-		/*
-		HashMap<String, String> map = new HashMap<String, String>(); // HashMap
-		map.put("id", member.getId());
-		map.put("name", member.getName());
-		map.put("email", member.getEmail());
-		map.put("phone", member.getPhone());
-		memberDAOService.insertMember2(map);
-		 */
-    	
 		ModelAndView result = new ModelAndView();
 		result.setViewName("index");
     	return result;
     }
-    
     
     @RequestMapping("joinform.do")
     public String joinform() {

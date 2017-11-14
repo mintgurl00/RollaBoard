@@ -6,7 +6,7 @@ import java.util.HashMap;
 public interface MemDAO {
 	public ArrayList<MemVO> getMembers(int id);
 
-	public MemVO getMember(int id);
+	public MemVO getMember(MemVO memVO);
 
 	public void insertMember(MemVO memVO);
 

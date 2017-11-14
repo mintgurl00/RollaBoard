@@ -19,9 +19,10 @@ public class MemDAOService implements MemDAO {
 	}
 
 	@Override
-	public MemVO getMember(int id) {
-		// TODO Auto-generated method stub
-		return null;
+	public MemVO getMember(MemVO memVO) {
+		MemMapper memMapper = sqlSession.getMapper(MemMapper.class);
+		System.out.println("getMember로 왔다! : " + memMapper.getMember(memVO));
+		return memMapper.getMember(memVO);
 	}
 
 	@Override
