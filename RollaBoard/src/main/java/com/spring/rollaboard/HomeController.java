@@ -34,6 +34,24 @@ public class HomeController {
     	return result;
     }
     
+    @RequestMapping("insertMember.do")
+    public ModelAndView insertMember(MemVO memVO) {
+    	memDAOService.insertMember(memVO);
+		/*
+		HashMap<String, String> map = new HashMap<String, String>(); // HashMap
+		map.put("id", member.getId());
+		map.put("name", member.getName());
+		map.put("email", member.getEmail());
+		map.put("phone", member.getPhone());
+		memberDAOService.insertMember2(map);
+		 */
+    	
+		ModelAndView result = new ModelAndView();
+		result.setViewName("index");
+    	return result;
+    }
+    
+    
     @RequestMapping("joinform.do")
     public String joinform() {
         return "joinform";
