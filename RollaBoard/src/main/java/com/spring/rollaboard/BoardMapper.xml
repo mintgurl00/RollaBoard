@@ -9,5 +9,5 @@
 		<result property = "admin" column = "ADMIN"/>
 		<result property = "visibility" column = "VISIBILITY"/>
 	</resultMap>
-	
+
 </mapper>
