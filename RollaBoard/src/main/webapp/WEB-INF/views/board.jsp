@@ -24,7 +24,9 @@
 <input type="button" value="board설정" onclick="location.href='./updateboard.do';">
 </div>
 
-<div id="logout" align="right">회원정보 수정 | logout&nbsp;</div>
+<div id="logout" align="right">
+	<a href="updatememberform.do">회원정보 수정</a> | <a href="#">logout</a>&nbsp;
+</div>
 
 <div id="ref_board">
 	<select name="ref_board">
