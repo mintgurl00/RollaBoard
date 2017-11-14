@@ -62,7 +62,7 @@ input[type=text], input[type=password] {
 
 <body>
 
--member 테이블, id, password, name, email 값 저장
+
 
 <form action="insertMember.do" >
 

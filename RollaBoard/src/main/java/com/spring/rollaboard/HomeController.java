@@ -1,5 +1,7 @@
 package com.spring.rollaboard;
 
+import javax.servlet.http.HttpSession;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,29 +30,33 @@ public class HomeController {
 	// 시작화면
     @RequestMapping("index.do")
     public ModelAndView index() {
-    	System.out.println("들어감");
     	ModelAndView result = new ModelAndView();
     	result.setViewName("index");
     	return result;
     }
     
+    @RequestMapping("login.do")
+    public ModelAndView login(MemVO memVO) {
+    	System.out.println("login...memVO.getID : " + memVO.getId());
+    	MemVO member = memDAOService.getMember(memVO);
+    	ModelAndView result = new ModelAndView();
+    	if (member == null) {
+			result.setViewName("index");
+    		return result;
+		}
+    	result.addObject("id", member.getId());
+    	result.setViewName("dashboard");
+    	return result;
+    }
+    
+    
     @RequestMapping("insertMember.do")
     public ModelAndView insertMember(MemVO memVO) {
     	memDAOService.insertMember(memVO);
-		/*
-		HashMap<String, String> map = new HashMap<String, String>(); // HashMap
-		map.put("id", member.getId());
-		map.put("name", member.getName());
-		map.put("email", member.getEmail());
-		map.put("phone", member.getPhone());
-		memberDAOService.insertMember2(map);
-		 */
-    	
 		ModelAndView result = new ModelAndView();
 		result.setViewName("index");
     	return result;
     }
-    
     
     @RequestMapping("joinform.do")
     public String joinform() {
@@ -58,8 +64,12 @@ public class HomeController {
     }
     
     @RequestMapping("dashboard.do")
-    public String dashboard() {
-        return "dashboard";
+    public ModelAndView dashboard(HttpSession session) {
+    	ModelAndView result = new ModelAndView();
+    	
+    	result.addObject("id", session.getAttribute("id"));
+    	result.setViewName("dashboard");
+        return result;
     }
     
     @RequestMapping("newboard.do")
@@ -128,8 +138,12 @@ public class HomeController {
 	}
     
     @RequestMapping("updatememberform.do")
-    public String updatememberform() {
-        return "updatememberform";
+    public ModelAndView updatememberform(HttpSession session) {
+    	ModelAndView result = new ModelAndView();
+    	MemVO memVO = memDAOService.getMemInfoToUpdate((String)session.getAttribute("id"));
+    	result.addObject("member", memVO);
+    	result.setViewName("updatememberform");
+        return result;
     }
     
 }

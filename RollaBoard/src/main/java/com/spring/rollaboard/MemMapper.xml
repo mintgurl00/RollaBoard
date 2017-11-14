@@ -12,8 +12,15 @@
 	
 	<insert id = "insertMember" parameterType = "com.spring.rollaboard.MemVO">
 		INSERT INTO mem VALUES 
-			(#{id, javaType=String}, #{password, jdbcType=VARCHAR}, #{name, jdbcType=VARCHAR},#{email})
+			(#{id, javaType=String}, #{password, jdbcType=VARCHAR}, #{name, jdbcType=VARCHAR}, #{email})
 	</insert>
 	
+	<select id = "getMember" resultMap = "MemResultMap">
+		SELECT * FROM (SELECT * FROM MEM WHERE ID = #{id}) WHERE PASSWORD = #{password} 
+	</select>
+	
+	<select id = "getMemInfoToUpdate" resultMap = "MemResultMap">
+		SELECT * FROM mem WHERE ID = #{id} 
+	</select>
 	
 </mapper>
