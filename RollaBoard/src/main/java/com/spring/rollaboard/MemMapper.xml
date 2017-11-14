@@ -10,7 +10,10 @@
 		<result property = "email" column = "EMAIL"/>
 	</resultMap>
 	
-	
+	<insert id = "insertMember" parameterType = "com.spring.rollaboard.MemVO">
+		INSERT INTO mem VALUES 
+			(#{id, javaType=String}, #{password, jdbcType=VARCHAR}, #{name, jdbcType=VARCHAR},#{email})
+	</insert>
 	
 	
 </mapper>
