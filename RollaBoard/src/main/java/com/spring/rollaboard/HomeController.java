@@ -1,11 +1,30 @@
 package com.spring.rollaboard;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller("*.do")
 public class HomeController {
 
+	@Autowired
+	private CmtDAOService cmtDAOService;
+	@Autowired
+	private MemDAOService memDAOService;
+	@Autowired
+	private RoleDAOService roleDAOService;
+	@Autowired
+	private SectionDAOService sectionDAOService;
+	@Autowired
+	private TaskDAOService taskDAOService;
+	@Autowired
+	private BoardDAOService boardDAOService;
+	
+	private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
+	
+	// 시작화면
     @RequestMapping("index.do")
     public String index() {
         return "index";
