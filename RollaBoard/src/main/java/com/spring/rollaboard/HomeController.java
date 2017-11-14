@@ -98,8 +98,17 @@ public class HomeController {
     }
     
     @RequestMapping("board.do")
-    public String board() {
-        return "board";
+    public ModelAndView board( String id ) {	// 석원
+    	// TODO 석원이 지금 하고 있는 부분
+    	/* 1. 참조하는 보드
+    	 * 2. 태스크 필터
+    	 * 3. 태스크 예쁘게 보기
+    	 * 4. 태스크 검색
+    	 */
+    	
+    	ModelAndView result = new ModelAndView();
+    	result.setViewName("board");
+        return result ;
     }
     
     @RequestMapping("updateboard.do")
