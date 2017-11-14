@@ -10,47 +10,4 @@
 		<result property = "visibility" column = "VISIBILITY"/>
 	</resultMap>
 	
-	<!-- id는 Mapper.java(여기선 BoardMapper.java)에 동일하게 사용해야된다. -->
-	<!-- 아래는 예시 -->
-	<select id = "getMembers" resultMap = "MemberResultMap">
-		SELECT * FROM tab_mybatis order by name
-	</select>
-<!-- 
-	<select id = "getMembers" parameterType = "String" resultMap = "MemberResultMap">
-		SELECT * FROM ${value} order by name
-	</select>
- -->
-	<select id = "getMember" resultMap = "MemberResultMap">
-		SELECT * FROM tab_mybatis WHERE id = #{id, javaType=String}
-	</select>
-	
-	<!-- parameterType 에는 구문에 전달될 파라미터의 패키지 경로를 포함한 전체 클래스명이나 별칭이 들어간다 -->
-	<insert id = "insertMember" parameterType = "com.spring.mybatis.MemberVO">
-		INSERT INTO tab_mybatis VALUES 
-			(#{id, javaType=String}, #{name, jdbcType=VARCHAR}, #{email},#{phone})
-	</insert>
-	
-	<insert id = "insertMember2" parameterType = "hashmap">
-		INSERT INTO tab_mybatis VALUES 
-			(#{id, javaType=String}, #{name, jdbcType=VARCHAR}, #{email}, #{phone})
-	</insert>
-	
-	<!--
-	<insert id = "insertMember" parameterType = "com.spring.mybatis.MemberVO">
-		INSERT INTO ${value} VALUES
-			(#{id, javaType=String}, #{name, jdbcType=VARCHAR}, #{email}, #{phone})
-	</insert>
-	-->
-	
-	<update id = "updateMember" parameterType = "com.spring.mybatis.MemberVO">
-		UPDATE tab_mybatis SET name=#{name}, email=#{email}, phone=#{phone} WHERE id=#{id}
-	</update>
-	<delete id = "deleteMember">
-		DELETE FROM tab_mybatis WHERE id=#{id}
-	</delete>
-	
-	<select id = "getCount" resultType = "int">
-		SELECT count(*) FROM tab_mybatis
-	</select>
-	  
 </mapper>
