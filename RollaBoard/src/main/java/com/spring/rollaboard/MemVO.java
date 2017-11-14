@@ -3,7 +3,7 @@ package com.spring.rollaboard;
 import org.springframework.stereotype.Component;
 
 @Component
-public class MemberVO {
+public class MemVO {
 	
 	private String id;
 	private String password;
