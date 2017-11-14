@@ -4,13 +4,15 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 public interface MemDAO {
-	public ArrayList<MemVO> getMembers(int id);
+	public ArrayList<MemVO> getMembers(String id);
 
-	public MemVO getMember(int id);
+	public MemVO getMember(MemVO memVO);
 
 	public void insertMember(MemVO memVO);
 
 	public void updateMember(MemVO memVO);
 
-	public void deleteMember(int id);
+	public void deleteMember(String id);
+	
+	public MemVO getMemInfoToUpdate(String id);
 }
