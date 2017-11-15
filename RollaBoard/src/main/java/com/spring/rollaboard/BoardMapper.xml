@@ -12,8 +12,11 @@
 	
 	
 	<!-- getRefBoards -->
-	<select id="getRefBoards" resultMap="MemberResultMap">
-		SELECT * FROM board_ref WHERE board_id=#{id, javaType=String}
+	<select id="getRefBoards" resultMap="BoardResultMap">
+		SELECT br.REF_ID id, b.name name
+		FROM board_ref br, board b 
+		WHERE br.ref_id = b.ID 
+    		AND br.board_id=#{id, javaType=String}
 	</select>
 
 </mapper>

@@ -41,4 +41,12 @@ public class BoardDAOService implements BoardDAO {
 		// TODO Auto-generated method stub
 		
 	}
+
+	@Override
+	public ArrayList<BoardVO> getRefBoards(int id) {
+		ArrayList<BoardVO> refBoardList = new ArrayList<BoardVO>() ;
+		BoardMapper boardMapper = sqlSession.getMapper( BoardMapper.class ) ;
+		refBoardList = boardMapper.getRefBoards( id ) ;
+		return refBoardList;
+	}
 }

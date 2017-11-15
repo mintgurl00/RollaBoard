@@ -28,7 +28,10 @@ public class BoardViewDAOService implements BoardViewDAO {
 	public ArrayList<BoardVO> getRefBoards(int board_id) {
 		/*BoardViewMapper boardViewMapper = sqlSession.getMapper(MemMapper.class);
 		memMapper.insertMember(memVO);*/
+		ArrayList<BoardVO> refBoardList = new ArrayList<BoardVO>() ;
+		
 		BoardMapper boardMapper = sqlSession.getMapper( BoardMapper.class ) ;
+		boardMapper.getRefBoards( board_id ) ;
 		return null ;
 	}
 

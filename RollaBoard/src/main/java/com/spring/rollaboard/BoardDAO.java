@@ -13,4 +13,6 @@ public interface BoardDAO {
 	public void updateBoard(BoardVO boardVO);
 
 	public void deleteBoard(int id);
+	
+	public ArrayList<BoardVO> getRefBoards(int id);
 }

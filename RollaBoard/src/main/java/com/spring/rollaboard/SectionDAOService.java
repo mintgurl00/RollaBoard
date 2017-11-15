@@ -19,8 +19,7 @@ public class SectionDAOService implements SectionDAO {
 	}
 
 	@Override
-	public SectionVO getSection(int id) {
-		// TODO Auto-generated method stub
+	public SectionVO getSection(int id) {	// 석원.
 		return null;
 	}
 
