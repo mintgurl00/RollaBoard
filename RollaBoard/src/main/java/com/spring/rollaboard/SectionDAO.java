@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 public interface SectionDAO {
-	public ArrayList<SectionVO> getSections(int id);
+	public ArrayList<SectionVO> getSections(int board_id);
 
 	public SectionVO getSection(int id);
 

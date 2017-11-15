@@ -161,25 +161,32 @@ public class HomeController {
     	 * 석원이 지금 하고 있는 부분
     	 * 1. 참조하는 보드 명단 가져오기. 함. model만
     	 * 2. 태스크 예쁘게 보기. 하는 중
+    	 * 2-1 섹션
+    	 * 2-2 태스크
+    	 * 2-3 롤
     	 * 3. 검색 & 필터
     	 * */
     	
     	
     	ModelAndView result = new ModelAndView();
     	String id = session.getAttribute( "id" ).toString() ;	// 멤버 id
-    	String board_id = request.getParameter( "board_id" ) ;	// 보드 id
-    	System.out.println( "id : " + id + " board_id : " + board_id );
+    	int board_id = Integer.parseInt( request.getParameter( "board_id" ) ) ;	// 보드 id
+    	System.out.println( "id:" + id + ", board_id:" + board_id );
     	
     	/*
     	 * 사실 이 부분에 보드멤버가 맞는지 확인하는 부분이 들어가야 한다.
+    	 * (뭐, 어서 일단 넘어가구요.)
     	 * */
     	
     	// 01. 참조 보드 리스트 전달
-    	ArrayList<BoardVO> refBoardList = boardDAOService.getRefBoards( Integer.parseInt( board_id ) );
+    	ArrayList<BoardVO> refBoardList = boardDAOService.getRefBoards( board_id );
     	result.addObject( "refBoardList" , refBoardList ) ;
     	
-    	// ArrayList<BoardVO> refBoardList = boardDAOService.getRefBoards( Integer.parseInt( id ) );
-    	// result.addObject( "refBoardList" , refBoardList ) ;
+    	// 02. 섹션 리스트 전달
+    	ArrayList<SectionVO> sectionList = sectionDAOService.getSections( board_id ) ;
+    	result.addObject( "sectionList" , sectionList ) ;
+    			
+    	
     	
     	
     	result.setViewName("board");
