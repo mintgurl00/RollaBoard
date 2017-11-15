@@ -2,6 +2,8 @@ package com.spring.rollaboard;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.servlet.http.*;
 
@@ -64,8 +66,12 @@ public class HomeController {
 			result.setViewName("index");
     		return result;
 		}
+    	
     	session.setAttribute("id", member.getId());
+    	List<BoardVO> boardList = boardDAOService.getBoards((String)(session.getAttribute("id"))); //수민. login 후 대시보드로 갈 때 보드리스트 받아옴
+    	
     	result.addObject("id", member.getId());
+    	result.addObject("boardList", boardList); //수민
     	result.setViewName("dashboard");
     	return result;
     }
@@ -85,12 +91,14 @@ public class HomeController {
         return "joinform";
     }
     
+    
     @RequestMapping("dashboard.do")
     public ModelAndView dashboard(HttpSession session) {
     	ModelAndView result = new ModelAndView();
-    	boardDAOService.getBoards(session.getId());
+    	List<BoardVO> boardList = boardDAOService.getBoards((String)(session.getAttribute("id"))); //수민. 대시보드로 갈 때 보드리스트 받아옴
     	
     	result.addObject("id", session.getAttribute("id"));
+    	result.addObject("boardList", boardList); //수민
     	result.setViewName("dashboard");
         return result;
     }
@@ -129,36 +137,36 @@ public class HomeController {
         return result;
     }
     
-    // 기존 보드에 가입함
-    @RequestMapping("enteringboard.do")
-    public ModelAndView enteringboard(BoardVO boardVO, HttpSession session, HttpServletResponse response) throws Exception {
-    	ModelAndView result = new ModelAndView();
-    	String mem_id = session.getId();
-    	System.out.println("보드 네임 : " + boardVO.getName());
-    	BoardVO boardChk = boardDAOService.getBoard(boardVO);
-    	if (boardChk == null) {
-    		
-    		// alert처리단
-    		response.setContentType("text/html; charset-utf-8");
-    		PrintWriter out = response.getWriter();
-            out.println("<script>alert('찾는 BOARD가 존재하지 않습니다!(BOARD 이름을 다시 확인해주세요)');</script>");
-            out.flush(); 
-    		result.setViewName("enterboard");
-            return result;
-		}
-    	System.out.println();
-    	System.out.println("보드 아이디 : " + boardChk.getId());
-    	System.out.println("보드 이름 : " + boardChk.getName());
-    	System.out.println("보드 관리자 : " + boardChk.getAdmin());
-    	boardDAOService.joinBoard(boardChk, mem_id);
-    	// alert처리단
-		response.setContentType("text/html; charset-utf-8");
-		PrintWriter out = response.getWriter();
-        out.println("<script>alert('BOARD에 등록되었습니다. 관리자의 승인을 기다려주세요');</script>");
-        out.flush(); 
-    	result.setViewName("dashboard");
-        return result;
-    }
+//    // 기존 보드에 가입함
+//    @RequestMapping("enteringboard.do")
+//    public ModelAndView enteringboard(BoardVO boardVO, HttpSession session, HttpServletResponse response) throws Exception {
+//    	ModelAndView result = new ModelAndView();
+//    	String mem_id = session.getId();
+//    	System.out.println("보드 네임 : " + boardVO.getName());
+//    	BoardVO boardChk = boardDAOService.getBoard(boardVO);
+//    	if (boardChk == null) {
+//    		
+//    		// alert처리단
+//    		response.setContentType("text/html; charset-utf-8");
+//    		PrintWriter out = response.getWriter();
+//            out.println("<script>alert('찾는 BOARD가 존재하지 않습니다!(BOARD 이름을 다시 확인해주세요)');</script>");
+//            out.flush(); 
+//    		result.setViewName("enterboard");
+//            return result;
+//		}
+//    	System.out.println();
+//    	System.out.println("보드 아이디 : " + boardChk.getId());
+//    	System.out.println("보드 이름 : " + boardChk.getName());
+//    	System.out.println("보드 관리자 : " + boardChk.getAdmin());
+//    	boardDAOService.joinBoard(boardChk, mem_id);
+//    	// alert처리단
+//		response.setContentType("text/html; charset-utf-8");
+//		PrintWriter out = response.getWriter();
+//        out.println("<script>alert('BOARD에 등록되었습니다. 관리자의 승인을 기다려주세요');</script>");
+//        out.flush(); 
+//    	result.setViewName("dashboard");
+//        return result;
+//    }
     
     @RequestMapping("board.do")
     public ModelAndView board( String id ) {	// 석원

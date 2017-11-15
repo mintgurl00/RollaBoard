@@ -1,10 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ page import = "java.util.*" %>
+<%@ page import="java.util.*, com.spring.rollaboard.*"%>
 <%
 	request.setCharacterEncoding("utf-8");
 	String id = (String)request.getAttribute("id");
 	session.setAttribute("id", id);
+	
+	List<BoardVO> boardList = (ArrayList<BoardVO>)request.getAttribute("boardList");
 
 %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -23,9 +26,20 @@
 <div id="leftside">
 <h2 align="center">내 BOARD 보기</h2><br/><br/><br/>
 	<div style="text-align:center">
-		<a href="./board.do">BOARD1</a><br/><br/><br/><br/><br/>
-		<a href=#>BOARD2</a><br/><br/><br/><br/><br/>
-		<a href=#>BOARD3</a><br/><br/><br/><br/><br/>
+		
+			<%
+			for (int i=0; i<boardList.size(); i++) {
+				BoardVO board = boardList.get(i);
+			%>
+			
+			<a href="./board.do?board_id=<%=board.getId()%>">
+			<%=board.getName() %>
+		
+			</a><br/><br/><br/><br/><br/>
+			<%
+			}
+			%>
+			
 		<a href = "dashboard.do">추가</a>
 	</div>
 </div>

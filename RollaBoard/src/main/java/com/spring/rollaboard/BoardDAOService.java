@@ -19,7 +19,7 @@ public class BoardDAOService implements BoardDAO {
 	}
 
 	@Override
-	public BoardVO getBoard(int id) {
+	public BoardVO getBoard(BoardVO boardVO) {
 		// TODO Auto-generated method stub
 		return null;
 	}

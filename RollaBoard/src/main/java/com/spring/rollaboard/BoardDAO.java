@@ -6,7 +6,7 @@ import java.util.HashMap;
 public interface BoardDAO {
 	public ArrayList<BoardVO> getBoards(String id);
 
-	public BoardVO getBoard(int id);
+	public BoardVO getBoard(BoardVO boardVO);
 
 	public void createBoard(BoardVO boardVO);
 
