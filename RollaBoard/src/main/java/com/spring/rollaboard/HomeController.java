@@ -50,7 +50,7 @@ public class HomeController {
     }
     
     @RequestMapping("login.do")
-    public ModelAndView login(MemVO memVO, HttpServletResponse response) throws Exception {
+    public ModelAndView login(MemVO memVO, HttpServletResponse response, HttpSession session) throws Exception {
     	System.out.println("login...memVO.getID : " + memVO.getId());
     	MemVO member = memDAOService.getMember(memVO);
     	ModelAndView result = new ModelAndView();
@@ -64,6 +64,7 @@ public class HomeController {
 			result.setViewName("index");
     		return result;
 		}
+    	session.setAttribute("id", member.getId());
     	result.addObject("id", member.getId());
     	result.setViewName("dashboard");
     	return result;
@@ -95,8 +96,10 @@ public class HomeController {
     }
     
     @RequestMapping("newboard.do")
-    public String newboard() {
-        return "newboard";
+    public ModelAndView newboard() {
+    	ModelAndView result = new ModelAndView();
+    	result.setViewName("newboard");
+        return result;
     }
 
     @RequestMapping("rolelist.do")
@@ -120,8 +123,41 @@ public class HomeController {
     }
     
     @RequestMapping("enterboard.do")
-    public String enterboard() {
-        return "enterboard";
+    public ModelAndView enterboard() {
+    	ModelAndView result = new ModelAndView();
+    	result.setViewName("enterboard");
+        return result;
+    }
+    
+    // 기존 보드에 가입함
+    @RequestMapping("enteringboard.do")
+    public ModelAndView enteringboard(BoardVO boardVO, HttpSession session, HttpServletResponse response) throws Exception {
+    	ModelAndView result = new ModelAndView();
+    	String mem_id = session.getId();
+    	System.out.println("보드 네임 : " + boardVO.getName());
+    	BoardVO boardChk = boardDAOService.getBoard(boardVO);
+    	if (boardChk == null) {
+    		
+    		// alert처리단
+    		response.setContentType("text/html; charset-utf-8");
+    		PrintWriter out = response.getWriter();
+            out.println("<script>alert('찾는 BOARD가 존재하지 않습니다!(BOARD 이름을 다시 확인해주세요)');</script>");
+            out.flush(); 
+    		result.setViewName("enterboard");
+            return result;
+		}
+    	System.out.println();
+    	System.out.println("보드 아이디 : " + boardChk.getId());
+    	System.out.println("보드 이름 : " + boardChk.getName());
+    	System.out.println("보드 관리자 : " + boardChk.getAdmin());
+    	boardDAOService.joinBoard(boardChk, mem_id);
+    	// alert처리단
+		response.setContentType("text/html; charset-utf-8");
+		PrintWriter out = response.getWriter();
+        out.println("<script>alert('BOARD에 등록되었습니다. 관리자의 승인을 기다려주세요');</script>");
+        out.flush(); 
+    	result.setViewName("dashboard");
+        return result;
     }
     
     @RequestMapping("board.do")
