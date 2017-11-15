@@ -1,9 +1,9 @@
 package com.spring.rollaboard;
 
-import java.io.IOException;
 import java.io.PrintWriter;
 
-import javax.servlet.http.*;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -70,7 +70,6 @@ public class HomeController {
     	return result;
     }
     
-    
     @RequestMapping("insertMember.do")
     public ModelAndView insertMember(MemVO memVO) {
     	memDAOService.insertMember(memVO);
@@ -84,9 +83,6 @@ public class HomeController {
     public String joinform() {
         return "joinform";
     }
-    
-    
-    
     
     @RequestMapping("dashboard.do")
     public ModelAndView dashboard(HttpSession session) {
@@ -137,13 +133,15 @@ public class HomeController {
     }
     
     // 기존 보드에 가입함
-    @RequestMapping("enteringboard.do")
-    public ModelAndView enteringboard(BoardVO boardVO, HttpSession session, HttpServletResponse response) throws Exception {
+    @RequestMapping("joinboard.do")
+    public ModelAndView joinboard(String name, HttpSession session, HttpServletResponse response) throws Exception {
     	ModelAndView result = new ModelAndView();
     	String mem_id = session.getId();
-    	System.out.println("보드 네임 : " + boardVO.getName());
-    	BoardVO boardChk = boardDAOService.getBoard(boardVO);
-    	if (boardChk == null) {
+    	System.out.println("보드 네임 : " + name);
+    	
+    	// 1. 보드가 있는지 확인해본다.
+    	BoardVO boardVO = boardDAOService.getBoard(name);
+    	if (boardVO == null) {
     		
     		// alert처리단
     		response.setContentType("text/html; charset-utf-8");
@@ -153,11 +151,25 @@ public class HomeController {
     		result.setViewName("enterboard");
             return result;
 		}
-    	System.out.println();
-    	System.out.println("보드 아이디 : " + boardChk.getId());
-    	System.out.println("보드 이름 : " + boardChk.getName());
-    	System.out.println("보드 관리자 : " + boardChk.getAdmin());
-    	boardDAOService.joinBoard(boardChk, mem_id);
+    	
+    	// 2. 이미 보드에 등록되어있는지 확인한다.
+    	int chk = boardDAOService.joinBoardChk(boardVO.getId(), mem_id);
+    	if (chk != 0) {
+    		// alert처리단
+    		response.setContentType("text/html; charset-utf-8");
+    		PrintWriter out = response.getWriter();
+            out.println("<script>alert('이미 BOARD에 가입신청을 했습니다.');</script>");
+            out.flush(); 
+    		result.setViewName("enterboard");
+            return result;
+		}
+    	
+    	// 3. 보드에 등록한다.
+    	System.out.println("보드 등록 전 확인하자!");
+    	System.out.println("보드아이디 : " + boardVO.getId());
+    	System.out.println("맴버아이디 : " + mem_id);
+    	boardDAOService.joinBoard(boardVO.getId(), mem_id);
+    	
     	// alert처리단
 		response.setContentType("text/html; charset-utf-8");
 		PrintWriter out = response.getWriter();

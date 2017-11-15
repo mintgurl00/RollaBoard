@@ -9,11 +9,16 @@
 		<result property = "admin" column = "ADMIN"/>
 		<result property = "visibility" column = "VISIBILITY"/>
 	</resultMap>
-	
+
 	
 	<!-- getRefBoards -->
 	<select id="getRefBoards" resultMap="BoardResultMap">
 		SELECT * FROM board_ref WHERE board_id=#{id, javaType=String}
 	</select>
-
+	
+	<select id = "getBoard" resultMap = "BoardResultMap">
+		SELECT * FROM board WHERE NAME = #{name}
+	</select>
+	
+	
 </mapper>
