@@ -31,7 +31,7 @@
 </div>
 
 <div id="rightside">
-<p align="right"><a href='./updatememberform.do'>회원정보수정</a> | <a href="#">logout</a>&nbsp;</p>
+<p align="right"><a href='./updatememberform.do'>회원정보수정</a> | <a href="logout.do">logout</a>&nbsp;</p>
 <br/>
 <div id="task" onclick="location.href='./taskview.do';"><h3>TASK 이름</h3><br/><br/>BOARD 이름</div>
 <div id="task" onclick="location.href='./taskview.do';"><h3>TASK 이름</h3><br/><br/>BOARD 이름</div>

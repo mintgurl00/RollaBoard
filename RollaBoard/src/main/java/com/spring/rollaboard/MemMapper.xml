@@ -23,4 +23,8 @@
 		SELECT * FROM mem WHERE ID = #{id} 
 	</select>
 	
+	<update id = "updateMember" parameterType = "com.spring.rollaboard.MemVO">
+		UPDATE mem SET NAME = #{name, jdbcType=VARCHAR}, EMAIL = #{email} WHERE ID = #{id, javaType=String}
+	</update>
+	
 </mapper>

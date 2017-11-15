@@ -33,7 +33,8 @@ public class MemDAOService implements MemDAO {
 
 	@Override
 	public void updateMember(MemVO memVO) {
-		// TODO Auto-generated method stub
+		MemMapper memMapper = sqlSession.getMapper(MemMapper.class);
+		memMapper.updateMember(memVO);
 		
 	}
 

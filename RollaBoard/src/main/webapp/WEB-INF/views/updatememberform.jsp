@@ -5,6 +5,14 @@
 	request.setCharacterEncoding("utf-8");
 	MemVO memVO = (MemVO)request.getAttribute("member");
 	session.setAttribute("id", memVO.getId());
+	String name = memVO.getName();
+	String email = memVO.getEmail();
+	if (name == null) {
+		name = "";
+	}
+	if (email == null) {
+		email = "";
+	}
 %>
 <!DOCTYPE html>
 <html lang="en">
@@ -21,12 +29,12 @@
 <div class="container" style="margin-top:10%; margin-left:20%">
   <h2>회원정보 수정</h2>
 
-  <form class="form-horizontal" action="#">
+  <form class="form-horizontal" action="updatemember.do" method = "post">
 
     <div class="form-group">
       <label class="control-label col-sm-2" for="id">ID:</label>
       <div class="col-sm-10">
-        <input type="id" class="form-control" id="id" placeholder="Enter id" name="id" value = "<%=memVO.getId()%>">
+        <input type="id" class="form-control" id="id" placeholder="Enter id" name="id" value = "<%=memVO.getId()%>" readonly>
       </div>
     </div>
     <div class="form-group">
@@ -38,21 +46,22 @@
     <div class="form-group"> 
       <label class="control-label col-sm-2" for="name">Name:</label>
       <div class="col-sm-10">
-        <input type="name" class="form-control" id="name" placeholder="Enter name" name="name" value = "<%=memVO.getName()%>">
+        <input type="name" class="form-control" id="name" placeholder="Enter name" name="name" value = "<%=name%>">
         </div>
       </div>
     
     <div class="form-group">        
       <label class="control-label col-sm-2" for="email">Email:</label>
         <div class="col-sm-10">
-         <input type="email" class="form-control" id="email" placeholder="Enter email" name="email" value = "<%=memVO.getEmail()%>">
+         <input type="email" class="form-control" id="email" placeholder="Enter email" name="email" value = "<%=email%>">
         </div>
       </div>
     <div class="form-group"  >        
       <div class="col-sm-offset-2 col-sm-10">
 
-        <button type="submit" class="btn btn-default"  style="background-color: green">Submit</button>
-        <button type="button" class="btn btn-default"  style="background-color: gray" onclick = "location.href='dashboard.do'">Cancel</button>
+        <button type="submit" class="btn btn-default"  style="background-color: green">변경하기</button>
+        <button type="button" class="btn btn-default"  style="background-color: gray" onclick = "location.href='dashboard.do'">취소</button>
+
         
 
       </div>
