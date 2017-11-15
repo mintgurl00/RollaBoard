@@ -25,7 +25,7 @@
 </div>
 
 <div id="logout" align="right">
-	<a href="updatememberform.do">회원정보 수정</a> | <a href="#">logout</a>&nbsp;
+	<a href="updatememberform.do">회원정보 수정</a> | <a href="logout.do">logout</a>&nbsp;
 </div>
 
 <div id="ref_board">
