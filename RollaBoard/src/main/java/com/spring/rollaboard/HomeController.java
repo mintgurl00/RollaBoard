@@ -120,9 +120,11 @@ public class HomeController {
     	
     	
     	ModelAndView result = new ModelAndView();
-    	result.setViewName("board");
     	
     	ArrayList<BoardVO> refBoardList = boardDAOService.getRefBoards( Integer.parseInt( id ) );
+    	
+    	result.addObject( "refBoardList" , refBoardList ) ;
+    	result.setViewName("board");
         return result ;
     }
     
