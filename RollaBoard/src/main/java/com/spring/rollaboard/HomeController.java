@@ -54,6 +54,7 @@ public class HomeController {
     public ModelAndView insertMember(MemVO memVO) {
     	memDAOService.insertMember(memVO);
 		ModelAndView result = new ModelAndView();
+		
 		result.setViewName("index");
     	return result;
     }
@@ -62,6 +63,9 @@ public class HomeController {
     public String joinform() {
         return "joinform";
     }
+    
+    
+    
     
     @RequestMapping("dashboard.do")
     public ModelAndView dashboard(HttpSession session) {

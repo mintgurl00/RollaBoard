@@ -11,51 +11,7 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
   
-  <script>
-	function check_input() {
-		var str, i, ch;
-		//아이디 체크
-		if (document.loginform.id.value == "") {
-			alert("아이디를 입력하세요 !! ");
-			document.loginform.id.focus();
-			return;
-		}
-		else {
-			str = document.loginform.id.value;
-			
-			for(i=0; i <str.length; i ++) {
-				ch = str.substring (i, i +1);
-				if(! ((ch >="0" && ch <= "9") || (ch >= "a" && ch <= "z")
-						|| (ch >= "A" && ch <= "Z"))) {
-					alert ("특수문자가 포함, 다시 입력 !!! ");
-					document.loginform.id.focus();
-					return;
-				}
-			}
-		}	//아이디 체크 
-		
-		//패스워드 체크 --> 
-		if (document.loginform.password.value=="") {
-			alert("패스워드를 입력하세요 !! ");
-			document.loginform.password.focus();
-			return;
-		}else {
-			str = document.loginform.password.value;
-			
-			for (i = 0 ; i < str.length; i++) {
-				ch = str.substring(i, i+1);
-				if(! ((ch >="0" && ch <= "9") || (ch >= "a" && ch <= "z")
-						|| (ch >= "A" && ch <= "Z"))) {
-					alert ("특수문자가 포함, 다시 입력 !!! ");
-					document.loginform.password.focus();
-					return;
-			}
-		}
-	  }//패스워드  체크.
-		loginform.submit();
-	}
-	
-	</script>
+
   
   
 </head>
@@ -80,7 +36,7 @@
     
     <div class="form-group">        
       <div class="col-sm-offset-2 col-sm-10">
-        <button type="submit" class="btn btn-default" action="javascript:check_input()">Login&nbsp;&nbsp;
+        <button type="submit" class="btn btn-default" action="dashboard.do">Login&nbsp;&nbsp;</button>
               
 
         <button type="button" class="btn btn-default" onclick="location.href='joinform.do'">Sign Up</button>
