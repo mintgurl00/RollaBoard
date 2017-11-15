@@ -1,5 +1,9 @@
 package com.spring.rollaboard;
 
-public interface TaskMapper {
+import java.util.ArrayList;
 
+public interface TaskMapper {
+	
+	public ArrayList<TaskVO> getTasksByBoard( int board_id ) ;	// 석원.
+	
 }

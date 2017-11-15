@@ -41,4 +41,12 @@ public class TaskDAOService implements TaskDAO {
 		// TODO Auto-generated method stub
 		
 	}
+
+	@Override
+	public ArrayList<TaskVO> getTasksByBoard(int board_id) {	// 석원.
+		ArrayList<TaskVO> taskList = new ArrayList<TaskVO>() ;
+		TaskMapper taskMapper = sqlSession.getMapper( TaskMapper.class ) ;
+		taskList = taskMapper.getTasksByBoard( board_id ) ;
+		return taskList ;
+	}
 }

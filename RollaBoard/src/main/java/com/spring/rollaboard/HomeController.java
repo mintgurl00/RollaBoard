@@ -178,14 +178,28 @@ public class HomeController {
     	 * (뭐, 어서 일단 넘어가구요.)
     	 * */
     	
-    	// 01. 참조 보드 리스트 전달
+    	// 01. 참조 보드 리스트 추출
     	ArrayList<BoardVO> refBoardList = boardDAOService.getRefBoards( board_id );
-    	result.addObject( "refBoardList" , refBoardList ) ;
     	
-    	// 02. 섹션 리스트 전달
+    	// 02. 섹션 리스트 추출
     	ArrayList<SectionVO> sectionList = sectionDAOService.getSections( board_id ) ;
+    	
+    	// 03. 태스크 리스트 추출
+/*    	ArrayList<TaskVO> taskList = taskDAOService.getTasks(board_id) ;
+  	
+    	// 04. 롤 배치 리스트 추출
+    	
+    	// 태스크 배치
+    	ArrayList<ArrayList<TaskVO>> taskViewList ;
+    	
+    	// 롤 배치
+    	ArrayList<ArrayList<ArrayList<RoleVO>>> roleViewList ;
+    	*/
+    	
+		// ....을 전달
+    	result.addObject( "refBoardList" , refBoardList ) ;
     	result.addObject( "sectionList" , sectionList ) ;
-    			
+    	
     	
     	
     	

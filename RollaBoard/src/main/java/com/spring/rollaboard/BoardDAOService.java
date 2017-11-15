@@ -43,7 +43,7 @@ public class BoardDAOService implements BoardDAO {
 	}
 
 	@Override
-	public ArrayList<BoardVO> getRefBoards(int id) {
+	public ArrayList<BoardVO> getRefBoards(int id) {	// 석원
 		ArrayList<BoardVO> refBoardList = new ArrayList<BoardVO>() ;
 		BoardMapper boardMapper = sqlSession.getMapper( BoardMapper.class ) ;
 		refBoardList = boardMapper.getRefBoards( id ) ;

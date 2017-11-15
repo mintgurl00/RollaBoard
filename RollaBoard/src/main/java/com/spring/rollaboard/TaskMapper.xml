@@ -16,7 +16,12 @@
 		
 	</resultMap>
 	
-	
+	<!-- getTasksByBoard -->
+	<select id="getTasksByBoard" resultMap="TaskResultMap">
+		SELECT *
+		FROM section
+		WHERE board_id=#{id, javaType=int}
+	</select>
 	
 	
 </mapper>

@@ -16,7 +16,7 @@ public class SectionDAOService implements SectionDAO {
 	public ArrayList<SectionVO> getSections(int board_id) {	// 석원. 보드에 맞는 섹션 리스트 반환
 		ArrayList<SectionVO> sectionList = new ArrayList<SectionVO>() ;
 		SectionMapper sectionMapper = sqlSession.getMapper( SectionMapper.class ) ;
-		
+		sectionList = sectionMapper.getSections( board_id ) ;
 		
 		return sectionList ;
 	}
