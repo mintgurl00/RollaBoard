@@ -9,7 +9,9 @@
 		<result property = "name" column = "NAME"/>
 	</resultMap>
 	
-	
+	<!-- getRefBoards -->
+	<select id="getSection" resultMap="SectionResultMap">
+	</select>
 	
 	
 </mapper>

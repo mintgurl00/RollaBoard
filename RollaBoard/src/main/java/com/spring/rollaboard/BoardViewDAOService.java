@@ -19,19 +19,20 @@ public class BoardViewDAOService implements BoardViewDAO {
 	}
 
 	@Override
-	public ArrayList<String> getSections(int board_id) {
-		// TODO Auto-generated method stub
-		return null;
+	public ArrayList<SectionVO> getSections(int board_id) {
+		ArrayList<SectionVO> sectionList = new ArrayList<SectionVO>() ;
+		
+		SectionMapper sectionMapper = sqlSession.getMapper( SectionMapper.class ) ;
+		sectionList = sectionMapper.getSections( board_id ) ;
+		return sectionList ;
 	}
 
 	@Override
 	public ArrayList<BoardVO> getRefBoards(int board_id) {
-		/*BoardViewMapper boardViewMapper = sqlSession.getMapper(MemMapper.class);
-		memMapper.insertMember(memVO);*/
 		ArrayList<BoardVO> refBoardList = new ArrayList<BoardVO>() ;
 		
 		BoardMapper boardMapper = sqlSession.getMapper( BoardMapper.class ) ;
-		boardMapper.getRefBoards( board_id ) ;
+		refBoardList = boardMapper.getRefBoards( board_id ) ;
 		return refBoardList ;
 	}
 
