@@ -22,7 +22,7 @@
 <div id="leftside">
 <h2 align="center">내 BOARD 보기</h2><br/><br/><br/>
 	<div style="text-align:center">
-		<a href="./board.do">BOARD1</a><br/><br/><br/><br/><br/>
+		<a href="./board.do?board_id=1">BOARD1</a><br/><br/><br/><br/><br/>
 		<a href=#>BOARD2</a><br/><br/><br/><br/><br/>
 		<a href=#>BOARD3</a><br/><br/><br/><br/><br/>
 		<a href = "newboard.do">추가</a>
