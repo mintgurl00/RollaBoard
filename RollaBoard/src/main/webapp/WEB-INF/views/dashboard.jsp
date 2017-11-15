@@ -40,7 +40,7 @@
 			}
 			%>
 			
-		<a href = "dashboard.do">추가</a>
+		<a href = "newboard.do">추가</a>
 	</div>
 </div>
 
