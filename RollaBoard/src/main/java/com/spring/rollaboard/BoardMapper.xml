@@ -12,7 +12,7 @@
 	
 	
 	<!-- getRefBoards -->
-	<select id="getRefBoards" resultMap="MemberResultMap">
+	<select id="getRefBoards" resultMap="BoardResultMap">
 		SELECT * FROM board_ref WHERE board_id=#{id, javaType=String}
 	</select>
 
