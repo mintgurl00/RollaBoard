@@ -1,7 +1,6 @@
 package com.spring.rollaboard;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 
 public interface BoardDAO {
 	public ArrayList<BoardVO> getBoards(int id);
@@ -17,4 +16,7 @@ public interface BoardDAO {
 	public int joinBoardChk(int board_id, String mem_id);
 	
 	public void joinBoard(int board_id, String mem_id);
+
+	public ArrayList<BoardVO> getRefBoards(int id);
+
 }

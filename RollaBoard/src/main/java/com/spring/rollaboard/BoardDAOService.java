@@ -49,7 +49,7 @@ public class BoardDAOService implements BoardDAO {
 		BoardMapper boardMapper = sqlSession.getMapper( BoardMapper.class ) ;
 		refBoardList = boardMapper.getRefBoards( id ) ;
 		return refBoardList;
-		
+	}
 	public int joinBoardChk(int board_id, String mem_id) {
 		BoardMemMapper boardMemMapper = sqlSession.getMapper(BoardMemMapper.class);
 		return boardMemMapper.joinBoardChk(board_id, mem_id);
