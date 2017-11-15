@@ -60,11 +60,55 @@ input[type=text], input[type=password] {
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
+
+<script>
+function check_input() {
+	var str, i, ch;
+	//아이디 체크
+	if (document.joinform.id.value == "") {
+		alert("아이디를 입력하세요 !! ");
+		document.joinform.id.value = "";
+		document.joinform.id.focus();
+		return false;
+	}
+	else {
+		str = document.joinform.id.value;
+		
+		for(i=0; i <str.length; i ++) {
+			ch = str.substring (i, i +1);
+			if(! ((ch >="0" && ch <= "9") || (ch >= "a" && ch <= "z")
+					|| (ch >= "A" && ch <= "Z"))) {
+				alert ("특수문자가 포함, 다시 입력 !!! ");
+				document.joinform.id.value = "";
+				document.joinform.id.focus();
+				return false;
+			}
+		}
+	}	//아이디 체크 
+	
+	//패스워드 확인란 체크 --> 
+	if (document.joinform.password.value != document.joinform.password2.value) {
+
+		alert("패스워드를 다시 확인해주세요 !! ");
+		document.joinform.password.value = "";
+		document.joinform.password.focus();
+		return false; 
+	}
+	
+	  //패스워드  체크
+	//joinform.submit();
+  	//return; 
+}
+
+
+
+</script>
+
 <body>
 
 
 
-<form action="insertMember.do" >
+<form action="insertMember.do" name="joinform">
 
   <div class="container">
   <h2> 회원가입</h2>
@@ -73,6 +117,9 @@ input[type=text], input[type=password] {
 
     <label><b>Password</b></label>
     <input type="password" placeholder="Enter Password" name="password" required>
+    
+    <label><b>Password 확인</b></label>
+    <input type="password" placeholder="Enter Password" name="password2" required >
 
     <label><b>이름</b></label>
     <input type="text" placeholder="이름" name="name" required>
@@ -82,7 +129,8 @@ input[type=text], input[type=password] {
   
     <div class="clearfix">
       <button type="reset" class="btn btn-default">다시 작성 </button>&nbsp;&nbsp;&nbsp; 
-      <button type="submit" class="btn btn-default">회원가입</button>
+      <button type="submit" class="btn btn-default"  onclick="javascript:check_input()" >회원가입</button>
+      <button type="button" class="btn btn-default" onclick="location.href='index.do'">돌아가기 </button>
     </div>
   </div>
 </form>

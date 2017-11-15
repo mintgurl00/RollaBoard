@@ -11,7 +11,6 @@ import javax.servlet.http.HttpSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
@@ -54,7 +53,7 @@ public class HomeController {
     }
     
     @RequestMapping("login.do")
-    public ModelAndView login(MemVO memVO, HttpServletResponse response) throws Exception {
+    public ModelAndView login(MemVO memVO, HttpServletResponse response, HttpSession session) throws Exception {
     	System.out.println("login...memVO.getID : " + memVO.getId());
     	MemVO member = memDAOService.getMember(memVO);
     	ModelAndView result = new ModelAndView();
@@ -68,16 +67,17 @@ public class HomeController {
 			result.setViewName("index");
     		return result;
 		}
+    	session.setAttribute("id", member.getId());
     	result.addObject("id", member.getId());
     	result.setViewName("dashboard");
     	return result;
     }
     
-    
     @RequestMapping("insertMember.do")
     public ModelAndView insertMember(MemVO memVO) {
     	memDAOService.insertMember(memVO);
 		ModelAndView result = new ModelAndView();
+		
 		result.setViewName("index");
     	return result;
     }
@@ -97,8 +97,10 @@ public class HomeController {
     }
     
     @RequestMapping("newboard.do")
-    public String newboard() {
-        return "newboard";
+    public ModelAndView newboard() {
+    	ModelAndView result = new ModelAndView();
+    	result.setViewName("newboard");
+        return result;
     }
     
     @RequestMapping("createboard.do")
@@ -127,8 +129,57 @@ public class HomeController {
     }
     
     @RequestMapping("enterboard.do")
-    public String enterboard() {
-        return "enterboard";
+    public ModelAndView enterboard() {
+    	ModelAndView result = new ModelAndView();
+    	result.setViewName("enterboard");
+        return result;
+    }
+    
+    // 기존 보드에 가입함
+    @RequestMapping("joinboard.do")
+    public ModelAndView joinboard(String name, HttpSession session, HttpServletResponse response) throws Exception {
+    	ModelAndView result = new ModelAndView();
+    	String mem_id = session.getId();
+    	System.out.println("보드 네임 : " + name);
+    	
+    	// 1. 보드가 있는지 확인해본다.
+    	BoardVO boardVO = boardDAOService.getBoard(name);
+    	if (boardVO == null) {
+    		
+    		// alert처리단
+    		response.setContentType("text/html; charset-utf-8");
+    		PrintWriter out = response.getWriter();
+            out.println("<script>alert('찾는 BOARD가 존재하지 않습니다!(BOARD 이름을 다시 확인해주세요)');</script>");
+            out.flush(); 
+    		result.setViewName("enterboard");
+            return result;
+		}
+    	
+    	// 2. 이미 보드에 등록되어있는지 확인한다.
+    	int chk = boardDAOService.joinBoardChk(boardVO.getId(), mem_id);
+    	if (chk != 0) {
+    		// alert처리단
+    		response.setContentType("text/html; charset-utf-8");
+    		PrintWriter out = response.getWriter();
+            out.println("<script>alert('이미 BOARD에 가입신청을 했습니다.');</script>");
+            out.flush(); 
+    		result.setViewName("enterboard");
+            return result;
+		}
+    	
+    	// 3. 보드에 등록한다.
+    	System.out.println("보드 등록 전 확인하자!");
+    	System.out.println("보드아이디 : " + boardVO.getId());
+    	System.out.println("맴버아이디 : " + mem_id);
+    	boardDAOService.joinBoard(boardVO.getId(), mem_id);
+    	
+    	// alert처리단
+		response.setContentType("text/html; charset-utf-8");
+		PrintWriter out = response.getWriter();
+        out.println("<script>alert('BOARD에 등록되었습니다. 관리자의 승인을 기다려주세요');</script>");
+        out.flush(); 
+    	result.setViewName("dashboard");
+        return result;
     }
     
     /*@RequestMapping("board.do")

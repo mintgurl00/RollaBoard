@@ -17,7 +17,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <title>updatememberform</title>
+  <title>update member form</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
@@ -28,7 +28,9 @@
 
 <div class="container" style="margin-top:10%; margin-left:20%">
   <h2>회원정보 수정</h2>
+
   <form class="form-horizontal" action="updatemember.do" method = "post">
+
     <div class="form-group">
       <label class="control-label col-sm-2" for="id">ID:</label>
       <div class="col-sm-10">
@@ -56,9 +58,12 @@
       </div>
     <div class="form-group"  >        
       <div class="col-sm-offset-2 col-sm-10">
+
         <button type="submit" class="btn btn-default"  style="background-color: green">변경하기</button>
         <button type="button" class="btn btn-default"  style="background-color: gray" onclick = "location.href='dashboard.do'">취소</button>
+
         
+
       </div>
     </div>
   </form>
