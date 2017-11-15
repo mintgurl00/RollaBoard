@@ -32,7 +32,7 @@ public class BoardViewDAOService implements BoardViewDAO {
 		
 		BoardMapper boardMapper = sqlSession.getMapper( BoardMapper.class ) ;
 		boardMapper.getRefBoards( board_id ) ;
-		return null ;
+		return refBoardList ;
 	}
 
 }
