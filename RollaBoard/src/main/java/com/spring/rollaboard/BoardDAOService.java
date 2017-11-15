@@ -12,10 +12,10 @@ public class BoardDAOService implements BoardDAO {
 	@Autowired
 	private SqlSession sqlSession; // Mybatis(ibatis)라이브러리가 제공하는 클래스
 
-	@Override
-	public ArrayList<BoardVO> getBoards(int id) {
-		// TODO Auto-generated method stub
-		return null;
+	@Override //수민 board 명단 가져오기
+	public ArrayList<BoardVO> getBoards(String id) {
+		BoardMapper boardMapper = sqlSession.getMapper(BoardMapper.class);
+		return boardMapper.getBoards(id);
 	}
 
 	@Override

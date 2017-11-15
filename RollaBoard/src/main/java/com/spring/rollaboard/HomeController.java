@@ -84,12 +84,10 @@ public class HomeController {
         return "joinform";
     }
     
-    
-    
-    
     @RequestMapping("dashboard.do")
     public ModelAndView dashboard(HttpSession session) {
     	ModelAndView result = new ModelAndView();
+    	boardDAOService.getBoards(session.getId());
     	
     	result.addObject("id", session.getAttribute("id"));
     	result.setViewName("dashboard");
@@ -100,12 +98,7 @@ public class HomeController {
     public String newboard() {
         return "newboard";
     }
-    
-    @RequestMapping("createboard.do")
-    public String createboard() {
-        return "createboard";
-    }
-    
+
     @RequestMapping("rolelist.do")
     public String rolelist() {
         return "rolelist";
