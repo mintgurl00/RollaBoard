@@ -17,13 +17,16 @@
 </style>
 </head>
 <body>
+
+<form action="inserttask.do" name="inserttask">
+
 <div id="frame">
 	<div id="taskname">
-		<input type="text" id="taskname" placeholder="TASK 이름을 입력하시오." size="40">
+		<input type="text" id="name" placeholder="TASK 이름을 입력하시오." size="40" name="name">
 	</div>
 	
 	<div id="content">내용(필수X)<br/>
-		<input type="textarea" id="content" style="height:180px; width:380px;">
+		<input type="textarea" id="description" style="height:180px; width:380px;" name="description">
 	</div>
 	
 	<div id="role">Role 배정(필수X)<br/>
@@ -35,11 +38,11 @@
 	</div>
 	
 	<div id="button">
-		<input type="submit" value="확인" onclick='history.go(-1)'>
+		<input type="submit" value="확인" >
 		<input type="submit" value="취소" onclick='history.go(-1)'>
 	</div>
 
 </div>
-
+</form>
 </body>
 </html>

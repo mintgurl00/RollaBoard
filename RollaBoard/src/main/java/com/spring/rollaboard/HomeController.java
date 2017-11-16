@@ -16,6 +16,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+
 @Controller
 public class HomeController {
 
@@ -180,7 +181,7 @@ public class HomeController {
 		PrintWriter out = response.getWriter();
         out.println("<script>alert('BOARD에 등록되었습니다. 관리자의 승인을 기다려주세요');</script>");
         out.flush(); 
-    	result.setViewName("dashboard");
+    	result.setViewName("newboard");
         return result;
     }
     
@@ -279,8 +280,21 @@ public class HomeController {
     
 	@RequestMapping("createtask.do")
 	public String createtask() {
-		return "createtask";
+		return "createtask";		
 	}
+	
+	@RequestMapping("inserttask.do")
+	public ModelAndView insertTask(HttpSession session, HttpServletResponse response, TaskVO taskVO) {
+		taskDAOService.insertTask(taskVO);
+		ModelAndView result = new ModelAndView();				
+		List<TaskVO> taskList = taskDAOService.getTasks();
+		result.addObject("taskList", taskList);
+		result.setViewName("board");
+		return result;
+		
+	}
+	
+	
 	
 	@RequestMapping("detailtask.do")
 	public String detailtask() {

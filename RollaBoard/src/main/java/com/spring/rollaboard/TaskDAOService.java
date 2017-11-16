@@ -17,17 +17,26 @@ public class TaskDAOService implements TaskDAO {
 		
 		return null;
 	}
-
-	@Override
-	public TaskVO getTask(int id, CmtVO cmtVO) {
-		// TODO Auto-generated method stub
-		return null;
+	
+	public ArrayList<TaskVO> getTasks() {
+		ArrayList<TaskVO> taskList = new ArrayList<TaskVO>();
+		TaskMapper taskMapper = sqlSession.getMapper(TaskMapper.class);	
+		taskList = taskMapper.getTasks();
+		return taskList;
 	}
+
 
 	@Override
 	public void createTask(TaskVO taskVO) {
-		// TODO Auto-generated method stub
+		TaskMapper taskMapper = sqlSession.getMapper(TaskMapper.class);
+		taskMapper.createTask(taskVO);
 		
+	}
+	
+	@Override
+	public void insertTask(TaskVO taskVO) {
+		TaskMapper taskMapper = sqlSession.getMapper(TaskMapper.class);
+		taskMapper.insertTask(taskVO);
 	}
 
 	@Override
@@ -48,5 +57,11 @@ public class TaskDAOService implements TaskDAO {
 		TaskMapper taskMapper = sqlSession.getMapper( TaskMapper.class ) ;
 		taskList = taskMapper.getTasksByBoard( board_id ) ;
 		return taskList ;
+	}
+
+	@Override
+	public TaskVO getTask(int id, CmtVO cmtVO) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }
