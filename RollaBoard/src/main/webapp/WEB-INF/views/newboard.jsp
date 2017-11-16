@@ -13,7 +13,7 @@
 <body>
 
 <div class = "page-header">
-	<center><h1>board 생성  </h1></center>
+	<center><h1>새로운 BOARD</h1></center>
 </div>
 <br/>
 <div class = "container">
@@ -21,16 +21,16 @@
 	<div class = "col-xs-6 col-sm-6">
 		<div class = "thumbnail">	
 			<a href ="dashboard.do">
-			<img src = "image/new.jpg">
-			<center><p>새 board 생성</p></center>
+			<img src = "image/light.jpg" alt = "CREATE BOARD" height = 700>
+			<center><p>BOARD 생성</p></center>
 			</a>
 		</div>
 	</div>
 	<div class = "col-xs-6 col-sm-6">
 		<div class = "thumbnail">	
 			<a href ="enterboard.do">
-			<img src = "image/new.jpg">
-			<center><p>기존 board 입장</p></center>
+			<img src = "image/people.jpg" alt = "ENTER BOARD" height = 700>
+			<center><p> BOARD 입장</p></center>
 			</a>
 		</div>
 	</div>
