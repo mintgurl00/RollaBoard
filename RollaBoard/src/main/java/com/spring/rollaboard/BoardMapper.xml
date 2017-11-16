@@ -16,7 +16,6 @@
 		SELECT * FROM board_ref WHERE board_id=#{id, javaType=String}
 	</select>
 	
-<<<<<<< HEAD
 	<!-- getBoards -->
 	<select id = "getBoards" resultMap = "BoardResultMap">
 		SELECT A.id, A.name
@@ -24,7 +23,6 @@
 		WHERE C.id = #{id}
 	</select>
 
-=======
 	<select id = "getBoard" resultMap = "BoardResultMap">
 		SELECT * FROM board WHERE NAME = #{name}
 	</select>
@@ -37,6 +35,4 @@
 	<insert id = "joinBoard" parameterType = "map">
 		INSERT INTO board_mem (BOARD_ID, MEM_ID) VALUES (#{board_id}, #{mem_id})
 	</insert>
-	
->>>>>>> branch 'master' of https://github.com/mintgurl00/RollaBoard.git
 </mapper>
