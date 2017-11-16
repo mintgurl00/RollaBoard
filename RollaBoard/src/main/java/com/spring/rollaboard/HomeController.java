@@ -1,11 +1,11 @@
 package com.spring.rollaboard;
 
-import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.servlet.http.*;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -53,7 +53,7 @@ public class HomeController {
     }
     
     @RequestMapping("login.do")
-    public ModelAndView login(MemVO memVO, HttpServletResponse response) throws Exception {
+    public ModelAndView login(MemVO memVO, HttpServletResponse response, HttpSession session) throws Exception {
     	System.out.println("login...memVO.getID : " + memVO.getId());
     	MemVO member = memDAOService.getMember(memVO);
     	ModelAndView result = new ModelAndView();
@@ -67,11 +67,15 @@ public class HomeController {
 			result.setViewName("index");
     		return result;
 		}
+    	
+    	session.setAttribute("id", member.getId());
+    	List<BoardVO> boardList = boardDAOService.getBoards((String)(session.getAttribute("id"))); //수민. login 후 대시보드로 갈 때 보드리스트 받아옴
+    	
     	result.addObject("id", member.getId());
+    	result.addObject("boardList", boardList); //수민
     	result.setViewName("dashboard");
     	return result;
     }
-    
     
     @RequestMapping("insertMember.do")
     public ModelAndView insertMember(MemVO memVO) {
@@ -87,23 +91,24 @@ public class HomeController {
         return "joinform";
     }
     
-    
-    
-    
     @RequestMapping("dashboard.do")
     public ModelAndView dashboard(HttpSession session) {
     	ModelAndView result = new ModelAndView();
+    	List<BoardVO> boardList = boardDAOService.getBoards((String)(session.getAttribute("id"))); //수민. 대시보드로 갈 때 보드리스트 받아옴
     	
     	result.addObject("id", session.getAttribute("id"));
+    	result.addObject("boardList", boardList); //수민
     	result.setViewName("dashboard");
         return result;
     }
     
     @RequestMapping("newboard.do")
-    public String newboard() {
-        return "newboard";
+    public ModelAndView newboard() {
+    	ModelAndView result = new ModelAndView();
+    	result.setViewName("newboard");
+        return result;
     }
-    
+
     @RequestMapping("rolelist.do")
     public String rolelist() {
         return "rolelist";
@@ -125,8 +130,57 @@ public class HomeController {
     }
     
     @RequestMapping("enterboard.do")
-    public String enterboard() {
-        return "enterboard";
+    public ModelAndView enterboard() {
+    	ModelAndView result = new ModelAndView();
+    	result.setViewName("enterboard");
+        return result;
+    }
+    
+    // 기존 보드에 가입함
+    @RequestMapping("joinboard.do")
+    public ModelAndView joinboard(String name, HttpSession session, HttpServletResponse response) throws Exception {
+    	ModelAndView result = new ModelAndView();
+    	String mem_id = (String) session.getAttribute("id");
+    	System.out.println("보드 네임 : " + name);
+    	
+    	// 1. 보드가 있는지 확인해본다.
+    	BoardVO boardVO = boardDAOService.getBoard(name);
+    	if (boardVO == null) {
+    		
+    		// alert처리단
+    		response.setContentType("text/html; charset-utf-8");
+    		PrintWriter out = response.getWriter();
+            out.println("<script>alert('찾는 BOARD가 존재하지 않습니다!(BOARD 이름을 다시 확인해주세요)');</script>");
+            out.flush(); 
+    		result.setViewName("enterboard");
+            return result;
+		}
+    	
+    	// 2. 이미 보드에 등록되어있는지 확인한다.
+    	int chk = boardDAOService.joinBoardChk(boardVO.getId(), mem_id);
+    	if (chk != 0) {
+    		// alert처리단
+    		response.setContentType("text/html; charset-utf-8");
+    		PrintWriter out = response.getWriter();
+            out.println("<script>alert('이미 BOARD에 가입신청을 했습니다.');</script>");
+            out.flush(); 
+    		result.setViewName("enterboard");
+            return result;
+		}
+    	
+    	// 3. 보드에 등록한다.
+    	System.out.println("보드 등록 전 확인하자!");
+    	System.out.println("보드아이디 : " + boardVO.getId());
+    	System.out.println("맴버아이디 : " + mem_id);
+    	boardDAOService.joinBoard(boardVO.getId(), mem_id);
+    	
+    	// alert처리단
+		response.setContentType("text/html; charset-utf-8");
+		PrintWriter out = response.getWriter();
+        out.println("<script>alert('BOARD에 등록되었습니다. 관리자의 승인을 기다려주세요');</script>");
+        out.flush(); 
+    	result.setViewName("dashboard");
+        return result;
     }
     
     @RequestMapping("board.do")

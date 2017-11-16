@@ -13,7 +13,7 @@
 <body>
 <div class="container">
   <h2>ROLE 관리</h2>
-  <p>당신의 BOARD에서 업무수행을 지시할 ROLE을 관리해주세요</p>            
+  <p>당신의 BOARD에서 업무수행을 지시할 ROLE을 관리해주세요</p>
   <table class="table table-striped">
     <thead>
       <tr>
