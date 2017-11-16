@@ -135,17 +135,17 @@ public class HomeController {
     @RequestMapping("createboard.do")
     public ModelAndView createboard(BoardVO boardVO, HttpSession session) {
     	ModelAndView result = new ModelAndView();
-    	System.out.println(boardVO.getName() + (String)(session.getAttribute("id")));
+    	//System.out.println(boardVO.getName() + (String)(session.getAttribute("id")));
 
     	String board_name = boardVO.getName();
     	String mem_id = (String)(session.getAttribute("id"));
     	
-    	System.out.println(board_name + mem_id);
+    	//System.out.println(board_name + mem_id);
     	
-    	boardDAOService.createBoard(board_name, mem_id); //수민
+    	boardDAOService.createBoard(board_name, mem_id);
     	
     	result.addObject("board", boardVO);
-    	result.setViewName("createboard");
+    	result.setViewName("newboard");
     	
     	return result;
     }
@@ -302,7 +302,7 @@ public class HomeController {
     
 	@RequestMapping("createtask.do")
 	public String createtask() {
-		return "createtask";		
+		return "createtask";
 	}
 	
 	@RequestMapping("inserttask.do")
@@ -315,8 +315,6 @@ public class HomeController {
 		return result;
 		
 	}
-	
-	
 	
 	@RequestMapping("detailtask.do")
 	public String detailtask() {

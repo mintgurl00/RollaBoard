@@ -8,7 +8,7 @@
 		out.println("</script>");
 	}
 	String id = (String) session.getAttribute("id");
-	String board_id = (String) request.getAttribute("board_id");
+	String board_id = (String) request.getParameter("board_id");
 
 %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
