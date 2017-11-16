@@ -19,10 +19,23 @@ public class BoardDAOService implements BoardDAO {
 		return boardMapper.getBoards(id);
 	}
 
-	@Override
+	@Override // 규성.
 	public BoardVO getBoard(String name) {
 		BoardMapper boardMapper = sqlSession.getMapper(BoardMapper.class);
 		return boardMapper.getBoard(name);
+	}
+	
+	@Override // 규성.
+	public BoardVO getBoardInfo(int board_id) {
+		BoardMapper boardMapper = sqlSession.getMapper(BoardMapper.class);
+		return boardMapper.getBoardInfo(board_id);
+	}
+	
+	@Override// 규성.
+	public String permitChk(int board_id, String mem_id) {
+		BoardMapper boardMapper = sqlSession.getMapper(BoardMapper.class);
+		System.out.println("board_id : " + board_id + " mem_id : " + mem_id);
+		return boardMapper.permitChk(board_id, mem_id);
 	}
 
 	@Override
@@ -60,4 +73,8 @@ public class BoardDAOService implements BoardDAO {
 		BoardMapper boardMapper = sqlSession.getMapper(BoardMapper.class);
 		boardMapper.joinBoard(board_id, mem_id);
 	}
+
+	
+
+	
 }

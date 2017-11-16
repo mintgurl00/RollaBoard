@@ -10,8 +10,11 @@ public interface BoardMapper {
 	
 	public BoardVO getBoard(String name);
 
+	public BoardVO getBoardInfo(int board_id);
 	
 	public int joinBoardChk(@Param("board_id") int board_id, @Param("mem_id") String mem_id);
 	
 	public void joinBoard(@Param("board_id") int board_id, @Param("mem_id") String mem_id);
+	
+	public String permitChk(@Param("board_id") int board_id, @Param("mem_id") String mem_id); // 규성. 보드에 허가된 사람인지 체크
 }

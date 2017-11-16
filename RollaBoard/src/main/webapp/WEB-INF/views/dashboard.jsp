@@ -46,7 +46,7 @@ function openPop() {
 				BoardVO board = boardList.get(i);
 			%>
 			
-			<a href="./board.do?board_id=<%=board.getId()%>">
+			<a href="./board.do?board_id=<%=board.getId()%>" >
 			<%=board.getName() %>
 		
 			</a><br/><br/><br/><br/><br/>

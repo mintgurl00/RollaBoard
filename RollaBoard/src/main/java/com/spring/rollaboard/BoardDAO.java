@@ -5,8 +5,12 @@ import java.util.ArrayList;
 public interface BoardDAO {
 	public ArrayList<BoardVO> getBoards(String id);
 
-	public BoardVO getBoard(String name);
+	public BoardVO getBoard(String name); // 규성. 보드이름으로 보드정보 가져옴(joinboard에 사용)
 
+	public BoardVO getBoardInfo(int board_id); // 규성. 보드아이디로 보드정보 가져옴
+	
+	public String permitChk(int board_id, String mem_id); // 규성. 보드에 허가된 사람인지 체크
+	
 	public void createBoard(BoardVO boardVO);
 
 	public void updateBoard(BoardVO boardVO);

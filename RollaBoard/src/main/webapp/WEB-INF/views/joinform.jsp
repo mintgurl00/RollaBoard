@@ -114,7 +114,7 @@ function check_input() {
     <input type="text" placeholder="이름" name="name" required>
     
     <label><b>Email</b></label>
-    <input type="text" placeholder="Enter Email" name="email" required>
+    <input type="text" placeholder="Enter Email" name="email" >
   
     <div class="clearfix" align = center>
       <button type="reset" class="btn btn-default">다시 작성</button>
