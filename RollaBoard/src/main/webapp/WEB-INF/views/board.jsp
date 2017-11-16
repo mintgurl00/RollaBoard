@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ page import = "com.spring.rollaboard.BoardVO" %>
 <%
 	// 세션 아이디 체크
 	if(session.getAttribute("id") == null) {
@@ -8,8 +9,12 @@
 		out.println("</script>");
 	}
 	String id = (String) session.getAttribute("id");
+<<<<<<< HEAD
 	String board_id = (String) request.getParameter("board_id");
 
+=======
+	BoardVO boardVO = (BoardVO) request.getAttribute("boardVO");
+>>>>>>> branch 'master' of https://github.com/mintgurl00/RollaBoard.git
 %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -39,8 +44,17 @@ function openPop() {
 <body>
 <div id="header">
 <a href="./dashboard.do">로고</a>&nbsp;&nbsp;&nbsp;
-<font size="6"><%=request.getAttribute("board_id") %></font>
-<input type="button" value="board설정" onclick="location.href='./updateboard.do';">
+<font size="6"><%=boardVO.getName() %></font>
+<%if ( id.equals(boardVO.getAdmin()) ) {%>
+<form action = "updateboard.do" method = "post">
+	<input type = "hidden" name = "id" value = "<%=boardVO.getId()%>">
+	<input type = "hidden" name = "name" value = "<%=boardVO.getName()%>">
+	<input type = "hidden" name = "admin" value = "<%=boardVO.getAdmin()%>">
+	<input type = "hidden" name = "visibility" value = "<%=boardVO.getVisibility()%>">
+	
+	<button type="submit" class="btn btn-default" name = "name">BOARD설정</button>
+</form>
+<%} %>
 </div>
 
 <div id="logout" align="right">
@@ -49,7 +63,7 @@ function openPop() {
 
 <div id="ref_board">
 	<select name="ref_board">
-    	<option value="">참조할 board 선택</option>
+    	<option value="">참조 BOARD 선택</option>
     	<option value="board4">BOARD4</option>
    	 	<option value="board5">BOARD5</option>
     	<option value="board6">BOARD6</option>

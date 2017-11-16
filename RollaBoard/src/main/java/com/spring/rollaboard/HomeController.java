@@ -225,7 +225,7 @@ public class HomeController {
     }
     
     @RequestMapping("board.do")
-    public ModelAndView board( HttpSession session , HttpServletRequest request ) {
+    public ModelAndView board( HttpSession session , HttpServletRequest request, HttpServletResponse response ) throws Exception {
     	/*
     	 * 석원이 지금 하고 있는 부분
     	 * 1. 참조하는 보드 명단 가져오기. 함. model만
@@ -240,7 +240,23 @@ public class HomeController {
     	ModelAndView result = new ModelAndView();
     	String id = session.getAttribute( "id" ).toString() ;	// 멤버 id
     	int board_id = Integer.parseInt( request.getParameter( "board_id" ) ) ;	// 보드 id
+    	BoardVO boardVO = boardDAOService.getBoardInfo(board_id);
     	System.out.println( "id:" + id + ", board_id:" + board_id );
+    	
+    	// 보드에 승인이 안되어 있으면 들어갈 수 없다.
+    	String permission = boardDAOService.permitChk(board_id, id);
+    	System.out.println("허가여부 : " + permission);
+    	if (permission.equals("FALSE")) {
+    		// alert처리단
+    		response.setContentType("text/html; charset-utf-8");
+    		PrintWriter out = response.getWriter();
+            out.println("<script>alert('아직 승인되지 않았습니다.');</script>");
+            out.flush(); 
+        	List<BoardVO> boardList = boardDAOService.getBoards(id); // 보드리스트 받아옴
+        	result.addObject("boardList", boardList);
+            result.setViewName("dashboard");
+            return result;
+		}
     	
     	
     	/* ******************************************************************** */
@@ -280,14 +296,18 @@ public class HomeController {
     	// 여기까지 석원구역.
     	/* ******************************************************************** */
     	
-    	result.addObject( "board_id" , board_id ) ;	// 쓸 데가 많을 것 같아서 전달합니다. view에서 request객체를 통해 참조할 수 있습니다.
+    	result.addObject( "boardVO" , boardVO ) ;	// 쓸 데가 많을 것 같아서 전달합니다. view에서 request객체를 통해 참조할 수 있습니다.
     	result.setViewName("board");
         return result;
     }
     
     @RequestMapping("updateboard.do")
-    public String updateboard() {
-        return "updateboard";
+    public ModelAndView updateboard(BoardVO boardVO) {
+    	ModelAndView result = new ModelAndView();
+    	System.out.println("업데이트보드 name = " + boardVO.getName());
+    	result.addObject("boardVO", boardVO);
+    	result.setViewName("updateboard");
+        return result;
     }
     
     @RequestMapping("taskview.do")
