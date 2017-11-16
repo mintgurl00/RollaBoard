@@ -17,10 +17,11 @@
 	</resultMap>
 	
 	<!-- getTasksByBoard -->
-	<select id="getTasksByBoard" resultMap="TaskResultMap">
+	<select id="getTasksByBoard" parameterType="map" resultMap="TaskResultMap">
 		SELECT *
-		FROM task
-		WHERE board_id=#{id, javaType=int}
+		FROM task ta, section se
+		WHERE ta.SECTION_ID=se.board_id 
+    		AND board_id=#{board_id}
 	</select>
 	
 	<select id="getTasks" resultMap="TaskResultMap">	

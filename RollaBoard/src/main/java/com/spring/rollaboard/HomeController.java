@@ -227,20 +227,26 @@ public class HomeController {
     	int board_id = Integer.parseInt( request.getParameter( "board_id" ) ) ;	// 보드 id
     	System.out.println( "id:" + id + ", board_id:" + board_id );
     	
+    	
+    	/* ******************************************************************** */
+    	// 아래부터는 석원 구역. 보드에 태스크 보여주기
+    	
     	/*
     	 * 사실 이 부분에 보드멤버가 맞는지 확인하는 부분이 들어가야 한다.
     	 * (뭐, 어서 일단 넘어가구요.)
     	 * */
     	
     	// 01. 참조 보드 리스트 추출
-    	ArrayList<BoardVO> refBoardList = boardDAOService.getRefBoards( board_id );
+    	//ArrayList<BoardVO> refBoardList = boardDAOService.getRefBoards( board_id );
+    	//System.out.println("참조보드리스트추출");
     	
     	// 02. 섹션 리스트 추출
-    	ArrayList<SectionVO> sectionList = sectionDAOService.getSections( board_id ) ;
+    	//ArrayList<SectionVO> sectionList = sectionDAOService.getSections( board_id ) ;
+    	//System.out.println("섹션리스트추출");
     	
     	// 03. 태스크 리스트 추출
-    	ArrayList<TaskVO> taskList = taskDAOService.getTasksByBoard(board_id) ;
-  	
+    	//ArrayList<TaskVO> taskList = taskDAOService.getTasksByBoard(board_id) ;
+    	//System.out.println("태스크리스트추출");
     	// 04. 롤 배치 리스트 추출
     	
     	
@@ -253,10 +259,11 @@ public class HomeController {
     	*/
     	
 		// ....을 전달
-    	result.addObject( "refBoardList" , refBoardList ) ;
-    	result.addObject( "sectionList" , sectionList ) ;
+    	//result.addObject( "refBoardList" , refBoardList ) ;
+    	//result.addObject( "sectionList" , sectionList ) ;
     	
-    	
+    	// 여기까지 석원구역.
+    	/* ******************************************************************** */
     	
     	
     	result.setViewName("board");

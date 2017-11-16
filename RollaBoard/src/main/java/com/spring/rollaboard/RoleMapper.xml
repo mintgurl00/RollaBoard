@@ -19,7 +19,7 @@
 	</resultMap>
 	
 	<!-- getRolesByBoard -->
-	<select id="getRolesByBoard" resultMap="BoardResultMap2">
+	<select id="getRolesByBoard" resultMap="RoleResultMap2">
 	
 	</select>
 	

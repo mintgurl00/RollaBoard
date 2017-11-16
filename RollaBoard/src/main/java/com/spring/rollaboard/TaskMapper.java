@@ -2,6 +2,8 @@ package com.spring.rollaboard;
 
 import java.util.ArrayList;
 
+import org.apache.ibatis.annotations.Param;
+
 public interface TaskMapper {
 	//다시 수정 필요 !!!!!!!
 	
@@ -15,6 +17,6 @@ public interface TaskMapper {
 	
 	public void updateTask(TaskVO TaskVO);
 	
-	public ArrayList<TaskVO> getTasksByBoard( int board_id ) ;	// 석원.
+	public ArrayList<TaskVO> getTasksByBoard( @Param("board_id") int board_id ) ;	// 석원.
 	
 }
