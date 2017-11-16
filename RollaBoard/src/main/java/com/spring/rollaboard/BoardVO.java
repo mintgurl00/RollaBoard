@@ -11,6 +11,7 @@ public class BoardVO {
 	private String visibility;
 	
 	public int getId() {
+
 		return id;
 	}
 	public void setId(int id) {

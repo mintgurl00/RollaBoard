@@ -54,6 +54,7 @@ public class HomeController {
     @RequestMapping("login.do")
     public ModelAndView login(MemVO memVO, HttpServletResponse response, HttpSession session) throws Exception {
     	System.out.println("login...memVO.getID : " + memVO.getId());
+    	
     	MemVO member = memDAOService.getMember(memVO);
     	ModelAndView result = new ModelAndView();
     	if (member == null) {
@@ -107,6 +108,31 @@ public class HomeController {
     	result.setViewName("newboard");
         return result;
     }
+    
+    @RequestMapping("createboardform.do")
+    public String createboardform() {
+    	return "createboardform";
+    }
+    
+    @RequestMapping("createboard.do")
+    public ModelAndView createboard(BoardVO boardVO, HttpSession session) {
+    	ModelAndView result = new ModelAndView();
+    	System.out.println(boardVO.getName() + (String)(session.getAttribute("id")));
+
+    	String board_name = boardVO.getName();
+    	String mem_id = (String)(session.getAttribute("id"));
+    	
+    	System.out.println(board_name + mem_id);
+    	
+    	boardDAOService.createBoard(board_name, mem_id); //수민
+    	
+    	result.addObject("board", boardVO);
+    	result.setViewName("createboard");
+    	
+    	return result;
+    }
+    
+    
 
     @RequestMapping("rolelist.do")
     public String rolelist() {

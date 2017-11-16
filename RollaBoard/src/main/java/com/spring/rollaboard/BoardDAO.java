@@ -8,7 +8,7 @@ public interface BoardDAO {
 
 	public BoardVO getBoard(String name);
 
-	public void createBoard(BoardVO boardVO);
+	public void createBoard(String board_name, String mem_id);
 
 	public void updateBoard(BoardVO boardVO);
 

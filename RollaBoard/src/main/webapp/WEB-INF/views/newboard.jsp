@@ -20,7 +20,7 @@
 <div class = "row">
 	<div class = "col-xs-6 col-sm-6">
 		<div class = "thumbnail">	
-			<a href ="dashboard.do">
+			<a href ="createboardform.do"> <!-- 수민 -->
 			<img src = "image/new.jpg">
 			<center><p>새 board 생성</p></center>
 			</a>

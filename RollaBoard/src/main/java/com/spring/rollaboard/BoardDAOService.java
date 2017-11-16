@@ -26,8 +26,9 @@ public class BoardDAOService implements BoardDAO {
 	}
 
 	@Override
-	public void createBoard(BoardVO boardVO) {
-		// TODO Auto-generated method stub
+	public void createBoard(String board_name, String mem_id) {
+		BoardMapper boardMapper = sqlSession.getMapper(BoardMapper.class);
+		boardMapper.createBoard(board_name, mem_id);
 		
 	}
 
