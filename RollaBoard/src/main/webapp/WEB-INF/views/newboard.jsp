@@ -1,5 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%
+// 세션 아이디 체크
+if(session.getAttribute("id") == null) {
+	out.println("<script>alert('로그인이 필요합니다');");
+	out.println("location.href='loginForm.jsp'");
+	out.println("</script>");
+}
+%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -26,6 +34,7 @@
 			</a>
 		</div>
 	</div>
+	
 	<div class = "col-xs-6 col-sm-6">
 		<div class = "thumbnail">	
 			<a href ="enterboard.do">

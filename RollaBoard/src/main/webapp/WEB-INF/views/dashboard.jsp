@@ -3,6 +3,12 @@
 <%@ page import = "java.util.*" %>
 <%@ page import="java.util.*, com.spring.rollaboard.*"%>
 <%
+	// 세션 아이디 체크
+	if(session.getAttribute("id") == null) {
+		out.println("<script>alert('로그인이 필요합니다');");
+		out.println("location.href='loginForm.jsp'");
+		out.println("</script>");
+	}
 	request.setCharacterEncoding("utf-8");
 	String id = (String)request.getAttribute("id");
 	session.setAttribute("id", id);

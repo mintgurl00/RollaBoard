@@ -1,5 +1,16 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%
+	// 세션 아이디 체크
+	if(session.getAttribute("id") == null) {
+		out.println("<script>alert('로그인이 필요합니다');");
+		out.println("location.href='loginForm.jsp'");
+		out.println("</script>");
+	}
+	String id = (String) session.getAttribute("id");
+	String board_id = (String) request.getAttribute("board_id");
+
+%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -28,7 +39,7 @@ function openPop() {
 <body>
 <div id="header">
 <a href="./dashboard.do">로고</a>&nbsp;&nbsp;&nbsp;
-<font size="6">BOARD이름</font>
+<font size="6"><%=request.getAttribute("board_id") %></font>
 <input type="button" value="board설정" onclick="location.href='./updateboard.do';">
 </div>
 

@@ -2,6 +2,12 @@
     pageEncoding="UTF-8"%>
 <%@ page import = "java.util.*, com.spring.rollaboard.*" %>
 <%
+	// 세션 아이디 체크
+	if(session.getAttribute("id") == null) {
+		out.println("<script>alert('로그인이 필요합니다');");
+		out.println("location.href='loginForm.jsp'");
+		out.println("</script>");
+	}
 	request.setCharacterEncoding("utf-8");
 	MemVO memVO = (MemVO)request.getAttribute("member");
 	session.setAttribute("id", memVO.getId());
