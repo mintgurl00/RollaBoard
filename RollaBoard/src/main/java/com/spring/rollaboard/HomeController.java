@@ -241,6 +241,8 @@ public class HomeController {
     	ArrayList<TaskVO> taskList = taskDAOService.getTasksByBoard(board_id) ;
   	
     	// 04. 롤 배치 리스트 추출
+    	
+    	
     	/*    	
     	// 태스크 배치
     	ArrayList<ArrayList<TaskVO>> taskViewList ;

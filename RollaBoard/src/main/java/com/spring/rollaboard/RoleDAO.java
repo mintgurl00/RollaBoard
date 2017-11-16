@@ -16,5 +16,7 @@ public interface RoleDAO {
 	
 	public void allocateRole(RoleVO roleVO, MemVO memVO);
 	
+	public ArrayList<RoleAndTaskVO> vetRolesByBoard( int board_id ) ;	// 석원.
+	
 	
 }

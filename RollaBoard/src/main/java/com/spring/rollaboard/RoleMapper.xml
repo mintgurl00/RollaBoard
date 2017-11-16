@@ -10,7 +10,17 @@
 		<result property = "description" column = "DESCRIPTION"/>
 	</resultMap>
 	
+	<resultMap type = "RoleAndTaskVO" id = "RoleResultMap2">
+		<result property = "taskId" column = "ID"/>
+		<result property = "roleId" column = "BOARD_ID"/>
+		<result property = "memId" column = "NAME"/>
+		<result property = "roleName" column = "DESCRIPTION"/>
+		<result property = "memName" column = "DESCRIPTION"/>
+	</resultMap>
 	
+	<!-- getRolesByBoard -->
+	<select id="getRolesByBoard" resultMap="BoardResultMap2">
 	
+	</select>
 	
 </mapper>
