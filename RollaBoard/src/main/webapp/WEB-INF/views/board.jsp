@@ -9,12 +9,8 @@
 		out.println("</script>");
 	}
 	String id = (String) session.getAttribute("id");
-<<<<<<< HEAD
-	String board_id = (String) request.getParameter("board_id");
 
-=======
 	BoardVO boardVO = (BoardVO) request.getAttribute("boardVO");
->>>>>>> branch 'master' of https://github.com/mintgurl00/RollaBoard.git
 %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
