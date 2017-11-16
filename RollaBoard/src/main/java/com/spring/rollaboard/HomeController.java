@@ -238,11 +238,9 @@ public class HomeController {
     	
     	
     	ModelAndView result = new ModelAndView();
-    	String id = session.getAttribute( "id" ).toString() ;	// 멤버 id
+    	String id = session.getAttribute( "id" ).toString() ;	// 멤버 id 여기서 문제발생했다!!!!!!!!!!!
     	int board_id = Integer.parseInt( request.getParameter( "board_id" ) ) ;	// 보드 id
-    	BoardVO boardVO = boardDAOService.getBoardInfo(board_id);
-    	System.out.println( "id:" + id + ", board_id:" + board_id );
-    	
+    	   	
     	// 보드에 승인이 안되어 있으면 들어갈 수 없다.
     	String permission = boardDAOService.permitChk(board_id, id);
     	System.out.println("허가여부 : " + permission);
@@ -252,12 +250,14 @@ public class HomeController {
     		PrintWriter out = response.getWriter();
             out.println("<script>alert('아직 승인되지 않았습니다.');</script>");
             out.flush(); 
+            System.out.println("승인안됨. 세션은? " + session.getAttribute("id"));
         	List<BoardVO> boardList = boardDAOService.getBoards(id); // 보드리스트 받아옴
         	result.addObject("boardList", boardList);
             result.setViewName("dashboard");
             return result;
 		}
-    	
+    	BoardVO boardVO = boardDAOService.getBoardInfo(board_id);
+    	System.out.println( "id:" + id + ", board_id:" + board_id );
     	
     	/* ******************************************************************** */
     	// 아래부터는 석원 구역. 보드에 태스크 보여주기
