@@ -23,7 +23,12 @@ public class MemDAOService implements MemDAO {
 		MemMapper memMapper = sqlSession.getMapper(MemMapper.class);
 		return memMapper.getMember(memVO);
 	}
-
+	
+	@Override
+	public int chkMemberId(MemVO memVO) {
+		MemMapper memMapper = sqlSession.getMapper(MemMapper.class);
+		return memMapper.chkMemberId(memVO);
+	}
 	@Override
 	public void insertMember(MemVO memVO) {
 		MemMapper memMapper = sqlSession.getMapper(MemMapper.class);
@@ -49,6 +54,8 @@ public class MemDAOService implements MemDAO {
 		MemMapper memMapper = sqlSession.getMapper(MemMapper.class);
 		return memMapper.getMemInfoToUpdate(id);
 	}
+
+	
 	
 	
 }

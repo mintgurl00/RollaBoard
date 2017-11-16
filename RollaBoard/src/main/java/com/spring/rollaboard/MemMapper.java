@@ -9,4 +9,6 @@ public interface MemMapper {
 	public MemVO getMemInfoToUpdate(String id);
 	
 	public void updateMember(MemVO memVO);
+	
+	public int chkMemberId(MemVO memVO);
 }
