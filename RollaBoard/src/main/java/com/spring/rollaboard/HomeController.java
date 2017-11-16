@@ -2,6 +2,8 @@ package com.spring.rollaboard;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.servlet.http.*;
 
@@ -11,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
+
 
 @Controller
 public class HomeController {
@@ -101,11 +104,6 @@ public class HomeController {
         return "newboard";
     }
     
-    @RequestMapping("createboard.do")
-    public String createboard() {
-        return "createboard";
-    }
-    
     @RequestMapping("rolelist.do")
     public String rolelist() {
         return "rolelist";
@@ -162,8 +160,21 @@ public class HomeController {
     
 	@RequestMapping("createtask.do")
 	public String createtask() {
-		return "createtask";
+		return "createtask";		
 	}
+	
+	@RequestMapping("inserttask.do")
+	public ModelAndView insertTask(HttpSession session, HttpServletResponse response, TaskVO taskVO) {
+		taskDAOService.insertTask(taskVO);
+		ModelAndView result = new ModelAndView();				
+		List<TaskVO> taskList = taskDAOService.getTasks();
+		result.addObject("taskList", taskList);
+		result.setViewName("board");
+		return result;
+		
+	}
+	
+	
 	
 	@RequestMapping("detailtask.do")
 	public String detailtask() {
