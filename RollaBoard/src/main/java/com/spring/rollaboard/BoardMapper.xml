@@ -30,7 +30,6 @@
 		SELECT * FROM board WHERE NAME = #{name}
 	</select>
 	
-<<<<<<< HEAD
 	<insert id = "createBoard" parameterType="map">
 	<!-- INSERT INTO board VALUES (seq_board.NEXTVAL, #{board_name}, #{mem_id}, 'FALSE');
 		INSERT INTO board_mem VALUES ((SELECT id FROM board WHERE name=#{board_name}), #{mem_id}, 'TRUE', 'TRUE'); -->
@@ -39,13 +38,11 @@
 			INTO board_mem VALUES (seq_board.NEXTVAL, #{mem_id}, 'TRUE', 'TRUE')
 				SELECT * FROM DUAL
 	</insert>
-	
-=======
+
 	<select id = "getBoardInfo" resultMap = "BoardResultMap">
 		SELECT * FROM board WHERE ID = #{board_id}
 	</select>
 		
->>>>>>> branch 'master' of https://github.com/mintgurl00/RollaBoard.git
 	<select id = "joinBoardChk" resultType = "int" parameterType = "map">
 		SELECT COUNT(*) FROM (SELECT * FROM board_mem WHERE BOARD_ID = #{board_id, javaType=int} )
 		 WHERE MEM_ID = #{mem_id, javaType=String}
