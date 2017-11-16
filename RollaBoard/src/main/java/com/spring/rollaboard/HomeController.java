@@ -139,7 +139,7 @@ public class HomeController {
     @RequestMapping("joinboard.do")
     public ModelAndView joinboard(String name, HttpSession session, HttpServletResponse response) throws Exception {
     	ModelAndView result = new ModelAndView();
-    	String mem_id = session.getId();
+    	String mem_id = (String) session.getAttribute("id");
     	System.out.println("보드 네임 : " + name);
     	
     	// 1. 보드가 있는지 확인해본다.
