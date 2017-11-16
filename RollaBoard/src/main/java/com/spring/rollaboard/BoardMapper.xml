@@ -29,6 +29,14 @@
 		SELECT * FROM board WHERE NAME = #{name}
 	</select>
 	
+	<select id = "joinBoardChk" resultType = "int" parameterType = "map">
+		SELECT COUNT(*) FROM (SELECT * FROM board_mem WHERE BOARD_ID = #{board_id, javaType=int} )
+		 WHERE MEM_ID = #{mem_id, javaType=String}
+	</select>
+	
+	<insert id = "joinBoard" parameterType = "map">
+		INSERT INTO board_mem (BOARD_ID, MEM_ID) VALUES (#{board_id}, #{mem_id})
+	</insert>
 	
 >>>>>>> branch 'master' of https://github.com/mintgurl00/RollaBoard.git
 </mapper>
