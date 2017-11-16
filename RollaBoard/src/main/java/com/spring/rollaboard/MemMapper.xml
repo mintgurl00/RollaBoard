@@ -27,4 +27,8 @@
 		UPDATE mem SET NAME = #{name, jdbcType=VARCHAR}, EMAIL = #{email} WHERE ID = #{id, javaType=String}
 	</update>
 	
+	<select id ="chkMemberId" resultType = "int" >
+		SELECT COUNT(*) FROM mem WHERE ID = #{id}
+	</select>
+	
 </mapper>

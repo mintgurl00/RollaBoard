@@ -16,6 +16,14 @@
 #task{width:350px; height:150px; margin-left:20px; margin-top:20px; background-color:#FFFFFF; text-align:center}
 
 </style>
+<script type = "text/javascript" language = "javascript">
+function openPop() {
+	window.open("./updatememberform.do",
+			"UPDATE",
+			"resizeable = yes, menubar=no, width = 800, height = 500, left = 10, right = 10");
+	
+}
+</script>
 </head>
 <body>
 <div id="header">
@@ -25,7 +33,7 @@
 </div>
 
 <div id="logout" align="right">
-	<a href="updatememberform.do">회원정보 수정</a> | <a href="logout.do">logout</a>&nbsp;
+	<a href = "#" onClick = "openPop();" >회원정보 수정</a> | <a href="logout.do">logout</a>&nbsp;
 </div>
 
 <div id="ref_board">

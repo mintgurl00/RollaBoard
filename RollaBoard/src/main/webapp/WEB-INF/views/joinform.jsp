@@ -51,7 +51,6 @@ input[type=text], input[type=password] {
     clear: both;
     display: table;
 }
-
 </style>
 
 <meta charset="utf-8">
@@ -59,8 +58,6 @@ input[type=text], input[type=password] {
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-
-
 <script>
 function check_input() {
 	var str, i, ch;
@@ -100,21 +97,13 @@ function check_input() {
   	//return; 
 }
 
-
-
 </script>
-
 <body>
-
-
-
 <form action="insertMember.do" name="joinform">
-
-  <div class="container">
-  <h2> 회원가입</h2>
+ 	<div class="container-fluid">
+	<h2>회원가입</h2>
     <label><b>ID</b></label>
     <input type="text" placeholder="Enter ID" name="id" required>
-
     <label><b>Password</b></label>
     <input type="password" placeholder="Enter Password" name="password" required>
     
@@ -127,8 +116,8 @@ function check_input() {
     <label><b>Email</b></label>
     <input type="text" placeholder="Enter Email" name="email" required>
   
-    <div class="clearfix">
-      <button type="reset" class="btn btn-default">다시 작성 </button>&nbsp;&nbsp;&nbsp; 
+    <div class="clearfix" align = center>
+      <button type="reset" class="btn btn-default">다시 작성</button>
       <button type="submit" class="btn btn-default"  onclick="javascript:check_input()" >회원가입</button>
       <button type="button" class="btn btn-default" onclick="location.href='index.do'">돌아가기 </button>
     </div>

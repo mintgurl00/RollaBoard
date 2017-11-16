@@ -1,6 +1,7 @@
 package com.spring.rollaboard;
 
 
+import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
@@ -80,10 +81,24 @@ public class HomeController {
     }
     
     @RequestMapping("insertMember.do")
-    public ModelAndView insertMember(MemVO memVO) {
-    	memDAOService.insertMember(memVO);
-		ModelAndView result = new ModelAndView();
-		
+    public ModelAndView insertMember(MemVO memVO, HttpServletResponse response) throws Exception {
+    	ModelAndView result = new ModelAndView();
+    	int chk = memDAOService.chkMemberId(memVO);
+    	System.out.println("chk = " + chk);
+    	if (chk != 0) {
+    		// alert처리단
+    		response.setContentType("text/html; charset-utf-8");
+    		PrintWriter out = response.getWriter();
+            out.println("<script>alert('이미 존재하는 아이디입니다.');</script>");
+            out.flush(); 
+    		result.setViewName("joinform");
+    		return result;
+		}
+    	memDAOService.insertMember(memVO);	
+    	response.setContentType("text/html; charset-utf-8");
+		PrintWriter out = response.getWriter();
+        out.println("<script>alert('회원가입 되었습니다!');</script>");
+        out.flush();
 		result.setViewName("index");
     	return result;
     }
@@ -336,23 +351,19 @@ public class HomeController {
     		return result;
             //developerdon.tistory.com/entry/JAVA-단에서-alert-처리하기-–-
 		}
-    	System.out.println("수정");
-    	System.out.println("아이디: " + updateMemInfo.getId());
-    	System.out.println("비밀번호: " + updateMemInfo.getPassword());
-    	System.out.println("이름: " + updateMemInfo.getName());
-    	System.out.println("이메일: " + updateMemInfo.getEmail());
-    	
+    	System.out.println(memPwChk.getId() + "의 회원정보 수정");
+ 	
     	memDAOService.updateMember(updateMemInfo);
     	// alert처리단
     	response.setContentType("text/html; charset-utf-8");
 		PrintWriter out = response.getWriter();
-    	out.println("<script>alert('회원정보가 수정되었습니다.');</script>");
+    	out.println("<script>alert('회원정보가 수정되었습니다.');");
+    	out.println("window.close();</script>");
         out.flush();
         result.addObject("id", updateMemInfo.getId());
     	result.setViewName("dashboard");
 		return result;
 	}
-    
     
 }
 
