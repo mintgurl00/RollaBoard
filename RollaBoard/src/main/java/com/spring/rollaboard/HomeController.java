@@ -1,7 +1,6 @@
 package com.spring.rollaboard;
 
 import java.io.PrintWriter;
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletResponse;
@@ -179,7 +178,7 @@ public class HomeController {
 		PrintWriter out = response.getWriter();
         out.println("<script>alert('BOARD에 등록되었습니다. 관리자의 승인을 기다려주세요');</script>");
         out.flush(); 
-    	result.setViewName("dashboard");
+    	result.setViewName("newboard");
         return result;
     }
     
