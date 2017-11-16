@@ -13,8 +13,8 @@ public class TaskDAOService implements TaskDAO {
 	private SqlSession sqlSession; // Mybatis(ibatis)라이브러리가 제공하는 클래스
 
 	@Override
-	public ArrayList<TaskVO> getTasks(int id) {
-		// TODO Auto-generated method stub
+	public ArrayList<TaskVO> getTasks(int id) {	// 석원. 이거 곧 지울 듯
+		
 		return null;
 	}
 

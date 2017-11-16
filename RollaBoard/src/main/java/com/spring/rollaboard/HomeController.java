@@ -238,7 +238,7 @@ public class HomeController {
     	ArrayList<SectionVO> sectionList = sectionDAOService.getSections( board_id ) ;
     	
     	// 03. 태스크 리스트 추출
-    	ArrayList<TaskVO> taskList = taskDAOService.getTasks(board_id) ;
+    	ArrayList<TaskVO> taskList = taskDAOService.getTasksByBoard(board_id) ;
   	
     	// 04. 롤 배치 리스트 추출
     	/*    	

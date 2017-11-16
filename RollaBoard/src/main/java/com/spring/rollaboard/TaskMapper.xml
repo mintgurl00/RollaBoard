@@ -19,7 +19,7 @@
 	<!-- getTasksByBoard -->
 	<select id="getTasksByBoard" resultMap="TaskResultMap">
 		SELECT *
-		FROM section
+		FROM task
 		WHERE board_id=#{id, javaType=int}
 	</select>
 	
