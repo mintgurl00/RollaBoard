@@ -3,7 +3,7 @@ package com.spring.rollaboard;
 import java.util.ArrayList;
 
 public interface BoardDAO {
-	public ArrayList<BoardVO> getBoards(int id);
+	public ArrayList<BoardVO> getBoards(String id);
 
 	public BoardVO getBoard(String name);
 

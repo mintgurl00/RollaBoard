@@ -19,6 +19,13 @@
     		AND br.board_id=#{id, javaType=int}
 	</select>
 	
+	<!-- getBoards -->
+	<select id = "getBoards" resultMap = "BoardResultMap">
+		SELECT A.id, A.name
+		FROM board A INNER JOIN board_mem B ON A.id = B.board_id INNER JOIN mem C on B.mem_id = C.id
+		WHERE C.id = #{id}
+	</select>
+
 	<select id = "getBoard" resultMap = "BoardResultMap">
 		SELECT * FROM board WHERE NAME = #{name}
 	</select>

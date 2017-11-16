@@ -3,6 +3,7 @@ package com.spring.rollaboard;
 
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -67,8 +68,12 @@ public class HomeController {
 			result.setViewName("index");
     		return result;
 		}
+    	
     	session.setAttribute("id", member.getId());
+    	List<BoardVO> boardList = boardDAOService.getBoards((String)(session.getAttribute("id"))); //수민. login 후 대시보드로 갈 때 보드리스트 받아옴
+    	
     	result.addObject("id", member.getId());
+    	result.addObject("boardList", boardList); //수민
     	result.setViewName("dashboard");
     	return result;
     }
@@ -90,8 +95,10 @@ public class HomeController {
     @RequestMapping("dashboard.do")
     public ModelAndView dashboard(HttpSession session) {
     	ModelAndView result = new ModelAndView();
+    	List<BoardVO> boardList = boardDAOService.getBoards((String)(session.getAttribute("id"))); //수민. 대시보드로 갈 때 보드리스트 받아옴
     	
     	result.addObject("id", session.getAttribute("id"));
+    	result.addObject("boardList", boardList); //수민
     	result.setViewName("dashboard");
         return result;
     }
@@ -102,12 +109,7 @@ public class HomeController {
     	result.setViewName("newboard");
         return result;
     }
-    
-    @RequestMapping("createboard.do")
-    public String createboard() {
-        return "createboard";
-    }
-    
+
     @RequestMapping("rolelist.do")
     public String rolelist() {
         return "rolelist";

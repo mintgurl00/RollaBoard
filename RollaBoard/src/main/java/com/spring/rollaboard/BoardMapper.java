@@ -4,8 +4,9 @@ import java.util.ArrayList;
 
 import org.apache.ibatis.annotations.Param;
 public interface BoardMapper {
+	ArrayList<BoardVO> getRefBoards( int board_id ) ;	// 석원. 참조보드 명단 가져오기
 	
-	ArrayList<BoardVO> getRefBoards( int id ) ;	// 석원. 참조보드 명단 가져오기
+	ArrayList<BoardVO> getBoards(String id); //수민. 보드 명단 가져오기
 	
 	public BoardVO getBoard(String name);
 
