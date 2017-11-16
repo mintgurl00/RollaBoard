@@ -1,6 +1,7 @@
 package com.spring.rollaboard;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,9 +20,9 @@ public class BoardDAOService implements BoardDAO {
 	}
 
 	@Override
-	public BoardVO getBoard(BoardVO boardVO) {
-		// TODO Auto-generated method stub
-		return null;
+	public BoardVO getBoard(String name) {
+		BoardMapper boardMapper = sqlSession.getMapper(BoardMapper.class);
+		return boardMapper.getBoard(name);
 	}
 
 	@Override
@@ -39,6 +40,19 @@ public class BoardDAOService implements BoardDAO {
 	@Override
 	public void deleteBoard(int id) {
 		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public int joinBoardChk(int board_id, String mem_id) {
+		BoardMemMapper boardMemMapper = sqlSession.getMapper(BoardMemMapper.class);
+		return boardMemMapper.joinBoardChk(board_id, mem_id);
+	}
+
+	@Override
+	public void joinBoard(int board_id, String mem_id) {
+		BoardMemMapper boardMemMapper = sqlSession.getMapper(BoardMemMapper.class);
+		boardMemMapper.joinBoard(board_id, mem_id);
 		
 	}
 }
