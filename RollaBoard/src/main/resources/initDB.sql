@@ -161,4 +161,6 @@ Create table task_conn (
 -----------------------------------------------------------------------------------------------------------------------
 insert into mem (ID, PASSWORD, NAME) values ('cdcase', '123456', '최규성');
 insert into board(id, name, admin) values (seq_board.nextval, '첫번째 작업', 'cdcase');
+insert into board_mem (board_id, mem_id, permission, admin) values (1, 'cdcase', 'TRUE', 'TRUE');
+
 select * from board;
