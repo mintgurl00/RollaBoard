@@ -59,7 +59,7 @@ function changeETC() {
 <div class = "row">
 	<center><div class = "col-xs-12 left">
 	<input type = "submit" class = "btn btn-info" value = "만들기"> &nbsp; 
-	<input type = "button" class = "btn btn-info" value = "취소" onclick = "location.href='board.do?'">
+	<input type = "button" class = "btn btn-info" value = "취소" onclick = "location.href='board.do?board_id=<%=boardVO.getId()%>'">
 	</div></center>
 	
 </div>
