@@ -47,6 +47,21 @@ public class RoleDAOService implements RoleDAO {
 		// TODO Auto-generated method stub
 		
 	}
+
+	/*
+	 * 석원. 보드에서 각 태스크의 롤 정보를 친절하게 보여주기 위해 불러오는 메소드입니다.
+	 * */
+	@Override
+	public ArrayList<RoleAndTaskVO> vetRolesByBoard(int board_id) {
+		
+
+		ArrayList<RoleAndTaskVO> roles = new ArrayList<RoleAndTaskVO>() ;
+		RoleMapper roleMapper = sqlSession.getMapper(RoleMapper.class);
+		roles = roleMapper.getRolesByBoard( board_id ) ;
+		
+		
+		return roles ;
+	}
 	
 	
 }

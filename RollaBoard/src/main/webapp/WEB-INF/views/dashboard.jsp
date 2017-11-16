@@ -3,6 +3,12 @@
 <%@ page import = "java.util.*" %>
 <%@ page import="java.util.*, com.spring.rollaboard.*"%>
 <%
+	// 세션 아이디 체크
+	if(session.getAttribute("id") == null) {
+		out.println("<script>alert('로그인이 필요합니다');");
+		out.println("location.href='loginForm.jsp'");
+		out.println("</script>");
+	}
 	request.setCharacterEncoding("utf-8");
 	String id = (String)request.getAttribute("id");
 	session.setAttribute("id", id);
@@ -10,6 +16,14 @@
 	List<BoardVO> boardList = (ArrayList<BoardVO>)request.getAttribute("boardList");
 
 %>
+<script type = "text/javascript" language = "javascript">
+function openPop() {
+	window.open("./updatememberform.do",
+			"UPDATE",
+			"resizeable = yes, menubar=no, width = 800, height = 500, left = 10, right = 10");
+	
+}
+</script>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -39,13 +53,12 @@
 			<%
 			}
 			%>
-			
 		<a href = "newboard.do">추가</a>
 	</div>
 </div>
 
 <div id="rightside">
-<p align="right"><a href='./updatememberform.do'>회원정보수정</a> | <a href="logout.do">logout</a>&nbsp;</p>
+<p align="right"><a href = "#" onClick = "openPop();" >회원정보수정</a> | <a href="logout.do">logout</a>&nbsp;</p>
 <br/>
 <div id="task" onclick="location.href='./taskview.do';"><h3>TASK 이름</h3><br/><br/>BOARD 이름</div>
 <div id="task" onclick="location.href='./taskview.do';"><h3>TASK 이름</h3><br/><br/>BOARD 이름</div>

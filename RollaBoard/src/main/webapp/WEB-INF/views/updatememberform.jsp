@@ -2,6 +2,12 @@
     pageEncoding="UTF-8"%>
 <%@ page import = "java.util.*, com.spring.rollaboard.*" %>
 <%
+	// 세션 아이디 체크
+	if(session.getAttribute("id") == null) {
+		out.println("<script>alert('로그인이 필요합니다');");
+		out.println("location.href='loginForm.jsp'");
+		out.println("</script>");
+	}
 	request.setCharacterEncoding("utf-8");
 	MemVO memVO = (MemVO)request.getAttribute("member");
 	session.setAttribute("id", memVO.getId());
@@ -14,6 +20,11 @@
 		email = "";
 	}
 %>
+<script type = "text/javascript" language = "javascript">
+function closePop() {
+	window.close();
+}
+</script>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -26,41 +37,41 @@
 </head>
 <body>
 
-<div class="container" style="margin-top:10%; margin-left:20%">
+<div class="container-fluid" style="margin-top:10%; margin-left:20%">
   <h2>회원정보 수정</h2>
 
   <form class="form-horizontal" action="updatemember.do" method = "post">
 
     <div class="form-group">
       <label class="control-label col-sm-2" for="id">ID:</label>
-      <div class="col-sm-10">
+      <div class="col-sm-6">
         <input type="id" class="form-control" id="id" placeholder="Enter id" name="id" value = "<%=memVO.getId()%>" readonly>
       </div>
     </div>
     <div class="form-group">
       <label class="control-label col-sm-2" for="pwd">Password:</label>
-      <div class="col-sm-10">          
+      <div class="col-sm-6">          
         <input type="password" class="form-control" id="password" placeholder="Enter password" name="password">
       </div>
     </div>
     <div class="form-group"> 
       <label class="control-label col-sm-2" for="name">Name:</label>
-      <div class="col-sm-10">
+      <div class="col-sm-6">
         <input type="name" class="form-control" id="name" placeholder="Enter name" name="name" value = "<%=name%>">
         </div>
       </div>
     
     <div class="form-group">        
       <label class="control-label col-sm-2" for="email">Email:</label>
-        <div class="col-sm-10">
+        <div class="col-sm-6">
          <input type="email" class="form-control" id="email" placeholder="Enter email" name="email" value = "<%=email%>">
         </div>
       </div>
     <div class="form-group"  >        
       <div class="col-sm-offset-2 col-sm-10">
 
-        <button type="submit" class="btn btn-default"  style="background-color: green">변경하기</button>
-        <button type="button" class="btn btn-default"  style="background-color: gray" onclick = "location.href='dashboard.do'">취소</button>
+        <button type="submit" class="btn btn-default"  style="background-color: green"><b>변경하기</b></button>
+        <button type="button" class="btn btn-default"  style="background-color: gray" onclick = "closePop();"><b>취소</b></button>
 
         
 

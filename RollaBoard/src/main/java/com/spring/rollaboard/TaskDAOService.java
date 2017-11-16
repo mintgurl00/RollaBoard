@@ -13,21 +13,30 @@ public class TaskDAOService implements TaskDAO {
 	private SqlSession sqlSession; // Mybatis(ibatis)라이브러리가 제공하는 클래스
 
 	@Override
-	public ArrayList<TaskVO> getTasks(int id) {
-		// TODO Auto-generated method stub
+	public ArrayList<TaskVO> getTasks(int id) {	// 석원. 이거 곧 지울 듯
+		
 		return null;
+	}
+	
+	public ArrayList<TaskVO> getTasks() {
+		ArrayList<TaskVO> taskList = new ArrayList<TaskVO>();
+		TaskMapper taskMapper = sqlSession.getMapper(TaskMapper.class);	
+		taskList = taskMapper.getTasks();
+		return taskList;
 	}
 
-	@Override
-	public TaskVO getTask(int id, CmtVO cmtVO) {
-		// TODO Auto-generated method stub
-		return null;
-	}
 
 	@Override
 	public void createTask(TaskVO taskVO) {
-		// TODO Auto-generated method stub
+		TaskMapper taskMapper = sqlSession.getMapper(TaskMapper.class);
+		taskMapper.createTask(taskVO);
 		
+	}
+	
+	@Override
+	public void insertTask(TaskVO taskVO) {
+		TaskMapper taskMapper = sqlSession.getMapper(TaskMapper.class);
+		taskMapper.insertTask(taskVO);
 	}
 
 	@Override
@@ -40,5 +49,19 @@ public class TaskDAOService implements TaskDAO {
 	public void deleteTask(int id) {
 		// TODO Auto-generated method stub
 		
+	}
+
+	@Override
+	public ArrayList<TaskVO> getTasksByBoard(int board_id) {	// 석원.
+		ArrayList<TaskVO> taskList = new ArrayList<TaskVO>() ;
+		TaskMapper taskMapper = sqlSession.getMapper( TaskMapper.class ) ;
+		taskList = taskMapper.getTasksByBoard( board_id ) ;
+		return taskList ;
+	}
+
+	@Override
+	public TaskVO getTask(int id, CmtVO cmtVO) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

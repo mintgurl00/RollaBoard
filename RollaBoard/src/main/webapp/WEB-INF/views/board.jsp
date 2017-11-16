@@ -1,5 +1,16 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%
+	// 세션 아이디 체크
+	if(session.getAttribute("id") == null) {
+		out.println("<script>alert('로그인이 필요합니다');");
+		out.println("location.href='loginForm.jsp'");
+		out.println("</script>");
+	}
+	String id = (String) session.getAttribute("id");
+	String board_id = (String) request.getAttribute("board_id");
+
+%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -16,16 +27,24 @@
 #task{width:350px; height:150px; margin-left:20px; margin-top:20px; background-color:#FFFFFF; text-align:center}
 
 </style>
+<script type = "text/javascript" language = "javascript">
+function openPop() {
+	window.open("./updatememberform.do",
+			"UPDATE",
+			"resizeable = yes, menubar=no, width = 800, height = 500, left = 10, right = 10");
+	
+}
+</script>
 </head>
 <body>
 <div id="header">
 <a href="./dashboard.do">로고</a>&nbsp;&nbsp;&nbsp;
-<font size="6">BOARD이름</font>
+<font size="6"><%=request.getAttribute("board_id") %></font>
 <input type="button" value="board설정" onclick="location.href='./updateboard.do';">
 </div>
 
 <div id="logout" align="right">
-	<a href="updatememberform.do">회원정보 수정</a> | <a href="logout.do">logout</a>&nbsp;
+	<a href = "#" onClick = "openPop();" >회원정보 수정</a> | <a href="logout.do">logout</a>&nbsp;
 </div>
 
 <div id="ref_board">
@@ -49,7 +68,7 @@
 		<div id="task" onclick="location.href='./taskview.do';"><h3>TASK 이름</h3></div>
 		<div id="task" onclick="location.href='./taskview.do';"><h3>TASK 이름</h3></div>
 		<div id="task" onclick="location.href='./taskview.do';"><h3>TASK 이름</h3></div>
-		<input type="button" value="TASK생성" onclick="location.href='./createtask.do';">
+		<input type="button" value="TASK생성" onclick="location.href='createtask.do';">
 	</div>
 	
 	<div id="section">

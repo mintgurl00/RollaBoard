@@ -1,9 +1,12 @@
 package com.spring.rollaboard;
 
+
+import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
@@ -13,6 +16,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
+
 
 @Controller
 public class HomeController {
@@ -78,10 +82,24 @@ public class HomeController {
     }
     
     @RequestMapping("insertMember.do")
-    public ModelAndView insertMember(MemVO memVO) {
-    	memDAOService.insertMember(memVO);
-		ModelAndView result = new ModelAndView();
-		
+    public ModelAndView insertMember(MemVO memVO, HttpServletResponse response) throws Exception {
+    	ModelAndView result = new ModelAndView();
+    	int chk = memDAOService.chkMemberId(memVO);
+    	System.out.println("chk = " + chk);
+    	if (chk != 0) {
+    		// alert처리단
+    		response.setContentType("text/html; charset-utf-8");
+    		PrintWriter out = response.getWriter();
+            out.println("<script>alert('이미 존재하는 아이디입니다.');</script>");
+            out.flush(); 
+    		result.setViewName("joinform");
+    		return result;
+		}
+    	memDAOService.insertMember(memVO);	
+    	response.setContentType("text/html; charset-utf-8");
+		PrintWriter out = response.getWriter();
+        out.println("<script>alert('회원가입 되었습니다!');</script>");
+        out.flush();
 		result.setViewName("index");
     	return result;
     }
@@ -132,8 +150,6 @@ public class HomeController {
     	return result;
     }
     
-    
-
     @RequestMapping("rolelist.do")
     public String rolelist() {
         return "rolelist";
@@ -204,22 +220,69 @@ public class HomeController {
 		PrintWriter out = response.getWriter();
         out.println("<script>alert('BOARD에 등록되었습니다. 관리자의 승인을 기다려주세요');</script>");
         out.flush(); 
-    	result.setViewName("dashboard");
+    	result.setViewName("newboard");
         return result;
     }
     
     @RequestMapping("board.do")
-    public ModelAndView board( String id ) {	// 석원
-    	// TODO 석원이 지금 하고 있는 부분
-    	/* 1. 참조하는 보드
-    	 * 2. 태스크 필터
-    	 * 3. 태스크 예쁘게 보기
-    	 * 4. 태스크 검색
-    	 */
+    public ModelAndView board( HttpSession session , HttpServletRequest request ) {
+    	/*
+    	 * 석원이 지금 하고 있는 부분
+    	 * 1. 참조하는 보드 명단 가져오기. 함. model만
+    	 * 2. 태스크 예쁘게 보기. 하는 중
+    	 * 2-1 섹션
+    	 * 2-2 태스크
+    	 * 2-3 롤
+    	 * 3. 검색 & 필터
+    	 * */
+    	
     	
     	ModelAndView result = new ModelAndView();
+    	String id = session.getAttribute( "id" ).toString() ;	// 멤버 id
+    	int board_id = Integer.parseInt( request.getParameter( "board_id" ) ) ;	// 보드 id
+    	System.out.println( "id:" + id + ", board_id:" + board_id );
+    	
+    	
+    	/* ******************************************************************** */
+    	// 아래부터는 석원 구역. 보드에 태스크 보여주기
+    	
+    	/*
+    	 * 사실 이 부분에 보드멤버가 맞는지 확인하는 부분이 들어가야 한다.
+    	 * (뭐, 어서 일단 넘어가구요.)
+    	 * */
+    	
+    	// 01. 참조 보드 리스트 추출
+    	//ArrayList<BoardVO> refBoardList = boardDAOService.getRefBoards( board_id );
+    	//System.out.println("참조보드리스트추출");
+    	
+    	// 02. 섹션 리스트 추출
+    	//ArrayList<SectionVO> sectionList = sectionDAOService.getSections( board_id ) ;
+    	//System.out.println("섹션리스트추출");
+    	
+    	// 03. 태스크 리스트 추출
+    	//ArrayList<TaskVO> taskList = taskDAOService.getTasksByBoard(board_id) ;
+    	//System.out.println("태스크리스트추출");
+    	// 04. 롤 배치 리스트 추출
+    	
+    	
+    	/*    	
+    	// 태스크 배치
+    	ArrayList<ArrayList<TaskVO>> taskViewList ;
+    	
+    	// 롤 배치
+    	ArrayList<ArrayList<ArrayList<RoleVO>>> roleViewList ;
+    	*/
+    	
+		// ....을 전달
+    	//result.addObject( "refBoardList" , refBoardList ) ;
+    	//result.addObject( "sectionList" , sectionList ) ;
+    	
+    	// 여기까지 석원구역.
+    	/* ******************************************************************** */
+    	
+    	result.addObject( "board_id" , board_id ) ;	// 쓸 데가 많을 것 같아서 전달합니다. view에서 request객체를 통해 참조할 수 있습니다.
     	result.setViewName("board");
-        return result ;
+        return result;
     }
     
     @RequestMapping("updateboard.do")
@@ -239,8 +302,21 @@ public class HomeController {
     
 	@RequestMapping("createtask.do")
 	public String createtask() {
-		return "createtask";
+		return "createtask";		
 	}
+	
+	@RequestMapping("inserttask.do")
+	public ModelAndView insertTask(HttpSession session, HttpServletResponse response, TaskVO taskVO) {
+		taskDAOService.insertTask(taskVO);
+		ModelAndView result = new ModelAndView();				
+		List<TaskVO> taskList = taskDAOService.getTasks();
+		result.addObject("taskList", taskList);
+		result.setViewName("board");
+		return result;
+		
+	}
+	
+	
 	
 	@RequestMapping("detailtask.do")
 	public String detailtask() {
@@ -275,23 +351,19 @@ public class HomeController {
     		return result;
             //developerdon.tistory.com/entry/JAVA-단에서-alert-처리하기-–-
 		}
-    	System.out.println("수정");
-    	System.out.println("아이디: " + updateMemInfo.getId());
-    	System.out.println("비밀번호: " + updateMemInfo.getPassword());
-    	System.out.println("이름: " + updateMemInfo.getName());
-    	System.out.println("이메일: " + updateMemInfo.getEmail());
-    	
+    	System.out.println(memPwChk.getId() + "의 회원정보 수정");
+ 	
     	memDAOService.updateMember(updateMemInfo);
     	// alert처리단
     	response.setContentType("text/html; charset-utf-8");
 		PrintWriter out = response.getWriter();
-    	out.println("<script>alert('회원정보가 수정되었습니다.');</script>");
+    	out.println("<script>alert('회원정보가 수정되었습니다.');");
+    	out.println("window.close();</script>");
         out.flush();
         result.addObject("id", updateMemInfo.getId());
     	result.setViewName("dashboard");
 		return result;
 	}
-    
     
 }
 

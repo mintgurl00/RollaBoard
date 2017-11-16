@@ -13,9 +13,12 @@ public class SectionDAOService implements SectionDAO {
 	private SqlSession sqlSession; // Mybatis(ibatis)라이브러리가 제공하는 클래스
 
 	@Override
-	public ArrayList<SectionVO> getSections(int id) {
-		// TODO Auto-generated method stub
-		return null;
+	public ArrayList<SectionVO> getSections(int board_id) {	// 석원. 보드에 맞는 섹션 리스트 반환
+		ArrayList<SectionVO> sectionList = new ArrayList<SectionVO>() ;
+		SectionMapper sectionMapper = sqlSession.getMapper( SectionMapper.class ) ;
+		sectionList = sectionMapper.getSections( board_id ) ;
+		
+		return sectionList ;
 	}
 
 	@Override

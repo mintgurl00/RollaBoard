@@ -16,7 +16,23 @@
 		
 	</resultMap>
 	
+	<!-- getTasksByBoard -->
+	<select id="getTasksByBoard" parameterType="map" resultMap="TaskResultMap">
+		SELECT *
+		FROM task ta, section se
+		WHERE ta.SECTION_ID=se.board_id 
+    		AND board_id=#{board_id}
+	</select>
 	
+	<select id="getTasks" resultMap="TaskResultMap">	
+		SELECT * FROM task 
+	</select>
+	
+	<insert id = "insertTask" parameterType = "com.spring.rollaboard.TaskVO">
+			
+		INSERT INTO task (id, name, description) values ( seq_task.nextval, #{name, javaType=String}, #{description, jdbcType=VARCHAR})
+
+	</insert>
 	
 	
 </mapper>

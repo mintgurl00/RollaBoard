@@ -45,6 +45,12 @@ public class BoardDAOService implements BoardDAO {
 	}
 
 	@Override
+	public ArrayList<BoardVO> getRefBoards(int id) {	// 석원
+		ArrayList<BoardVO> refBoardList = new ArrayList<BoardVO>() ;
+		BoardMapper boardMapper = sqlSession.getMapper( BoardMapper.class ) ;
+		refBoardList = boardMapper.getRefBoards( id ) ;
+		return refBoardList;
+	}
 	public int joinBoardChk(int board_id, String mem_id) {
 		BoardMapper boardMapper = sqlSession.getMapper(BoardMapper.class);
 		return boardMapper.joinBoardChk(board_id, mem_id);
@@ -54,6 +60,5 @@ public class BoardDAOService implements BoardDAO {
 	public void joinBoard(int board_id, String mem_id) {
 		BoardMapper boardMapper = sqlSession.getMapper(BoardMapper.class);
 		boardMapper.joinBoard(board_id, mem_id);
-		
 	}
 }

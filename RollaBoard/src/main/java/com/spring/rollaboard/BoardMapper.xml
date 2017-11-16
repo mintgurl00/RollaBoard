@@ -9,11 +9,14 @@
 		<result property = "admin" column = "ADMIN"/>
 		<result property = "visibility" column = "VISIBILITY"/>
 	</resultMap>
-
+	
 	
 	<!-- getRefBoards -->
 	<select id="getRefBoards" resultMap="BoardResultMap">
-		SELECT * FROM board_ref WHERE board_id=#{id, javaType=String}
+		SELECT br.REF_ID id, b.name name
+		FROM board_ref br, board b 
+		WHERE br.ref_id = b.ID 
+    		AND br.board_id=#{id, javaType=int}
 	</select>
 	
 	<!-- getBoards -->

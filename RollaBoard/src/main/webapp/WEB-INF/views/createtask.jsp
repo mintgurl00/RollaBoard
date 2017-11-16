@@ -1,7 +1,14 @@
-
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ page import = "java.util.*, com.spring.rollaboard.*" %>
+<%
+// 세션 아이디 체크
+if(session.getAttribute("id") == null) {
+	out.println("<script>alert('로그인이 필요합니다');");
+	out.println("location.href='loginForm.jsp'");
+	out.println("</script>");
+}
+%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -17,13 +24,16 @@
 </style>
 </head>
 <body>
+
+<form action="inserttask.do" name="inserttask">
+
 <div id="frame">
 	<div id="taskname">
-		<input type="text" id="taskname" placeholder="TASK 이름을 입력하시오." size="40">
+		<input type="text" id="name" placeholder="TASK 이름을 입력하시오." size="40" name="name">
 	</div>
 	
 	<div id="content">내용(필수X)<br/>
-		<input type="textarea" id="content" style="height:180px; width:380px;">
+		<input type="textarea" id="description" style="height:180px; width:380px;" name="description">
 	</div>
 	
 	<div id="role">Role 배정(필수X)<br/>
@@ -35,11 +45,11 @@
 	</div>
 	
 	<div id="button">
-		<input type="submit" value="확인" onclick='history.go(-1)'>
+		<input type="submit" value="확인" >
 		<input type="submit" value="취소" onclick='history.go(-1)'>
 	</div>
 
 </div>
-
+</form>
 </body>
 </html>

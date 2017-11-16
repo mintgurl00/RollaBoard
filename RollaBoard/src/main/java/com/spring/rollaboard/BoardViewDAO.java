@@ -11,7 +11,7 @@ import java.util.HashMap;
 public interface BoardViewDAO {
 	
 	public ArrayList< ArrayList<TaskVO> > getTasks( int board_id );	// 태스크 리스트. 섹션 순서대로 TaskVO ArrayList를 모아 둔다.
-	public ArrayList<String> getSections( int board_id ) ;	// 섹션 리스트. 인덱스는 getTasks 반환 ArrayList와 같으니 주의.
+	public ArrayList<SectionVO> getSections( int board_id ) ;	// 섹션 리스트. 인덱스는 getTasks 반환 ArrayList와 같으니 주의.
 
 	public ArrayList<BoardVO> getRefBoards( int board_id );	// 참조보드 불러오기
 	
