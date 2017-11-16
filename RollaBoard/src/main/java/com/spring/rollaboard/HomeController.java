@@ -280,7 +280,7 @@ public class HomeController {
     	// 여기까지 석원구역.
     	/* ******************************************************************** */
     	
-    	
+    	result.addObject( "board_id" , board_id ) ;	// 쓸 데가 많을 것 같아서 전달합니다. view에서 request객체를 통해 참조할 수 있습니다.
     	result.setViewName("board");
         return result;
     }
