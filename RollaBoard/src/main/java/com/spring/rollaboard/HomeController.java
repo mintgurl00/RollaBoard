@@ -160,8 +160,14 @@ public class HomeController {
     }
     
     @RequestMapping("memberlist.do")
-    public String memberlist() {
-        return "memberlist";
+    public ModelAndView memberlist(String board_id) {
+    	ModelAndView result = new ModelAndView();
+    	ArrayList<MemVO> boardMemberList = memDAOService.getBoardMembers(board_id);
+    	
+    	result.addObject("boardMemberList", boardMemberList);
+    	result.setViewName("memberlist");
+        return result;
+        
     }
     
     @RequestMapping("memberadmit.do")
