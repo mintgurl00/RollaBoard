@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ page import = "java.util.*, com.spring.rollaboard.MemVO" %>
 <%
 // 세션 아이디 체크
 if(session.getAttribute("id") == null) {
@@ -7,6 +8,7 @@ if(session.getAttribute("id") == null) {
 	out.println("location.href='index.do'");
 	out.println("</script>");
 }
+ArrayList<MemVO> memList = (ArrayList<MemVO>)request.getAttribute("memList");
 %>
 <!DOCTYPE html>
 <html lang="en">
@@ -26,18 +28,20 @@ if(session.getAttribute("id") == null) {
     <thead>
       <tr>
         <th>MEMBER 이름</th>
-        <th>ROLE</th>
         <th></th>
       </tr>
     </thead>
     <tbody>
-    <%for(int i = 0; i < 5; i++) {%>
+    <%for(int i = 0; i < memList.size(); i++) {
+    	MemVO memVO = memList.get(i);
+    %>
       <tr>
-        <td> 이름 <%=i %></td>
-        <td> 직책 </td>
+        <td><%=memVO.getName() %></td>
+        <form name = "deleteMem" action = "deleteMem.do">
         <td align = right>
-       		<input type = button name = "role<%=i %>" value = "강퇴">
+       		<input type = submit class = "btn btn-info" name = "<%=memVO.getId() %>" value = "강퇴">
        	</td>
+       	</form>
       </tr>
    <%} %>
     </tbody>

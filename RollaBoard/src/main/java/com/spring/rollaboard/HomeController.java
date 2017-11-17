@@ -75,7 +75,6 @@ public class HomeController {
     	session.setAttribute("id", member.getId());
     	List<BoardVO> boardList = boardDAOService.getBoards((String)(session.getAttribute("id"))); //수민. login 후 대시보드로 갈 때 보드리스트 받아옴
     	
-    	result.addObject("id", member.getId());
     	result.addObject("boardList", boardList); //수민
     	result.setViewName("dashboard");
     	return result;
@@ -151,13 +150,24 @@ public class HomeController {
     }
     
     @RequestMapping("rolelist.do")
-    public String rolelist() {
-        return "rolelist";
-    }
+    public ModelAndView rolelist(String id) {
+        ModelAndView result = new ModelAndView();
+        System.out.println("롤 리스트  id :" + id);
+        ArrayList<RoleVO> roleList = roleDAOService.getRoles(Integer.parseInt(id));
+        result.addObject("roleList", roleList);
+        result.setViewName("rolelist");
+        return result;
+        
+    }  
     
     @RequestMapping("memberlist.do")
-    public String memberlist() {
-        return "memberlist";
+    public ModelAndView memberlist(String board_id) {
+    	ModelAndView result = new ModelAndView();
+    	System.out.println("맴버리스트 컨트롤러 id : " + board_id);
+    	ArrayList<MemVO> memList = memDAOService.getBoardMember(Integer.parseInt(board_id));
+    	result.addObject("memList", memList);
+    	result.setViewName("memberlist");
+        return result;
     }
     
     @RequestMapping("memberadmit.do")
@@ -238,7 +248,6 @@ public class HomeController {
     	
     	
     	ModelAndView result = new ModelAndView();
-    	System.out.println(session.getAttribute("id"));
     	String id = session.getAttribute( "id" ).toString() ;	// 멤버 id 여기서 문제발생했다!!!!!!!!!!!
     	int board_id = Integer.parseInt( request.getParameter( "board_id" ) ) ;	// 보드 id
     	   	
@@ -305,8 +314,11 @@ public class HomeController {
     @RequestMapping("updateboard.do")
     public ModelAndView updateboard(BoardVO boardVO) {
     	ModelAndView result = new ModelAndView();
+    	ArrayList<RoleVO> roleList = roleDAOService.getRoles(boardVO.getId());
+    	
     	System.out.println("업데이트보드 name = " + boardVO.getName());
-    	result.addObject("boardVO", boardVO);
+    	result.addObject("roleList", roleList); // 롤 리스트 넘겨줌
+    	result.addObject("boardVO", boardVO); // 보드 정보 넘겨줌
     	result.setViewName("updateboard");
         return result;
     }

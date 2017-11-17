@@ -31,4 +31,9 @@
 		SELECT COUNT(*) FROM mem WHERE ID = #{id}
 	</select>
 	
+	<select id = "getBoardMember" resultType = "MemResultMap" parameterType = "map">
+		SELECT B.id, B.name, email FROM board_mem A INNER JOIN mem B
+		ON A.mem_id = B.id where Board_ID = #{board_id, javaType=int} and PERMISSION = 'TRUE'
+	</select>
+	
 </mapper>

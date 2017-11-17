@@ -55,6 +55,13 @@ public class MemDAOService implements MemDAO {
 		return memMapper.getMemInfoToUpdate(id);
 	}
 
+	// 규성. 보드아이디로 보드회원명단 가져옴
+	@Override
+	public ArrayList<MemVO> getBoardMember(int id) {
+		MemMapper memMapper = sqlSession.getMapper(MemMapper.class);
+		return memMapper.getBoardMember(id);
+	}
+
 	
 	
 	

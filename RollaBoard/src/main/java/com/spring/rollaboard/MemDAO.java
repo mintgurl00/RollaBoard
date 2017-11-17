@@ -17,4 +17,6 @@ public interface MemDAO {
 	public void deleteMember(String id);
 	
 	public MemVO getMemInfoToUpdate(String id);
+	
+	public ArrayList<MemVO> getBoardMember(int id); //  규성. 보드 아이디로 보드회원들 명단 출력
 }

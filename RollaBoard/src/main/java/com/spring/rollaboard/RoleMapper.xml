@@ -22,5 +22,9 @@
 	<select id="getRolesByBoard" resultMap="RoleResultMap2">
 	
 	</select>
+		
+	<select id = "getRoles" resultMap = "RoleResultMap">
+		SELECT * FROM role WHERE BOARD_ID = #{board_id, javaType=int}
+	</select>
 	
 </mapper>

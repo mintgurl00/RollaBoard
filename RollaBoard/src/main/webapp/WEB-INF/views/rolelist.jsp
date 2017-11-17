@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ page import = "com.spring.rollaboard.RoleVO" %>
+<%@ page import = "java.util.*" %>
 <%
 // 세션 아이디 체크
 if(session.getAttribute("id") == null) {
@@ -7,6 +9,7 @@ if(session.getAttribute("id") == null) {
 	out.println("location.href='index.do'");
 	out.println("</script>");
 }
+ArrayList<RoleVO> roleList = (ArrayList<RoleVO>) request.getAttribute("roleList");
 %>
 <!DOCTYPE html>
 <html lang="en">
@@ -17,6 +20,16 @@ if(session.getAttribute("id") == null) {
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script type = "text/javascript" language = "javascript">
+function chkBox() {
+	var chk = confirm("삭제하시겠습니까?");
+	if (chk == true) {
+		return true;
+	} else {
+		return false;
+	}
+}
+</script>
 </head>
 <body>
 <div class="container">
@@ -26,16 +39,24 @@ if(session.getAttribute("id") == null) {
     <thead>
       <tr>
         <th>ROLE 이름</th>
+        <th>DESCRIPTION</th>
         <th></th>
       </tr>
     </thead>
     <tbody>
-    <%for(int i = 0; i < 5; i++) {%>
+    <%for(int i = 0; i < roleList.size(); i++) {
+    	RoleVO roleVO = roleList.get(i);
+    %>
       <tr>
-        <td>ROLE <%=i %></td>
+        <td><%=roleVO.getName() %></td>
+        <td><%=roleVO.getDescription() %></td>
         <td align = right>
-        	<input type = button name = "role<%=i %>" value = "수정">&nbsp;&nbsp;
-       		<input type = button name = "role<%=i %>" value = "삭제">
+        <form name = "updateRole" action = "updateRole.do">
+        	<input type = submit class = "btn btn-default" name = "<%=roleVO.getId() %>" value = "수정">
+        </form>
+        <form name = "deleteRole" action = "deleteRole.do">
+       		<input type = submit class = "btn btn-info" name = "<%=roleVO.getId() %>" value = "삭제" onclick="javascript:chkBox()">
+       	 </form>
        	</td>
       </tr>
    <%} %>
