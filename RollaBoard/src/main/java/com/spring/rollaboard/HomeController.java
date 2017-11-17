@@ -238,6 +238,7 @@ public class HomeController {
     	
     	
     	ModelAndView result = new ModelAndView();
+    	System.out.println(session.getAttribute("id"));
     	String id = session.getAttribute( "id" ).toString() ;	// 멤버 id 여기서 문제발생했다!!!!!!!!!!!
     	int board_id = Integer.parseInt( request.getParameter( "board_id" ) ) ;	// 보드 id
     	   	
