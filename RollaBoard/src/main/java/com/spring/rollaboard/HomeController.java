@@ -163,7 +163,18 @@ public class HomeController {
         result.addObject("roleList", roleList);
         result.setViewName("rolelist");
         return result;
-    }  
+    }
+    
+  // 롤 정보 수정 창으로 이동
+    @RequestMapping("updateroleform.do")
+    public ModelAndView updateroleform(HttpSession session) {
+    	ModelAndView result = new ModelAndView();
+    	// 회원정보수정시 기존 정보를 불러오기 위해 memDAOService.getMemInfoToUpdate를 사용한다(세션에서 ).
+    	MemVO memVO = memDAOService.getMemInfoToUpdate((String)session.getAttribute("id"));
+    	result.addObject("member", memVO);
+    	result.setViewName("updatememberform");
+        return result;
+    }
     
     @RequestMapping("deleteRole.do")
     public ModelAndView deleteRole(int id, HttpServletResponse response) throws Exception {
@@ -270,11 +281,33 @@ public class HomeController {
     	 * 3. 검색 & 필터
     	 * */
     	
-    	
     	ModelAndView result = new ModelAndView();
+    	int board_id = 0;
+    	System.out.println("세션 보드아이디 : " + session.getAttribute("board_id"));
+    	System.out.println("리쿼스트 보드아이디 : " + request.getParameter("board_id"));
+    	if (session.getAttribute("board_id") == null) {
+    		if (request.getParameter("board_id") == null) {
+    			List<BoardVO> boardList = boardDAOService.getBoards((String)(session.getAttribute("id"))); //수민. 대시보드로 갈 때 보드리스트 받아옴
+    			result.addObject("boardList", boardList);
+				result.setViewName("dashboard");
+				return result;
+			}
+    		board_id = Integer.parseInt( request.getParameter( "board_id" ) ) ;	// 보드 id
+		} else {
+			board_id = Integer.parseInt((String) session.getAttribute("board_id"));
+		}
+    	// board_id를 어디서도 받지 못했다면 대쉬보드로 간다.
+    	if (board_id == 0) {
+    		List<BoardVO> boardList = boardDAOService.getBoards((String)(session.getAttribute("id"))); //수민. 대시보드로 갈 때 보드리스트 받아옴
+			result.addObject("boardList", boardList);
+			result.setViewName("dashboard");
+			return result;
+		}
+    	String board_id2 = "" + board_id;
+    	session.setAttribute("board_id", board_id2);
+    	
     	String id = session.getAttribute( "id" ).toString() ;
-    	int board_id = Integer.parseInt( request.getParameter( "board_id" ) ) ;	// 보드 id
-    	   	
+    	  	
     	// 보드에 승인이 안되어 있으면 들어갈 수 없다.
     	String permission = boardDAOService.permitChk(board_id, id);
     	System.out.println("허가여부 : " + permission);

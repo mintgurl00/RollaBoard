@@ -29,6 +29,9 @@ function chkBox() {
 		return;
 	}
 }
+function updateRoleForm() {
+	document.getElementById("updateRole").submit();
+}
 </script>
 </head>
 <body>
@@ -51,9 +54,9 @@ function chkBox() {
         <td><%=roleVO.getName() %></td>
         <td><%=roleVO.getDescription() %></td>
         <td align = right>
-        <form id = "updateRole" action = "updateRole.do">
+        <form id = "updateRole" action = "updateroleform.do">
         	<input type = "text" name = "id" value = "<%=roleVO.getId() %>" hidden>
-        	<input type = submit class = "btn btn-default" value = "수정">
+        	<input type = submit class = "btn btn-default" value = "수정" onclick = "javascript:updateRoleForm()">
         </form>
         <form id = "deleteRole" action = "deleteRole.do">
         	<input type = "text" name = "id" value = "<%=roleVO.getId() %>" hidden>
