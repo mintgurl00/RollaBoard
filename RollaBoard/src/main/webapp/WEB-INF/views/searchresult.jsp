@@ -13,11 +13,11 @@
 
 	BoardVO boardVO = (BoardVO) request.getAttribute("boardVO");
 	// 석원.
-	/*
+	
 	ArrayList<ArrayList<TaskVO>> taskViewList = (ArrayList<ArrayList<TaskVO>>) request.getAttribute( "taskViewList" ) ;
 	ArrayList<SectionVO> sectionList = (ArrayList<SectionVO>) request.getAttribute( "sectionList" ) ; 
 	ArrayList<BoardVO> refBoardList = (ArrayList<BoardVO>) request.getAttribute( "refBoardList" ) ;
-	*/
+	
 %>
 <%
 	String board_id = (String) request.getAttribute( "board_id" ) ;
@@ -54,7 +54,7 @@ keyword : <%=keyword %> <br />
 
 
 <!-- 결과 나오는 부분 -->
-<%-- 
+
 <div id="content">
 ㅎㅎㅎ
 	<%
@@ -80,7 +80,6 @@ keyword : <%=keyword %> <br />
 	}
 	%>
 </div> 
---%>
 
 
 </body>
