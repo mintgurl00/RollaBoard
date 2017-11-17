@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.junit.runner.Request;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -75,7 +76,6 @@ public class HomeController {
     	session.setAttribute("id", member.getId());
     	List<BoardVO> boardList = boardDAOService.getBoards((String)(session.getAttribute("id"))); //수민. login 후 대시보드로 갈 때 보드리스트 받아옴
     	
-    	result.addObject("id", member.getId());
     	result.addObject("boardList", boardList); //수민
     	result.setViewName("dashboard");
     	return result;
@@ -133,16 +133,20 @@ public class HomeController {
     }
     
     @RequestMapping("createboard.do")
-    public ModelAndView createboard(BoardVO boardVO, HttpSession session) {
+    public ModelAndView createboard(BoardVO boardVO, HttpSession session, HttpServletResponse response) throws Exception {
+    	
     	ModelAndView result = new ModelAndView();
-    	//System.out.println(boardVO.getName() + (String)(session.getAttribute("id")));
+    	System.out.println("보드 이름 : " + boardVO.getName() + "아이디 : " + (String)(session.getAttribute("id")));
 
     	String board_name = boardVO.getName();
     	String mem_id = (String)(session.getAttribute("id"));
     	
-    	//System.out.println(board_name + mem_id);
-    	
     	boardDAOService.createBoard(board_name, mem_id);
+    	
+    	response.setContentType("text/html; charset-utf-8");
+    	PrintWriter out = response.getWriter();
+    	out.println("<script>alert('보드가 새로 생성되었습니다.');</script>");
+    	out.flush();
     	
     	result.addObject("board", boardVO);
     	result.setViewName("newboard");
