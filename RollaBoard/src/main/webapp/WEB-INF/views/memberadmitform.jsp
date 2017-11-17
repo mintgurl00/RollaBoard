@@ -1,7 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    
 <%@ page import = "java.util.*" %>
 <%@ page import="java.util.*, com.spring.rollaboard.*"%>
+
 <%
 // 세션 아이디 체크
 if(session.getAttribute("id") == null) {
@@ -15,7 +17,7 @@ ArrayList<MemVO> boardMemberList = (ArrayList<MemVO>)request.getAttribute("board
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <title>memberadmin</title>
+  <title>memberadmit</title>
   <meta charset="utf-8" Encoding = "UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
@@ -33,19 +35,21 @@ ArrayList<MemVO> boardMemberList = (ArrayList<MemVO>)request.getAttribute("board
         <th></th>
       </tr>
     </thead>
-	<tbody>
-    	<%for (int i = 0; i < boardMemberList.size(); i++) { //보드멤버리스트 받아와야함
-    		MemVO member = boardMemberList.get(i);%>
-      		<tr>
-        		<td><%=member.getName() %> </td>
-        		<td> 직책 </td>
-       			<td align = right>
-       				<input type = button name = "role<%=i %>" value = "강퇴">
-       			</td>
-     		</tr>
-   		<%} %>
+    <tbody>
+    <%for(int i = 0; i < boardMemberList.size(); i++) {
+    	MemVO member = boardMemberList.get(i);
+    %>
+      <tr>
+        <td><%=member.getName() %></td>
+        <td align = right>
+        	<input type = button value = "승인" onclick="location.href='./admitmember.do?mem_id=<%=member.getId()%>'">&nbsp;&nbsp;
+       		<input type = button name = "role<%=i %>" value = "삭제">
+       	</td>
+      </tr>
+   <%} %>
     </tbody>
   </table>
 </div>
 </body>
 </html>
+
