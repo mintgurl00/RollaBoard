@@ -37,8 +37,8 @@ ArrayList<MemVO> boardMemberList = (ArrayList<MemVO>)request.getAttribute("board
       </tr>
     </thead>
     <tbody>
-    <%for (int i = 0; i < boardMemberList.size(); i++) {%> <!-- 보드멤버리스트 받아와야함 -->
-    	MemVO member = boardMemberList.get(i);
+    <%for (int i = 0; i < boardMemberList.size(); i++) { //보드멤버리스트 받아와야함
+    	MemVO member = boardMemberList.get(i);%>
       <tr>
         <td><%=member.getName() %> </td>
         <td> 직책 </td>

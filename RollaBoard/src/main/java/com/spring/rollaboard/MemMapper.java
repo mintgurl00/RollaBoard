@@ -14,5 +14,5 @@ public interface MemMapper {
 	
 	public int chkMemberId(MemVO memVO);
 	
-	public ArrayList<MemVO> getBoardMembers(String board_id); //수민-보드멤버리스트
+	public ArrayList<MemVO> getBoardMembers(BoardVO boardVO); //수민-보드멤버리스트
 }
