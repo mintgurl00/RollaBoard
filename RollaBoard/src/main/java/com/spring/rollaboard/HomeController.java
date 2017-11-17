@@ -404,14 +404,73 @@ public class HomeController {
 	public ModelAndView searchresult( HttpServletRequest request ) {
     	ModelAndView result = new ModelAndView();
     	
-    	String board_id = (String) request.getParameter( "board_id" ) ;
+    	int board_id = Integer.parseInt( (String) request.getParameter( "board_id" ) ) ;
     	String keyword = (String) request.getParameter( "keyword" ) ;
     	
-    	result.addObject( "board_id" , board_id ) ;
+    	/* ******************************************************************** */
+    	// 아래부터는 석원 구역. 보드에 태스크 보여주기
+    	
+    	/*
+    	 * 사실 이 부분에 보드멤버가 맞는지 확인하는 부분이 들어가야 한다.
+    	 * (뭐, 어서 일단 넘어가구요.)
+    	 * */
+    	
+    	// 01. 참조 보드 리스트 추출...은 할 필요 없고
+    	/*ArrayList<BoardVO> refBoardList = boardDAOService.getRefBoards( board_id );
+    	System.out.println("참조보드리스트추출");*/
+    	
+    	// 02. 섹션 리스트 추출
+    	ArrayList<SectionVO> sectionList = sectionDAOService.getSections( board_id ) ;
+    	System.out.println("섹션리스트추출");
+    	
+    	
+    	// 03. 태스크 리스트 추출
+    	ArrayList<TaskVO> taskList = taskDAOService.getTasksByBoard( board_id , keyword ) ;	// sql문에서 섹션별로 그룹해야 편할듯 + 섹션순서번호 정렬
+    	System.out.println("태스크리스트추출");
+    	// 04. 롤 배치 리스트 추출
+    	
+    	
+    	
+    	// 태스크 배치
+    	ArrayList<ArrayList<TaskVO>> taskViewList = new ArrayList<ArrayList<TaskVO>>() ;	// 태스크리스트 저장객체 생성
+    	for( int i = 0 ; i < sectionList.size() ; i++ ){
+    		taskViewList.add( new ArrayList<TaskVO>() ) ;	// 섹션 수만큼 칸을 만들고
+    	}
+    	for( TaskVO task : taskList ){
+    		int t_sid = task.getSection_id() ;	// 태스크의 섹션아이디
+    		for( int j = 0 ; j < sectionList.size() ; j++ ){	// 섹션리스트 하나하나 섹션아이디 확인
+    			int sid = sectionList.get( j ).getId() ;
+    			if( sid == t_sid ){
+    				taskViewList.get( j ).add( task ) ;
+    				break ;
+    			}
+    		}
+    	}
+    	for( int i = 0 ; i < taskViewList.size() ; i++ ){	// 태스크 없는 섹션은 지우기
+    		if( taskViewList.get(i).isEmpty() ){
+    			taskViewList.remove( i ) ;
+    			sectionList.remove( i ) ;
+    			i-- ;
+    		}
+    	}
+    	// 롤 배치(나중에 하려고 함)
+    	//ArrayList<ArrayList<ArrayList<RoleVO>>> roleViewList ;
+    	
+		// ....을 전달
+    	//result.addObject( "refBoardList" , refBoardList ) ;
+    	result.addObject( "sectionList" , sectionList ) ;
+    	result.addObject( "taskViewList" , taskViewList ) ;
+    	
+    	// 여기까지 석원구역.
+    	/* ******************************************************************** */
+    	
+    	
+    	result.addObject( "board_id" , board_id + "" ) ;
     	result.addObject( "keyword" , keyword ) ;
     	result.setViewName("searchresult");
 		return result;
 	}
+
     
 }
 
