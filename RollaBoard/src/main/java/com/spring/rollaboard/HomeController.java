@@ -397,5 +397,21 @@ public class HomeController {
 		return result;
 	}
     
+    /*
+     * 석원. 검색 결과
+     * */
+    @RequestMapping("searchresult.do")
+	public ModelAndView searchresult( HttpServletRequest request ) {
+    	ModelAndView result = new ModelAndView();
+    	
+    	String board_id = (String) request.getParameter( "board_id" ) ;
+    	String keyword = (String) request.getParameter( "keyword" ) ;
+    	
+    	result.addObject( "board_id" , board_id ) ;
+    	result.addObject( "keyword" , keyword ) ;
+    	result.setViewName("searchresult");
+		return result;
+	}
+    
 }
 
