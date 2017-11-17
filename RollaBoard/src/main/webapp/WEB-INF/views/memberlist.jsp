@@ -10,8 +10,8 @@ if(session.getAttribute("id") == null) {
 	out.println("location.href='index.do'");
 	out.println("</script>");
 }
-
 ArrayList<MemVO> boardMemberList = (ArrayList<MemVO>)request.getAttribute("boardMemberList");
+
 %>
 
 <!DOCTYPE html>
@@ -32,7 +32,6 @@ ArrayList<MemVO> boardMemberList = (ArrayList<MemVO>)request.getAttribute("board
     <thead>
       <tr>
         <th>MEMBER 이름</th>
-        <th>ROLE</th>
         <th></th>
       </tr>
     </thead>
@@ -41,10 +40,10 @@ ArrayList<MemVO> boardMemberList = (ArrayList<MemVO>)request.getAttribute("board
     	MemVO member = boardMemberList.get(i);%>
       <tr>
         <td><%=member.getName() %> </td>
-        <td> 직책 </td>
         <td align = right>
-       		<input type = button name = "role<%=i %>" value = "강퇴">
+       		<input type = submit class = "btn btn-info" name = "<%=member.getId() %>" value = "강퇴">
        	</td>
+       	</form>
       </tr>
    <%} %>
     </tbody>

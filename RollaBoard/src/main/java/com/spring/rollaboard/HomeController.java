@@ -155,12 +155,19 @@ public class HomeController {
     }
     
     @RequestMapping("rolelist.do")
-    public String rolelist() {
-        return "rolelist";
-    }
+    public ModelAndView rolelist(String id) {
+        ModelAndView result = new ModelAndView();
+        System.out.println("롤 리스트  id :" + id);
+        ArrayList<RoleVO> roleList = roleDAOService.getRoles(Integer.parseInt(id));
+        result.addObject("roleList", roleList);
+        result.setViewName("rolelist");
+        return result;
+        
+    }  
     
     @RequestMapping("memberlist.do")
     public ModelAndView memberlist(String board_id) {
+
     	System.out.println("멤버관리로 이동");
     	System.out.println("보드아이디" + board_id);
     	ModelAndView result = new ModelAndView();
@@ -169,7 +176,7 @@ public class HomeController {
     	result.addObject("boardMemberList", boardMemberList);
     	result.setViewName("memberlist");
         return result;
-        
+
     }
     
     @RequestMapping("memberadmit.do")
@@ -257,8 +264,7 @@ public class HomeController {
     	
     	
     	ModelAndView result = new ModelAndView();
-    	System.out.println(session.getAttribute("id"));
-    	String id = session.getAttribute( "id" ).toString() ;	// 멤버 id 여기서 문제발생했다!!!!!!!!!!!
+    	String id = session.getAttribute( "id" ).toString() ;
     	int board_id = Integer.parseInt( request.getParameter( "board_id" ) ) ;	// 보드 id
     	   	
     	// 보드에 승인이 안되어 있으면 들어갈 수 없다.
@@ -337,8 +343,11 @@ public class HomeController {
     @RequestMapping("updateboard.do")
     public ModelAndView updateboard(BoardVO boardVO) {
     	ModelAndView result = new ModelAndView();
+    	ArrayList<RoleVO> roleList = roleDAOService.getRoles(boardVO.getId());
+    	
     	System.out.println("업데이트보드 name = " + boardVO.getName());
-    	result.addObject("boardVO", boardVO);
+    	result.addObject("roleList", roleList); // 롤 리스트 넘겨줌
+    	result.addObject("boardVO", boardVO); // 보드 정보 넘겨줌
     	result.setViewName("updateboard");
         return result;
     }

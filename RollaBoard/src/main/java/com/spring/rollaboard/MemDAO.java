@@ -17,4 +17,5 @@ public interface MemDAO {
 	public void deleteMember(String id);
 	
 	public MemVO getMemInfoToUpdate(String id);
+	
 }

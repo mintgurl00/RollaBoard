@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 public interface RoleDAO {
 	
-	public ArrayList<RoleVO> getRoles(int id);
+	public ArrayList<RoleVO> getRoles(int board_id);
 	
 	public RoleVO getRole(int id);
 	
@@ -16,7 +16,7 @@ public interface RoleDAO {
 	
 	public void allocateRole(RoleVO roleVO, MemVO memVO);
 	
-	public ArrayList<RoleAndTaskVO> vetRolesByBoard( int board_id ) ;	// 석원.
+	public ArrayList<RoleAndTaskVO> getRolesByBoard( int board_id ) ;	// 석원.
 	
 	
 }

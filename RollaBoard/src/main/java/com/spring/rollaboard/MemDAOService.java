@@ -54,8 +54,5 @@ public class MemDAOService implements MemDAO {
 		MemMapper memMapper = sqlSession.getMapper(MemMapper.class);
 		return memMapper.getMemInfoToUpdate(id);
 	}
-
-	
-	
-	
+		
 }
