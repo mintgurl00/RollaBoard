@@ -13,9 +13,9 @@ public class RoleDAOService implements RoleDAO {
 	private SqlSession sqlSession; // Mybatis(ibatis)라이브러리가 제공하는 클래스
 
 	@Override
-	public ArrayList<RoleVO> getRoles(int id) {
-		// TODO Auto-generated method stub
-		return null;
+	public ArrayList<RoleVO> getRoles(int board_id) {
+		RoleMapper roleMapper = sqlSession.getMapper(RoleMapper.class);
+		return roleMapper.getRoles(board_id);
 	}
 
 	@Override
@@ -52,7 +52,7 @@ public class RoleDAOService implements RoleDAO {
 	 * 석원. 보드에서 각 태스크의 롤 정보를 친절하게 보여주기 위해 불러오는 메소드입니다.
 	 * */
 	@Override
-	public ArrayList<RoleAndTaskVO> vetRolesByBoard(int board_id) {
+	public ArrayList<RoleAndTaskVO> getRolesByBoard(int board_id) {
 		
 
 		ArrayList<RoleAndTaskVO> roles = new ArrayList<RoleAndTaskVO>() ;

@@ -23,4 +23,5 @@ public interface BoardDAO {
 
 	public ArrayList<BoardVO> getRefBoards(int id);
 
+
 }
