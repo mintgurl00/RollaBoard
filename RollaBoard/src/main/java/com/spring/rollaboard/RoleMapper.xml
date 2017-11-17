@@ -27,4 +27,8 @@
 		SELECT * FROM role WHERE BOARD_ID = #{board_id, javaType=int}
 	</select>
 	
+	<delete id = "deleteRole" parameterType = "int">
+		DELETE FROM role WHERE id = #{id}
+	</delete>
+	
 </mapper>

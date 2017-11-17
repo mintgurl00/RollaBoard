@@ -15,6 +15,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -162,8 +163,22 @@ public class HomeController {
         result.addObject("roleList", roleList);
         result.setViewName("rolelist");
         return result;
-        
     }  
+    
+    @RequestMapping("deleteRole.do")
+    public ModelAndView deleteRole(int id, HttpServletResponse response) throws Exception {
+		ModelAndView result = new ModelAndView();
+    	System.out.println("딜리트 롤 id : " + id);
+		
+		roleDAOService.deleteRole(id);
+		// alert처리단
+		response.setContentType("text/html; charset-utf-8");
+		PrintWriter out = response.getWriter();
+        out.println("<script>alert('ROLE 삭제에 성공하였습니다');</script>");
+        out.flush(); 
+        result.setViewName("updateboard");
+        return result;
+	}
     
     @RequestMapping("memberlist.do")
     public ModelAndView memberlist(String board_id) {

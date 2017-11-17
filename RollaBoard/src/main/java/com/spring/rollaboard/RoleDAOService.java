@@ -37,8 +37,9 @@ public class RoleDAOService implements RoleDAO {
 	}
 
 	@Override
-	public void deleteRole(RoleVO roleVO) {
-		// TODO Auto-generated method stub
+	public void deleteRole(int id) {
+		RoleMapper roleMapper = sqlSession.getMapper(RoleMapper.class);
+		roleMapper.deleteRole(id);
 		
 	}
 

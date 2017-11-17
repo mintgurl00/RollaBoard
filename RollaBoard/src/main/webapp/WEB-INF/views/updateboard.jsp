@@ -11,6 +11,7 @@
 		out.println("location.href='index.do'");
 		out.println("</script>");
 	}
+
 	BoardVO boardVO = (BoardVO) request.getAttribute("boardVO");
 	ArrayList<RoleVO> roleList = (ArrayList<RoleVO>) request.getAttribute("roleList");
 %>

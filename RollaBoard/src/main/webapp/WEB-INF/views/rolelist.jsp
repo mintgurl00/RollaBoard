@@ -23,10 +23,10 @@ ArrayList<RoleVO> roleList = (ArrayList<RoleVO>) request.getAttribute("roleList"
 <script type = "text/javascript" language = "javascript">
 function chkBox() {
 	var chk = confirm("삭제하시겠습니까?");
-	if (chk == true) {
-		return true;
+	if (chk) {
+		document.getElementById("deleteRole").submit();
 	} else {
-		return false;
+		return;
 	}
 }
 </script>
@@ -51,11 +51,13 @@ function chkBox() {
         <td><%=roleVO.getName() %></td>
         <td><%=roleVO.getDescription() %></td>
         <td align = right>
-        <form name = "updateRole" action = "updateRole.do">
-        	<input type = submit class = "btn btn-default" name = "<%=roleVO.getId() %>" value = "수정">
+        <form id = "updateRole" action = "updateRole.do">
+        	<input type = "text" name = "id" value = "<%=roleVO.getId() %>" hidden>
+        	<input type = submit class = "btn btn-default" value = "수정">
         </form>
-        <form name = "deleteRole" action = "deleteRole.do">
-       		<input type = submit class = "btn btn-info" name = "<%=roleVO.getId() %>" value = "삭제" onclick="javascript:chkBox()">
+        <form id = "deleteRole" action = "deleteRole.do">
+        	<input type = "text" name = "id" value = "<%=roleVO.getId() %>" hidden>
+       		<input type = button class = "btn btn-info"  value = "삭제" onclick="javascript:chkBox()">
        	 </form>
        	</td>
       </tr>
