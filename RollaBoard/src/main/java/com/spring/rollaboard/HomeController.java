@@ -173,8 +173,15 @@ public class HomeController {
     }
     
     @RequestMapping("memberadmit.do")
-    public String memberadmit() {
-        return "memberadmit";
+    public ModelAndView memberadmit(String board_id) {
+    	System.out.println("멤버승인으로 이동");
+    	System.out.println("보드아이디" + board_id);
+    	ModelAndView result = new ModelAndView();
+    	ArrayList<MemVO> boardMemberList = memDAOService.getBoardMembers(Integer.parseInt(board_id));
+    	
+    	result.addObject("boardMemberList", boardMemberList);
+    	result.setViewName("memberlist");
+        return result;
     }
     
     @RequestMapping("etc.do")
