@@ -58,8 +58,8 @@ function initRefBoard( selectName ){
 	<%
 	for( int i = 0 ; i < refBoardList.size() ; i++ ){
 
-	%>name_arr.push( '<%=refBoardList.get( i ).getName() %>' ) ;<%
-	%>id_arr.push( '<%=refBoardList.get( i ).getId() %>' ) ;<%
+		%>name_arr.push( '<%=refBoardList.get( i ).getName() %>' ) ;<%
+		%>id_arr.push( '<%=refBoardList.get( i ).getId() %>' ) ;<%
 	}%>
 	
 	
