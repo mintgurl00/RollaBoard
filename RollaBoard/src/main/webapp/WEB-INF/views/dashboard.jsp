@@ -10,8 +10,6 @@
 		out.println("</script>");
 	}
 	request.setCharacterEncoding("utf-8");
-	String id = (String)request.getAttribute("id");
-	session.setAttribute("id", id);
 	
 	List<BoardVO> boardList = (ArrayList<BoardVO>)request.getAttribute("boardList");
 
