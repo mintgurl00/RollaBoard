@@ -32,41 +32,52 @@ function chkBox() {
 function updateRoleForm() {
 	document.getElementById("updateRole").submit();
 }
+
 </script>
 </head>
 <body>
 <div class="container">
   <h2>ROLE 관리</h2>
   <p>당신의 BOARD에서 업무수행을 지시할 ROLE을 관리해주세요</p>
-  <table class="table table-striped">
-    <thead>
-      <tr>
-        <th>ROLE 이름</th>
-        <th>DESCRIPTION</th>
-        <th></th>
-      </tr>
-    </thead>
-    <tbody>
+  <div class = "page-header">
+      <div class = "row" >
+        <div class = "col-xs-3">ROLE 이름</div>
+        <div class = "col-xs-3">DESCRIPTION</div>
+        <div class = "col-xs-3"></div>
+   	 </div>
     <%for(int i = 0; i < roleList.size(); i++) {
     	RoleVO roleVO = roleList.get(i);
     %>
-      <tr>
-        <td><%=roleVO.getName() %></td>
-        <td><%=roleVO.getDescription() %></td>
-        <td align = right>
-        <form id = "updateRole" action = "updateroleform.do">
+    <form id = "이것은쓰레기"></form>
+      <div class = "row">
+      	<form id = "updateRole" action = "updaterole.do">
+        <div class = "col-xs-3">
+        	<%=roleVO.getName() %>
+        	<input type = "text" class = "form-control" name = "name">
+        </div>
+        <div class = "col-xs-3">
+        	<%=roleVO.getDescription() %>
+        	<input type = "text" class = "form-control" name = "description">
+        </div>
+        <div class = "col-xs-3" align = right>
+        
         	<input type = "text" name = "id" value = "<%=roleVO.getId() %>" hidden>
-        	<input type = submit class = "btn btn-default" value = "수정" onclick = "javascript:updateRoleForm()">
+        	<button type = submit class = "btn btn-default" onclick = "javascript:updateRoleForm()" >수정</button>
+		</div>
         </form>
         <form id = "deleteRole" action = "deleteRole.do">
+        <div class = "col-xs-1">
         	<input type = "text" name = "id" value = "<%=roleVO.getId() %>" hidden>
        		<input type = button class = "btn btn-info"  value = "삭제" onclick="javascript:chkBox()">
-       	 </form>
-       	</td>
-      </tr>
+       	</div>
+       	</form> 
+      	</div>
+      	<br/>
    <%} %>
-    </tbody>
-  </table>
+  <center>
+  <input type = button class = "btn btn-default" value = "추가" onclick = "#">
+  </center>
+  </div>
 </div>
 </body>
 </html>

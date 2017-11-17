@@ -10,5 +10,9 @@ public interface RoleMapper {
 	
 	public ArrayList<RoleVO> getRoles(int board_id);
 	
+	public RoleVO getRole(int id);
+	
 	public void deleteRole(@Param("id") int id);
+	
+	public void updateRole(RoleVO roleVO);
 }
