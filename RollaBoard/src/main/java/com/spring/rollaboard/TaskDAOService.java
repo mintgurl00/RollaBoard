@@ -65,10 +65,10 @@ public class TaskDAOService implements TaskDAO {
 		return null;
 	}
 
-	public ArrayList<TaskVO> getTasksByBoard(int board_id, String keyword) {	// 석원
+	public ArrayList<TaskVO> getTasksByBoard2(int board_id, String keyword) {	// 석원
 		ArrayList<TaskVO> taskList = new ArrayList<TaskVO>() ;
 		TaskMapper taskMapper = sqlSession.getMapper( TaskMapper.class ) ;
-		taskList = taskMapper.getTasksByBoard( board_id , keyword ) ;
-		return null;
+		taskList = taskMapper.getTasksByBoard2( board_id , keyword ) ;
+		return taskList ;
 	}
 }

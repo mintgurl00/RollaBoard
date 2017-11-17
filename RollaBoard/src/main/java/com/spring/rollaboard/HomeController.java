@@ -446,8 +446,10 @@ public class HomeController {
     	
     	
     	// 03. 태스크 리스트 추출
-    	ArrayList<TaskVO> taskList = taskDAOService.getTasksByBoard( board_id , keyword ) ;	// sql문에서 섹션별로 그룹해야 편할듯 + 섹션순서번호 정렬
+    	ArrayList<TaskVO> taskList = taskDAOService.getTasksByBoard2( board_id , keyword ) ;	// sql문에서 섹션별로 그룹해야 편할듯 + 섹션순서번호 정렬
+    	//ArrayList<TaskVO> taskList = taskDAOService.getTasksByBoard( board_id ) ;
     	System.out.println("태스크리스트추출");
+    	System.out.println("보드id:" + board_id + ", 키워드:" + keyword );
     	// 04. 롤 배치 리스트 추출
     	
     	
