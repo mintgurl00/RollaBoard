@@ -31,7 +31,7 @@ function changeMember() {
 }
 
 function changeAdmit() {
-	$('#resultBlock').load("memberadmit.do");
+	$('#resultBlock').load("memberadmit.do", {board_id: "<%=boardVO.getId() %>"});
 }
 
 function changeETC() {
