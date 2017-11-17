@@ -77,6 +77,7 @@ function openPop() {
 </div>
 
 <div id="content">
+ 아래로 내려가면 보임
 	<div id="section">
 		<div id="task" onclick="location.href='./taskview.do';"><h3>TASK 이름</h3></div>
 		<div id="task" onclick="location.href='./taskview.do';"><h3>TASK 이름</h3></div>
@@ -132,8 +133,9 @@ function openPop() {
 		%>
 			<div id="task" onclick="location.href='./taskview.do';">
 				<h3>TASK명:<%=taskViewList.get( i ).get( j ).getName() %></h3>
-				<%=taskViewList.get( i ).get( j ).getDescription() %><br />
-				<%=taskViewList.get( i ).get( j ).getId() %><br />
+				TASK내용:<%=taskViewList.get( i ).get( j ).getDescription() %><br />
+				TASK_id:<%=taskViewList.get( i ).get( j ).getId() %><br />
+				TASK상태:<%=taskViewList.get( i ).get( j ).getStatus() %><br />
 			</div>
 		<%
 		}
