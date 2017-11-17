@@ -242,11 +242,10 @@ public class HomeController {
     	
     	
     	ModelAndView result = new ModelAndView();
-    	String id = session.getAttribute( "id" ).toString() ;	// 멤버 id
+    	System.out.println(session.getAttribute("id"));
+    	String id = session.getAttribute( "id" ).toString() ;	// 멤버 id 여기서 문제발생했다!!!!!!!!!!!
     	int board_id = Integer.parseInt( request.getParameter( "board_id" ) ) ;	// 보드 id
-    	BoardVO boardVO = boardDAOService.getBoardInfo(board_id);
-    	System.out.println( "id:" + id + ", board_id:" + board_id );
-    	
+    	   	
     	// 보드에 승인이 안되어 있으면 들어갈 수 없다.
     	String permission = boardDAOService.permitChk(board_id, id);
     	System.out.println("허가여부 : " + permission);
@@ -256,12 +255,14 @@ public class HomeController {
     		PrintWriter out = response.getWriter();
             out.println("<script>alert('아직 승인되지 않았습니다.');</script>");
             out.flush(); 
+            System.out.println("승인안됨. 세션은? " + session.getAttribute("id"));
         	List<BoardVO> boardList = boardDAOService.getBoards(id); // 보드리스트 받아옴
         	result.addObject("boardList", boardList);
             result.setViewName("dashboard");
             return result;
 		}
-    	
+    	BoardVO boardVO = boardDAOService.getBoardInfo(board_id);
+    	System.out.println( "id:" + id + ", board_id:" + board_id );
     	
     	/* ******************************************************************** */
     	// 아래부터는 석원 구역. 보드에 태스크 보여주기
@@ -272,30 +273,43 @@ public class HomeController {
     	 * */
     	
     	// 01. 참조 보드 리스트 추출
-    	//ArrayList<BoardVO> refBoardList = boardDAOService.getRefBoards( board_id );
-    	//System.out.println("참조보드리스트추출");
+    	ArrayList<BoardVO> refBoardList = boardDAOService.getRefBoards( board_id );
+    	System.out.println("참조보드리스트추출");
     	
     	// 02. 섹션 리스트 추출
-    	//ArrayList<SectionVO> sectionList = sectionDAOService.getSections( board_id ) ;
-    	//System.out.println("섹션리스트추출");
+    	ArrayList<SectionVO> sectionList = sectionDAOService.getSections( board_id ) ;
+    	System.out.println("섹션리스트추출");
+    	
     	
     	// 03. 태스크 리스트 추출
-    	//ArrayList<TaskVO> taskList = taskDAOService.getTasksByBoard(board_id) ;
-    	//System.out.println("태스크리스트추출");
+    	ArrayList<TaskVO> taskList = taskDAOService.getTasksByBoard(board_id) ;	// sql문에서 섹션별로 그룹해야 편할듯 + 섹션순서번호 정렬
+    	System.out.println("태스크리스트추출");
     	// 04. 롤 배치 리스트 추출
     	
     	
-    	/*    	
-    	// 태스크 배치
-    	ArrayList<ArrayList<TaskVO>> taskViewList ;
     	
-    	// 롤 배치
-    	ArrayList<ArrayList<ArrayList<RoleVO>>> roleViewList ;
-    	*/
+    	// 태스크 배치
+    	ArrayList<ArrayList<TaskVO>> taskViewList = new ArrayList<ArrayList<TaskVO>>() ;	// 태스크리스트 저장객체 생성
+    	for( int i = 0 ; i < sectionList.size() ; i++ ){
+    		taskViewList.add( new ArrayList<TaskVO>() ) ;	// 섹션 수만큼 칸을 만들고
+    	}
+    	for( TaskVO task : taskList ){
+    		int t_sid = task.getSection_id() ;	// 태스크의 섹션아이디
+    		for( int j = 0 ; j < sectionList.size() ; j++ ){	// 섹션리스트 하나하나 섹션아이디 확인
+    			int sid = sectionList.get( j ).getId() ;
+    			if( sid == t_sid ){
+    				taskViewList.get( j ).add( task ) ;
+    				break ;
+    			}
+    		}
+    	}
+    	// 롤 배치(나중에 하려고 함)
+    	//ArrayList<ArrayList<ArrayList<RoleVO>>> roleViewList ;
     	
 		// ....을 전달
-    	//result.addObject( "refBoardList" , refBoardList ) ;
-    	//result.addObject( "sectionList" , sectionList ) ;
+    	result.addObject( "refBoardList" , refBoardList ) ;
+    	result.addObject( "sectionList" , sectionList ) ;
+    	result.addObject( "taskViewList" , taskViewList ) ;
     	
     	// 여기까지 석원구역.
     	/* ******************************************************************** */

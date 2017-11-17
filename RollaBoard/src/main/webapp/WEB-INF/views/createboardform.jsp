@@ -1,5 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%
+	// 세션 아이디 체크
+	if(session.getAttribute("id") == null) {
+		out.println("<script>alert('로그인이 필요합니다');");
+		out.println("location.href='index.do'");
+		out.println("</script>");
+	}
+	String id = (String) session.getAttribute("id");
+%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
