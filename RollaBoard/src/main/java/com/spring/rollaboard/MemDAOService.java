@@ -17,6 +17,18 @@ public class MemDAOService implements MemDAO {
 		MemMapper memMapper = sqlSession.getMapper(MemMapper.class);
 		return memMapper.getBoardMembers(board_id);
 	}
+	
+	@Override
+	public ArrayList<MemVO> waitingMembers(int board_id) {
+		MemMapper memMapper = sqlSession.getMapper(MemMapper.class);
+		return memMapper.waitingMembers(board_id);
+	}
+	
+	@Override
+	public void admitMember(String mem_id) {
+		MemMapper memMapper = sqlSession.getMapper(MemMapper.class);
+		memMapper.admitMember(mem_id);
+	}
 
 	@Override
 	public MemVO getMember(MemVO memVO) {

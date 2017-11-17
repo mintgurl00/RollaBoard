@@ -1,7 +1,5 @@
 package com.spring.rollaboard;
 
-
-import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
@@ -10,7 +8,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import org.junit.runner.Request;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -179,10 +176,35 @@ public class HomeController {
 
     }
     
-    @RequestMapping("memberadmit.do")
-    public String memberadmit() {
-        return "memberadmit";
+    @RequestMapping("memberadmitform.do")
+    public ModelAndView memberadmitform(String board_id) {
+    	System.out.println("멤버승인으로 이동");
+    	System.out.println("보드아이디" + board_id);
+    	ModelAndView result = new ModelAndView();
+    	ArrayList<MemVO> boardMemberList = memDAOService.waitingMembers(Integer.parseInt(board_id));
+    	
+    	result.addObject("boardMemberList", boardMemberList);
+    	result.setViewName("memberadmitform");
+        return result;
     }
+    
+    @RequestMapping("admitmember.do")
+    public ModelAndView admitmember(String mem_id, HttpServletResponse response) throws Exception {
+    	System.out.println("멤버승인 성공");
+    	System.out.println("멤버아이디" + mem_id);
+    	ModelAndView result = new ModelAndView();
+    	memDAOService.admitMember(mem_id);
+    	
+    	response.setContentType("text/html; charset-utf-8");
+    	PrintWriter out = response.getWriter();
+    	out.println("<script>alert('멤버 승인에 성공했습니다.');</script>");
+    	out.flush();
+    	
+    	result.setViewName("updateboard");
+        return result;
+    }
+    
+    
     
     @RequestMapping("etc.do")
     public String etc() {

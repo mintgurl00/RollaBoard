@@ -5,6 +5,10 @@ import java.util.HashMap;
 
 public interface MemDAO {
 	public ArrayList<MemVO> getBoardMembers(int board_id);
+	
+	public ArrayList<MemVO> waitingMembers(int board_id);
+	
+	public void admitMember(String mem_id);
 
 	public MemVO getMember(MemVO memVO);
 	
