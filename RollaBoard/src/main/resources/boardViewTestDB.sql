@@ -1,5 +1,5 @@
 -----------------------------------------------------------------------------------------------------
--- 보드뷰에 태스크 잘 나오는지 확인하는 용도
+-- ** 보드뷰에 태스크 잘 나오는지 확인하는 용도
 
 -----아이디 : bb1
 -----비밀번호 : 123
@@ -39,10 +39,23 @@ VALUES( 507 , '뒷풀이 장소 찾기', '고기뷔페 ㄴㄴ', 'NORMAL', 502 ) 
 INSERT INTO task( id, name, description, status, section_id )
 VALUES( 508 , '홍보 이벤트 회의', '하고 싶은 사람 아무나 모이라 그래', 'NORMAL', 503 ) ;
 
+-- ** 보드뷰에 참조보드 잘 나오는지 확인하는 용도
+-- 임시 계정(로그인해볼필요X)
+INSERT INTO mem (ID, PASSWORD, NAME) values ('bb2', '123', '임시용');
+-- 테스트 보드(id는 원래 시퀀스로)
+INSERT INTO board(id, name, admin) values ( 501, '1년전정공준비(테스트)', 'bb2');
+-- 테스트 보드(id는 원래 시퀀스로)
+INSERT INTO board(id, name, admin) values ( 502, '다른사람보드(테스트)', 'bb2');
+-- 보드 참조 연결
+INSERT INTO board_ref(board_id, ref_id) VALUES(500,501);
+INSERT INTO board_ref(board_id, ref_id) VALUES(500,502);
+
+
 commit;
 
 SELECT * FROM section ;
-SELECT * FROM board_mem ;
+SELECT  * FROM board_mem ;
 SELECT * FROM board ;
 
+SELECT * FROM board_ref ;
 -------------------------------------------------------------------------------------------
