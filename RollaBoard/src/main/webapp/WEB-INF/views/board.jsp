@@ -1,6 +1,7 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<%@ page import = "com.spring.rollaboard.BoardVO" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page import = "java.util.*, com.spring.rollaboard.*" %>
+    
+    
 <%
 	// 세션 아이디 체크
 	if(session.getAttribute("id") == null) {
@@ -11,6 +12,10 @@
 	String id = (String) session.getAttribute("id");
 
 	BoardVO boardVO = (BoardVO) request.getAttribute("boardVO");
+	// 석원.
+	ArrayList<ArrayList<TaskVO>> taskViewList = (ArrayList<ArrayList<TaskVO>>) request.getAttribute( "taskViewList" ) ;
+	ArrayList<SectionVO> sectionList = (ArrayList<SectionVO>) request.getAttribute( "sectionList" ) ; 
+	ArrayList<BoardVO> refBoardList = (ArrayList<BoardVO>) request.getAttribute( "refBoardList" ) ; 
 %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -113,6 +118,33 @@ function openPop() {
 		<div id="task" onclick="location.href='./taskview.do';"><h3>TASK 이름</h3></div>
 	</div>
 </div>
+
+<!-- 석원의 테스트..... 지우면 머지할 때 자꾸 Conflict 뜰거임 -->
+<div id="content">
+ㅎㅎㅎ
+	<%
+	for( int i = 0 ; i < sectionList.size() ; i++ ){
+	%>
+	<div id="section">
+		<%=sectionList.get(i).getName() %>
+		<%
+		for( int j = 0 ; j < taskViewList.get( i ).size() ; j++ ){
+		%>
+			<div id="task" onclick="location.href='./taskview.do';">
+				<h3>TASK명:<%=taskViewList.get( i ).get( j ).getName() %></h3>
+				<%=taskViewList.get( i ).get( j ).getDescription() %><br />
+				<%=taskViewList.get( i ).get( j ).getId() %><br />
+			</div>
+		<%
+		}
+		%>
+		<input type="button" value="TASK생성" onclick="location.href='createtask.do';" />
+	</div>
+	<%
+	}
+	%>
+</div>
+
 
 </body>
 </html>
