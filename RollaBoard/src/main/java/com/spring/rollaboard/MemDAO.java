@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 public interface MemDAO {
-	public ArrayList<MemVO> getBoardMembers(BoardVO boardVO);
+	public ArrayList<MemVO> getBoardMembers(int board_id);
 
 	public MemVO getMember(MemVO memVO);
 	

@@ -27,7 +27,7 @@ function changeRole() {
 }
 
 function changeMember() {
-	$('#resultBlock').load("memberlist.do");
+	$('#resultBlock').load("memberlist.do", {board_id: "<%=boardVO.getId() %>"});
 }
 
 function changeAdmit() {

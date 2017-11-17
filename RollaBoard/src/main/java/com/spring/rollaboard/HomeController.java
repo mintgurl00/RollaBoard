@@ -160,11 +160,11 @@ public class HomeController {
     }
     
     @RequestMapping("memberlist.do")
-    public ModelAndView memberlist(BoardVO boardVO) {
+    public ModelAndView memberlist(String board_id) {
     	System.out.println("멤버관리로 이동");
-    	System.out.println("보드아이디" + boardVO.getId());
+    	System.out.println("보드아이디" + board_id);
     	ModelAndView result = new ModelAndView();
-    	ArrayList<MemVO> boardMemberList = memDAOService.getBoardMembers(boardVO);
+    	ArrayList<MemVO> boardMemberList = memDAOService.getBoardMembers(Integer.parseInt(board_id));
     	
     	result.addObject("boardMemberList", boardMemberList);
     	result.setViewName("memberlist");

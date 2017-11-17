@@ -34,8 +34,8 @@
 	<select id = "getBoardMembers" resultMap = "MemResultMap">
 		SELECT * FROM mem A
 			INNER JOIN board_mem B on A.id = B.mem_id
-			INNER JOIN board C on B.board_id = C.id
-			WHERE C.name = #{name} <!-- board_name 받아와야함 -->
+			WHERE board_id = #{board_id} AND permission = 'TRUE'
+			 <!-- board_name 받아와야함 -->
 	</select>
 	
 </mapper>

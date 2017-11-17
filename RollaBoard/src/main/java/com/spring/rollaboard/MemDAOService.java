@@ -13,9 +13,9 @@ public class MemDAOService implements MemDAO {
 	private SqlSession sqlSession; // Mybatis(ibatis)라이브러리가 제공하는 클래스
 
 	@Override
-	public ArrayList<MemVO> getBoardMembers(BoardVO boardVO) {
+	public ArrayList<MemVO> getBoardMembers(int board_id) {
 		MemMapper memMapper = sqlSession.getMapper(MemMapper.class);
-		return memMapper.getBoardMembers(boardVO);
+		return memMapper.getBoardMembers(board_id);
 	}
 
 	@Override
