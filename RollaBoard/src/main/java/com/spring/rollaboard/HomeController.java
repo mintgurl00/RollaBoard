@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.junit.runner.Request;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -132,16 +133,20 @@ public class HomeController {
     }
     
     @RequestMapping("createboard.do")
-    public ModelAndView createboard(BoardVO boardVO, HttpSession session) {
+    public ModelAndView createboard(BoardVO boardVO, HttpSession session, HttpServletResponse response) throws Exception {
+    	
     	ModelAndView result = new ModelAndView();
-    	//System.out.println(boardVO.getName() + (String)(session.getAttribute("id")));
+    	System.out.println("보드 이름 : " + boardVO.getName() + "아이디 : " + (String)(session.getAttribute("id")));
 
     	String board_name = boardVO.getName();
     	String mem_id = (String)(session.getAttribute("id"));
     	
-    	//System.out.println(board_name + mem_id);
-    	
     	boardDAOService.createBoard(board_name, mem_id);
+    	
+    	response.setContentType("text/html; charset-utf-8");
+    	PrintWriter out = response.getWriter();
+    	out.println("<script>alert('보드가 새로 생성되었습니다.');</script>");
+    	out.flush();
     	
     	result.addObject("board", boardVO);
     	result.setViewName("newboard");
@@ -162,12 +167,16 @@ public class HomeController {
     
     @RequestMapping("memberlist.do")
     public ModelAndView memberlist(String board_id) {
+
+    	System.out.println("멤버관리로 이동");
+    	System.out.println("보드아이디" + board_id);
     	ModelAndView result = new ModelAndView();
-    	System.out.println("맴버리스트 컨트롤러 id : " + board_id);
-    	ArrayList<MemVO> memList = memDAOService.getBoardMember(Integer.parseInt(board_id));
-    	result.addObject("memList", memList);
+    	ArrayList<MemVO> boardMemberList = memDAOService.getBoardMembers(Integer.parseInt(board_id));
+    	
+    	result.addObject("boardMemberList", boardMemberList);
     	result.setViewName("memberlist");
         return result;
+
     }
     
     @RequestMapping("memberadmit.do")
@@ -248,7 +257,7 @@ public class HomeController {
     	
     	
     	ModelAndView result = new ModelAndView();
-    	String id = session.getAttribute( "id" ).toString() ;	// 멤버 id 여기서 문제발생했다!!!!!!!!!!!
+    	String id = session.getAttribute( "id" ).toString() ;
     	int board_id = Integer.parseInt( request.getParameter( "board_id" ) ) ;	// 보드 id
     	   	
     	// 보드에 승인이 안되어 있으면 들어갈 수 없다.
@@ -278,30 +287,43 @@ public class HomeController {
     	 * */
     	
     	// 01. 참조 보드 리스트 추출
-    	//ArrayList<BoardVO> refBoardList = boardDAOService.getRefBoards( board_id );
-    	//System.out.println("참조보드리스트추출");
+    	ArrayList<BoardVO> refBoardList = boardDAOService.getRefBoards( board_id );
+    	System.out.println("참조보드리스트추출");
     	
     	// 02. 섹션 리스트 추출
-    	//ArrayList<SectionVO> sectionList = sectionDAOService.getSections( board_id ) ;
-    	//System.out.println("섹션리스트추출");
+    	ArrayList<SectionVO> sectionList = sectionDAOService.getSections( board_id ) ;
+    	System.out.println("섹션리스트추출");
+    	
     	
     	// 03. 태스크 리스트 추출
-    	//ArrayList<TaskVO> taskList = taskDAOService.getTasksByBoard(board_id) ;
-    	//System.out.println("태스크리스트추출");
+    	ArrayList<TaskVO> taskList = taskDAOService.getTasksByBoard(board_id) ;	// sql문에서 섹션별로 그룹해야 편할듯 + 섹션순서번호 정렬
+    	System.out.println("태스크리스트추출");
     	// 04. 롤 배치 리스트 추출
     	
     	
-    	/*    	
-    	// 태스크 배치
-    	ArrayList<ArrayList<TaskVO>> taskViewList ;
     	
-    	// 롤 배치
-    	ArrayList<ArrayList<ArrayList<RoleVO>>> roleViewList ;
-    	*/
+    	// 태스크 배치
+    	ArrayList<ArrayList<TaskVO>> taskViewList = new ArrayList<ArrayList<TaskVO>>() ;	// 태스크리스트 저장객체 생성
+    	for( int i = 0 ; i < sectionList.size() ; i++ ){
+    		taskViewList.add( new ArrayList<TaskVO>() ) ;	// 섹션 수만큼 칸을 만들고
+    	}
+    	for( TaskVO task : taskList ){
+    		int t_sid = task.getSection_id() ;	// 태스크의 섹션아이디
+    		for( int j = 0 ; j < sectionList.size() ; j++ ){	// 섹션리스트 하나하나 섹션아이디 확인
+    			int sid = sectionList.get( j ).getId() ;
+    			if( sid == t_sid ){
+    				taskViewList.get( j ).add( task ) ;
+    				break ;
+    			}
+    		}
+    	}
+    	// 롤 배치(나중에 하려고 함)
+    	//ArrayList<ArrayList<ArrayList<RoleVO>>> roleViewList ;
     	
 		// ....을 전달
-    	//result.addObject( "refBoardList" , refBoardList ) ;
-    	//result.addObject( "sectionList" , sectionList ) ;
+    	result.addObject( "refBoardList" , refBoardList ) ;
+    	result.addObject( "sectionList" , sectionList ) ;
+    	result.addObject( "taskViewList" , taskViewList ) ;
     	
     	// 여기까지 석원구역.
     	/* ******************************************************************** */
@@ -393,6 +415,22 @@ public class HomeController {
         out.flush();
         result.addObject("id", updateMemInfo.getId());
     	result.setViewName("dashboard");
+		return result;
+	}
+    
+    /*
+     * 석원. 검색 결과
+     * */
+    @RequestMapping("searchresult.do")
+	public ModelAndView searchresult( HttpServletRequest request ) {
+    	ModelAndView result = new ModelAndView();
+    	
+    	String board_id = (String) request.getParameter( "board_id" ) ;
+    	String keyword = (String) request.getParameter( "keyword" ) ;
+    	
+    	result.addObject( "board_id" , board_id ) ;
+    	result.addObject( "keyword" , keyword ) ;
+    	result.setViewName("searchresult");
 		return result;
 	}
     

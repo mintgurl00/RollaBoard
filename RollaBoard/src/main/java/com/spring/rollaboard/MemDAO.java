@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 public interface MemDAO {
-	public ArrayList<MemVO> getMembers(String id);
+	public ArrayList<MemVO> getBoardMembers(int board_id);
 
 	public MemVO getMember(MemVO memVO);
 	
@@ -18,5 +18,4 @@ public interface MemDAO {
 	
 	public MemVO getMemInfoToUpdate(String id);
 	
-	public ArrayList<MemVO> getBoardMember(int id); //  규성. 보드 아이디로 보드회원들 명단 출력
 }

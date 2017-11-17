@@ -96,7 +96,8 @@ maxvalue 10000;
 Create table section (
     id number primary key,
     board_id references board(id),
-    name varchar2(30)
+    name varchar2(30),
+    seq_num number
     );
 
 -- 태스크 아이디에 사용될 시퀀스
@@ -161,6 +162,4 @@ Create table task_conn (
 -----------------------------------------------------------------------------------------------------------------------
 insert into mem (ID, PASSWORD, NAME) values ('cdcase', '123456', '최규성');
 insert into board(id, name, admin) values (seq_board.nextval, '첫번째 작업', 'cdcase');
-insert into board_mem (board_id, mem_id, permission, admin) values (1, 'cdcase', 'TRUE', 'TRUE');
-
 select * from board;
