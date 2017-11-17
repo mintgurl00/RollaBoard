@@ -40,6 +40,39 @@ function openPop() {
 			"resizeable = yes, menubar=no, width = 800, height = 500, left = 10, right = 10");
 	
 }
+
+/*
+ * 석원.
+ */
+window.onload = function(){
+	initRefBoard( "ref_board_select" ) ;
+}
+/*
+ * 참조보드 select태그에 넣기 
+ */
+function initRefBoard( selectName ){
+	
+	var name_arr = [] ;
+	var id_arr = [] ;
+	
+	<%
+	for( int i = 0 ; i < refBoardList.size() ; i++ ){
+
+	%>name_arr.push( '<%=refBoardList.get( i ).getName() %>' ) ;<%
+	%>id_arr.push( '<%=refBoardList.get( i ).getId() %>' ) ;<%
+	}%>
+	
+	
+	for( var i = 0 ; i < id_arr.length ; i++ ){
+		var select_option = document.createElement( "option" ) ;
+		select_option.setAttribute( "value" , id_arr[ i ] ) ;
+		var select_option_text = document.createTextNode( name_arr[ i ] ) ;
+		select_option.appendChild( select_option_text ) ;
+		
+		document.getElementById( selectName ).appendChild( select_option ) ;
+	}
+}
+
 </script>
 </head>
 <body>
@@ -63,7 +96,7 @@ function openPop() {
 </div>
 
 <div id="ref_board">
-	<select name="ref_board">
+	<select id="ref_board_select">
     	<option value="">참조 BOARD 선택</option>
     	<option value="board4">BOARD4</option>
    	 	<option value="board5">BOARD5</option>
