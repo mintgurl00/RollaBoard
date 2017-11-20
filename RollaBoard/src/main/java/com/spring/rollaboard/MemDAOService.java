@@ -56,9 +56,9 @@ public class MemDAOService implements MemDAO {
 	}
 
 	@Override
-	public void deleteMember(String id) {
-		// TODO Auto-generated method stub
-		
+	public void deleteMember(String mem_id) {
+		MemMapper memMapper = sqlSession.getMapper(MemMapper.class);
+		memMapper.deleteMember(mem_id);
 	}
 
 	@Override

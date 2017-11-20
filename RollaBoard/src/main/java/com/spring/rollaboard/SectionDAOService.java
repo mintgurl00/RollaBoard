@@ -35,14 +35,16 @@ public class SectionDAOService implements SectionDAO {
 	}
 
 	@Override
-	public void updateSection(SectionVO sectionVO) {
-		// TODO Auto-generated method stub
+	public void updateSection(String section_id) {
+		SectionMapper sectionMapper = sqlSession.getMapper(SectionMapper.class) ;
+		sectionMapper.updateSection(section_id) ;
 		
 	}
 
 	@Override
-	public void deleteSection(int id) {
-		// TODO Auto-generated method stub
+	public void deleteSection(String section_id) {
+		SectionMapper sectionMapper = sqlSession.getMapper(SectionMapper.class) ;
+		sectionMapper.deleteSection(section_id) ;
 		
 	}
 }
