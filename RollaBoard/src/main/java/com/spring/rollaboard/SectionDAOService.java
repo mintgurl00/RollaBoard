@@ -29,7 +29,7 @@ public class SectionDAOService implements SectionDAO {
 
 	@Override
 	public void createSection(SectionVO sectionVO) {
-		SectionMapper sectionMapper = sqlSession.getMapper( SectionMapper.class ) ;
+		SectionMapper sectionMapper = sqlSession.getMapper(SectionMapper.class);
 		sectionMapper.createSection(sectionVO);
 		
 	}

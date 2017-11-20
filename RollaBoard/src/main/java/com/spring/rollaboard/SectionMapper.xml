@@ -26,8 +26,7 @@
 	</delete>
 
 	<!-- createSection -->
-	<insert id="createSection" parameterType="com.spring.rollaboard.SectionVO">
+	<insert id = "createSection" parameterType = "com.spring.rollaboard.SectionVO">
+		INSERT INTO section VALUES (SEQ_SECTION.NEXTVAL, #{board_id}, #{name}, 1)
 	</insert>
-	
-	
 </mapper>

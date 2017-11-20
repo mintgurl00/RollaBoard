@@ -27,14 +27,10 @@ keyword : <%=keyword %> <br />
 
 
 <!-- 결과 나오는 부분 -->
-<%
-if( keyword == "" ){ %>
-<%
-	
-}%>
+
 <%
 if( sectionList.size() == 0) {	// 태스크가 없을 때
-	if( keyword != "" ){	// 검색 결과라면
+	if( ! keyword.equals( "" ) ){	// 검색 결과라면
 	%>
 		<%=keyword %>에 대한 검색 결과가 없습니다.
 	<%
@@ -44,7 +40,7 @@ if( sectionList.size() == 0) {	// 태스크가 없을 때
 	<%
 	}
 }else{	// 태스크가 있을 때
-	if( keyword != "" ){	// 검색 결과라면
+	if( ! keyword.equals( "" ) ){	// 검색 결과라면
 	%>
 		<%=keyword %>에 대한 검색 결과입니다.
 	<%
@@ -52,9 +48,11 @@ if( sectionList.size() == 0) {	// 태스크가 없을 때
 }%>
 
 <!-- 본격적으로 표시 -->
-
 <%
-for( int i = 0 ; i < sectionList.size() ; i++ ){
+int sectionSize = sectionList.size() ;
+%>
+<%
+for( int i = 0 ; i < sectionSize ; i++ ){
 %>
 <div id="section">
 	<%=sectionList.get(i).getName() %>
@@ -76,3 +74,10 @@ for( int i = 0 ; i < sectionList.size() ; i++ ){
 <%
 }
 %>
+
+<%
+if( keyword.equals( "" ) ){	// 검색 결과가 *아니*라면
+%>
+	<button type="button" onclick="#">섹션만들기</button>
+<% 
+}%>

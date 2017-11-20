@@ -152,6 +152,13 @@ public class HomeController {
 		}
     	boardDAOService.createBoard(board_name, mem_id);
     	
+    	// 만들어진 보드 아이디를 갖고와서 초기 SECTION을 만드는 데 사용한다.
+    	BoardVO createdBoardVO = boardDAOService.getBoard(board_name);
+    	SectionVO sectionVO = new SectionVO();
+    	// SECTION을 만들 때는 boardVO객체를 통해서 만든다.
+    	sectionVO.setBoard_id(createdBoardVO.getId());
+    	sectionVO.setName("대분류1");
+    	sectionDAOService.createSection(sectionVO);
     	response.setContentType("text/html; charset-utf-8");
     	PrintWriter out = response.getWriter();
     	out.println("<script>alert('보드가 새로 생성되었습니다.');</script>");
@@ -737,12 +744,14 @@ public class HomeController {
     			}
     		}
     	}
-    	for( int i = 0 ; i < taskViewList.size() ; i++ ){	// 태스크 없는 섹션은 지우기
-    		if( taskViewList.get(i).isEmpty() ){
-    			taskViewList.remove( i ) ;
-    			sectionList.remove( i ) ;
-    			i-- ;
-    		}
+    	if( ! keyword.equals( "" ) ){
+	    	for( int i = 0 ; i < taskViewList.size() ; i++ ){	// 태스크 없는 섹션은 지우기
+	    		if( taskViewList.get(i).isEmpty() ){
+	    			taskViewList.remove( i ) ;
+	    			sectionList.remove( i ) ;
+	    			i-- ;
+	    		}
+	    	}
     	}
     	// 롤 배치(나중에 하려고 함)
     	//ArrayList<ArrayList<ArrayList<RoleVO>>> roleViewList ;
