@@ -665,12 +665,14 @@ public class HomeController {
     			}
     		}
     	}
-    	for( int i = 0 ; i < taskViewList.size() ; i++ ){	// 태스크 없는 섹션은 지우기
-    		if( taskViewList.get(i).isEmpty() ){
-    			taskViewList.remove( i ) ;
-    			sectionList.remove( i ) ;
-    			i-- ;
-    		}
+    	if( ! keyword.equals( "" ) ){
+	    	for( int i = 0 ; i < taskViewList.size() ; i++ ){	// 태스크 없는 섹션은 지우기
+	    		if( taskViewList.get(i).isEmpty() ){
+	    			taskViewList.remove( i ) ;
+	    			sectionList.remove( i ) ;
+	    			i-- ;
+	    		}
+	    	}
     	}
     	// 롤 배치(나중에 하려고 함)
     	//ArrayList<ArrayList<ArrayList<RoleVO>>> roleViewList ;

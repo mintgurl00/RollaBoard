@@ -72,10 +72,18 @@ public class TaskDAOService implements TaskDAO {
 		return taskList ;
 	}
 	
-	/*public ArrayList<TaskVO> getTasksByBoard3(int board_id, String keyword, String ) {	// 석원
+	/*
+	 * 조건, 정렬까지 포함해서 SELECT
+	 * 매개변수4는 new TaskFilter[]{~,~,...}형태로 입력하면 됨.
+	 * */
+	public ArrayList<TaskVO> getTasksByBoard2(int board_id, String keyword, TaskFilter filter, TaskFilter[] order ) {	// 석원
 		ArrayList<TaskVO> taskList = new ArrayList<TaskVO>() ;
 		TaskMapper taskMapper = sqlSession.getMapper( TaskMapper.class ) ;
-		taskList = taskMapper.getTasksByBoard2( board_id , keyword ) ;
+		String condition = "" ;
+		String sort = "" ;
+		
+		taskList = taskMapper.getTasksByBoard3( board_id , keyword , condition , sort ) ;
+		filter = TaskFilter.F_DUEDATE ;
 		return taskList ;
-	}*/
+	}
 }
