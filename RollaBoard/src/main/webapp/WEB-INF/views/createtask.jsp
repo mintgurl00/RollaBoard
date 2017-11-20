@@ -28,6 +28,10 @@ if(session.getAttribute("id") == null) {
 <form action="inserttask.do" name="inserttask">
 
 <div id="frame">
+	<div id="sectionid">
+		<input type="text" id="sectionid" placeholder="TASK 아이디를 입력하시오." size="40" name="name">
+	</div>
+
 	<div id="taskname">
 		<input type="text" id="name" placeholder="TASK 이름을 입력하시오." size="40" name="name">
 	</div>

@@ -34,9 +34,9 @@ public class TaskDAOService implements TaskDAO {
 	}
 	
 	@Override
-	public void insertTask(TaskVO taskVO) {
+	public void insertTask(TaskVO taskVO,int board_id) {
 		TaskMapper taskMapper = sqlSession.getMapper(TaskMapper.class);
-		taskMapper.insertTask(taskVO);
+		taskMapper.insertTask(taskVO, board_id);
 	}
 
 	@Override

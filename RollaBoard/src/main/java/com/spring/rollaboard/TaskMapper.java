@@ -13,7 +13,7 @@ public interface TaskMapper {
 	
 	public TaskVO getTask(TaskVO taskVO);
 	
-	public void insertTask(TaskVO taskVO);
+	public void insertTask(TaskVO taskVO,@Param("board_id") int board_id);
 	
 	public void updateTask(TaskVO TaskVO);
 	

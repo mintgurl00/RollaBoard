@@ -1,7 +1,6 @@
 package com.spring.rollaboard;
 
 
-import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
@@ -10,7 +9,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import org.junit.runner.Request;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -361,14 +359,26 @@ public class HomeController {
 	}
 	
 	@RequestMapping("inserttask.do")
-	public ModelAndView insertTask(HttpSession session, HttpServletResponse response, TaskVO taskVO) {
-		taskDAOService.insertTask(taskVO);
+	public ModelAndView insertTask(HttpSession session, HttpServletResponse response, TaskVO taskVO, HttpServletRequest request) {
+		
+		int board_id = Integer.parseInt( request.getParameter( "board_id" ) ) ;
+				
+		taskDAOService.insertTask(taskVO, board_id);
+		
 		ModelAndView result = new ModelAndView();				
 		List<TaskVO> taskList = taskDAOService.getTasks();
 		result.addObject("taskList", taskList);
 		result.setViewName("board");
 		return result;
 		
+		
+		/*ModelAndView result = new ModelAndView();
+    	String id = session.getAttribute( "id" ).toString() ;
+    	int board_id = Integer.parseInt( request.getParameter( "board_id" ) ) ;	// 보드 id
+    	
+    	String board_name = boardVO.getName();
+    	String mem_id = (String)(session.getAttribute("id"));*/
+    	
 	}
 	
 	@RequestMapping("detailtask.do")

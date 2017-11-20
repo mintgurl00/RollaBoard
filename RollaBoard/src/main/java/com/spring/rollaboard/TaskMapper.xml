@@ -28,11 +28,13 @@
 		SELECT * FROM task 
 	</select>
 	
-	<insert id = "insertTask" parameterType = "com.spring.rollaboard.TaskVO">
+	<!-- <insert id = "insertTask" parameterType = "com.spring.rollaboard.TaskVO">
 			
-		INSERT INTO task (id, name, description) values ( seq_task.nextval, #{name, javaType=String}, #{description, jdbcType=VARCHAR})
+		UPDATE task SET id = #{seq_task.nextval, jdbcType=INT}, NAME = #{name, jdbcType=VARCHAR},
+		description = #{description, jdbcType=VARCHAR}
+		WHERE ID = #{id, javaType=String}
 
-	</insert>
+	</insert> -->
 	
 	
 </mapper>
