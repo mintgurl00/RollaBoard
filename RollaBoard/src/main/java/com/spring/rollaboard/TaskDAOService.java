@@ -71,4 +71,11 @@ public class TaskDAOService implements TaskDAO {
 		taskList = taskMapper.getTasksByBoard2( board_id , keyword ) ;
 		return taskList ;
 	}
+	
+	/*public ArrayList<TaskVO> getTasksByBoard3(int board_id, String keyword, String ) {	// 석원
+		ArrayList<TaskVO> taskList = new ArrayList<TaskVO>() ;
+		TaskMapper taskMapper = sqlSession.getMapper( TaskMapper.class ) ;
+		taskList = taskMapper.getTasksByBoard2( board_id , keyword ) ;
+		return taskList ;
+	}*/
 }

@@ -58,6 +58,7 @@ for( int i = 0 ; i < sectionList.size() ; i++ ){
 %>
 <div id="section">
 	<%=sectionList.get(i).getName() %>
+	<%=sectionList.get(i).getId() %>
 	<%
 	for( int j = 0 ; j < taskViewList.get( i ).size() ; j++ ){
 	%>
