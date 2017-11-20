@@ -8,6 +8,7 @@ public class SectionVO {
 	private int id;
 	private int board_id;
 	private String name;
+	private int seq_num;
 	
 	public int getId() {
 		return id;
@@ -26,6 +27,12 @@ public class SectionVO {
 	}
 	public void setName(String name) {
 		this.name = name;
+	}
+	public int getSeq_num() {
+		return seq_num;
+	}
+	public void setSeq_num(int seq_num) {
+		this.seq_num = seq_num;
 	}
 
 }

@@ -47,4 +47,10 @@ public class SectionDAOService implements SectionDAO {
 		sectionMapper.deleteSection(section_id) ;
 		
 	}
+
+	@Override
+	public int getMaxSeqNum(int board_id) {
+		SectionMapper sectionMapper = sqlSession.getMapper(SectionMapper.class);
+		return sectionMapper.getMaxSeqNum(board_id);
+	}
 }
