@@ -12,7 +12,6 @@ if(session.getAttribute("id") == null) {
 }
 ArrayList<MemVO> boardMemberList = (ArrayList<MemVO>)request.getAttribute("boardMemberList");
 ArrayList<RoleVO> roleList = (ArrayList<RoleVO>)request.getAttribute("roleList");
-
 %>
 
 <!DOCTYPE html>
@@ -24,11 +23,16 @@ ArrayList<RoleVO> roleList = (ArrayList<RoleVO>)request.getAttribute("roleList")
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-
+<script type = "text/javascript" language = "javascript">
+function members(id) {
+	window.open('rolemembers.do?role_id='+id, "members",
+			"resizeable = yes, scrollbars = yes, menubar=no, width = 800, height = 500, left = 10, right = 10");
+}
+</script>
 </head>
 <body>
 <div class="container">
-  <h2>ROLE ALLOCATION</h2>
+  <h2>ROLE 배정</h2>
   <p>ROLE에 MEMBER를 배정하세요.</p>            
   <table class="table table-striped">
     <thead>
@@ -51,9 +55,8 @@ ArrayList<RoleVO> roleList = (ArrayList<RoleVO>)request.getAttribute("roleList")
        		</form>
         </td>
         <td align = right>
-        <form id = "getRoleMember" action = "#">
-        	<input type = "hidden" name = "role_id" value = "<%=roleVO.getId() %>" >
-       		<input type = submit class = "btn btn-info" value = "배정된 맴버보기" >
+        <form id = "getRoleMember">
+       		<input type = button class = "btn btn-info" value = "배정된 맴버보기" onclick = "members(<%=roleVO.getId()%>)">
         </form>
        	</td>
        	</form>

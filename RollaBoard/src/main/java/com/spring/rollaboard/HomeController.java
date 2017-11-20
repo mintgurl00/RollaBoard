@@ -113,7 +113,7 @@ public class HomeController {
     public ModelAndView dashboard(HttpSession session) {
     	ModelAndView result = new ModelAndView();
     	List<BoardVO> boardList = boardDAOService.getBoards((String)(session.getAttribute("id"))); //수민. 대시보드로 갈 때 보드리스트 받아옴
-    	
+    	session.removeAttribute("board_id"); // 대쉬보드로 이동시 board_id 세션을 없앤다.
     	result.addObject("id", session.getAttribute("id"));
     	result.addObject("boardList", boardList); //수민
     	result.setViewName("dashboard");
@@ -219,18 +219,33 @@ public class HomeController {
 	}
     
     @RequestMapping("allocation.do")
-    public ModelAndView allocation(int board_id) {
+    public ModelAndView allocation(String board_id) {
     	ModelAndView result = new ModelAndView();
+    	int board_id1 = Integer.parseInt(board_id);
     	// 보드에 가입된 맴버 가져옴
-    	ArrayList<MemVO> boardMemberList = memDAOService.getBoardMembers(board_id); 
+    	ArrayList<MemVO> boardMemberList = memDAOService.getBoardMembers(board_id1); 
     	// 보드의 롤 리스트 가져옴
-    	ArrayList<RoleVO> roleList = roleDAOService.getRoles(board_id);
+    	ArrayList<RoleVO> roleList = roleDAOService.getRoles(board_id1);
     	
     	result.addObject("boardMemberList", boardMemberList);
     	result.addObject("roleList", roleList);
     	result.setViewName("allocation");
     	return result;
 	}
+    
+    @RequestMapping("rolemembers.do")
+    public ModelAndView rolemembers(int role_id) {
+    	ModelAndView result = new ModelAndView();
+    	System.out.println("롤아이디~~! : " + role_id);
+    	RoleVO roleVO = roleDAOService.getRole(role_id);
+    	String role_name = roleVO.getName();
+    	ArrayList<MemVO> roleMem = memDAOService.getRoleMembers(role_id);
+    	result.addObject("role_name", role_name);
+    	result.addObject("roleMem", roleMem);
+    	result.addObject("role_id", role_id);
+    	result.setViewName("rolemembers");
+    	return result;
+    }
     
     @RequestMapping("insertmemtorole.do")
     public ModelAndView rolemember(int role_id, String mem_id, HttpSession session, HttpServletResponse response) throws Exception {
