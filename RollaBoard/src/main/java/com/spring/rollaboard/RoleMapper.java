@@ -17,4 +17,6 @@ public interface RoleMapper {
 	public void deleteRole(@Param("id") int id);
 	
 	public void updateRole(RoleVO roleVO);
+	
+	public void allocateRole(@Param("role_id") int role_id, @Param("mem_id") String mem_id);
 }

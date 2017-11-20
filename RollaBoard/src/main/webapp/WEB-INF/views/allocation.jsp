@@ -11,6 +11,7 @@ if(session.getAttribute("id") == null) {
 	out.println("</script>");
 }
 ArrayList<MemVO> boardMemberList = (ArrayList<MemVO>)request.getAttribute("boardMemberList");
+ArrayList<RoleVO> roleList = (ArrayList<RoleVO>)request.getAttribute("roleList");
 
 %>
 
@@ -23,27 +24,37 @@ ArrayList<MemVO> boardMemberList = (ArrayList<MemVO>)request.getAttribute("board
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
 </head>
 <body>
 <div class="container">
-  <h2>MEMBER 관리</h2>
-  <p>당신의 BOARD에 가입된 MEMBER입니다.</p>            
+  <h2>ROLE ALLOCATION</h2>
+  <p>ROLE에 MEMBER를 배정하세요.</p>            
   <table class="table table-striped">
     <thead>
       <tr>
-        <th>MEMBER 이름</th>
-        <th>MEMBER 아이디</th>
+        <th>ROLE 명단</th>
+        <th>배정하기</th>
         <th></th>
       </tr>
     </thead>
     <tbody>
-    <%for (int i = 0; i < boardMemberList.size(); i++) { //보드멤버리스트 받아와야함
-    	MemVO member = boardMemberList.get(i);%>
+    <%for (int i = 0; i < roleList.size(); i++) { //보드멤버리스트 받아와야함
+    	RoleVO roleVO = roleList.get(i);%>
       <tr>
-        <td><%=member.getName() %> </td>
-        <td><%=member.getId() %></td>
+        <td><%=roleVO.getName() %> </td>
+        <td>
+        	<form id = "insertMemToRole" action = "insertmemtorole.do">
+        		<input type = "hidden" name = "role_id" value = "<%=roleVO.getId() %>" >
+	        	<input type = "text" class = "form-control" name = "mem_id" placeholder = "맴버아이디 입력" >
+	       		<input type = submit class = "btn btn-info" value = "배정" >
+       		</form>
+        </td>
         <td align = right>
-       		<input type = submit class = "btn btn-info" name = "<%=member.getId() %>" value = "강퇴">
+        <form id = "getRoleMember" action = "#">
+        	<input type = "hidden" name = "role_id" value = "<%=roleVO.getId() %>" >
+       		<input type = submit class = "btn btn-info" value = "배정된 맴버보기" >
+        </form>
        	</td>
        	</form>
       </tr>

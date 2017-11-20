@@ -1,5 +1,6 @@
 package com.spring.rollaboard;
 
+import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
@@ -154,10 +155,10 @@ public class HomeController {
     }
     
     @RequestMapping("rolelist.do")
-    public ModelAndView rolelist(String id) {
+    public ModelAndView rolelist(String board_id) {
         ModelAndView result = new ModelAndView();
-        System.out.println("롤 리스트  id :" + id);
-        ArrayList<RoleVO> roleList = roleDAOService.getRoles(Integer.parseInt(id));
+        System.out.println("롤 리스트  id :" + board_id);
+        ArrayList<RoleVO> roleList = roleDAOService.getRoles(Integer.parseInt(board_id));
         result.addObject("roleList", roleList);
         result.setViewName("rolelist");
         return result;
@@ -216,6 +217,60 @@ public class HomeController {
         result.setViewName("subMenu");
         return result;
 	}
+    
+    @RequestMapping("allocation.do")
+    public ModelAndView allocation(int board_id) {
+    	ModelAndView result = new ModelAndView();
+    	// 보드에 가입된 맴버 가져옴
+    	ArrayList<MemVO> boardMemberList = memDAOService.getBoardMembers(board_id); 
+    	// 보드의 롤 리스트 가져옴
+    	ArrayList<RoleVO> roleList = roleDAOService.getRoles(board_id);
+    	
+    	result.addObject("boardMemberList", boardMemberList);
+    	result.addObject("roleList", roleList);
+    	result.setViewName("allocation");
+    	return result;
+	}
+    
+    @RequestMapping("insertmemtorole.do")
+    public ModelAndView rolemember(int role_id, String mem_id, HttpSession session, HttpServletResponse response) throws Exception {
+    	System.out.println("roleId : " + role_id + "  memId : " + mem_id);
+    	ModelAndView result = new ModelAndView();
+    	// 받아온 아이디가 우리 보드의 맴버인지 확인
+    	
+    	// 보드에 등록되어있는지 확인한다.
+    	int board_id = Integer.parseInt((String)session.getAttribute("board_id"));
+    	int chk = boardDAOService.joinBoardChk(board_id, mem_id);
+    	if (chk == 0) {
+    		// alert처리단
+    		response.setContentType("text/html; charset-utf-8");
+    		PrintWriter out = response.getWriter();
+            out.println("<script>alert('BOARD에 가입된 회원이 아닙니다.');</script>");
+            out.flush(); 
+    		result.setViewName("subMenu");
+            return result;
+		}
+    	// 보드에 승인된 사람인지 확인한다.
+    	String permission = boardDAOService.permitChk(board_id, mem_id);
+    	System.out.println("허가여부 : " + permission);
+    	if (permission.equals("FALSE")) {
+    		// alert처리단
+    		response.setContentType("text/html; charset-utf-8");
+    		PrintWriter out = response.getWriter();
+            out.println("<script>alert('아직 BOARD에 승인되지 않은 MEMBER입니다.');</script>");
+            out.flush(); 
+            result.setViewName("subMenu");
+            return result;
+		}
+    	
+    	// DB의 role_mem 테이블에 삽입
+    	roleDAOService.allocateRole(role_id, mem_id);
+    	
+    	
+    	result.setViewName("subMenu");
+    	return result;
+	}
+    
     
     @RequestMapping("memberlist.do")
     public ModelAndView memberlist(String board_id) {

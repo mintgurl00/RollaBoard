@@ -14,7 +14,7 @@ public interface RoleDAO {
 	
 	public void deleteRole(int id); // 규성
 	
-	public void allocateRole(RoleVO roleVO, MemVO memVO);
+	public void allocateRole(int role_id, String mem_id);
 	
 	public ArrayList<RoleAndTaskVO> getRolesByBoard( int board_id ) ;	// 석원.
 	
