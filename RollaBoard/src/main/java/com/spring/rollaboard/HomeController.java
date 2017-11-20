@@ -144,7 +144,7 @@ public class HomeController {
     	if (boardDAOService.getBoard(board_name) != null) {
     		response.setContentType("text/html; charset-utf-8");
         	PrintWriter out = response.getWriter();
-        	out.println("<script>alert('이미 사용중인 보드 이름입니다!');</script>");
+        	out.println("<script>alert('이미 사용중인 보드 이름입니다!'); history.go(-1);</script>");
         	out.flush();
         	result.setViewName("createboard");
         	return result;
@@ -372,7 +372,7 @@ public class HomeController {
     		// alert처리단
     		response.setContentType("text/html; charset-utf-8");
     		PrintWriter out = response.getWriter();
-            out.println("<script>alert('찾는 BOARD가 존재하지 않습니다!(BOARD 이름을 다시 확인해주세요)');</script>");
+            out.println("<script>alert('찾는 BOARD가 없습니다!(BOARD 이름을 다시 확인해주세요)');</script>");
             out.flush(); 
     		result.setViewName("enterboard");
             return result;
