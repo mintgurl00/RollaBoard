@@ -19,7 +19,7 @@ public interface TaskMapper {
 	
 	public ArrayList<TaskVO> getTasksByBoard( @Param("board_id") int board_id ) ;	// 석원.
 
-	ArrayList<TaskVO> getTasksByBoard(
-			@Param("board_id") int board_id, String keyword);	// 석원
+	public ArrayList<TaskVO> getTasksByBoard2(
+			@Param("board_id") int board_id, @Param("keyword") String keyword );	// 석원
 	
 }

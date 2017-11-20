@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ page import = "com.spring.rollaboard.BoardVO" %>
 <%@ page import = "com.spring.rollaboard.RoleVO" %>
+<%@ page import = "com.spring.rollaboard.MemVO" %>
 <%@ page import = "java.util.*" %>
 <% String pageName = "rolelist.jsp"; %>
 <%
@@ -44,7 +45,7 @@ function memberPage() {
 }
 
 function admitPage() {
-	$('#resultBlock').load("memberadmit.do");
+	$('#resultBlock').load("memberadmitform.do", {board_id: "<%=boardVO.getId() %>"});
 }
 
 function ETCPage() {
