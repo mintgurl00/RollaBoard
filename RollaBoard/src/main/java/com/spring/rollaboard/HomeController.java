@@ -432,20 +432,6 @@ public class HomeController {
         return result;
     }
     
-    //섹션 추가
-    @RequestMapping("createsection.do")
-    public ModelAndView createsection(SectionVO sectionVO, String board_id) {
-    	
-    	String section_name = sectionVO.getName();
-    	System.out.println("추가할 섹션 이름: " + section_name);
-    	ModelAndView result = new ModelAndView();
-    	sectionDAOService.createSection(sectionVO);
-    	
-    	result.setViewName("sectionlist");
-    	return result;
-    	
-    }
-    
     //섹션 수정
     @RequestMapping("updatesection.do")
     public ModelAndView updatesection(String section_id, String board_id) {
