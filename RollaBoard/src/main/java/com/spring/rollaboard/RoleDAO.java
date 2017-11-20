@@ -8,11 +8,11 @@ public interface RoleDAO {
 	
 	public RoleVO getRole(int id);
 	
-	public void createRole(RoleVO roleVO);
+	public void createRole(RoleVO roleVO); // 규성
 	
-	public void updateRole(RoleVO roleVO);
+	public void updateRole(RoleVO roleVO); // 규성
 	
-	public void deleteRole(int id);
+	public void deleteRole(int id); // 규성
 	
 	public void allocateRole(RoleVO roleVO, MemVO memVO);
 	

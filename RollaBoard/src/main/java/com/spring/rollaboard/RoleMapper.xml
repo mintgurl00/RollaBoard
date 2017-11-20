@@ -31,6 +31,11 @@
 		SELECT * FROM role WHERE ID = #{id, javaType=int}
 	</select>
 	
+	<insert id = "createRole" parameterType = "com.spring.rollaboard.RoleVO">
+		INSERT INTO role VALUES 
+		(SEQ_ROLE.NEXTVAL, #{board_id, javaType=int}, #{name, jdbcType=VARCHAR}, #{description})
+	</insert>
+	
 	<delete id = "deleteRole" parameterType = "int">
 		DELETE FROM role WHERE id = #{id}
 	</delete>

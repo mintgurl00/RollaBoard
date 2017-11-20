@@ -13,6 +13,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -162,6 +163,25 @@ public class HomeController {
         return result;
     }
  
+    @RequestMapping("createrole.do")
+	public ModelAndView insertrole(RoleVO updateRoleInfo, HttpSession session) throws Exception {
+    	ModelAndView result = new ModelAndView();
+    	int board_id;
+    	if (session.getAttribute("board_id") == null) {
+			result.setViewName("index");
+			return result;
+		}
+    	board_id = Integer.parseInt((String)session.getAttribute("board_id"));
+    	updateRoleInfo.setBoard_id(board_id);
+    	System.out.println("insertRole 정보들");
+    	System.out.println("board_id : " + updateRoleInfo.getBoard_id());
+    	System.out.println("Name : " + updateRoleInfo.getName());
+    	System.out.println("Desc : " + updateRoleInfo.getDescription());
+
+    	roleDAOService.createRole(updateRoleInfo);
+    	result.setViewName("subMenu");
+		return result;
+	}
     
     @RequestMapping("updaterole.do")
 	public ModelAndView updaterole(RoleVO updateRoleInfo, HttpServletResponse response) throws Exception {
@@ -178,7 +198,7 @@ public class HomeController {
     	out.println("<script>alert('ROLE 정보가 수정되었습니다.');");
     	out.println("</script>");
         out.flush();
-    	result.setViewName("board");
+    	result.setViewName("subMenu");
 		return result;
 	}
     
@@ -193,7 +213,7 @@ public class HomeController {
 		PrintWriter out = response.getWriter();
         out.println("<script>alert('ROLE 삭제에 성공하였습니다');</script>");
         out.flush(); 
-        result.setViewName("updateboard");
+        result.setViewName("subMenu");
         return result;
 	}
     
@@ -413,13 +433,25 @@ public class HomeController {
     }
     
     @RequestMapping("updateboard.do")
-    public ModelAndView updateboard(BoardVO boardVO) {
+    public ModelAndView updateboard(BoardVO boardVO, HttpSession session) {
     	ModelAndView result = new ModelAndView();
-    	ArrayList<RoleVO> roleList = roleDAOService.getRoles(boardVO.getId());
-    	
-    	System.out.println("업데이트보드 name = " + boardVO.getName());
+    	System.out.println("업데이트보드 session 보드아이디 : " + session.getAttribute("board_id"));
+    	int board_id;
+    	if (session.getAttribute("board_id") == null) {
+    		if (boardVO.getId() != 0) {	
+    			board_id = boardVO.getId();
+    		} else {
+    			result.setViewName("index");
+    			return result;
+    		}
+		} else {
+			board_id = Integer.parseInt((String)session.getAttribute("board_id"));
+		}
+    	boardVO = boardDAOService.getBoardInfo(board_id);
+		ArrayList<RoleVO> roleList = roleDAOService.getRoles(board_id);
+    	System.out.println("업데이트보드 id = " + board_id);
+    	result.addObject("boardVO", boardVO);
     	result.addObject("roleList", roleList); // 롤 리스트 넘겨줌
-    	result.addObject("boardVO", boardVO); // 보드 정보 넘겨줌
     	result.setViewName("updateboard");
         return result;
     }

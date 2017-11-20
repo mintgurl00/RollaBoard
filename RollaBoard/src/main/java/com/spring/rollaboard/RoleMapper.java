@@ -12,6 +12,8 @@ public interface RoleMapper {
 	
 	public RoleVO getRole(int id);
 	
+	public void createRole(RoleVO roleVO);
+	
 	public void deleteRole(@Param("id") int id);
 	
 	public void updateRole(RoleVO roleVO);

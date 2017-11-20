@@ -26,7 +26,8 @@ public class RoleDAOService implements RoleDAO {
 
 	@Override
 	public void createRole(RoleVO roleVO) {
-		// TODO Auto-generated method stub
+		RoleMapper roleMapper = sqlSession.getMapper(RoleMapper.class);
+		roleMapper.createRole(roleVO);
 		
 	}
 

@@ -33,6 +33,7 @@ function updateRoleForm() {
 	document.getElementById("updateRole").submit();
 }
 
+
 </script>
 </head>
 <body>
@@ -41,8 +42,8 @@ function updateRoleForm() {
   <p>당신의 BOARD에서 업무수행을 지시할 ROLE을 관리해주세요</p>
   <div class = "page-header">
       <div class = "row" >
-        <div class = "col-xs-3">ROLE 이름</div>
-        <div class = "col-xs-3">DESCRIPTION</div>
+        <div class = "col-xs-3"><h3>ROLE 이름</h3></div>
+        <div class = "col-xs-3"><h3>DESCRIPTION</h3></div>
         <div class = "col-xs-3"></div>
    	 </div>
     <%for(int i = 0; i < roleList.size(); i++) {
@@ -53,11 +54,11 @@ function updateRoleForm() {
       	<form id = "updateRole" action = "updaterole.do">
         <div class = "col-xs-3">
         	<%=roleVO.getName() %>
-        	<input type = "text" class = "form-control" name = "name">
+        	<input type = "text" class = "form-control" name = "name" placeholder = "수정할 정보 입력(이름)">
         </div>
         <div class = "col-xs-3">
         	<%=roleVO.getDescription() %>
-        	<input type = "text" class = "form-control" name = "description">
+        	<input type = "text" class = "form-control" name = "description" placeholder = "수정할 정보 입력(설명)">
         </div>
         <div class = "col-xs-3" align = right>
         
@@ -74,8 +75,24 @@ function updateRoleForm() {
       	</div>
       	<br/>
    <%} %>
+   <br/>
+   <br/>
   <center>
-  <input type = button class = "btn btn-default" value = "추가" onclick = "#">
+  <form id = "createRole" action = "createrole.do">
+  	<div class="form-group" >
+      <label class="control-label col-sm-2" for="text">이름 </label>
+      <div class="col-sm-4">
+        <input type="text" class="form-control" name = "name" placeholder = "추가할 ROLE의 이름 입력">
+      </div>
+    </div>
+    <div class="form-group" >
+      <label class="control-label col-sm-2" for="text">설명 </label>
+      <div class="col-sm-4">
+        <input type="text" class="form-control" name = "description" placeholder = "추가할 ROLE의 설명 입력">
+      </div>
+    </div>
+  	<input type = submit class = "btn btn-default" value = "추가" >	
+  </form>
   </center>
   </div>
 </div>
