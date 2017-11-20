@@ -78,6 +78,6 @@ for( int i = 0 ; i < sectionSize ; i++ ){
 <%
 if( keyword.equals( "" ) ){	// 검색 결과가 *아니*라면
 %>
-	<button type="button" onclick="#">섹션만들기</button>
+	<button type="button" onclick="location.href='createsection.do';">섹션만들기</button>
 <% 
 }%>

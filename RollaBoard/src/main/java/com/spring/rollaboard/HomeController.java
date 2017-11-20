@@ -169,6 +169,27 @@ public class HomeController {
     	return result;
     }
     
+    @RequestMapping("createsection.do")
+    public ModelAndView createsection(HttpSession session) {
+    	ModelAndView result = new ModelAndView();
+    	int board_id = Integer.parseInt((String) session.getAttribute("board_id"));
+    	int maxNum;
+    	System.out.println("맥스넘 나온거 : "+sectionDAOService.getMaxSeqNum(board_id));
+    	if (sectionDAOService.getMaxSeqNum(board_id) == 0) {
+			maxNum = 1;
+		} else {
+			maxNum = sectionDAOService.getMaxSeqNum(board_id) + 1;
+		}
+    	SectionVO sectionVO = new SectionVO();
+    	sectionVO.setBoard_id(board_id);
+    	sectionVO.setSeq_num(maxNum);
+    	sectionVO.setName("대분류" + maxNum);
+    	sectionDAOService.createSection(sectionVO);
+    	result.addObject("board_id", board_id);
+    	result.setViewName("redirect:board.do");
+    	return result;
+    }
+    
     @RequestMapping("rolelist.do")
     public ModelAndView rolelist(String board_id) {
         ModelAndView result = new ModelAndView();
@@ -195,7 +216,7 @@ public class HomeController {
     	System.out.println("Desc : " + updateRoleInfo.getDescription());
 
     	roleDAOService.createRole(updateRoleInfo);
-    	result.setViewName("subMenu");
+    	result.setViewName("redirect:updateboard.do");
 		return result;
 	}
     
@@ -344,6 +365,36 @@ public class HomeController {
         return result;
     }
     
+    // 회원정보 수정 처리
+    @RequestMapping("updatemember.do")
+	public ModelAndView updatemember(MemVO updateMemInfo, HttpServletResponse response) throws Exception {
+    	ModelAndView result = new ModelAndView();
+    	MemVO memPwChk = memDAOService.getMember(updateMemInfo);
+
+    	if (memPwChk == null) {
+    		// alert처리단
+    		response.setContentType("text/html; charset-utf-8");
+    		PrintWriter out = response.getWriter();
+            out.println("<script>alert('비밀번호가 틀립니다.');</script>");
+            out.flush(); 
+            result.addObject("member", updateMemInfo);
+            result.setViewName("updatememberform");
+    		return result;
+            //developerdon.tistory.com/entry/JAVA-단에서-alert-처리하기-–-
+		}
+    	System.out.println(memPwChk.getId() + "의 회원정보 수정");
+ 	
+    	memDAOService.updateMember(updateMemInfo);
+    	// alert처리단
+    	response.setContentType("text/html; charset-utf-8");
+		PrintWriter out = response.getWriter();
+    	out.println("<script>alert('회원정보가 수정되었습니다.');");
+    	out.println("window.close();</script>");
+        out.flush();
+        result.addObject("id", updateMemInfo.getId());
+    	result.setViewName("dashboard");
+		return result;
+	}
     
     
     @RequestMapping("etc.do")
@@ -583,36 +634,7 @@ public class HomeController {
         return result;
     }
     
-    // 회원정보 수정 처리
-    @RequestMapping("updatemember.do")
-	public ModelAndView updatemember(MemVO updateMemInfo, HttpServletResponse response) throws Exception {
-    	ModelAndView result = new ModelAndView();
-    	MemVO memPwChk = memDAOService.getMember(updateMemInfo);
-
-    	if (memPwChk == null) {
-    		// alert처리단
-    		response.setContentType("text/html; charset-utf-8");
-    		PrintWriter out = response.getWriter();
-            out.println("<script>alert('비밀번호가 틀립니다.');</script>");
-            out.flush(); 
-            result.addObject("member", updateMemInfo);
-            result.setViewName("updatememberform");
-    		return result;
-            //developerdon.tistory.com/entry/JAVA-단에서-alert-처리하기-–-
-		}
-    	System.out.println(memPwChk.getId() + "의 회원정보 수정");
- 	
-    	memDAOService.updateMember(updateMemInfo);
-    	// alert처리단
-    	response.setContentType("text/html; charset-utf-8");
-		PrintWriter out = response.getWriter();
-    	out.println("<script>alert('회원정보가 수정되었습니다.');");
-    	out.println("window.close();</script>");
-        out.flush();
-        result.addObject("id", updateMemInfo.getId());
-    	result.setViewName("dashboard");
-		return result;
-	}
+   
     
     /*
      * 석원. 검색 결과

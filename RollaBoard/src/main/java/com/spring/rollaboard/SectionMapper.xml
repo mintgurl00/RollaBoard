@@ -20,4 +20,8 @@
 	<insert id = "createSection" parameterType = "com.spring.rollaboard.SectionVO">
 		INSERT INTO section VALUES (SEQ_SECTION.NEXTVAL, #{board_id}, #{name}, 1)
 	</insert>
+	
+	<select id = "getMaxSeqNum" parameterType = "map" resultType = "int">
+		SELECT MAX(SEQ_NUM) FROM section WHERE BOARD_ID = #{board_id}
+	</select>
 </mapper>

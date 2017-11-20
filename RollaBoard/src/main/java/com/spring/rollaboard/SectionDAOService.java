@@ -45,4 +45,10 @@ public class SectionDAOService implements SectionDAO {
 		// TODO Auto-generated method stub
 		
 	}
+
+	@Override
+	public int getMaxSeqNum(int board_id) {
+		SectionMapper sectionMapper = sqlSession.getMapper(SectionMapper.class);
+		return sectionMapper.getMaxSeqNum(board_id);
+	}
 }

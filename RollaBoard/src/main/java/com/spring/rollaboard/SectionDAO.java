@@ -7,6 +7,8 @@ public interface SectionDAO {
 	public ArrayList<SectionVO> getSections(int board_id);
 
 	public SectionVO getSection(int id);
+	
+	public int getMaxSeqNum(int board_id);
 
 	public void createSection(SectionVO sectionVO);
 
