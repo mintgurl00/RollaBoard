@@ -17,6 +17,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.view.RedirectView;
 
 
 @Controller
@@ -365,6 +366,7 @@ public class HomeController {
         return result;
     }
     
+
     // 회원정보 수정 처리
     @RequestMapping("updatemember.do")
 	public ModelAndView updatemember(MemVO updateMemInfo, HttpServletResponse response) throws Exception {
@@ -395,7 +397,86 @@ public class HomeController {
     	result.setViewName("dashboard");
 		return result;
 	}
+
+//    @RequestMapping("deletemember.do")
+//    public ModelAndView deletemember(String mem_id, String board_id, HttpServletResponse response) throws Exception {
+//    	
+//    	System.out.println("강퇴할 멤버 아이디: " + mem_id);
+//    	ModelAndView result = new ModelAndView();
+//    	memDAOService.deleteMember(mem_id);
+//    	
+//    	response.setContentType("text/html; charset-utf-8");
+//    	PrintWriter out = response.getWriter();
+//    	out.println("<script>alert('멤버 강퇴/삭제에 성공했습니다.');</script>");
+//    	out.flush();
+//    	
+//    	ArrayList<MemVO> boardMemberList = memDAOService.getBoardMembers(Integer.parseInt(board_id));
+//    	
+//    	result.setView(new RedirectView("memberlist.do?method=list"));
+//    	//result.addObject("board_id", board_id);
+//    	result.addObject("boardMemberList", boardMemberList);
+//    	//result.setViewName("updateboard");
+//    	return result;
+//    	
+//    }
     
+    //섹션 리스트 보기
+    @RequestMapping("sectionlist.do")
+    public ModelAndView sectionlist(String board_id) {
+    	ModelAndView result = new ModelAndView();
+    	ArrayList<SectionVO> sectionlist = sectionDAOService.getSections(Integer.parseInt(board_id));
+    	
+    	result.addObject("sectionlist", sectionlist);
+    	
+    	result.setViewName("sectionlist");
+        return result;
+    }
+    
+    //섹션 추가
+    @RequestMapping("createsection.do")
+    public ModelAndView createsection(SectionVO sectionVO, String board_id) {
+    	
+    	String section_name = sectionVO.getName();
+    	System.out.println("추가할 섹션 이름: " + section_name);
+    	ModelAndView result = new ModelAndView();
+    	sectionDAOService.createSection(sectionVO);
+    	
+    	result.setViewName("sectionlist");
+    	return result;
+    	
+    }
+    
+    //섹션 수정
+    @RequestMapping("updatesection.do")
+    public ModelAndView updatesection(String section_id, String board_id) {
+    	
+    	System.out.println("수정할 섹션 아이디: " + section_id);
+    	ModelAndView result = new ModelAndView();
+    	sectionDAOService.updateSection(section_id);
+    	
+    	result.setViewName("sectionlist");
+    	return result;
+    	
+    }
+    
+    //섹션 삭제
+    @RequestMapping("deletesection.do")
+    public ModelAndView deletesection(String section_id, String board_id) {
+    	
+    	System.out.println("삭제할 섹션 아이디: " + section_id);
+    	ModelAndView result = new ModelAndView();
+    	sectionDAOService.deleteSection(section_id);
+    	
+    	result.setViewName("sectionlist");
+    	return result;
+    	
+    }
+    
+    //기타설정 뷰로 이동
+    @RequestMapping("etcform.do")
+    public String etcform() {
+        return "etcform";
+    }
     
     @RequestMapping("etc.do")
     public String etc() {

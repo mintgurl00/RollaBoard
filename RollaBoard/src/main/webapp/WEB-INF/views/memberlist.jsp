@@ -43,7 +43,7 @@ ArrayList<MemVO> boardMemberList = (ArrayList<MemVO>)request.getAttribute("board
         <td><%=member.getName() %> </td>
         <td><%=member.getId() %></td>
         <td align = right>
-       		<input type = submit class = "btn btn-info" name = "<%=member.getId() %>" value = "강퇴">
+       		<input type = button value = "강퇴" class = "btn btn-info" onclick = "location.href ='./deletemember.do?mem_id=<%=member.getId() %>'">
        	</td>
        	</form>
       </tr>
