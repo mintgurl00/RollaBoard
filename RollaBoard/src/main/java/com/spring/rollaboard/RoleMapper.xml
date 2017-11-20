@@ -27,4 +27,21 @@
 		SELECT * FROM role WHERE BOARD_ID = #{board_id, javaType=int}
 	</select>
 	
+	<select id = "getRole" resultMap = "RoleResultMap">
+		SELECT * FROM role WHERE ID = #{id, javaType=int}
+	</select>
+	
+	<insert id = "createRole" parameterType = "com.spring.rollaboard.RoleVO">
+		INSERT INTO role VALUES 
+		(SEQ_ROLE.NEXTVAL, #{board_id, javaType=int}, #{name, jdbcType=VARCHAR}, #{description})
+	</insert>
+	
+	<delete id = "deleteRole" parameterType = "int">
+		DELETE FROM role WHERE id = #{id}
+	</delete>
+	
+	<update id = "updateRole" parameterType = "com.spring.rollaboard.RoleVO">
+		UPDATE role SET NAME = #{name}, DESCRIPTION = #{description} where id = #{id}
+	</update>
+	
 </mapper>

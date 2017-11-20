@@ -23,45 +23,78 @@ ArrayList<RoleVO> roleList = (ArrayList<RoleVO>) request.getAttribute("roleList"
 <script type = "text/javascript" language = "javascript">
 function chkBox() {
 	var chk = confirm("삭제하시겠습니까?");
-	if (chk == true) {
-		return true;
+	if (chk) {
+		document.getElementById("deleteRole").submit();
 	} else {
-		return false;
+		return;
 	}
 }
+function updateRoleForm() {
+	document.getElementById("updateRole").submit();
+}
+
+
 </script>
 </head>
 <body>
 <div class="container">
   <h2>ROLE 관리</h2>
   <p>당신의 BOARD에서 업무수행을 지시할 ROLE을 관리해주세요</p>
-  <table class="table table-striped">
-    <thead>
-      <tr>
-        <th>ROLE 이름</th>
-        <th>DESCRIPTION</th>
-        <th></th>
-      </tr>
-    </thead>
-    <tbody>
+  <div class = "page-header">
+      <div class = "row" >
+        <div class = "col-xs-3"><h3>ROLE 이름</h3></div>
+        <div class = "col-xs-3"><h3>DESCRIPTION</h3></div>
+        <div class = "col-xs-3"></div>
+   	 </div>
     <%for(int i = 0; i < roleList.size(); i++) {
     	RoleVO roleVO = roleList.get(i);
     %>
-      <tr>
-        <td><%=roleVO.getName() %></td>
-        <td><%=roleVO.getDescription() %></td>
-        <td align = right>
-        <form name = "updateRole" action = "updateRole.do">
-        	<input type = submit class = "btn btn-default" name = "<%=roleVO.getId() %>" value = "수정">
+    <form id = "이것은쓰레기"></form>
+      <div class = "row">
+      	<form id = "updateRole" action = "updaterole.do">
+        <div class = "col-xs-3">
+        	<%=roleVO.getName() %>
+        	<input type = "text" class = "form-control" name = "name" placeholder = "수정할 정보 입력(이름)">
+        </div>
+        <div class = "col-xs-3">
+        	<%=roleVO.getDescription() %>
+        	<input type = "text" class = "form-control" name = "description" placeholder = "수정할 정보 입력(설명)">
+        </div>
+        <div class = "col-xs-3" align = right>
+        
+        	<input type = "text" name = "id" value = "<%=roleVO.getId() %>" hidden>
+        	<button type = submit class = "btn btn-default" onclick = "javascript:updateRoleForm()" >수정</button>
+		</div>
         </form>
-        <form name = "deleteRole" action = "deleteRole.do">
-       		<input type = submit class = "btn btn-info" name = "<%=roleVO.getId() %>" value = "삭제" onclick="javascript:chkBox()">
-       	 </form>
-       	</td>
-      </tr>
+        <form id = "deleteRole" action = "deleteRole.do">
+        <div class = "col-xs-1">
+        	<input type = "text" name = "id" value = "<%=roleVO.getId() %>" hidden>
+       		<input type = button class = "btn btn-info"  value = "삭제" onclick="javascript:chkBox()">
+       	</div>
+       	</form> 
+      	</div>
+      	<br/>
    <%} %>
-    </tbody>
-  </table>
+   <br/>
+   <br/>
+  <center>
+  <form id = "createRole" action = "createrole.do">
+  	<div class="form-group" >
+      <label class="control-label col-sm-2" for="text">이름 </label>
+      <div class="col-sm-4">
+        <input type="text" class="form-control" name = "name" placeholder = "추가할 ROLE의 이름 입력">
+      </div>
+    </div>
+    <div class="form-group" >
+      <label class="control-label col-sm-2" for="text">설명 </label>
+      <div class="col-sm-4">
+        <input type="text" class="form-control" name = "description" placeholder = "추가할 ROLE의 설명 입력">
+      </div>
+    </div>
+  	<input type = submit class = "btn btn-default" value = "추가" >	
+  </form>
+  </center>
+  </div>
 </div>
 </body>
 </html>
