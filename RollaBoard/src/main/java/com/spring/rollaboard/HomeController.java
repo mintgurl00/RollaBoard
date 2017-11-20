@@ -141,6 +141,14 @@ public class HomeController {
     	String board_name = boardVO.getName();
     	String mem_id = (String)(session.getAttribute("id"));
     	
+    	if (boardDAOService.getBoard(board_name) != null) {
+    		response.setContentType("text/html; charset-utf-8");
+        	PrintWriter out = response.getWriter();
+        	out.println("<script>alert('이미 사용중인 보드 이름입니다!');</script>");
+        	out.flush();
+        	result.setViewName("createboard");
+        	return result;
+		}
     	boardDAOService.createBoard(board_name, mem_id);
     	
     	response.setContentType("text/html; charset-utf-8");
