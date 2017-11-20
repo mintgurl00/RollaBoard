@@ -17,19 +17,23 @@
 </head>
 <body >
 
-<div class="container-fluid" style="margin-top:10%; margin-left:30%">
+<div class="container-fluid" style="margin-top:10%">
 	<br>  <br> <br> <br> <br>  <br> <br> <br>
-  <h1>RollaBoard <br></h1>  <h2> LOGIN </h2>
+  <div class = "row">
+	<div class = "col-sm-offset-2">
+  	<h1>RollaBoard <br></h1>  <h2> LOGIN </h2>
+  </div>
+  </div>
   <form class="form-horizontal" action="login.do" method = "post">
     <div class="form-group" >
       <label class="control-label col-sm-2" for="text">ID </label>
-      <div class="col-sm-5">
+      <div class="col-sm-4">
         <input type="text" class="form-control" id="id" placeholder="Enter ID" name="id">
       </div>
     </div>
     <div class="form-group">
       <label class="control-label col-sm-2" for="pwd">Password</label>
-      <div class="col-sm-5">          
+      <div class="col-sm-4">          
         <input type="password" class="form-control" id="pwd" placeholder="Enter password" name="password">
       </div>
     </div>
