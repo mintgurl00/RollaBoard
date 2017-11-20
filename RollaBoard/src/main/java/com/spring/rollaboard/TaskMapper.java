@@ -22,4 +22,8 @@ public interface TaskMapper {
 	public ArrayList<TaskVO> getTasksByBoard2(
 			@Param("board_id") int board_id, @Param("keyword") String keyword );	// 석원
 	
+	public ArrayList<TaskVO> getTasksByBoard3(
+			@Param("board_id") int board_id, @Param("keyword") String keyword,
+			@Param("conditionQuery") String conditionQuery, @Param("sortQuery") String sortQuery );	// 석원
+	
 }
