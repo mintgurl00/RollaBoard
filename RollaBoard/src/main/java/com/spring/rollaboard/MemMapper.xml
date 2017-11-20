@@ -34,7 +34,7 @@
 	<select id = "getBoardMembers" resultMap = "MemResultMap">
 		SELECT * FROM mem A
 			INNER JOIN board_mem B on A.id = B.mem_id
-			WHERE board_id = #{board_id} AND permission = 'TRUE'
+			WHERE board_id = #{board_id} AND permission = 'TRUE' AND admin != 'TRUE'
 	</select>
 	
 	<select id = "waitingMembers" resultMap = "MemResultMap">
@@ -46,6 +46,10 @@
 	<update id = "admitMember" parameterType = "com.spring.rollaboard.MemVO">
 		UPDATE board_mem SET permission = 'TRUE' WHERE mem_id = #{mem_id}
 	</update>
+	
+	<delete id="deleteMember" parameterType="com.spring.rollaboard.MemVO">
+		DELETE FROM board_mem WHERE mem_id = #{mem_id}
+	</delete>
 	
 	<select id = "getRoleMembers" parameterType = "map" resultMap="MemResultMap">
 		SELECT ID, NAME FROM role_mem A JOIN mem B ON A.mem_id = B.id WHERE ROLE_ID = #{role_id}

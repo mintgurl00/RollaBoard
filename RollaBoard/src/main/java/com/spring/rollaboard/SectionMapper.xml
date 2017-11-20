@@ -17,5 +17,17 @@
 		ORDER BY seq_num ASC
 	</select>
 	
+	<!-- updateSection -->
+	<update id="updateSection" parameterType="com.spring.rollaboard.SectionVO">
+	</update>
+
+	<!-- deleteeSection -->
+	<delete id="deleteSection" parameterType="com.spring.rollaboard.SectionVO">
+	</delete>
+
+	<!-- createSection -->
+	<insert id="createSection" parameterType="com.spring.rollaboard.SectionVO">
+	</insert>
+	
 	
 </mapper>

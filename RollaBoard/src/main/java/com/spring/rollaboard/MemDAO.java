@@ -20,7 +20,7 @@ public interface MemDAO {
 
 	public void updateMember(MemVO memVO);
 
-	public void deleteMember(String id);
+	public void deleteMember(String mem_id);
 	
 	public MemVO getMemInfoToUpdate(String id);
 	
