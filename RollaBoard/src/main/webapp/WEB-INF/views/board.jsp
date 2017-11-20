@@ -33,6 +33,7 @@
 #task{width:350px; height:150px; margin-left:20px; margin-top:20px; background-color:#FFFFFF; text-align:center}
 
 </style>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script type = "text/javascript" language = "javascript">
 function openPop() {
 	window.open("./updatememberform.do",
@@ -46,7 +47,15 @@ function openPop() {
  */
 window.onload = function(){
 	initRefBoard( "ref_board_select" ) ;
+	initBoard();
+	inputEnterToSearch();
 }
+/* $(document).ready(function(){
+	initRefBoard( "ref_board_select" ) ;
+	initBoard();
+	alert('안녕');
+}); */
+
 /*
  * 참조보드 select태그에 넣기 
  */
@@ -73,6 +82,40 @@ function initRefBoard( selectName ){
 	}
 }
 
+/*
+ * 보드 그리기 
+ */
+function initBoard() {
+	<%-- $('#content').load("searchresult.do", {board_id: "<%=boardVO.getId() %>"}); --%>
+	/* $('#content').load("searchresult.do"); */
+	$('#content').load("searchresult.do", {
+		board_id: '<%=boardVO.getId() %>',
+		keyword:''
+	});
+}
+/*
+ * 검색 결과
+ */
+function loadSearchResult() {
+	<%-- $('#content').load("searchresult.do", {board_id: "<%=boardVO.getId() %>"}); --%>
+	$('#content').load("searchresult.do", {
+		board_id: '<%=boardVO.getId() %>',
+		keyword:$('#keyword').val()
+	});
+	return false ;
+}
+
+function inputEnterToSearch(){
+	$('#keyword').keypress( function(e){
+		if( e.keyCode == 13 ){
+			loadSearchResult();
+		}
+	});
+}
+
+
+
+
 </script>
 </head>
 <body>
@@ -97,27 +140,28 @@ function initRefBoard( selectName ){
 
 <div id="ref_board">
 	<select id="ref_board_select">
-    	<option value="">참조 BOARD 선택</option>
+    	<option value="">참조 BOARD 선택</option><!-- 
     	<option value="board4">BOARD4</option>
    	 	<option value="board5">BOARD5</option>
-    	<option value="board6">BOARD6</option>
+    	<option value="board6">BOARD6</option> -->
 	</select>
 </div>
 
 <!-- 필터와 검색 -->
 <div id="filter">
-	<form action="searchresult.do" method="post">
+	<!-- <form action="#" method="post"> -->
 	<a href=#>관계 TASK보기</a>&nbsp;
 	<a href=#>마감날짜순</a>&nbsp;
 	<a href=#>시작날짜순</a>&nbsp;
 	<a href=#>중요도순</a>	
-	<input type="text" name="keyword" placeholder="task명을 입력하세요." />
+	<input type="text" name="keyword" id="keyword" placeholder="task명을 입력하세요." value=""/>
 	<input type ="hidden" name="board_id" value="<%=boardVO.getId()%>" />
-	<input type="submit" value="검색" />
-	</form>
+	<!-- <input type="submit" value="검색" onclick="javascript:loadSearchResult()" /> -->
+	<button type="button" onclick="javascript:loadSearchResult()">검색버튼2</button>
+	<!-- </form> -->
 </div>
 
-<div id="content">
+<!-- <div id="content">
  아래로 내려가면 보임
 	<div id="section">
 		<div id="task" onclick="location.href='./taskview.do';"><h3>TASK 이름</h3></div>
@@ -159,11 +203,11 @@ function initRefBoard( selectName ){
 		<div id="task" onclick="location.href='./taskview.do';"><h3>TASK 이름</h3></div>
 		<div id="task" onclick="location.href='./taskview.do';"><h3>TASK 이름</h3></div>
 	</div>
-</div>
+</div> -->
 
 <!-- 석원의 테스트..... 지우면 머지할 때 자꾸 Conflict 뜰거임 -->
 <div id="content">
-ㅎㅎㅎ
+<%-- ㅎㅎㅎ
 	<%
 	for( int i = 0 ; i < sectionList.size() ; i++ ){
 	%>
@@ -185,14 +229,10 @@ function initRefBoard( selectName ){
 	</div>
 	<%
 	}
-	%>
+	%> --%>
+	
 </div>
 
 
 </body>
 </html>
-
-
-<%
-
-%>

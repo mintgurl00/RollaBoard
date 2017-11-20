@@ -14,9 +14,8 @@
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 </head>
 <body>
-subMenu입니당
-<jsp:include page="<%=page %>.jsp" >
-			<jsp:param name="page" value="Result" />
-	</jsp:include>
+<script type="text/javascript">
+location.href='updateboard.do' ;
+</script>
 </body>
 </html>
