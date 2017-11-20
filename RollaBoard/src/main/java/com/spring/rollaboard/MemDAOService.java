@@ -66,5 +66,11 @@ public class MemDAOService implements MemDAO {
 		MemMapper memMapper = sqlSession.getMapper(MemMapper.class);
 		return memMapper.getMemInfoToUpdate(id);
 	}
+
+	@Override
+	public ArrayList<MemVO> getRoleMembers(int role_id) {
+		MemMapper memMapper = sqlSession.getMapper(MemMapper.class);
+		return memMapper.getRoleMembers(role_id);
+	}
 		
 }

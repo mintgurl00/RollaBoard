@@ -45,12 +45,6 @@ public class RoleDAOService implements RoleDAO {
 		
 	}
 
-	@Override
-	public void allocateRole(RoleVO roleVO, MemVO memVO) {
-		// TODO Auto-generated method stub
-		
-	}
-
 	/*
 	 * 석원. 보드에서 각 태스크의 롤 정보를 친절하게 보여주기 위해 불러오는 메소드입니다.
 	 * */
@@ -64,6 +58,14 @@ public class RoleDAOService implements RoleDAO {
 		
 		
 		return roles ;
+	}
+	
+	// 규성 MEMBER를 ROLE에 배정
+	@Override
+	public void allocateRole(int role_id, String mem_id) {
+		RoleMapper roleMapper = sqlSession.getMapper(RoleMapper.class);
+		roleMapper.allocateRole(role_id, mem_id);
+		
 	}
 	
 	

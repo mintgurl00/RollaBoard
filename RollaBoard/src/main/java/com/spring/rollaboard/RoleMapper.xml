@@ -43,5 +43,9 @@
 	<update id = "updateRole" parameterType = "com.spring.rollaboard.RoleVO">
 		UPDATE role SET NAME = #{name}, DESCRIPTION = #{description} where id = #{id}
 	</update>
+	 
+	<insert id = "allocateRole" parameterType = "map">
+		INSERT INTO role_mem VALUES (#{role_id, javaType=int}, #{mem_id, javaType=String})
+	</insert>
 	
 </mapper>

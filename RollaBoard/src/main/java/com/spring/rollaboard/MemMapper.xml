@@ -47,5 +47,9 @@
 		UPDATE board_mem SET permission = 'TRUE' WHERE mem_id = #{mem_id}
 	</update>
 	
+	<select id = "getRoleMembers" parameterType = "map" resultMap="MemResultMap">
+		SELECT ID, NAME FROM role_mem A JOIN mem B ON A.mem_id = B.id WHERE ROLE_ID = #{role_id}
+	</select>
+	
 	
 </mapper>

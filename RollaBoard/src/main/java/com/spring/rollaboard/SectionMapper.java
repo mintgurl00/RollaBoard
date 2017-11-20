@@ -5,5 +5,7 @@ import java.util.ArrayList;
 public interface SectionMapper {
 
 	ArrayList<SectionVO> getSections(int board_id);
+	
+	public void createSection(SectionVO sectionVO);
 
 }

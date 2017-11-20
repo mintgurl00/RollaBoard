@@ -32,6 +32,7 @@ ArrayList<MemVO> boardMemberList = (ArrayList<MemVO>)request.getAttribute("board
     <thead>
       <tr>
         <th>MEMBER 이름</th>
+        <th>MEMBER 아이디</th>
         <th></th>
       </tr>
     </thead>
@@ -40,6 +41,7 @@ ArrayList<MemVO> boardMemberList = (ArrayList<MemVO>)request.getAttribute("board
     	MemVO member = boardMemberList.get(i);%>
       <tr>
         <td><%=member.getName() %> </td>
+        <td><%=member.getId() %></td>
         <td align = right>
        		<input type = submit class = "btn btn-info" name = "<%=member.getId() %>" value = "강퇴">
        	</td>
