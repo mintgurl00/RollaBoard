@@ -29,7 +29,8 @@ public class SectionDAOService implements SectionDAO {
 
 	@Override
 	public void createSection(SectionVO sectionVO) {
-		// TODO Auto-generated method stub
+		SectionMapper sectionMapper = sqlSession.getMapper(SectionMapper.class);
+		sectionMapper.createSection(sectionVO);
 		
 	}
 
