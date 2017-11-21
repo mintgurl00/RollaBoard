@@ -620,29 +620,59 @@ public class HomeController {
     }
     
     @RequestMapping("taskview.do")
-    public String taskview() {
-        return "taskview";
+    public String taskview(HttpServletRequest request) {
+    /*	System.out.println("555555");
+    	System.out.println("테스크 이름 " + request.getParameter("showtask"));
+    	String task_name = request.getParameter("showtask");
+    	ModelAndView result = new ModelAndView();
+    	
+    	result.addObject("task_name", task_name);
+    	result.setViewName("taskview");
+    */    return "taskview";
     }
     
+      
     @RequestMapping("updatetask.do")
     public String updatetask() {
         return "updatetask";
     }
     
 	@RequestMapping("createtask.do")
-	public String createtask() {
-		return "createtask";
+	public ModelAndView createtask(HttpServletRequest request) {
+		
+		System.out.println("리쿼스트 섹션아이디 : " + request.getParameter("section_id"));
+		String section_id = request.getParameter("section_id");  
+		System.out.println("111111");
+		ModelAndView result = new ModelAndView();
+		
+		result.addObject("section_id",section_id);
+        result.setViewName("createtask");
+        System.out.println("222222");
+		return result;
 	}
 	
 	@RequestMapping("inserttask.do")
-	public ModelAndView insertTask(HttpSession session, HttpServletResponse response, TaskVO taskVO) {
+	public ModelAndView insertTask(HttpSession session, HttpServletResponse response, TaskVO taskVO, HttpServletRequest request) {
+		
+		/*int section_id = Integer.parseInt( request.getParameter( "section_id" ) ) ;*/
+				
 		taskDAOService.insertTask(taskVO);
+		System.out.println("3333333");
 		ModelAndView result = new ModelAndView();				
 		List<TaskVO> taskList = taskDAOService.getTasks();
 		result.addObject("taskList", taskList);
+		System.out.println("444");
 		result.setViewName("board");
 		return result;
 		
+		
+		/*ModelAndView result = new ModelAndView();
+    	String id = session.getAttribute( "id" ).toString() ;
+    	int board_id = Integer.parseInt( request.getParameter( "board_id" ) ) ;	// 보드 id
+    	
+    	String board_name = boardVO.getName();
+    	String mem_id = (String)(session.getAttribute("id"));*/
+    	
 	}
 	
 	@RequestMapping("detailtask.do")
