@@ -12,7 +12,7 @@ if(session.getAttribute("id") == null) {
 	out.println("</script>");
 }
 
-ArrayList<MemVO> boardMemberList = (ArrayList<MemVO>)request.getAttribute("boardMemberList");
+ArrayList<MemVO> boardMemberList = (ArrayList<MemVO>)request.getAttribute("boardWaitingList");
 %>
 <!DOCTYPE html>
 <html lang="en">

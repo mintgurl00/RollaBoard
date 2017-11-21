@@ -1,10 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ page import = "com.spring.rollaboard.BoardVO" %>
-<%@ page import = "com.spring.rollaboard.RoleVO" %>
-<%@ page import = "com.spring.rollaboard.MemVO" %>
+<%@ page import = "com.spring.rollaboard.*" %>
 <%@ page import = "java.util.*" %>
-<% String pageName = "rolelist.jsp"; %>
 <%
 	// 세션 아이디 체크
 	if(session.getAttribute("id") == null) {
@@ -23,7 +20,11 @@
 	} else {
 		boardVO.setId(Integer.parseInt((String) session.getAttribute("board_id")));
 	}
+	String chkVal = (String) request.getAttribute("chkVal");
 	ArrayList<RoleVO> roleList = (ArrayList<RoleVO>) request.getAttribute("roleList");
+	ArrayList<MemVO> boardMemberList = (ArrayList<MemVO>) request.getAttribute("boardMemberList");
+	ArrayList<MemVO> boardWaitingList = (ArrayList<MemVO>) request.getAttribute("boardWaitingList");
+	ArrayList<SectionVO> sectionList = (ArrayList<SectionVO>) request.getAttribute("sectionList");
 %>
 <!DOCTYPE html>
 <html lang="en">
@@ -38,6 +39,10 @@
 <script>
 function rolePage() {
 	$('#resultBlock').load("rolelist.do", {board_id: "<%=boardVO.getId() %>"});
+}
+
+function allocatePage() {
+	$('#resultBlock').load("allocation.do", {board_id: "<%=boardVO.getId() %>"});
 }
 
 function memberPage() {
@@ -55,25 +60,51 @@ function sectionPage() {
 function ETCPage() {
 	$('#resultBlock').load("etcform.do");
 }
+
 </script>
 <body>
-<form class = form-horizental" action = "#">
+<form class = form-horizental">
 <div class = "page-header">
 	<div class = "row">
 		<div class = "col-xs-1 col-sm-1"></div>
-		<div class = "col-xs-8 col-sm-3"><input type = "text" class = "form-control" id = "board_name" value = "<%=boardVO.getName() %>" placeholder = "Board명을 입력하세요"></div>
-		<div class = "col-xs-6 col-sm-2"><input type="button" name = "group" class="btn btn-primary" onclick = "rolePage()" value = "ROLE관리"/></div>
-		<div class = "col-xs-6 col-sm-2"><input type="button" name = "group" class="btn btn-primary" onclick = "memberPage()" value = "MEMBER관리"/></div>
-		<div class = "col-xs-6 col-sm-2"><input type="button" name = "group" class="btn btn-primary" onclick = "admitPage()" value = "MEMBER승인"/></div>
-		<div class = "col-xs-6 col-sm-2"><input type="button" name = "group" class="btn btn-primary" onclick = "sectionPage()" value = "SECTION관리"/></div>
-		<div class = "col-xs-6 col-sm-2"><input type="button" name = "group" class="btn btn-primary" onclick = "ETCPage()" value = "기타설정"/></div>
+		<div class = "col-xs-8 col-sm-2"><input type = "text" class = "form-control" id = "board_name" value = "<%=boardVO.getName() %>" placeholder = "Board명을 입력하세요"></div>
+		<div class = "col-xs-6 col-sm-1"><input type="button" name = "group" class="btn btn-primary" onclick = "rolePage()" value = "ROLE관리"/></div>
+		<div class = "col-xs-6 col-sm-1"><input type="button" name = "group" class="btn btn-primary" onclick = "allocatePage()" value = "ROLE배정"/></div>
+		<div class = "col-xs-6 col-sm-1"><input type="button" name = "group" class="btn btn-primary" onclick = "memberPage()" value = "MEMBER관리"/></div>
+		<div class = "col-xs-6 col-sm-1"><input type="button" name = "group" class="btn btn-primary" onclick = "admitPage()" value = "MEMBER승인"/></div>
+		<div class = "col-xs-6 col-sm-1"><input type="button" name = "group" class="btn btn-primary" onclick = "sectionPage()" value = "SECTION관리"/></div>
+		<div class = "col-xs-6 col-sm-1"><input type="button" name = "group" class="btn btn-primary" onclick = "ETCPage()" value = "기타설정"/></div>
 
 	</div>
 </div>
+
 <div id=resultBlock class="wrapper">
+	<%if (chkVal == null) {%>
 	<jsp:include page = "rolelist.jsp" flush = "false" >
 			<jsp:param name="roleList" value="<%=roleList %>" />
 	</jsp:include>
+	<%} else if (chkVal.equals("memList")) { %>
+	<jsp:include page = "memberlist.jsp" flush = "false" >
+			<jsp:param name="boardMemberList" value="<%=boardMemberList %>" />
+	</jsp:include>
+	<%}else if (chkVal.equals("allocation")) { %>
+	<jsp:include page = "allocation.jsp" flush = "false" >
+			<jsp:param name="boardMemberList" value="<%=boardMemberList %>" />
+			<jsp:param name="roleList" value="<%=roleList %>" />
+	</jsp:include>
+	<%}else if (chkVal.equals("memAdmit")) { %>
+	<jsp:include page = "memberadmitform.jsp" flush = "false" >
+			<jsp:param name="boardWaitingList" value="<%=boardWaitingList %>" />
+	</jsp:include>
+	<%}else if (chkVal.equals("section")) { %>
+	<jsp:include page = "sectionlist.jsp" flush = "false" >
+			<jsp:param name="sectionList" value="<%=sectionList %>" />
+	</jsp:include>
+	<%}else { %>
+	<jsp:include page = "rolelist.jsp" flush = "false" >
+			<jsp:param name="roleList" value="<%=roleList %>" />
+	</jsp:include>
+	<%} %>
 </div>
 <div class = "row">
 	<center><div class = "col-xs-12 left">
@@ -82,6 +113,7 @@ function ETCPage() {
 	</div></center>
 	
 </div>
-
+<br/>
+</form>
 </body>
 </html>

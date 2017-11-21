@@ -34,23 +34,24 @@ public class SectionDAOService implements SectionDAO {
 		
 	}
 
+	
 	@Override
-	public void updateSection(String section_id) {
-		SectionMapper sectionMapper = sqlSession.getMapper(SectionMapper.class) ;
-		sectionMapper.updateSection(section_id) ;
-		
-	}
-
-	@Override
-	public void deleteSection(String section_id) {
+	public void deleteSection(int section_id) {
 		SectionMapper sectionMapper = sqlSession.getMapper(SectionMapper.class) ;
 		sectionMapper.deleteSection(section_id) ;
 		
 	}
 
 	@Override
-	public int getMaxSeqNum(int board_id) {
+	public String getMaxSeqNum(int board_id) {
 		SectionMapper sectionMapper = sqlSession.getMapper(SectionMapper.class);
 		return sectionMapper.getMaxSeqNum(board_id);
+	}
+
+	@Override
+	public void updateSection(int section_id, String section_name) {
+		SectionMapper sectionMapper = sqlSession.getMapper(SectionMapper.class);
+		sectionMapper.updateSection(section_id, section_name);
+		
 	}
 }

@@ -56,4 +56,10 @@
 		SELECT PERMISSION FROM
 		( SELECT * FROM (SELECT * FROM board_mem WHERE BOARD_ID = #{board_id} ) WHERE MEM_ID = #{mem_id})
 	</select>
+	
+	<!-- 공개여부-->
+	<update id = "visibility" parameterType = "com.spring.rollaboard.BoardVO">
+		UPDATE board SET visibility = #{visibility} WHERE id = #{board_id} <!-- 받아오는 visibility값은 TRUE or FALSE -->
+	</update>
+	
 </mapper>

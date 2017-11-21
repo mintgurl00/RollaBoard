@@ -6,12 +6,19 @@ public class TaskFilterSQL {
 	private static TaskFilterSQL instance ;
 	
 	private static HashMap<TaskFilter, String> sql ;
+	private static HashMap<String, TaskFilter> taskFilter ;
 	
 	/*
 	 * 싱글톤
 	 * */
 	private TaskFilterSQL(){
 		initSQL() ;
+		initTaskFilter() ;
+	}
+
+	private void initTaskFilter() {
+		taskFilter = new HashMap<String, TaskFilter>() ;
+		taskFilter.put( "due" , TaskFilter.F_DUEDATE ) ;
 	}
 
 	public static TaskFilterSQL getInstance(){
@@ -50,7 +57,12 @@ public class TaskFilterSQL {
 		sql.put( TaskFilter.F_PRIORITY, "AND priority <> NULL " ) ;
 	}
 	
-	public String get( TaskFilter key ){
-		return sql.get( key ) ;
+	public String get( TaskFilter taskFilter ){
+		return sql.get( taskFilter ) ;
 	}
+	public TaskFilter get( String key ){
+		return taskFilter.get( key ) ;
+	}
+	
+	
 }
