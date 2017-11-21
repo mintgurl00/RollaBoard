@@ -57,7 +57,6 @@ for( int i = 0 ; i < sectionSize ; i++ ){
 <div id="section">
 	<!-- 섹션 표시줄 -->
 	<%=sectionList.get(i).getName() %>
-	<%=sectionList.get(i).getId() %>
 	<br />
 	<form action="updatesectioninboard.do">
 		<input type="hidden" name="section_id" value="<%=sectionList.get(i).getId() %>" />

@@ -34,24 +34,11 @@ public class SectionDAOService implements SectionDAO {
 		
 	}
 
-	@Override
-	public void updateSection(String section_id) {
-		SectionMapper sectionMapper = sqlSession.getMapper(SectionMapper.class) ;
-		sectionMapper.updateSection(section_id) ;
-		
-	}
-
-	@Override
-	public void deleteSection(String section_id) {
-		SectionMapper sectionMapper = sqlSession.getMapper(SectionMapper.class) ;
-		sectionMapper.deleteSection(section_id) ;
-		
-	}
 	
 	@Override
-	public void deleteSectionInBoard(int section_id) {
+	public void deleteSection(int section_id) {
 		SectionMapper sectionMapper = sqlSession.getMapper(SectionMapper.class) ;
-		sectionMapper.deleteSectionInBoard(section_id) ;
+		sectionMapper.deleteSection(section_id) ;
 		
 	}
 
@@ -62,9 +49,9 @@ public class SectionDAOService implements SectionDAO {
 	}
 
 	@Override
-	public void updateSectionInBoard(int section_id, String section_name) {
+	public void updateSection(int section_id, String section_name) {
 		SectionMapper sectionMapper = sqlSession.getMapper(SectionMapper.class);
-		sectionMapper.updateSectionInBoard(section_id, section_name);
+		sectionMapper.updateSection(section_id, section_name);
 		
 	}
 }

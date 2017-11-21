@@ -13,7 +13,8 @@ if(session.getAttribute("id") == null) {
 }
 
 //SectionVO sectionVO = (SectionVO) request.getAttribute("sectionVO");
-ArrayList<SectionVO> sectionlist = (ArrayList<SectionVO>)request.getAttribute("sectionlist");
+
+ArrayList<SectionVO> sectionlist = (ArrayList<SectionVO>)request.getAttribute("sectionList");
 %>
 <!DOCTYPE html>
 <html lang="en">
@@ -42,12 +43,17 @@ ArrayList<SectionVO> sectionlist = (ArrayList<SectionVO>)request.getAttribute("s
     %>
       <tr>
         <td>
-        <input type = "text" class = "form-control" name = "section_name" value = "<%=section.getName() %>" placeholder = "수정할 Section명을 입력하세요">
-        <input type = "hidden" class = "form-control" name = "section_id" value =  "<%=section.getId() %>">
+        <form action = "updatesection.do">
+        	<input type = "hidden" class = "form-control" name = "section_id" value =  "<%=section.getId() %>">
+        	<input type = "text" class = "form-control" name = "section_name" value = "<%=section.getName() %>" placeholder = "수정할 Section명을 입력하세요">
+        	<input type = submit value = "수정" >
+       	</form>
         </td>
         <td align = right>
-        	<input type = button value = "수정" onclick = "location.href='./updatesection.do?section_id=<%=section.getId()%>'">&nbsp;&nbsp;
-       		<input type = button value = "삭제" onclick = "location.href='./deletesection.do?section_id=<%=section.getId()%>'">
+       		<form action = "deletesection.do">
+       			<input type = "hidden" class = "form-control" name = "section_id" value =  "<%=section.getId() %>">
+       			<input type = submit value = "삭제" >
+       		</form>
        	</td>
       </tr>
    <%} %>	

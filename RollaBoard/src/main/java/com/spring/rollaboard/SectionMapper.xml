@@ -24,7 +24,7 @@
 		INSERT INTO section VALUES (SEQ_SECTION.NEXTVAL, #{board_id}, #{name}, 1)
 	</insert>
 	
-	<delete id = "deleteSectionInBoard" parameterType = "int">
+	<delete id = "deleteSection" parameterType = "int">
 		DELETE FROM section WHERE ID = #{id}
 	</delete>
 	
@@ -32,7 +32,7 @@
 		SELECT MAX(SEQ_NUM) FROM section WHERE BOARD_ID = #{board_id}
 	</select>
 	
-	<update id = "updateSectionInBoard" parameterType = "map">
+	<update id = "updateSection" parameterType = "map">
 		UPDATE SECTION SET NAME = #{section_name} WHERE ID = #{section_id}
 	</update>
 

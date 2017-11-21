@@ -11,11 +11,7 @@ public interface SectionDAO {
 
 	public void createSection(SectionVO sectionVO);
 
-	public void updateSection(String section_id);
-
-	public void deleteSection(String section_id);
+	public void deleteSection(int section_id);
 	
-	public void deleteSectionInBoard(int section_id);
-	
-	public void updateSectionInBoard(int section_id, String section_name);
+	public void updateSection(int section_id, String section_name);
 }
