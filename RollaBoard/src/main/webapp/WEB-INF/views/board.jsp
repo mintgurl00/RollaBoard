@@ -91,9 +91,11 @@ function initBoard() {
  * 검색 결과
  */
 function loadSearchResult() {
+	var filter = getFilter() ;
 	$('#content').load("searchresult.do", {
 		board_id: '<%=boardVO.getId() %>',
-		keyword:$('#keyword').val()
+		keyword:$('#keyword').val(),
+		filter: filter
 	});
 	
 	$('#written_keyword').attr('value', $('#keyword').val() ) ;
@@ -172,11 +174,12 @@ function getFilter(){
 <!-- 필터와 검색 -->
 
 <div id="filter">
-	<a href=#>관계 TASK보기</a>&nbsp;
-	<a href=#>마감날짜순</a>&nbsp;
+	<!-- <a href=#>관계 TASK보기</a>&nbsp;
+	<a href=#>마감날짜순</a>&nbsp; -->
 	<input type="checkbox" class="filter" id="chk_duedate" name="due" value="FALSE" onclick="javascript:filterResult(this)"/>
-	<a href=#>시작날짜순</a>&nbsp;
-	<a href=#>중요도순</a>	
+	마감일 보기
+	<!-- <a href=#>시작날짜순</a>&nbsp;
+	<a href=#>중요도순</a>	 -->
 	<input type="text" name="keyword" id="keyword" placeholder="task명을 입력하세요." value=""/>
 	<input type="hidden" name="written_keyword" id="written_keyword" value=""/>
 	<input type ="hidden" name="board_id" value="<%=boardVO.getId()%>" />
