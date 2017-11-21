@@ -64,7 +64,7 @@ for( int i = 0 ; i < sectionList.size() ; i++ ){
 		for( int j = 0 ; j < taskViewList.get( i ).size() ; j++ ){
 		%>
 			<!-- <form action="taskview.do" method = "post"> -->		
-				<div id="task" onclick="location.href='./taskview.do'">
+				<div id="task"  onclick="location.href='./taskview.do'">
 				
 				<%-- ?name=<%=taskViewList.get( i ).get( j ).getName()  %> 
 				& <%=taskViewList.get( i ).get( j ).getDescription() %> & <%=taskViewList.get( i ).get( j ).getId() %> 
