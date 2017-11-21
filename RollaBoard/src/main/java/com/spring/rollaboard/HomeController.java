@@ -464,7 +464,8 @@ public class HomeController {
     }
     
     @RequestMapping("etc.do")
-    public String etc(HttpServletRequest request, HttpSession session) {
+    public ModelAndView etc(HttpServletRequest request, HttpSession session) {
+    	ModelAndView result = new ModelAndView();
     	String visibility = request.getParameter("visibility");
     	String board_id = (String) session.getAttribute("board_id");
 
@@ -472,7 +473,10 @@ public class HomeController {
     	System.out.println("공개여부 : " + visibility);
     	boardDAOService.visibility(visibility, board_id);
     	
-        return "redirect:etcform.do";
+    	
+    	result.setViewName("redirect:updateboard.do");
+    	
+        return result;
     }
     
     @RequestMapping("enterboard.do")
