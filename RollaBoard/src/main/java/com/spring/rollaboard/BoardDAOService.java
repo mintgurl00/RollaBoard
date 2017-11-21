@@ -75,7 +75,11 @@ public class BoardDAOService implements BoardDAO {
 		boardMapper.joinBoard(board_id, mem_id);
 	}
 
-	
+	@Override
+	public void visibility(String visibility, String board_id) {
+		BoardMapper boardMapper = sqlSession.getMapper(BoardMapper.class);
+		boardMapper.visibility(visibility, board_id);
+	}
 
 	
 }
