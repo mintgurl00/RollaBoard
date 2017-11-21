@@ -330,9 +330,9 @@ public class HomeController {
     }
     
     @RequestMapping("admitmember.do")
-    public ModelAndView admitmember(String mem_id, HttpServletResponse response) throws Exception {
-    	System.out.println("멤버승인 성공");
-    	System.out.println("멤버아이디" + mem_id);
+    public ModelAndView admitmember(HttpServletRequest request, HttpServletResponse response) throws Exception {
+    	String mem_id = (String)(request.getParameter("mem_id"));
+    	System.out.println("승인할 멤버 아이디: " + mem_id);
     	ModelAndView result = new ModelAndView();
     	memDAOService.admitMember(mem_id);
     	
@@ -341,14 +341,15 @@ public class HomeController {
     	out.println("<script>alert('멤버 승인에 성공했습니다.');</script>");
     	out.flush();
     	
-    	result.setViewName("updateboard");
+    	result.setViewName("redirect:updateboard.do");
         return result;
     }
     
     @RequestMapping("deletemember.do")
-    public ModelAndView deletemember(String mem_id, String board_id, HttpServletResponse response) throws Exception {
-    	
-    	System.out.println("강퇴할 멤버 아이디: " + mem_id);
+    public ModelAndView deletemember(HttpServletRequest request, HttpServletResponse response) throws Exception {
+    	//System.out.println(request.getParameter("mem_id"));
+    	String mem_id = (String)(request.getParameter("mem_id"));
+    	System.out.println("강퇴/삭제할 멤버 아이디: " + mem_id);
     	ModelAndView result = new ModelAndView();
     	memDAOService.deleteMember(mem_id);
     	
@@ -357,12 +358,7 @@ public class HomeController {
     	out.println("<script>alert('멤버 강퇴/삭제에 성공했습니다.');</script>");
     	out.flush();
     	
-    	ArrayList<MemVO> boardMemberList = memDAOService.getBoardMembers(Integer.parseInt(board_id));
-    	
-    	result.setView(new RedirectView("memberlist.do?method=list"));
-    	//result.addObject("board_id", board_id);
-    	result.addObject("boardMemberList", boardMemberList);
-    	//result.setViewName("updateboard");
+    	result.setViewName("redirect:updateboard.do");
     	return result;
     	
     }
@@ -375,7 +371,7 @@ public class HomeController {
     	
     	result.addObject("sectionlist", sectionlist);
     	
-    	result.setViewName("sectionlist");
+    	result.setViewName("subMenu");
         return result;
     }
     
