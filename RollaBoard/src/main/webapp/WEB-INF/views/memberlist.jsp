@@ -49,16 +49,18 @@ function chkBox() {
     <tbody>
     <%for (int i = 0; i < boardMemberList.size(); i++) { //보드멤버리스트 받아와야함
     	MemVO memVO = boardMemberList.get(i);%>
-    <form id = "deletemember" action = "deletemember.do?mem_id=<%=memVO.getId() %>" method = "post">
       <tr>
         <td><%=memVO.getName() %> </td>
         <td><%=memVO.getId() %></td>
         
         <td align = right>
+        <form id = "deletemember" action = "deletemember.do?" method = "post">
+        	<input type = hidden name = "mem_id" value = "<%=memVO.getId() %>">
        		<input type = button value = "강퇴" class = "btn btn-info" onclick = "javascript:chkBox()">
+   		</form>
        	</td>
       </tr>
-    </form>
+   
    <%} %>
     </tbody>
   </table>

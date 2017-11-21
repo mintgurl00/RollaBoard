@@ -64,14 +64,17 @@ function chkBox2() {
         <td><%=memVO.getId() %></td>
         
         <td align = right>
-        <form id = "admitmember" action = "admitmember.do?mem_id=<%=memVO.getId() %>" method = "post">
-        	<input type = button value = "승인" onclick = "javascript:chkBox1()">&nbsp;&nbsp;
+        <form id = "admitmember" action = "admitmember.do" method = "post">
+        	<input type = hidden name = "mem_id" value = "<%=memVO.getId() %>">
+        	<input type = button value = "승인" onclick = "javascript:chkBox1()">
         </form>
-        <form id = "deletemember" action = "deletemember.do?mem_id=<%=memVO.getId() %>" method = "post">
-       		<input type = button name = "role<%=i %>" value = "삭제" onclick = "javascript:chkBox2()">
+        <form id = "deletemember" action = "deletemember.do" method = "post">
+        	<input type = hidden name = "mem_id" value = "<%=memVO.getId() %>">
+       		<input type = button value = "삭제" onclick = "javascript:chkBox2()">
+       	</form>
        	</td>
       </tr>
-    </form>
+    
    <%} %>
     </tbody>
   </table>
