@@ -60,7 +60,7 @@ if(session.getAttribute("id") == null) {
 	
 	<div id="button">
 		<input type="submit" value="확인" >
-		<input type="submit" value="취소" onclick='history.go(-1)'>
+		<input type="button" value="취소" onclick='history.go(-1)'>
 	</div>
 
 </div>

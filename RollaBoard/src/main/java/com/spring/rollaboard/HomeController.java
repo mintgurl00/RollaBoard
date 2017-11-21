@@ -751,7 +751,7 @@ public class HomeController {
 		List<TaskVO> taskList = taskDAOService.getTasks();
 		result.addObject("taskList", taskList);
 		System.out.println("444");
-		result.setViewName("board");
+		result.setViewName("redirect:board.do");
 		return result;
 		
 		
