@@ -37,7 +37,7 @@
 </head>
 <script>
 function rolePage() {
-	$('#resultBlock').load("rolelist.do", {id: "<%=boardVO.getId() %>"});
+	$('#resultBlock').load("rolelist.do", {board_id: "<%=boardVO.getId() %>"});
 }
 
 function memberPage() {

@@ -50,6 +50,7 @@ INSERT INTO board(id, name, admin) values ( 502, '다른사람보드(테스트)'
 INSERT INTO board_ref(board_id, ref_id) VALUES(500,501);
 INSERT INTO board_ref(board_id, ref_id) VALUES(500,502);
 
+ALTER TABLE SECTION ADD(SEQ_NUM NUMBER);
 
 commit;
 

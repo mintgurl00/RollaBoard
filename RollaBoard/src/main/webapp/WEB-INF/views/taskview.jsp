@@ -1,5 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    
+<%
+	String task_name = request.getParameter("name");
+	String task_description = request.getParameter("description");
+	String task_status = request.getParameter("status");
+
+	/* ArrayList<taskVO> taskViewList = (ArrayList<taskVO>)request.getAttribute("taskViewList"); */
+%>
+
 <%
 // 세션 아이디 체크
 if(session.getAttribute("id") == null) {
@@ -23,8 +32,9 @@ if(session.getAttribute("id") == null) {
 </head>
 <body>
 
-<div id="frame"><h1>TASK 이름</h1>
-	<div id="content">내용</div>
+<div id="frame"><h1>TASK 이름 : <%-- <%=task_name %> --%></h1>
+	<div id="content">내용 : <%-- <%=task_description %> --%></div>
+	<div id="status">상태: <%-- <%=task_status %> --%></div>	
 	<div id="comment">댓글</div>
 	<div id="button">
 		<input type=button value="확인" onclick = 'history.go(-1)'>

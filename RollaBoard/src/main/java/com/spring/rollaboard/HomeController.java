@@ -352,9 +352,9 @@ public class HomeController {
     }
     
     @RequestMapping("admitmember.do")
-    public ModelAndView admitmember(String mem_id, HttpServletResponse response) throws Exception {
-    	System.out.println("멤버승인 성공");
-    	System.out.println("멤버아이디" + mem_id);
+    public ModelAndView admitmember(HttpServletRequest request, HttpServletResponse response) throws Exception {
+    	String mem_id = (String)(request.getParameter("mem_id"));
+    	System.out.println("승인할 멤버 아이디: " + mem_id);
     	ModelAndView result = new ModelAndView();
     	memDAOService.admitMember(mem_id);
     	
@@ -363,10 +363,29 @@ public class HomeController {
     	out.println("<script>alert('멤버 승인에 성공했습니다.');</script>");
     	out.flush();
     	
-    	result.setViewName("updateboard");
+    	result.setViewName("redirect:updateboard.do");
         return result;
     }
     
+    @RequestMapping("deletemember.do")
+    public ModelAndView deletemember(HttpServletRequest request, HttpServletResponse response, HttpSession session) throws Exception {
+    	//System.out.println(request.getParameter("mem_id"));
+		ModelAndView result = new ModelAndView();
+    	String mem_id = (String)(request.getParameter("mem_id"));
+    	System.out.println("강퇴/삭제할 멤버 아이디: " + mem_id);
+    	memDAOService.deleteMember(mem_id);
+    	
+    	response.setContentType("text/html; charset-utf-8");
+    	PrintWriter out = response.getWriter();
+    	out.println("<script>alert('멤버 강퇴/삭제에 성공했습니다.');</script>");
+    	out.flush();
+    	
+    	
+    	result.setViewName("redirect:updateboard.do");
+    	result.addObject("board_id", session.getAttribute("board_id"));
+    	return result;
+    	
+    }
 
     // 회원정보 수정 처리
     @RequestMapping("updatemember.do")
@@ -390,6 +409,7 @@ public class HomeController {
     	memDAOService.updateMember(updateMemInfo);
     	// alert처리단
     	response.setContentType("text/html; charset-utf-8");
+
 		PrintWriter out = response.getWriter();
     	out.println("<script>alert('회원정보가 수정되었습니다.');");
     	out.println("window.close();</script>");
@@ -398,28 +418,6 @@ public class HomeController {
     	result.setViewName("dashboard");
 		return result;
 	}
-
-//    @RequestMapping("deletemember.do")
-//    public ModelAndView deletemember(String mem_id, String board_id, HttpServletResponse response) throws Exception {
-//    	
-//    	System.out.println("강퇴할 멤버 아이디: " + mem_id);
-//    	ModelAndView result = new ModelAndView();
-//    	memDAOService.deleteMember(mem_id);
-//    	
-//    	response.setContentType("text/html; charset-utf-8");
-//    	PrintWriter out = response.getWriter();
-//    	out.println("<script>alert('멤버 강퇴/삭제에 성공했습니다.');</script>");
-//    	out.flush();
-//    	
-//    	ArrayList<MemVO> boardMemberList = memDAOService.getBoardMembers(Integer.parseInt(board_id));
-//    	
-//    	result.setView(new RedirectView("memberlist.do?method=list"));
-//    	//result.addObject("board_id", board_id);
-//    	result.addObject("boardMemberList", boardMemberList);
-//    	//result.setViewName("updateboard");
-//    	return result;
-//    	
-//    }
     
     //섹션 리스트 보기
     @RequestMapping("sectionlist.do")
@@ -429,7 +427,7 @@ public class HomeController {
     	
     	result.addObject("sectionlist", sectionlist);
     	
-    	result.setViewName("sectionlist");
+    	result.setViewName("subMenu");
         return result;
     }
     
@@ -622,29 +620,59 @@ public class HomeController {
     }
     
     @RequestMapping("taskview.do")
-    public String taskview() {
-        return "taskview";
+    public String taskview(HttpServletRequest request) {
+    /*	System.out.println("555555");
+    	System.out.println("테스크 이름 " + request.getParameter("showtask"));
+    	String task_name = request.getParameter("showtask");
+    	ModelAndView result = new ModelAndView();
+    	
+    	result.addObject("task_name", task_name);
+    	result.setViewName("taskview");
+    */    return "taskview";
     }
     
+      
     @RequestMapping("updatetask.do")
     public String updatetask() {
         return "updatetask";
     }
     
 	@RequestMapping("createtask.do")
-	public String createtask() {
-		return "createtask";
+	public ModelAndView createtask(HttpServletRequest request) {
+		
+		System.out.println("리쿼스트 섹션아이디 : " + request.getParameter("section_id"));
+		String section_id = request.getParameter("section_id");  
+		System.out.println("111111");
+		ModelAndView result = new ModelAndView();
+		
+		result.addObject("section_id",section_id);
+        result.setViewName("createtask");
+        System.out.println("222222");
+		return result;
 	}
 	
 	@RequestMapping("inserttask.do")
-	public ModelAndView insertTask(HttpSession session, HttpServletResponse response, TaskVO taskVO) {
+	public ModelAndView insertTask(HttpSession session, HttpServletResponse response, TaskVO taskVO, HttpServletRequest request) {
+		
+		/*int section_id = Integer.parseInt( request.getParameter( "section_id" ) ) ;*/
+				
 		taskDAOService.insertTask(taskVO);
+		System.out.println("3333333");
 		ModelAndView result = new ModelAndView();				
 		List<TaskVO> taskList = taskDAOService.getTasks();
 		result.addObject("taskList", taskList);
+		System.out.println("444");
 		result.setViewName("board");
 		return result;
 		
+		
+		/*ModelAndView result = new ModelAndView();
+    	String id = session.getAttribute( "id" ).toString() ;
+    	int board_id = Integer.parseInt( request.getParameter( "board_id" ) ) ;	// 보드 id
+    	
+    	String board_name = boardVO.getName();
+    	String mem_id = (String)(session.getAttribute("id"));*/
+    	
 	}
 	
 	@RequestMapping("detailtask.do")

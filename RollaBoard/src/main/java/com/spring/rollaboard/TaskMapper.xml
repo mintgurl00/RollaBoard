@@ -71,8 +71,18 @@
 	</select>
 	
 	<insert id = "insertTask" parameterType = "com.spring.rollaboard.TaskVO">
+		
+		<!-- INSERT INTO task (id, name, description, section_id)
+		VALUES (seq_task.NEXTVAL, #{name}, #{description}, #{section_id}) -->
 			
-		INSERT INTO task (id, name, description) values ( seq_task.nextval, #{name, javaType=String}, #{description, jdbcType=VARCHAR})
+		INSERT INTO task (id, name, description, section_id)
+		VALUES (seq_task.NEXTVAL, #{name}, #{description}, #{section_id})
+		
+		<!-- INSERT 
+		UPDATE task SET  NAME = #{name, jdbcType=VARCHAR},
+		description = #{description, jdbcType=VARCHAR}
+		WHERE section_id = #{section_id, javaType=INT} 
+		 -->
 
 	</insert>
 	

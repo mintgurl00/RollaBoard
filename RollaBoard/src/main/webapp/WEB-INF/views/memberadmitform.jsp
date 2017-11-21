@@ -23,6 +23,25 @@ ArrayList<MemVO> boardMemberList = (ArrayList<MemVO>)request.getAttribute("board
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script type = "text/javascript" language = "javascript">
+function chkBox1() {
+	var chk = confirm("정말 승인하시겠습니까?");
+	if (chk) {
+		document.getElementById("admitmember").submit();
+	} else {
+		return;
+	}
+}
+
+function chkBox2() {
+	var chk = confirm("정말 삭제하시겠습니까?");
+	if (chk) {
+		document.getElementById("deletemember").submit();
+	} else {
+		return;
+	}
+}
+</script>
 </head>
 <body>
 <div class="container">
@@ -32,20 +51,27 @@ ArrayList<MemVO> boardMemberList = (ArrayList<MemVO>)request.getAttribute("board
     <thead>
       <tr>
         <th>MEMBER 이름</th>
+        <th>MEMBER 아이디</th>
         <th></th>
       </tr>
     </thead>
     <tbody>
     <%for(int i = 0; i < boardMemberList.size(); i++) {
-    	MemVO member = boardMemberList.get(i);
+    	MemVO memVO = boardMemberList.get(i);
     %>
       <tr>
-        <td><%=member.getName() %></td>
+        <td><%=memVO.getName() %></td>
+        <td><%=memVO.getId() %></td>
+        
         <td align = right>
-        	<input type = button value = "승인" onclick="location.href='./admitmember.do?mem_id=<%=member.getId()%>'">&nbsp;&nbsp;
-       		<input type = button name = "role<%=i %>" value = "삭제">
+        <form id = "admitmember" action = "admitmember.do?mem_id=<%=memVO.getId() %>" method = "post">
+        	<input type = button value = "승인" onclick = "javascript:chkBox1()">&nbsp;&nbsp;
+        </form>
+        <form id = "deletemember" action = "deletemember.do?mem_id=<%=memVO.getId() %>" method = "post">
+       		<input type = button name = "role<%=i %>" value = "삭제" onclick = "javascript:chkBox2()">
        	</td>
       </tr>
+    </form>
    <%} %>
     </tbody>
   </table>

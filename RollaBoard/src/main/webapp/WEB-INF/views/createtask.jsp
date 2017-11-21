@@ -1,6 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ page import = "java.util.*, com.spring.rollaboard.*" %>
+
+<%
+	String section_id = request.getParameter("section_id");
+	
+%>
+
 <%
 // 세션 아이디 체크
 if(session.getAttribute("id") == null) {
@@ -25,9 +31,17 @@ if(session.getAttribute("id") == null) {
 </head>
 <body>
 
-<form action="inserttask.do" name="inserttask">
+<form action="inserttask.do" name="inserttask" method="post">
+
 
 <div id="frame">
+	<div id="section_id">
+		<input type="text" id="section_id" name="section_id" value = <%=section_id %> size="40">
+	</div>
+	<%-- <div id="taskid">
+		<input type="text" id="taskid" name="task_id" value = <%task_id%> size="40" name="name">
+	</div> --%>
+	
 	<div id="taskname">
 		<input type="text" id="name" placeholder="TASK 이름을 입력하시오." size="40" name="name">
 	</div>
