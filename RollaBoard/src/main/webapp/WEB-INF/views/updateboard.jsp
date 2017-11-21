@@ -60,14 +60,21 @@ function sectionPage() {
 function ETCPage() {
 	$('#resultBlock').load("etcform.do");
 }
-
+function updating() {
+	document.getElementById("updating").submit();
+}
 </script>
 <body>
-<form class = form-horizental">
+
 <div class = "page-header">
 	<div class = "row">
 		<div class = "col-xs-1 col-sm-1"></div>
-		<div class = "col-xs-8 col-sm-2"><input type = "text" class = "form-control" id = "board_name" value = "<%=boardVO.getName() %>" placeholder = "Board명을 입력하세요"></div>
+		<div class = "col-xs-8 col-sm-2">
+		<form id = "updating" action = "updateboardname.do">
+			<input type = "text" class = "form-control" name = "board_name" value = "<%=boardVO.getName() %>" placeholder = "Board명을 입력하세요" required>
+
+		</form>
+		</div>
 		<div class = "col-xs-6 col-sm-1"><input type="button" name = "group" class="btn btn-primary" onclick = "rolePage()" value = "ROLE관리"/></div>
 		<div class = "col-xs-6 col-sm-1"><input type="button" name = "group" class="btn btn-primary" onclick = "allocatePage()" value = "ROLE배정"/></div>
 		<div class = "col-xs-6 col-sm-1"><input type="button" name = "group" class="btn btn-primary" onclick = "memberPage()" value = "MEMBER관리"/></div>
@@ -106,14 +113,12 @@ function ETCPage() {
 	</jsp:include>
 	<%} %>
 </div>
-<div class = "row">
-	<center><div class = "col-xs-12 left">
-	<input type = "submit" class = "btn btn-info" value = "저장"> &nbsp; 
-	<input type = "button" class = "btn btn-info" value = "취소" onclick = "location.href='board.do?board_id=<%=boardVO.getId()%>'">
-	</div></center>
-	
+<div class = "row" align = center>
+	<div class = "col-xs-12 left">
+	<input type = "submit" class = "btn btn-info" value = "확인" onclick = "javascript:updating()" >&nbsp; 
+	<input type = "button" class = "btn btn-info" value = "돌아가기" onclick = "location.href='board.do?board_id=<%=boardVO.getId()%>'">
+	</div>
 </div>
 <br/>
-</form>
 </body>
 </html>

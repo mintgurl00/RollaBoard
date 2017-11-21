@@ -73,7 +73,7 @@ for( int i = 0 ; i < sectionSize ; i++ ){
 	<%
 	for( int j = 0 ; j < taskViewList.get( i ).size() ; j++ ){
 	%>
-		<div id="task" onclick="location.href='./taskview.do';">
+		<div id="task" method = "post" onclick="location.href='./taskview.do?task_id=<%=taskViewList.get( i ).get( j ).getId() %>';" style="cursor:pointer">
 			<h3>TASK명:<%=taskViewList.get( i ).get( j ).getName() %></h3>
 			TASK내용:<%=taskViewList.get( i ).get( j ).getDescription() %><br />
 			TASK_id:<%=taskViewList.get( i ).get( j ).getId() %><br />

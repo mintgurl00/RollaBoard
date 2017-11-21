@@ -2,6 +2,7 @@ package com.spring.rollaboard;
 
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.StringTokenizer;
 
@@ -14,6 +15,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 
@@ -57,7 +59,6 @@ public class HomeController {
     @RequestMapping("login.do")
     public ModelAndView login(MemVO memVO, HttpServletResponse response, HttpSession session) throws Exception {
     	System.out.println("login...memVO.getID : " + memVO.getId());
-    	
     	MemVO member = memDAOService.getMember(memVO);
     	ModelAndView result = new ModelAndView();
     	if (member == null) {
@@ -523,16 +524,14 @@ public class HomeController {
     
     // TASK 관련 메소드 ----------------------------------------------------------------
     
-    @RequestMapping("taskview.do")
-    public String taskview(HttpServletRequest request) {
-    /*	System.out.println("555555");
-    	System.out.println("테스크 이름 " + request.getParameter("showtask"));
-    	String task_name = request.getParameter("showtask");
+    @RequestMapping(value = "taskview.do" )
+    public ModelAndView taskview(int task_id) {	
     	ModelAndView result = new ModelAndView();
-    	
-    	result.addObject("task_name", task_name);
+    	System.out.println("태스크뷰 아이디 : " + task_id);
+    	TaskVO taskVO = taskDAOService.getTask(task_id);
+    	result.addObject("taskVO", taskVO);
     	result.setViewName("taskview");
-    */    return "taskview";
+        return result;
     }
     
       
@@ -645,7 +644,17 @@ public class HomeController {
     	return result;
     }
     
-    
+    @RequestMapping("updateboardname.do")
+    public ModelAndView updateboardname(String board_name, HttpSession session) {
+    	ModelAndView result = new ModelAndView();
+    	System.out.println("업데이트 보드 네임 : " + board_name);
+    	BoardVO boardVO = new BoardVO();
+    	boardVO.setId(Integer.parseInt((String)session.getAttribute("board_id")));
+    	boardVO.setName(board_name);
+    	boardDAOService.updateBoard(boardVO);
+    	result.setViewName("redirect:board.do");
+        return result;
+    }
     
     @RequestMapping("enterboard.do")
     public ModelAndView enterboard() {

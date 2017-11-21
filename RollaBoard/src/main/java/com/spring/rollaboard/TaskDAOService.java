@@ -61,9 +61,9 @@ public class TaskDAOService implements TaskDAO {
 	}
 
 	@Override
-	public TaskVO getTask(int id, CmtVO cmtVO) {
-		// TODO Auto-generated method stub
-		return null;
+	public TaskVO getTask(int id) {
+		TaskMapper taskMapper = sqlSession.getMapper(TaskMapper.class) ;
+		return taskMapper.getTask(id);
 	}
 
 	public ArrayList<TaskVO> getTasksByBoard2(int board_id, String keyword) {	// 석원

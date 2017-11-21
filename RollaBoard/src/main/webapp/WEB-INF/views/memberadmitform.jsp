@@ -66,12 +66,12 @@ function chkBox2() {
         <td align = right>
         <form id = "admitmember" action = "admitmember.do" method = "post">
         	<input type = hidden name = "mem_id" value = "<%=memVO.getId() %>">
-        	<input type = button value = "승인" onclick = "javascript:chkBox1()">
         </form>
         <form id = "deletemember" action = "deletemember.do" method = "post">
         	<input type = hidden name = "mem_id" value = "<%=memVO.getId() %>">
-       		<input type = button value = "삭제" onclick = "javascript:chkBox2()">
        	</form>
+       	<input type = button class = "btn btn-info" value = "승인" onclick = "javascript:chkBox1()">
+       	<input type = button class = "btn btn-default" value = "삭제" onclick = "javascript:chkBox2()">
        	</td>
       </tr>
     

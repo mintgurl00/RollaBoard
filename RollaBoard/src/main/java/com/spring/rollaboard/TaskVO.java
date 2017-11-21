@@ -48,6 +48,13 @@ public class TaskVO {
 	public void setSection_id(int section_id) {
 		this.section_id = section_id;
 	}
+	
+	public int getPriority() {
+		return priority;
+	}
+	public void setPriority(int priority) {
+		this.priority = priority;
+	}
 	public Date getStart_date() {
 		return start_date;
 	}
@@ -66,11 +73,6 @@ public class TaskVO {
 	public void setCre_date(Date cre_date) {
 		this.cre_date = cre_date;
 	}
-	public int getPriority() {
-		return priority;
-	}
-	public void setPriority(int priority) {
-		this.priority = priority;
-	}
+	
 
 }
