@@ -1,6 +1,5 @@
 package com.spring.rollaboard;
 
-import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
@@ -13,8 +12,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
@@ -76,6 +73,10 @@ public class HomeController {
     	
     	session.setAttribute("id", member.getId());
     	List<BoardVO> boardList = boardDAOService.getBoards((String)(session.getAttribute("id"))); //수민. login 후 대시보드로 갈 때 보드리스트 받아옴
+    	
+    	///테스트
+    	/*TaskFilterSQL tfSQL = TaskFilterSQL.getInstance() ;
+    	System.out.println( tfSQL.get( TaskFilter.CREDATE_ASC ) ) ;*/
     	
     	result.addObject("boardList", boardList); //수민
     	result.setViewName("dashboard");
@@ -145,7 +146,7 @@ public class HomeController {
     	if (boardDAOService.getBoard(board_name) != null) {
     		response.setContentType("text/html; charset-utf-8");
         	PrintWriter out = response.getWriter();
-        	out.println("<script>alert('이미 사용중인 보드 이름입니다!');</script>");
+        	out.println("<script>alert('이미 사용중인 보드 이름입니다!'); history.go(-1);</script>");
         	out.flush();
         	result.setViewName("createboard");
         	return result;
@@ -167,6 +168,27 @@ public class HomeController {
     	result.addObject("board", boardVO);
     	result.setViewName("newboard");
     	
+    	return result;
+    }
+    
+    @RequestMapping("createsection.do")
+    public ModelAndView createsection(HttpSession session) {
+    	ModelAndView result = new ModelAndView();
+    	int board_id = Integer.parseInt((String) session.getAttribute("board_id"));
+    	int maxNum;
+    	System.out.println("맥스넘 나온거 : "+sectionDAOService.getMaxSeqNum(board_id));
+    	if (sectionDAOService.getMaxSeqNum(board_id) == 0) {
+			maxNum = 1;
+		} else {
+			maxNum = sectionDAOService.getMaxSeqNum(board_id) + 1;
+		}
+    	SectionVO sectionVO = new SectionVO();
+    	sectionVO.setBoard_id(board_id);
+    	sectionVO.setSeq_num(maxNum);
+    	sectionVO.setName("대분류" + maxNum);
+    	sectionDAOService.createSection(sectionVO);
+    	result.addObject("board_id", board_id);
+    	result.setViewName("redirect:board.do");
     	return result;
     }
     
@@ -196,7 +218,7 @@ public class HomeController {
     	System.out.println("Desc : " + updateRoleInfo.getDescription());
 
     	roleDAOService.createRole(updateRoleInfo);
-    	result.setViewName("subMenu");
+    	result.setViewName("redirect:updateboard.do");
 		return result;
 	}
     
@@ -346,11 +368,11 @@ public class HomeController {
     }
     
     @RequestMapping("deletemember.do")
-    public ModelAndView deletemember(HttpServletRequest request, HttpServletResponse response) throws Exception {
+    public ModelAndView deletemember(HttpServletRequest request, HttpServletResponse response, HttpSession session) throws Exception {
     	//System.out.println(request.getParameter("mem_id"));
+		ModelAndView result = new ModelAndView();
     	String mem_id = (String)(request.getParameter("mem_id"));
     	System.out.println("강퇴/삭제할 멤버 아이디: " + mem_id);
-    	ModelAndView result = new ModelAndView();
     	memDAOService.deleteMember(mem_id);
     	
     	response.setContentType("text/html; charset-utf-8");
@@ -358,10 +380,44 @@ public class HomeController {
     	out.println("<script>alert('멤버 강퇴/삭제에 성공했습니다.');</script>");
     	out.flush();
     	
+    	
     	result.setViewName("redirect:updateboard.do");
+    	result.addObject("board_id", session.getAttribute("board_id"));
     	return result;
     	
     }
+
+    // 회원정보 수정 처리
+    @RequestMapping("updatemember.do")
+	public ModelAndView updatemember(MemVO updateMemInfo, HttpServletResponse response) throws Exception {
+    	ModelAndView result = new ModelAndView();
+    	MemVO memPwChk = memDAOService.getMember(updateMemInfo);
+
+    	if (memPwChk == null) {
+    		// alert처리단
+    		response.setContentType("text/html; charset-utf-8");
+    		PrintWriter out = response.getWriter();
+            out.println("<script>alert('비밀번호가 틀립니다.');</script>");
+            out.flush(); 
+            result.addObject("member", updateMemInfo);
+            result.setViewName("updatememberform");
+    		return result;
+            //developerdon.tistory.com/entry/JAVA-단에서-alert-처리하기-–-
+		}
+    	System.out.println(memPwChk.getId() + "의 회원정보 수정");
+ 	
+    	memDAOService.updateMember(updateMemInfo);
+    	// alert처리단
+    	response.setContentType("text/html; charset-utf-8");
+
+		PrintWriter out = response.getWriter();
+    	out.println("<script>alert('회원정보가 수정되었습니다.');");
+    	out.println("window.close();</script>");
+        out.flush();
+        result.addObject("id", updateMemInfo.getId());
+    	result.setViewName("dashboard");
+		return result;
+	}
     
     //섹션 리스트 보기
     @RequestMapping("sectionlist.do")
@@ -373,20 +429,6 @@ public class HomeController {
     	
     	result.setViewName("subMenu");
         return result;
-    }
-    
-    //섹션 추가
-    @RequestMapping("createsection.do")
-    public ModelAndView createsection(SectionVO sectionVO, String board_id) {
-    	
-    	String section_name = sectionVO.getName();
-    	System.out.println("추가할 섹션 이름: " + section_name);
-    	ModelAndView result = new ModelAndView();
-    	sectionDAOService.createSection(sectionVO);
-    	
-    	result.setViewName("sectionlist");
-    	return result;
-    	
     }
     
     //섹션 수정
@@ -447,7 +489,7 @@ public class HomeController {
     		// alert처리단
     		response.setContentType("text/html; charset-utf-8");
     		PrintWriter out = response.getWriter();
-            out.println("<script>alert('찾는 BOARD가 존재하지 않습니다!(BOARD 이름을 다시 확인해주세요)');</script>");
+            out.println("<script>alert('찾는 BOARD가 없습니다!(BOARD 이름을 다시 확인해주세요)');</script>");
             out.flush(); 
     		result.setViewName("enterboard");
             return result;
@@ -538,52 +580,13 @@ public class HomeController {
     	System.out.println( "id:" + id + ", board_id:" + board_id );
     	
     	/* ******************************************************************** */
-    	// 아래부터는 석원 구역. 보드에 태스크 보여주기
-    	
-    	/*
-    	 * 사실 이 부분에 보드멤버가 맞는지 확인하는 부분이 들어가야 한다.
-    	 * (뭐, 어서 일단 넘어가구요.)
-    	 * */
-    	
+    	// 참조 보드 리스트 추출
     	// 01. 참조 보드 리스트 추출
     	ArrayList<BoardVO> refBoardList = boardDAOService.getRefBoards( board_id );
     	System.out.println("참조보드리스트추출");
     	
-    	// 02. 섹션 리스트 추출
-    	ArrayList<SectionVO> sectionList = sectionDAOService.getSections( board_id ) ;
-    	System.out.println("섹션리스트추출");
-    	
-    	
-    	// 03. 태스크 리스트 추출
-    	ArrayList<TaskVO> taskList = taskDAOService.getTasksByBoard(board_id) ;	// sql문에서 섹션별로 그룹해야 편할듯 + 섹션순서번호 정렬
-    	System.out.println("태스크리스트추출");
-    	// 04. 롤 배치 리스트 추출
-    	
-    	
-    	
-    	// 태스크 배치
-    	ArrayList<ArrayList<TaskVO>> taskViewList = new ArrayList<ArrayList<TaskVO>>() ;	// 태스크리스트 저장객체 생성
-    	for( int i = 0 ; i < sectionList.size() ; i++ ){
-    		taskViewList.add( new ArrayList<TaskVO>() ) ;	// 섹션 수만큼 칸을 만들고
-    	}
-    	for( TaskVO task : taskList ){
-    		int t_sid = task.getSection_id() ;	// 태스크의 섹션아이디
-    		for( int j = 0 ; j < sectionList.size() ; j++ ){	// 섹션리스트 하나하나 섹션아이디 확인
-    			int sid = sectionList.get( j ).getId() ;
-    			if( sid == t_sid ){
-    				taskViewList.get( j ).add( task ) ;
-    				break ;
-    			}
-    		}
-    	}
-    	// 롤 배치(나중에 하려고 함)
-    	//ArrayList<ArrayList<ArrayList<RoleVO>>> roleViewList ;
-    	
 		// ....을 전달
     	result.addObject( "refBoardList" , refBoardList ) ;
-    	result.addObject( "sectionList" , sectionList ) ;
-    	result.addObject( "taskViewList" , taskViewList ) ;
-    	
     	// 여기까지 석원구역.
     	/* ******************************************************************** */
     	
@@ -658,36 +661,7 @@ public class HomeController {
         return result;
     }
     
-    // 회원정보 수정 처리
-    @RequestMapping("updatemember.do")
-	public ModelAndView updatemember(MemVO updateMemInfo, HttpServletResponse response) throws Exception {
-    	ModelAndView result = new ModelAndView();
-    	MemVO memPwChk = memDAOService.getMember(updateMemInfo);
-
-    	if (memPwChk == null) {
-    		// alert처리단
-    		response.setContentType("text/html; charset-utf-8");
-    		PrintWriter out = response.getWriter();
-            out.println("<script>alert('비밀번호가 틀립니다.');</script>");
-            out.flush(); 
-            result.addObject("member", updateMemInfo);
-            result.setViewName("updatememberform");
-    		return result;
-            //developerdon.tistory.com/entry/JAVA-단에서-alert-처리하기-–-
-		}
-    	System.out.println(memPwChk.getId() + "의 회원정보 수정");
- 	
-    	memDAOService.updateMember(updateMemInfo);
-    	// alert처리단
-    	response.setContentType("text/html; charset-utf-8");
-		PrintWriter out = response.getWriter();
-    	out.println("<script>alert('회원정보가 수정되었습니다.');");
-    	out.println("window.close();</script>");
-        out.flush();
-        result.addObject("id", updateMemInfo.getId());
-    	result.setViewName("dashboard");
-		return result;
-	}
+   
     
     /*
      * 석원. 검색 결과
@@ -708,9 +682,6 @@ public class HomeController {
     	 * */
     	
     	// 01. 참조 보드 리스트 추출...은 할 필요 없고
-    	/*ArrayList<BoardVO> refBoardList = boardDAOService.getRefBoards( board_id );
-    	System.out.println("참조보드리스트추출");*/
-    	
     	// 02. 섹션 리스트 추출
     	ArrayList<SectionVO> sectionList = sectionDAOService.getSections( board_id ) ;
     	System.out.println("섹션리스트추출");
