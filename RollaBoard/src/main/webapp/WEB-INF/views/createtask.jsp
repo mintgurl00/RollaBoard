@@ -16,6 +16,12 @@ if(session.getAttribute("id") == null) {
 	out.println("</script>");
 }
 %>
+<script>
+document.getElementById('cre_date').valueAsDate = new Date();
+
+</script>
+
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -58,15 +64,15 @@ if(session.getAttribute("id") == null) {
 	
 	<h4>고급설정</h4>
 	<div id ="start_date"> 시작날짜  <br/>
-		<input type="text" id="start_Date" placeholder="yyyy-mm-dd" size="40" name ="start_date"><br/><br/><br/>
+		<input type="date" id="start_Date" placeholder="yyyy-mm-dd" size="40" name ="start_date"><br/><br/><br/>
 	</div>
 	
 	<div id ="due_date"> 마감날짜  <br/>
-		<input type="text" id="due_Date" placeholder="yyyy-mm-dd" size="40" name = "due_date"><br/><br/><br/>
+		<input type="date" id="due_Date" placeholder="yyyy-mm-dd" size="40" name = "due_date"><br/><br/><br/>
 	</div>
 	
 	<div id ="cre_date"> 생성날짜  <br/>
-		<input type="text" id="cre_Date" placeholder="yyyy-mm-dd" size="40" name = "cre_date"><br/><br/><br/>
+		<input type="date" id="cre_date" placeholder="yyyy-mm-dd" size="40" name = "cre_date"><br/><br/><br/>
 	</div>
 	
 	<div id ="priority"> 중요도  <br/>
