@@ -113,16 +113,16 @@ function inputEnterToSearch(){
  */
 
 function filterResult( obj ){	// 필터버튼 클릭
-	alert( obj.name + ' : ' + obj.value ) ;
+	/* alert( obj.name + ' : ' + obj.value ) ; */
 	// 01 필터 버튼에 값 설정
 	if( obj.value == 'FALSE' )
 		obj.value = 'TRUE' ;
 	else
 		obj.value = 'FALSE' ;
 	// 02 전체 필터버튼의 값 확인해서 전달 필터 String 작성
-	alert( obj.name + ' : ' + obj.value ) ;
+	/* alert( obj.name + ' : ' + obj.value ) ; */
 	var filter = getFilter() ;
-	alert( '필터스트링 : ' + filter ) ;
+	/* alert( '필터스트링 : ' + filter ) ; */
 	// 03 페이지 로드
 	$('#content').load("searchresult.do", {
 		board_id: '<%=boardVO.getId() %>',
@@ -133,7 +133,7 @@ function filterResult( obj ){	// 필터버튼 클릭
 function getFilter(){
 	var filterString = "" ;
 	$( ".filter" ).each( function(){
-		alert( '필터' + $( this ).prop( "name" ) ) ;
+/* 		alert( '필터' + $( this ).prop( "name" ) ) ; */
 		if( $( this ).val() == 'TRUE' )
 			filterString += $( this ).prop( "name" ) + " " ;
 	} ) ;
