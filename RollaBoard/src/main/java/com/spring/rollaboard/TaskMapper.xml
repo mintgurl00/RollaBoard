@@ -75,8 +75,8 @@
 		<!-- INSERT INTO task (id, name, description, section_id)
 		VALUES (seq_task.NEXTVAL, #{name}, #{description}, #{section_id}) -->
 			
-		INSERT INTO task (id, name, description, section_id)
-		VALUES (seq_task.NEXTVAL, #{name}, #{description}, #{section_id})
+		INSERT INTO task (id, name, description, section_id, start_date, due_date, cre_date, priority)
+		VALUES (seq_task.NEXTVAL, #{name}, #{description}, #{section_id}, #{start_date}, #{due_date}, #{cre_date}, #{priority})
 		
 		<!-- INSERT 
 		UPDATE task SET  NAME = #{name, jdbcType=VARCHAR},
