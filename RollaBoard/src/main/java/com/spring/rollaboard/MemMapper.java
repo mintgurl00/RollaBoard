@@ -21,5 +21,9 @@ public interface MemMapper {
 	public ArrayList<MemVO> waitingMembers(@Param("board_id") int board_id); //수민-승인 대기중인 보드멤버리스트
 	
 	public void admitMember(@Param("mem_id") String mem_id); //수민-승인하기
+	
+	public ArrayList<MemVO> getRoleMembers(@Param("role_id") int role_id);
+	
+	public void deleteMember(@Param("mem_id") String mem_id); //수민-멤버강퇴
 
 }

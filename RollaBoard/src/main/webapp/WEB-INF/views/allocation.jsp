@@ -1,6 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-    
 <%@ page import = "java.util.*" %>
 <%@ page import="java.util.*, com.spring.rollaboard.*"%>
 
@@ -11,71 +10,60 @@ if(session.getAttribute("id") == null) {
 	out.println("location.href='index.do'");
 	out.println("</script>");
 }
-
 ArrayList<MemVO> boardMemberList = (ArrayList<MemVO>)request.getAttribute("boardMemberList");
+ArrayList<RoleVO> roleList = (ArrayList<RoleVO>)request.getAttribute("roleList");
 %>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <title>memberadmit</title>
+  <title>memberlist</title>
   <meta charset="utf-8" Encoding = "UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <script type = "text/javascript" language = "javascript">
-function chkBox1() {
-	var chk = confirm("정말 승인하시겠습니까?");
-	if (chk) {
-		document.getElementById("admitmember").submit();
-	} else {
-		return;
-	}
-}
-
-function chkBox2() {
-	var chk = confirm("정말 삭제하시겠습니까?");
-	if (chk) {
-		document.getElementById("deletemember").submit();
-	} else {
-		return;
-	}
+function members(id) {
+	window.open('rolemembers.do?role_id='+id, "members",
+			"resizeable = yes, scrollbars = yes, menubar=no, width = 800, height = 500, left = 10, right = 10");
 }
 </script>
 </head>
 <body>
 <div class="container">
-  <h2>MEMBER 승인</h2>
-  <p>당신의 BOARD에 가입을 원하는 MEMBER입니다.</p>            
+  <h2>ROLE 배정</h2>
+  <p>ROLE에 MEMBER를 배정하세요.</p>            
   <table class="table table-striped">
     <thead>
       <tr>
-        <th>MEMBER 이름</th>
-        <th>MEMBER 아이디</th>
+        <th>ROLE 명단</th>
+        <th>배정하기</th>
         <th></th>
       </tr>
     </thead>
     <tbody>
-    <%for(int i = 0; i < boardMemberList.size(); i++) {
-    	MemVO memVO = boardMemberList.get(i);
-    %>
+    <%for (int i = 0; i < roleList.size(); i++) { //보드멤버리스트 받아와야함
+    	RoleVO roleVO = roleList.get(i);%>
       <tr>
-        <td><%=memVO.getName() %></td>
-        <td><%=memVO.getId() %></td>
-        
+        <td><%=roleVO.getName() %> </td>
+        <td>
+        	<form id = "insertMemToRole" action = "insertmemtorole.do">
+        		<input type = "hidden" name = "role_id" value = "<%=roleVO.getId() %>" >
+	        	<input type = "text" class = "form-control" name = "mem_id" placeholder = "맴버아이디 입력" >
+	       		<input type = submit class = "btn btn-info" value = "배정" >
+       		</form>
+        </td>
         <td align = right>
-        <form id = "admitmember" action = "admitmember.do?mem_id=<%=memVO.getId() %>" method = "post">
-        	<input type = button value = "승인" onclick = "javascript:chkBox1()">&nbsp;&nbsp;
+        <form id = "getRoleMember">
+       		<input type = button class = "btn btn-info" value = "배정된 맴버보기" onclick = "members(<%=roleVO.getId()%>)">
         </form>
-        <form id = "deletemember" action = "deletemember.do?mem_id=<%=memVO.getId() %>" method = "post">
-       		<input type = button name = "role<%=i %>" value = "삭제" onclick = "javascript:chkBox2()">
        	</td>
+       	</form>
       </tr>
-    </form>
    <%} %>
     </tbody>
   </table>
 </div>
 </body>
 </html>
-

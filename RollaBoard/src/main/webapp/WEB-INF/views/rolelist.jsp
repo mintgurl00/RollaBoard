@@ -54,11 +54,11 @@ function updateRoleForm() {
       	<form id = "updateRole" action = "updaterole.do">
         <div class = "col-xs-3">
         	<%=roleVO.getName() %>
-        	<input type = "text" class = "form-control" name = "name" placeholder = "수정할 정보 입력(이름)">
+        	<input type = "text" class = "form-control" name = "name" placeholder = "수정할 정보 입력(이름)" value = "<%=roleVO.getName() %>">
         </div>
         <div class = "col-xs-3">
         	<%=roleVO.getDescription() %>
-        	<input type = "text" class = "form-control" name = "description" placeholder = "수정할 정보 입력(설명)">
+        	<input type = "text" class = "form-control" name = "description" placeholder = "수정할 정보 입력(설명)" value = "<%=roleVO.getDescription() %>">
         </div>
         <div class = "col-xs-3" align = right>
         

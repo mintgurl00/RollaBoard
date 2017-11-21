@@ -37,7 +37,7 @@
 </head>
 <script>
 function rolePage() {
-	$('#resultBlock').load("rolelist.do", {id: "<%=boardVO.getId() %>"});
+	$('#resultBlock').load("rolelist.do", {board_id: "<%=boardVO.getId() %>"});
 }
 
 function memberPage() {
@@ -48,8 +48,12 @@ function admitPage() {
 	$('#resultBlock').load("memberadmitform.do", {board_id: "<%=boardVO.getId() %>"});
 }
 
+function sectionPage() {
+	$('#resultBlock').load("sectionlist.do", {board_id: "<%=boardVO.getId() %>"});
+}
+
 function ETCPage() {
-	$('#resultBlock').load("etc.do");
+	$('#resultBlock').load("etcform.do");
 }
 </script>
 <body>
@@ -61,6 +65,7 @@ function ETCPage() {
 		<div class = "col-xs-6 col-sm-2"><input type="button" name = "group" class="btn btn-primary" onclick = "rolePage()" value = "ROLE관리"/></div>
 		<div class = "col-xs-6 col-sm-2"><input type="button" name = "group" class="btn btn-primary" onclick = "memberPage()" value = "MEMBER관리"/></div>
 		<div class = "col-xs-6 col-sm-2"><input type="button" name = "group" class="btn btn-primary" onclick = "admitPage()" value = "MEMBER승인"/></div>
+		<div class = "col-xs-6 col-sm-2"><input type="button" name = "group" class="btn btn-primary" onclick = "sectionPage()" value = "SECTION관리"/></div>
 		<div class = "col-xs-6 col-sm-2"><input type="button" name = "group" class="btn btn-primary" onclick = "ETCPage()" value = "기타설정"/></div>
 
 	</div>

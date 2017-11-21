@@ -23,6 +23,16 @@ ArrayList<MemVO> boardMemberList = (ArrayList<MemVO>)request.getAttribute("board
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script type = "text/javascript" language = "javascript">
+function chkBox() {
+	var chk = confirm("정말 강퇴하시겠습니까?");
+	if (chk) {
+		document.getElementById("deletemember").submit();
+	} else {
+		return;
+	}
+}
+</script>
 </head>
 <body>
 <div class="container">
@@ -32,19 +42,23 @@ ArrayList<MemVO> boardMemberList = (ArrayList<MemVO>)request.getAttribute("board
     <thead>
       <tr>
         <th>MEMBER 이름</th>
+        <th>MEMBER 아이디</th>
         <th></th>
       </tr>
     </thead>
     <tbody>
     <%for (int i = 0; i < boardMemberList.size(); i++) { //보드멤버리스트 받아와야함
-    	MemVO member = boardMemberList.get(i);%>
+    	MemVO memVO = boardMemberList.get(i);%>
+    <form id = "deletemember" action = "deletemember.do?mem_id=<%=memVO.getId() %>" method = "post">
       <tr>
-        <td><%=member.getName() %> </td>
+        <td><%=memVO.getName() %> </td>
+        <td><%=memVO.getId() %></td>
+        
         <td align = right>
-       		<input type = submit class = "btn btn-info" name = "<%=member.getId() %>" value = "강퇴">
+       		<input type = button value = "강퇴" class = "btn btn-info" onclick = "javascript:chkBox()">
        	</td>
-       	</form>
       </tr>
+    </form>
    <%} %>
     </tbody>
   </table>

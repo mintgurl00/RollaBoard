@@ -27,14 +27,10 @@ keyword : <%=keyword %> <br />
 
 
 <!-- 결과 나오는 부분 -->
-<%
-if( keyword == "" ){ %>
-<%
-	
-}%>
+
 <%
 if( sectionList.size() == 0) {	// 태스크가 없을 때
-	if( keyword != "" ){	// 검색 결과라면
+	if( ! keyword.equals( "" ) ){	// 검색 결과라면
 	%>
 		<%=keyword %>에 대한 검색 결과가 없습니다.
 	<%
@@ -44,7 +40,7 @@ if( sectionList.size() == 0) {	// 태스크가 없을 때
 	<%
 	}
 }else{	// 태스크가 있을 때
-	if( keyword != "" ){	// 검색 결과라면
+	if( ! keyword.equals( "" ) ){	// 검색 결과라면
 	%>
 		<%=keyword %>에 대한 검색 결과입니다.
 	<%
@@ -52,36 +48,39 @@ if( sectionList.size() == 0) {	// 태스크가 없을 때
 }%>
 
 <!-- 본격적으로 표시 -->
-
 <%
-for( int i = 0 ; i < sectionList.size() ; i++ ){
+int sectionSize = sectionList.size() ;
+%>
+<%
+for( int i = 0 ; i < sectionSize ; i++ ){
 %>
 
-	<div id="section">
-		<%=sectionList.get(i).getName() %>
-		<%=sectionList.get(i).getId() %>
-		<%
-		for( int j = 0 ; j < taskViewList.get( i ).size() ; j++ ){
-		%>
-			<!-- <form action="taskview.do" method = "post"> -->		
-				<div id="task"  onclick="location.href='./taskview.do'">
-				
-				<%-- ?name=<%=taskViewList.get( i ).get( j ).getName()  %> 
-				& <%=taskViewList.get( i ).get( j ).getDescription() %> & <%=taskViewList.get( i ).get( j ).getId() %> 
-				& <%=taskViewList.get( i ).get( j ).getStatus() %> --%>
-				
-					<h3>TASK명:<%=taskViewList.get( i ).get( j ).getName() %></h3>
-					TASK내용:<%=taskViewList.get( i ).get( j ).getDescription() %><br />
-					TASK_id:<%=taskViewList.get( i ).get( j ).getId() %><br />
-					TASK상태:<%=taskViewList.get( i ).get( j ).getStatus() %><br />
-				<!-- <input type= "submit" name="showtask" value= "task상세보기"></input> -->
-				</div>
-			<!-- </form> -->
-			
-		<%
-		}
-		%>
+<div id="section">
+	<!-- 섹션 표시줄 -->
+	<%=sectionList.get(i).getName() %>
+	<%=sectionList.get(i).getId() %>
+	<br />
+	<form action="#">
+		<input type="hidden" name="section_id" value="<%=sectionList.get(i).getId() %>" />
+		<input type="text" name="section_name" value="<%=sectionList.get(i).getName() %>" />
+		<input type="submit" value="수정" />
+	</form>
 	
+	<!-- 태스크 표시 -->
+	<%
+	for( int j = 0 ; j < taskViewList.get( i ).size() ; j++ ){
+	%>
+		<div id="task" onclick="location.href='./taskview.do';">
+			<h3>TASK명:<%=taskViewList.get( i ).get( j ).getName() %></h3>
+			TASK내용:<%=taskViewList.get( i ).get( j ).getDescription() %><br />
+			TASK_id:<%=taskViewList.get( i ).get( j ).getId() %><br />
+			TASK상태:<%=taskViewList.get( i ).get( j ).getStatus() %><br />
+		</div>
+	<%
+	} %>
+	
+	<!-- 새 태스크 추가 -->
+	<br /><br />
 	<form action ="createtask.do" method = "post" >
 
 		<input type="hidden" name="section_id" value = "<%=sectionList.get(i).getId() %>" required></input>
@@ -92,10 +91,16 @@ for( int i = 0 ; i < sectionList.size() ; i++ ){
 	    
 	</form>
 	
-	
-	
+
 </div>
 
 <%
 }
 %>
+
+<%
+if( keyword.equals( "" ) ){	// 검색 결과가 *아니*라면
+%>
+	<button type="button" onclick="location.href='createsection.do';">섹션만들기</button>
+<% 
+}%>
