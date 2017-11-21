@@ -54,7 +54,7 @@ document.getElementById('cre_date').valueAsDate = new Date();
 	</div>  -->
 	
 	<div id="taskname">
-		<input type="text" id="name" placeholder="TASK 이름을 입력하시오." size="40" name="name">
+		<input type="text" id="name" placeholder="TASK 이름을 입력하시오." size="40" name="name" required>
 	</div>
 	
 	<div id="description">내용(필수X)<br/>
@@ -67,18 +67,18 @@ document.getElementById('cre_date').valueAsDate = new Date();
 	
 	<h4>고급설정</h4>
 	<div id ="start_date"> 시작날짜  <br/>
-		<input type="date" id="start_Date" placeholder="yyyy-mm-dd" size="40" name ="start_date"><br/><br/><br/>
+		<input type="date" id="start_date" placeholder="yyyy-mm-dd" size="40" name ="start_date"><br/><br/><br/>
 	</div>
 	
 	<div id ="due_date"> 마감날짜  <br/>
 
-		<input type="date" id="due_Date" placeholder="yyyy-mm-dd" size="40" name = "due_date"><br/><br/><br/>
+		<input type="date" id="due_date" placeholder="yyyy-mm-dd" size="40" name = "due_date"><br/><br/><br/>
 
 	</div>
 	
 	<div id ="cre_date"> 생성날짜  <br/>
 
-		<input type="date" id="cre_date" placeholder="yyyy-mm-dd" size="40" name = "cre_date"><br/><br/><br/>
+		<input type="date" id="cre_date" placeholder="yyyy-mm-dd" size="40" name = "cre_date" value = "<%=sdf.format(dt).toString()%>" readonly><br/><br/><br/>
 
 	</div>
 	

@@ -559,7 +559,7 @@ public class HomeController {
 	public ModelAndView insertTask(HttpSession session, HttpServletResponse response, TaskVO taskVO, HttpServletRequest request) {
 		
 		/*int section_id = Integer.parseInt( request.getParameter( "section_id" ) ) ;*/
-				
+		System.out.println("시작날짜 : " + taskVO.getStart_date());
 		taskDAOService.insertTask(taskVO);
 		System.out.println("3333333");
 		ModelAndView result = new ModelAndView();
