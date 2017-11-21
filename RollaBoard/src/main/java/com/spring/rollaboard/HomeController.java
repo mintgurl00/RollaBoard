@@ -358,10 +358,10 @@ public class HomeController {
     	ModelAndView result = new ModelAndView();
     	memDAOService.admitMember(mem_id);
     	
-    	response.setContentType("text/html; charset-utf-8");
-    	PrintWriter out = response.getWriter();
-    	out.println("<script>alert('멤버 승인에 성공했습니다.');</script>");
-    	out.flush();
+//    	response.setContentType("text/html; charset-utf-8");
+//    	PrintWriter out = response.getWriter();
+//    	out.println("<script>alert('멤버 승인에 성공했습니다.');</script>");
+//    	out.flush();
     	
     	result.setViewName("redirect:updateboard.do");
         return result;
@@ -375,10 +375,10 @@ public class HomeController {
     	System.out.println("강퇴/삭제할 멤버 아이디: " + mem_id);
     	memDAOService.deleteMember(mem_id);
     	
-    	response.setContentType("text/html; charset-utf-8");
-    	PrintWriter out = response.getWriter();
-    	out.println("<script>alert('멤버 강퇴/삭제에 성공했습니다.');</script>");
-    	out.flush();
+//    	response.setContentType("text/html; charset-utf-8");
+//    	PrintWriter out = response.getWriter();
+//    	out.println("<script>alert('멤버 강퇴/삭제에 성공했습니다.');</script>");
+//    	out.flush();
     	
     	
     	result.setViewName("redirect:updateboard.do");
@@ -427,7 +427,7 @@ public class HomeController {
     	
     	result.addObject("sectionlist", sectionlist);
     	
-    	result.setViewName("subMenu");
+    	result.setViewName("sectionlist");
         return result;
     }
     
