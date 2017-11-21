@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ page import = "com.spring.rollaboard.BoardVO" %>
+<%@ page import = "java.util.*" %>
 <%
 // 세션 아이디 체크
 if(session.getAttribute("id") == null) {
@@ -7,6 +9,7 @@ if(session.getAttribute("id") == null) {
 	out.println("location.href='index.do'");
 	out.println("</script>");
 }
+ArrayList<BoardVO> refBoardList = (ArrayList<BoardVO>)request.getAttribute("refBoardList");
 %>
 <!DOCTYPE html>
 <html lang="en">
@@ -38,7 +41,7 @@ function radio_chk() {
   <h2>참조 승인 여부 | 참조 BOARD 입력</h2>
   <p>공개를 통해 다른BOARD에서 당신의 BOARD를 참조할 수 있게 하고 참조할 BOARD명을 입력하세요 </p>  
   <br/><br/>
-  <form id = "visibility" action = "etc.do">
+  <form id = "visibility" action = "etc1.do">
   <div class = "row">
   	<div class = "col-xs-4">공개여부</div>
   	<div class = "col-xs-3"><input type = "radio" name = "visibility" value = "TRUE" >공개</div>
@@ -49,10 +52,21 @@ function radio_chk() {
   
   <br/><br/>
   
-  <form>
+  <form id = "reference" action = "etc2.do">
   <div class = "row">
-  	<div class = "col-xs-4">BOARD참조</div>
-  	<div class = "col-xs-6"><input type = "text" class = "form-control" name = "ref_board" placeholder = "참조할 board명 입력"></div>	
+  	<div class = "col-xs-2">BOARD참조</div>
+  	<div class = "col-xs-4">
+  	<%for(int i = 0; i < refBoardList.size(); i++) {
+    	BoardVO boardVO = refBoardList.get(i);
+    %>
+    	<%=boardVO.getName() %>
+    	</br>
+    <%
+  	}
+    %>
+  	
+  	</div>
+  	<div class = "col-xs-4"><input type = "text" class = "form-control" name = "ref_board" placeholder = "참조할 board명 입력"></div>	
   	<div class = "col-xs-2"><input type = "submit" class = "btn btn-info" value = "저장"></div>
   </div>
   </form>

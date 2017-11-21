@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ page import = "java.util.*, com.spring.rollaboard.*" %>
-
+<%@ page import = "java.text.SimpleDateFormat"%>
 <%
 	String section_id = request.getParameter("section_id");
 	
@@ -15,6 +15,9 @@ if(session.getAttribute("id") == null) {
 	out.println("location.href='index.do'");
 	out.println("</script>");
 }
+Date dt = new Date();
+SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd"); 
+
 %>
 <script>
 document.getElementById('cre_date').valueAsDate = new Date();
@@ -55,7 +58,7 @@ document.getElementById('cre_date').valueAsDate = new Date();
 	</div>
 	
 	<div id="description">내용(필수X)<br/>
-		<input type="textarea" id="description" style="height:180px; width:380px;" name="description">
+		<input type="textarea" id="description" style="height:180px; width:380px;" name="description" >
 	</div>
 	
 	<div id="role">Role 배정(필수X)<br/>
@@ -68,11 +71,15 @@ document.getElementById('cre_date').valueAsDate = new Date();
 	</div>
 	
 	<div id ="due_date"> 마감날짜  <br/>
+
 		<input type="date" id="due_Date" placeholder="yyyy-mm-dd" size="40" name = "due_date"><br/><br/><br/>
+
 	</div>
 	
 	<div id ="cre_date"> 생성날짜  <br/>
+
 		<input type="date" id="cre_date" placeholder="yyyy-mm-dd" size="40" name = "cre_date"><br/><br/><br/>
+
 	</div>
 	
 	<div id ="priority"> 중요도  <br/>
@@ -80,11 +87,11 @@ document.getElementById('cre_date').valueAsDate = new Date();
 	</div>
 	
 	<div id ="pre_Task"> 선행TASK  <br/>
-		<input type="text" id="pre_Task" placeholder="Task id를 입력하시오" size="40" name="pre_Task"><br/><br/><br/>
+		<input type="text" id="pre_task" placeholder="Task id를 입력하시오" size="40" name="pre_Task"><br/><br/><br/>
 	</div>
 	
 	<div id ="postTask"> 후행TASK  <br/>
-		<input type="text" id="postTask" placeholder="Task id를 입력하시오" size="40"><br/><br/><br/>
+		<input type="text" id="post_task" placeholder="Task id를 입력하시오" size="40"><br/><br/><br/>
 	</div>
 	
 	<!-- <div id="settings">
@@ -93,7 +100,7 @@ document.getElementById('cre_date').valueAsDate = new Date();
 	
 	<div id="button">
 		<input type="submit" value="확인" >
-		<input type="submit" value="취소" onclick='history.go(-1)'>
+		<input type="button" value="취소" onclick='history.go(-1)'>
 	</div>
 
 </div>

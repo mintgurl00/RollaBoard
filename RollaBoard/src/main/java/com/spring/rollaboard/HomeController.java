@@ -83,93 +83,12 @@ public class HomeController {
     	return result;
     }
     
-    @RequestMapping("insertMember.do")
-    public ModelAndView insertMember(MemVO memVO, HttpServletResponse response) throws Exception {
-    	ModelAndView result = new ModelAndView();
-    	int chk = memDAOService.chkMemberId(memVO);
-    	System.out.println("chk = " + chk);
-    	if (chk != 0) {
-    		// alert처리단
-    		response.setContentType("text/html; charset-utf-8");
-    		PrintWriter out = response.getWriter();
-            out.println("<script>alert('이미 존재하는 아이디입니다.');</script>");
-            out.flush(); 
-    		result.setViewName("joinform");
-    		return result;
-		}
-    	memDAOService.insertMember(memVO);	
-    	response.setContentType("text/html; charset-utf-8");
-		PrintWriter out = response.getWriter();
-        out.println("<script>alert('회원가입 되었습니다!');</script>");
-        out.flush();
-		result.setViewName("index");
-    	return result;
-    }
-    
     @RequestMapping("joinform.do")
     public String joinform() {
         return "joinform";
     }
     
-    @RequestMapping("dashboard.do")
-    public ModelAndView dashboard(HttpSession session) {
-    	ModelAndView result = new ModelAndView();
-    	List<BoardVO> boardList = boardDAOService.getBoards((String)(session.getAttribute("id"))); //수민. 대시보드로 갈 때 보드리스트 받아옴
-    	session.removeAttribute("board_id"); // 대쉬보드로 이동시 board_id 세션을 없앤다.
-    	result.addObject("id", session.getAttribute("id"));
-    	result.addObject("boardList", boardList); //수민
-    	result.setViewName("dashboard");
-        return result;
-    }
-    
-    @RequestMapping("newboard.do")
-    public ModelAndView newboard() {
-    	ModelAndView result = new ModelAndView();
-    	result.setViewName("newboard");
-        return result;
-    }
-    
-    @RequestMapping("createboardform.do")
-    public String createboardform() {
-    	return "createboardform";
-    }
-    
-    @RequestMapping("createboard.do")
-    public ModelAndView createboard(BoardVO boardVO, HttpSession session, HttpServletResponse response) throws Exception {
-    	
-    	ModelAndView result = new ModelAndView();
-    	System.out.println("보드 이름 : " + boardVO.getName() + "아이디 : " + (String)(session.getAttribute("id")));
-
-    	String board_name = boardVO.getName();
-    	String mem_id = (String)(session.getAttribute("id"));
-    	
-    	if (boardDAOService.getBoard(board_name) != null) {
-    		response.setContentType("text/html; charset-utf-8");
-        	PrintWriter out = response.getWriter();
-        	out.println("<script>alert('이미 사용중인 보드 이름입니다!'); history.go(-1);</script>");
-        	out.flush();
-        	result.setViewName("createboard");
-        	return result;
-		}
-    	boardDAOService.createBoard(board_name, mem_id);
-    	
-    	// 만들어진 보드 아이디를 갖고와서 초기 SECTION을 만드는 데 사용한다.
-    	BoardVO createdBoardVO = boardDAOService.getBoard(board_name);
-    	SectionVO sectionVO = new SectionVO();
-    	// SECTION을 만들 때는 boardVO객체를 통해서 만든다.
-    	sectionVO.setBoard_id(createdBoardVO.getId());
-    	sectionVO.setName("대분류1");
-    	sectionDAOService.createSection(sectionVO);
-    	response.setContentType("text/html; charset-utf-8");
-    	PrintWriter out = response.getWriter();
-    	out.println("<script>alert('보드가 새로 생성되었습니다.');</script>");
-    	out.flush();
-    	
-    	result.addObject("board", boardVO);
-    	result.setViewName("newboard");
-    	
-    	return result;
-    }
+    // ROLE 관련 메소드 -----------------------------------------------------------------
     
     @RequestMapping("rolelist.do")
     public ModelAndView rolelist(String board_id) {
@@ -311,6 +230,7 @@ public class HomeController {
     	return result;
 	}
     
+    // 맴버관련 메소드 -------------------------------------------------------------------
     
     @RequestMapping("memberlist.do")
     public ModelAndView memberlist(String board_id) {
@@ -324,6 +244,29 @@ public class HomeController {
     	result.setViewName("memberlist");
         return result;
 
+    }
+    
+    @RequestMapping("insertMember.do")
+    public ModelAndView insertMember(MemVO memVO, HttpServletResponse response) throws Exception {
+    	ModelAndView result = new ModelAndView();
+    	int chk = memDAOService.chkMemberId(memVO);
+    	System.out.println("chk = " + chk);
+    	if (chk != 0) {
+    		// alert처리단
+    		response.setContentType("text/html; charset-utf-8");
+    		PrintWriter out = response.getWriter();
+            out.println("<script>alert('이미 존재하는 아이디입니다.');</script>");
+            out.flush(); 
+    		result.setViewName("joinform");
+    		return result;
+		}
+    	memDAOService.insertMember(memVO);	
+    	response.setContentType("text/html; charset-utf-8");
+		PrintWriter out = response.getWriter();
+        out.println("<script>alert('회원가입 되었습니다!');</script>");
+        out.flush();
+		result.setViewName("index");
+    	return result;
     }
     
     @RequestMapping("memberadmitform.do")
@@ -378,6 +321,18 @@ public class HomeController {
     	
     }
 
+    //회원정보 수정 창으로 이동
+    @RequestMapping("updatememberform.do")
+    public ModelAndView updatememberform(HttpSession session) {
+    	ModelAndView result = new ModelAndView();
+    	// 회원정보수정시 기존 정보를 불러오기 위해 memDAOService.getMemInfoToUpdate를 사용한다(세션에서 ).
+    	MemVO memVO = memDAOService.getMemInfoToUpdate((String)session.getAttribute("id"));
+    	result.addObject("member", memVO);
+    	result.setViewName("updatememberform");
+        return result;
+    }
+    
+    
     // 회원정보 수정 처리
     @RequestMapping("updatemember.do")
 	public ModelAndView updatemember(MemVO updateMemInfo, HttpServletResponse response) throws Exception {
@@ -409,6 +364,8 @@ public class HomeController {
     	result.setViewName("dashboard");
 		return result;
 	}
+    
+    // SECTION 관련 메소드 ---------------------------------------------------------------
     
     //섹션 리스트 보기
     @RequestMapping("sectionlist.do")
@@ -521,17 +478,24 @@ public class HomeController {
     	return result;
     }
     
-    
-    
-    
     //기타설정 뷰로 이동
     @RequestMapping("etcform.do")
-    public String etcform() {
-        return "etcform";
+    public ModelAndView etcform(HttpSession session) {
+    	ModelAndView result = new ModelAndView();
+    	
+    	int board_id = Integer.parseInt((String) session.getAttribute("board_id"));
+    	ArrayList<BoardVO> refBoardList = boardDAOService.getRefBoards(board_id);
+    	
+    	result.addObject("refBoardList" , refBoardList) ;
+    	result.setViewName("etcform");
+    	
+        return result;
     }
     
-    @RequestMapping("etc.do")
-    public String etc(HttpServletRequest request, HttpSession session) {
+    //보드 공개여부 설정
+    @RequestMapping("etc1.do")
+    public ModelAndView etc(HttpServletRequest request, HttpSession session) {
+    	ModelAndView result = new ModelAndView();
     	String visibility = request.getParameter("visibility");
     	String board_id = (String) session.getAttribute("board_id");
 
@@ -539,8 +503,149 @@ public class HomeController {
     	System.out.println("공개여부 : " + visibility);
     	boardDAOService.visibility(visibility, board_id);
     	
-        return "redirect:etcform.do";
+       	// 현재 페이지에 머물 수 있는 앵커값 : chkVal
+    	String chkVal = "etc";
+    	result.addObject("chkVal", chkVal);
+    	result.setViewName("redirect:updateboard.do");
+        return result;
+    	
     }
+    
+    //참조보드 추가
+    @RequestMapping("etc2.do")
+    public ModelAndView etc2() {
+    	ModelAndView result = new ModelAndView();
+    	
+        return result;
+    	
+    }
+    
+    
+    // TASK 관련 메소드 ----------------------------------------------------------------
+    
+    @RequestMapping("taskview.do")
+    public String taskview(HttpServletRequest request) {
+    /*	System.out.println("555555");
+    	System.out.println("테스크 이름 " + request.getParameter("showtask"));
+    	String task_name = request.getParameter("showtask");
+    	ModelAndView result = new ModelAndView();
+    	
+    	result.addObject("task_name", task_name);
+    	result.setViewName("taskview");
+    */    return "taskview";
+    }
+    
+      
+    @RequestMapping("updatetask.do")
+    public String updatetask() {
+        return "updatetask";
+    }
+    
+	@RequestMapping("createtask.do")
+	public ModelAndView createtask(HttpServletRequest request) {
+		
+		System.out.println("리쿼스트 섹션아이디 : " + request.getParameter("section_id"));
+		String section_id = request.getParameter("section_id");  
+		System.out.println("111111");
+		ModelAndView result = new ModelAndView();
+		
+		result.addObject("section_id",section_id);
+        result.setViewName("createtask");
+        System.out.println("222222");
+		return result;
+	}
+	
+	@RequestMapping("inserttask.do")
+	public ModelAndView insertTask(HttpSession session, HttpServletResponse response, TaskVO taskVO, HttpServletRequest request) {
+		
+		/*int section_id = Integer.parseInt( request.getParameter( "section_id" ) ) ;*/
+				
+		taskDAOService.insertTask(taskVO);
+		System.out.println("3333333");
+		ModelAndView result = new ModelAndView();
+		System.out.println("444");
+		result.setViewName("redirect:board.do");
+		return result;
+		
+		
+		/*ModelAndView result = new ModelAndView();
+    	String id = session.getAttribute( "id" ).toString() ;
+    	int board_id = Integer.parseInt( request.getParameter( "board_id" ) ) ;	// 보드 id
+    	
+    	String board_name = boardVO.getName();
+    	String mem_id = (String)(session.getAttribute("id"));*/
+    	
+	}
+	
+	@RequestMapping("detailtask.do")
+	public String detailtask() {
+		return "detailtask";
+	}
+    
+	
+	// 보드관련 메소드--------------------------------------------
+    
+    @RequestMapping("dashboard.do")
+    public ModelAndView dashboard(HttpSession session) {
+    	ModelAndView result = new ModelAndView();
+    	List<BoardVO> boardList = boardDAOService.getBoards((String)(session.getAttribute("id"))); //수민. 대시보드로 갈 때 보드리스트 받아옴
+    	session.removeAttribute("board_id"); // 대쉬보드로 이동시 board_id 세션을 없앤다.
+    	result.addObject("id", session.getAttribute("id"));
+    	result.addObject("boardList", boardList); //수민
+    	result.setViewName("dashboard");
+        return result;
+    }
+    
+    @RequestMapping("newboard.do")
+    public ModelAndView newboard() {
+    	ModelAndView result = new ModelAndView();
+    	result.setViewName("newboard");
+        return result;
+    }
+    
+    @RequestMapping("createboardform.do")
+    public String createboardform() {
+    	return "createboardform";
+    }
+    
+    @RequestMapping("createboard.do")
+    public ModelAndView createboard(BoardVO boardVO, HttpSession session, HttpServletResponse response) throws Exception {
+    	
+    	ModelAndView result = new ModelAndView();
+    	System.out.println("보드 이름 : " + boardVO.getName() + "아이디 : " + (String)(session.getAttribute("id")));
+
+    	String board_name = boardVO.getName();
+    	String mem_id = (String)(session.getAttribute("id"));
+    	
+    	if (boardDAOService.getBoard(board_name) != null) {
+    		response.setContentType("text/html; charset-utf-8");
+        	PrintWriter out = response.getWriter();
+        	out.println("<script>alert('이미 사용중인 보드 이름입니다!'); history.go(-1);</script>");
+        	out.flush();
+        	result.setViewName("createboard");
+        	return result;
+		}
+    	boardDAOService.createBoard(board_name, mem_id);
+    	
+    	// 만들어진 보드 아이디를 갖고와서 초기 SECTION을 만드는 데 사용한다.
+    	BoardVO createdBoardVO = boardDAOService.getBoard(board_name);
+    	SectionVO sectionVO = new SectionVO();
+    	// SECTION을 만들 때는 boardVO객체를 통해서 만든다.
+    	sectionVO.setBoard_id(createdBoardVO.getId());
+    	sectionVO.setName("대분류1");
+    	sectionDAOService.createSection(sectionVO);
+    	response.setContentType("text/html; charset-utf-8");
+    	PrintWriter out = response.getWriter();
+    	out.println("<script>alert('보드가 새로 생성되었습니다.');</script>");
+    	out.flush();
+    	
+    	result.addObject("board", boardVO);
+    	result.setViewName("newboard");
+    	
+    	return result;
+    }
+    
+    
     
     @RequestMapping("enterboard.do")
     public ModelAndView enterboard() {
@@ -696,6 +801,8 @@ public class HomeController {
     	ArrayList<MemVO> boardWaitingList = memDAOService.waitingMembers(board_id);
     	// SECTION 관리페이지 관련 정보들
     	ArrayList<SectionVO> sectionList = sectionDAOService.getSections(board_id);
+    	//기타설정 페이지 관련 정보들  - 밑에 추가할 것
+    	
     	boardVO = boardDAOService.getBoardInfo(board_id);
     	System.out.println("업데이트보드 id = " + board_id);
     	result.addObject("chkVal", chkVal);
@@ -707,80 +814,7 @@ public class HomeController {
     	result.setViewName("updateboard");
         return result;
     }
-    
-    @RequestMapping("taskview.do")
-    public String taskview(HttpServletRequest request) {
-    /*	System.out.println("555555");
-    	System.out.println("테스크 이름 " + request.getParameter("showtask"));
-    	String task_name = request.getParameter("showtask");
-    	ModelAndView result = new ModelAndView();
-    	
-    	result.addObject("task_name", task_name);
-    	result.setViewName("taskview");
-    */    return "taskview";
-    }
-    
-      
-    @RequestMapping("updatetask.do")
-    public String updatetask() {
-        return "updatetask";
-    }
-    
-	@RequestMapping("createtask.do")
-	public ModelAndView createtask(HttpServletRequest request) {
-		
-		System.out.println("리쿼스트 섹션아이디 : " + request.getParameter("section_id"));
-		String section_id = request.getParameter("section_id");  
-		System.out.println("111111");
-		ModelAndView result = new ModelAndView();
-		
-		result.addObject("section_id",section_id);
-        result.setViewName("createtask");
-        System.out.println("222222");
-		return result;
-	}
 	
-	@RequestMapping("inserttask.do")
-	public ModelAndView insertTask(HttpSession session, HttpServletResponse response, TaskVO taskVO, HttpServletRequest request) {
-		
-		/*int section_id = Integer.parseInt( request.getParameter( "section_id" ) ) ;*/
-				
-		taskDAOService.insertTask(taskVO);
-		System.out.println("3333333");
-		ModelAndView result = new ModelAndView();				
-		List<TaskVO> taskList = taskDAOService.getTasks();
-		result.addObject("taskList", taskList);
-		System.out.println("444");
-		result.setViewName("board");
-		return result;
-		
-		
-		/*ModelAndView result = new ModelAndView();
-    	String id = session.getAttribute( "id" ).toString() ;
-    	int board_id = Integer.parseInt( request.getParameter( "board_id" ) ) ;	// 보드 id
-    	
-    	String board_name = boardVO.getName();
-    	String mem_id = (String)(session.getAttribute("id"));*/
-    	
-	}
-	
-	@RequestMapping("detailtask.do")
-	public String detailtask() {
-		return "detailtask";
-	}
-    
-	//회원정보 수정 창으로 이동
-    @RequestMapping("updatememberform.do")
-    public ModelAndView updatememberform(HttpSession session) {
-    	ModelAndView result = new ModelAndView();
-    	// 회원정보수정시 기존 정보를 불러오기 위해 memDAOService.getMemInfoToUpdate를 사용한다(세션에서 ).
-    	MemVO memVO = memDAOService.getMemInfoToUpdate((String)session.getAttribute("id"));
-    	result.addObject("member", memVO);
-    	result.setViewName("updatememberform");
-        return result;
-    }
-    
-   
     
     /*
      * 석원. 검색 결과
