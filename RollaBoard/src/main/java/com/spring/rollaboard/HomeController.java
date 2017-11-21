@@ -171,27 +171,6 @@ public class HomeController {
     	return result;
     }
     
-    @RequestMapping("createsection.do")
-    public ModelAndView createsection(HttpSession session) {
-    	ModelAndView result = new ModelAndView();
-    	int board_id = Integer.parseInt((String) session.getAttribute("board_id"));
-    	int maxNum;
-    	System.out.println("맥스넘 나온거 : "+sectionDAOService.getMaxSeqNum(board_id));
-    	if (sectionDAOService.getMaxSeqNum(board_id) == 0) {
-			maxNum = 1;
-		} else {
-			maxNum = sectionDAOService.getMaxSeqNum(board_id) + 1;
-		}
-    	SectionVO sectionVO = new SectionVO();
-    	sectionVO.setBoard_id(board_id);
-    	sectionVO.setSeq_num(maxNum);
-    	sectionVO.setName("대분류" + maxNum);
-    	sectionDAOService.createSection(sectionVO);
-    	result.addObject("board_id", board_id);
-    	result.setViewName("redirect:board.do");
-    	return result;
-    }
-    
     @RequestMapping("rolelist.do")
     public ModelAndView rolelist(String board_id) {
         ModelAndView result = new ModelAndView();
@@ -433,6 +412,28 @@ public class HomeController {
         return result;
     }
     
+    // 섹션 만들기
+    @RequestMapping("createsection.do")
+    public ModelAndView createsection(HttpSession session) {
+    	ModelAndView result = new ModelAndView();
+    	int board_id = Integer.parseInt((String) session.getAttribute("board_id"));
+    	int maxNum;
+    	System.out.println("맥스넘 나온거 : "+sectionDAOService.getMaxSeqNum(board_id));
+    	if (sectionDAOService.getMaxSeqNum(board_id) == 0) {
+			maxNum = 1;
+		} else {
+			maxNum = sectionDAOService.getMaxSeqNum(board_id) + 1;
+		}
+    	SectionVO sectionVO = new SectionVO();
+    	sectionVO.setBoard_id(board_id);
+    	sectionVO.setSeq_num(maxNum);
+    	sectionVO.setName("대분류" + maxNum);
+    	sectionDAOService.createSection(sectionVO);
+    	result.addObject("board_id", board_id);
+    	result.setViewName("redirect:board.do");
+    	return result;
+    }
+    
     //섹션 수정
     @RequestMapping("updatesection.do")
     public ModelAndView updatesection(String section_id, String board_id) {
@@ -456,7 +457,17 @@ public class HomeController {
     	
     	result.setViewName("sectionlist");
     	return result;
+    }
+    
+    // board.jsp에서 섹션 삭제
+    @RequestMapping("deletesectioninboard.do")
+    public ModelAndView deletesection(int section_id) {
+    	ModelAndView result = new ModelAndView();
+    	System.out.println("deletesection section_id : " + section_id);
+    	sectionDAOService.deleteSectionInBoard(section_id);
     	
+    	result.setViewName("redirect:board.do");
+    	return result;
     }
     
     //기타설정 뷰로 이동

@@ -14,6 +14,8 @@ public interface SectionMapper {
 	
 	public void createSection(SectionVO sectionVO);
 	
+	public void deleteSectionInBoard(int board_id);
+	
 	public int getMaxSeqNum(@Param("board_id") int board_id);
 
 }

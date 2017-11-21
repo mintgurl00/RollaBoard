@@ -59,10 +59,14 @@ for( int i = 0 ; i < sectionSize ; i++ ){
 	<%=sectionList.get(i).getName() %>
 	<%=sectionList.get(i).getId() %>
 	<br />
-	<form action="#">
+	<form action="">
 		<input type="hidden" name="section_id" value="<%=sectionList.get(i).getId() %>" />
-		<input type="text" name="section_name" value="<%=sectionList.get(i).getName() %>" />
+		<input type="text" name="section_name" value="<%=sectionList.get(i).getName() %>" placeholder = "SECTION명을 입력하세요." />
 		<input type="submit" value="수정" />
+	</form>
+	<form action="deletesectioninboard.do">
+		<input type="hidden" name="section_id" value="<%=sectionList.get(i).getId() %>" />
+		<input type="submit" value="삭제" />
 	</form>
 	
 	<!-- 태스크 표시 -->
