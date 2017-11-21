@@ -16,7 +16,7 @@ public class TaskVO {
 	private Date due_date;
 	private Date cre_date;
 	private int priority;
-		
+	
 	
 	public int getId() {
 		return id;
