@@ -521,16 +521,22 @@ public class HomeController {
     	return result;
     }
     
-    
-    
-    
     //기타설정 뷰로 이동
     @RequestMapping("etcform.do")
-    public String etcform() {
-        return "etcform";
+    public ModelAndView etcform(HttpSession session) {
+    	ModelAndView result = new ModelAndView();
+    	
+    	int board_id = Integer.parseInt((String) session.getAttribute("board_id"));
+    	ArrayList<BoardVO> refBoardList = boardDAOService.getRefBoards(board_id);
+    	
+    	result.addObject("refBoardList" , refBoardList) ;
+    	result.setViewName("etcform");
+    	
+        return result;
     }
     
-    @RequestMapping("etc.do")
+    //보드 공개여부 설정
+    @RequestMapping("etc1.do")
     public ModelAndView etc(HttpServletRequest request, HttpSession session) {
     	ModelAndView result = new ModelAndView();
     	String visibility = request.getParameter("visibility");
@@ -540,11 +546,23 @@ public class HomeController {
     	System.out.println("공개여부 : " + visibility);
     	boardDAOService.visibility(visibility, board_id);
     	
-    	
+       	// 현재 페이지에 머물 수 있는 앵커값 : chkVal
+    	String chkVal = "etc";
+    	result.addObject("chkVal", chkVal);
     	result.setViewName("redirect:updateboard.do");
+        return result;
+    	
+    }
+    
+    //참조보드 추가
+    @RequestMapping("etc2.do")
+    public ModelAndView etc2() {
+    	ModelAndView result = new ModelAndView();
     	
         return result;
+    	
     }
+    
     
     @RequestMapping("enterboard.do")
     public ModelAndView enterboard() {
@@ -700,6 +718,8 @@ public class HomeController {
     	ArrayList<MemVO> boardWaitingList = memDAOService.waitingMembers(board_id);
     	// SECTION 관리페이지 관련 정보들
     	ArrayList<SectionVO> sectionList = sectionDAOService.getSections(board_id);
+    	//기타설정 페이지 관련 정보들  - 밑에 추가할 것
+    	
     	boardVO = boardDAOService.getBoardInfo(board_id);
     	System.out.println("업데이트보드 id = " + board_id);
     	result.addObject("chkVal", chkVal);
