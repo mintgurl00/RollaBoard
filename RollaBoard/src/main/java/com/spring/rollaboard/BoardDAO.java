@@ -22,6 +22,8 @@ public interface BoardDAO {
 	public void joinBoard(int board_id, String mem_id);
 
 	public ArrayList<BoardVO> getRefBoards(int id);
+	
+	public void visibility(String visibility, String board_id);
 
 
 }

@@ -54,6 +54,7 @@ int sectionSize = sectionList.size() ;
 <%
 for( int i = 0 ; i < sectionSize ; i++ ){
 %>
+
 <div id="section">
 	<!-- 섹션 표시줄 -->
 	<%=sectionList.get(i).getName() %>
@@ -83,8 +84,19 @@ for( int i = 0 ; i < sectionSize ; i++ ){
 	
 	<!-- 새 태스크 추가 -->
 	<br /><br />
-	<input type="button" value="TASK생성" onclick="location.href='createtask.do';" />
+	<form action ="createtask.do" method = "post" >
+
+		<input type="hidden" name="section_id" value = "<%=sectionList.get(i).getId() %>" required></input>
+		<%-- <input type="hidden" name="task_id" value = "<%= %>" required></input> --%>
+		
+		<input type="submit" value="TASK생성"  ></input>
+		
+	    
+	</form>
+	
+
 </div>
+
 <%
 }
 %>
