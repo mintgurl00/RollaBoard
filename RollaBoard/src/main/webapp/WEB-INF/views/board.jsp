@@ -156,7 +156,7 @@ function getFilter(){
 	<input type = "hidden" name = "name" value = "<%=boardVO.getName()%>">
 	<input type = "hidden" name = "admin" value = "<%=boardVO.getAdmin()%>">
 	<input type = "hidden" name = "visibility" value = "<%=boardVO.getVisibility()%>">
-	
+	<input type = "hidden" name = "chkVal" value = "role">
 	<button type="submit" class="btn btn-default" name = "name">BOARD설정</button>
 </form>
 <%} %>

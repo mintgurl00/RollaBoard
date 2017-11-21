@@ -58,12 +58,15 @@ for( int i = 0 ; i < sectionSize ; i++ ){
 <div id="section">
 	<!-- 섹션 표시줄 -->
 	<%=sectionList.get(i).getName() %>
-	<%=sectionList.get(i).getId() %>
 	<br />
-	<form action="#">
+	<form action="updatesectioninboard.do">
 		<input type="hidden" name="section_id" value="<%=sectionList.get(i).getId() %>" />
-		<input type="text" name="section_name" value="<%=sectionList.get(i).getName() %>" />
+		<input type="text" name="section_name" value="<%=sectionList.get(i).getName() %>" placeholder = "SECTION명을 입력하세요." />
 		<input type="submit" value="수정" />
+	</form>
+	<form action="deletesectioninboard.do">
+		<input type="hidden" name="section_id" value="<%=sectionList.get(i).getId() %>" />
+		<input type="submit" value="삭제" />
 	</form>
 	
 	<!-- 태스크 표시 -->
@@ -101,6 +104,6 @@ for( int i = 0 ; i < sectionSize ; i++ ){
 <%
 if( keyword.equals( "" ) ){	// 검색 결과가 *아니*라면
 %>
-	<button type="button" onclick="location.href='createsection.do';">섹션만들기</button>
+	<button type="button" onclick="location.href='createsectioninboard.do';">섹션만들기</button>
 <% 
 }%>
