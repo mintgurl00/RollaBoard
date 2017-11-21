@@ -331,9 +331,9 @@ public class HomeController {
     }
     
     @RequestMapping("admitmember.do")
-    public ModelAndView admitmember(String mem_id, HttpServletResponse response) throws Exception {
-    	System.out.println("멤버승인 성공");
-    	System.out.println("멤버아이디" + mem_id);
+    public ModelAndView admitmember(HttpServletRequest request, HttpServletResponse response) throws Exception {
+    	String mem_id = (String)(request.getParameter("mem_id"));
+    	System.out.println("승인할 멤버 아이디: " + mem_id);
     	ModelAndView result = new ModelAndView();
     	memDAOService.admitMember(mem_id);
     	
@@ -342,10 +342,29 @@ public class HomeController {
     	out.println("<script>alert('멤버 승인에 성공했습니다.');</script>");
     	out.flush();
     	
-    	result.setViewName("updateboard");
+    	result.setViewName("redirect:updateboard.do");
         return result;
     }
     
+    @RequestMapping("deletemember.do")
+    public ModelAndView deletemember(HttpServletRequest request, HttpServletResponse response, HttpSession session) throws Exception {
+    	//System.out.println(request.getParameter("mem_id"));
+		ModelAndView result = new ModelAndView();
+    	String mem_id = (String)(request.getParameter("mem_id"));
+    	System.out.println("강퇴/삭제할 멤버 아이디: " + mem_id);
+    	memDAOService.deleteMember(mem_id);
+    	
+    	response.setContentType("text/html; charset-utf-8");
+    	PrintWriter out = response.getWriter();
+    	out.println("<script>alert('멤버 강퇴/삭제에 성공했습니다.');</script>");
+    	out.flush();
+    	
+    	
+    	result.setViewName("redirect:updateboard.do");
+    	result.addObject("board_id", session.getAttribute("board_id"));
+    	return result;
+    	
+    }
 
     // 회원정보 수정 처리
     @RequestMapping("updatemember.do")
@@ -369,6 +388,7 @@ public class HomeController {
     	memDAOService.updateMember(updateMemInfo);
     	// alert처리단
     	response.setContentType("text/html; charset-utf-8");
+
 		PrintWriter out = response.getWriter();
     	out.println("<script>alert('회원정보가 수정되었습니다.');");
     	out.println("window.close();</script>");
@@ -377,28 +397,6 @@ public class HomeController {
     	result.setViewName("dashboard");
 		return result;
 	}
-
-//    @RequestMapping("deletemember.do")
-//    public ModelAndView deletemember(String mem_id, String board_id, HttpServletResponse response) throws Exception {
-//    	
-//    	System.out.println("강퇴할 멤버 아이디: " + mem_id);
-//    	ModelAndView result = new ModelAndView();
-//    	memDAOService.deleteMember(mem_id);
-//    	
-//    	response.setContentType("text/html; charset-utf-8");
-//    	PrintWriter out = response.getWriter();
-//    	out.println("<script>alert('멤버 강퇴/삭제에 성공했습니다.');</script>");
-//    	out.flush();
-//    	
-//    	ArrayList<MemVO> boardMemberList = memDAOService.getBoardMembers(Integer.parseInt(board_id));
-//    	
-//    	result.setView(new RedirectView("memberlist.do?method=list"));
-//    	//result.addObject("board_id", board_id);
-//    	result.addObject("boardMemberList", boardMemberList);
-//    	//result.setViewName("updateboard");
-//    	return result;
-//    	
-//    }
     
     //섹션 리스트 보기
     @RequestMapping("sectionlist.do")
@@ -408,7 +406,7 @@ public class HomeController {
     	
     	result.addObject("sectionlist", sectionlist);
     	
-    	result.setViewName("sectionlist");
+    	result.setViewName("subMenu");
         return result;
     }
     
