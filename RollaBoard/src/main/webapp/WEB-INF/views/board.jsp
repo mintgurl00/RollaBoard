@@ -91,11 +91,12 @@ function initBoard() {
  * 검색 결과
  */
 function loadSearchResult() {
-	<%-- $('#content').load("searchresult.do", {board_id: "<%=boardVO.getId() %>"}); --%>
 	$('#content').load("searchresult.do", {
 		board_id: '<%=boardVO.getId() %>',
 		keyword:$('#keyword').val()
 	});
+	
+	$('#written_keyword').attr('value', $('#keyword').val() ) ;
 	return false ;
 }
 
@@ -107,7 +108,37 @@ function inputEnterToSearch(){
 	});
 }
 
+/*
+ * 필터 결과
+ */
 
+function filterResult( obj ){	// 필터버튼 클릭
+	alert( obj.name + ' : ' + obj.value ) ;
+	// 01 필터 버튼에 값 설정
+	if( obj.value == 'FALSE' )
+		obj.value = 'TRUE' ;
+	else
+		obj.value = 'FALSE' ;
+	// 02 전체 필터버튼의 값 확인해서 전달 필터 String 작성
+	alert( obj.name + ' : ' + obj.value ) ;
+	var filter = getFilter() ;
+	alert( '필터스트링 : ' + filter ) ;
+	// 03 페이지 로드
+	$('#content').load("searchresult.do", {
+		board_id: '<%=boardVO.getId() %>',
+		keyword:$('#written_keyword').val(),
+		filter: filter
+	});
+}
+function getFilter(){
+	var filterString = "" ;
+	$( ".filter" ).each( function(){
+		alert( '필터' + $( this ).prop( "name" ) ) ;
+		if( $( this ).val() == 'TRUE' )
+			filterString += $( this ).prop( "name" ) + " " ;
+	} ) ;
+	return filterString
+}
 
 
 </script>
@@ -134,20 +165,20 @@ function inputEnterToSearch(){
 
 <div id="ref_board">
 	<select id="ref_board_select">
-    	<option value="">참조 BOARD 선택</option><!-- 
-    	<option value="board4">BOARD4</option>
-   	 	<option value="board5">BOARD5</option>
-    	<option value="board6">BOARD6</option> -->
+    	<option value="">참조 BOARD 선택</option>
 	</select>
 </div>
 
 <!-- 필터와 검색 -->
+
 <div id="filter">
 	<a href=#>관계 TASK보기</a>&nbsp;
 	<a href=#>마감날짜순</a>&nbsp;
+	<input type="checkbox" class="filter" id="chk_duedate" name="due" value="FALSE" onclick="javascript:filterResult(this)"/>
 	<a href=#>시작날짜순</a>&nbsp;
 	<a href=#>중요도순</a>	
 	<input type="text" name="keyword" id="keyword" placeholder="task명을 입력하세요." value=""/>
+	<input type="hidden" name="written_keyword" id="written_keyword" value=""/>
 	<input type ="hidden" name="board_id" value="<%=boardVO.getId()%>" />
 	<button type="button" onclick="javascript:loadSearchResult()">검색버튼2</button>
 </div>

@@ -3,6 +3,7 @@ package com.spring.rollaboard;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.StringTokenizer;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -14,7 +15,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.view.RedirectView;
 
 
 @Controller
@@ -674,7 +674,25 @@ public class HomeController {
     	
     	int board_id = Integer.parseInt( (String) request.getParameter( "board_id" ) ) ;
     	String keyword = (String) request.getParameter( "keyword" ) ;
-    	
+    	String filter = (String) request.getParameter( "filter" ) ;
+    	String[] filters = null ;
+    	String[] orders = null ;	// 나중에 해야함
+    	if( filter != null ){
+	    	System.out.println( "필터 값 : " + filter ); // test
+	    	StringTokenizer st = new StringTokenizer(filter," ");
+	    	filters = new String[ st.countTokens() ] ; 
+	    	for( int i = 0 ; i < filters.length ; i++ ){
+	    		// st.hasMoreTokens() ;
+	    		filters[ i ] = st.nextToken() ;
+	    	}
+	    	System.out.println( "전달된 필터 : " + filters.length +"개" );
+	    	for( String filterString : filters ){
+	    		System.out.print( filterString + " ");
+	    	}
+	    	System.out.println() ;
+    	}else{
+    		System.out.println( "전달된 필터는 없습니다." ) ;
+    	}
     	/* ******************************************************************** */
     	// 아래부터는 석원 구역. 보드에 태스크 보여주기
     	
@@ -690,7 +708,12 @@ public class HomeController {
     	
     	
     	// 03. 태스크 리스트 추출
-    	ArrayList<TaskVO> taskList = taskDAOService.getTasksByBoard2( board_id , keyword ) ;	// sql문에서 섹션별로 그룹해야 편할듯 + 섹션순서번호 정렬
+    	ArrayList<TaskVO> taskList ;
+    	if( filters == null && orders == null ){
+    		taskList = taskDAOService.getTasksByBoard2( board_id , keyword ) ;	// sql문에서 섹션별로 그룹해야 편할듯 + 섹션순서번호 정렬
+    	} else {
+    		taskList = taskDAOService.getTasksByBoard2( board_id , keyword , filters , orders ) ;	
+    	}
     	//ArrayList<TaskVO> taskList = taskDAOService.getTasksByBoard( board_id ) ;
     	System.out.println("태스크리스트추출");
     	System.out.println("보드id:" + board_id + ", 키워드:" + keyword );
