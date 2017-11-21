@@ -21,20 +21,37 @@
 		SELECT *
 		FROM task ta, section se
 		WHERE ta.SECTION_ID=se.id 
+    		AND board_id=#{board_id} 
+	</select>
+	
+	<!-- getTasksByBoard2 -->
+	<select id="getTasksByBoard2" parameterType="map" resultMap="TaskResultMap">
+		SELECT *
+		FROM task ta, section se
+		WHERE ta.SECTION_ID=se.id
     		AND board_id=#{board_id}
+    		AND (ta.name LIKE '%'||#{keyword}||'%' OR ta.description LIKE '%'||#{keyword}||'%')
 	</select>
 	
 	<select id="getTasks" resultMap="TaskResultMap">	
 		SELECT * FROM task 
 	</select>
 	
-	<!-- <insert id = "insertTask" parameterType = "com.spring.rollaboard.TaskVO">
+	<insert id = "insertTask" parameterType = "com.spring.rollaboard.TaskVO">
+		
+		<!-- INSERT INTO task (id, name, description, section_id)
+		VALUES (seq_task.NEXTVAL, #{name}, #{description}, #{section_id}) -->
 			
-		UPDATE task SET id = #{seq_task.nextval, jdbcType=INT}, NAME = #{name, jdbcType=VARCHAR},
+		INSERT INTO task (id, name, description, section_id)
+		VALUES (seq_task.NEXTVAL, #{name}, #{description}, #{section_id})
+		
+		<!-- INSERT 
+		UPDATE task SET  NAME = #{name, jdbcType=VARCHAR},
 		description = #{description, jdbcType=VARCHAR}
-		WHERE ID = #{id, javaType=String}
+		WHERE section_id = #{section_id, javaType=INT} 
+		 -->
 
-	</insert> -->
+	</insert>
 	
 	
 </mapper>

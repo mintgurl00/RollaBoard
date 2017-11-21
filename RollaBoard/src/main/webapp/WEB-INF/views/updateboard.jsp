@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ page import = "com.spring.rollaboard.BoardVO" %>
 <%@ page import = "com.spring.rollaboard.RoleVO" %>
+<%@ page import = "com.spring.rollaboard.MemVO" %>
 <%@ page import = "java.util.*" %>
 <% String pageName = "rolelist.jsp"; %>
 <%
@@ -11,7 +12,17 @@
 		out.println("location.href='index.do'");
 		out.println("</script>");
 	}
-	BoardVO boardVO = (BoardVO) request.getAttribute("boardVO");
+	
+	// 세션 보드아이디 체크
+	if (session.getAttribute("board_id") == null) {
+		out.println("<script>location.href='dashboard.do'</script>");
+	}
+	BoardVO boardVO = null;
+	if (request.getAttribute("boardVO") != null) {
+		boardVO = (BoardVO) request.getAttribute("boardVO");
+	} else {
+		boardVO.setId(Integer.parseInt((String) session.getAttribute("board_id")));
+	}
 	ArrayList<RoleVO> roleList = (ArrayList<RoleVO>) request.getAttribute("roleList");
 %>
 <!DOCTYPE html>
@@ -34,7 +45,7 @@ function memberPage() {
 }
 
 function admitPage() {
-	$('#resultBlock').load("memberadmit.do");
+	$('#resultBlock').load("memberadmitform.do", {board_id: "<%=boardVO.getId() %>"});
 }
 
 function ETCPage() {
@@ -45,8 +56,8 @@ function ETCPage() {
 <form class = form-horizental" action = "#">
 <div class = "page-header">
 	<div class = "row">
-		<div class = "col-sm-1"></div>
-		<div class = "col-xs-12 col-sm-3"><input type = "text" class = "form-control" id = "board_name" value = "<%=boardVO.getName() %>" placeholder = "Board명을 입력하세요"></div>
+		<div class = "col-xs-1 col-sm-1"></div>
+		<div class = "col-xs-8 col-sm-3"><input type = "text" class = "form-control" id = "board_name" value = "<%=boardVO.getName() %>" placeholder = "Board명을 입력하세요"></div>
 		<div class = "col-xs-6 col-sm-2"><input type="button" name = "group" class="btn btn-primary" onclick = "rolePage()" value = "ROLE관리"/></div>
 		<div class = "col-xs-6 col-sm-2"><input type="button" name = "group" class="btn btn-primary" onclick = "memberPage()" value = "MEMBER관리"/></div>
 		<div class = "col-xs-6 col-sm-2"><input type="button" name = "group" class="btn btn-primary" onclick = "admitPage()" value = "MEMBER승인"/></div>

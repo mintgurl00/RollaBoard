@@ -13,13 +13,17 @@ public interface TaskMapper {
 	
 	public TaskVO getTask(TaskVO taskVO);
 	
-	public void insertTask(TaskVO taskVO,@Param("board_id") int board_id);
+	public void insertTask(TaskVO taskVO);
 	
 	public void updateTask(TaskVO TaskVO);
 	
 	public ArrayList<TaskVO> getTasksByBoard( @Param("board_id") int board_id ) ;	// 석원.
 
-	ArrayList<TaskVO> getTasksByBoard(
-			@Param("board_id") int board_id, String keyword);	// 석원
+	public ArrayList<TaskVO> getTasksByBoard2(
+			@Param("board_id") int board_id, @Param("keyword") String keyword );	// 석원
+	
+	public ArrayList<TaskVO> getTasksByBoard3(
+			@Param("board_id") int board_id, @Param("keyword") String keyword,
+			@Param("conditionQuery") String conditionQuery, @Param("sortQuery") String sortQuery );	// 석원
 	
 }

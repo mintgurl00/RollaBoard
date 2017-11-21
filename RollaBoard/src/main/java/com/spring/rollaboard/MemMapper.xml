@@ -37,4 +37,15 @@
 			WHERE board_id = #{board_id} AND permission = 'TRUE'
 	</select>
 	
+	<select id = "waitingMembers" resultMap = "MemResultMap">
+		SELECT * FROM mem A
+			INNER JOIN board_mem B on A.id = B.mem_id
+			WHERE permission = 'FALSE'
+	</select>
+	
+	<update id = "admitMember" parameterType = "com.spring.rollaboard.MemVO">
+		UPDATE board_mem SET permission = 'TRUE' WHERE mem_id = #{mem_id}
+	</update>
+	
+	
 </mapper>

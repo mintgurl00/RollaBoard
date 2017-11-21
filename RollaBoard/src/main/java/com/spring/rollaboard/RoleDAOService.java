@@ -20,25 +20,28 @@ public class RoleDAOService implements RoleDAO {
 
 	@Override
 	public RoleVO getRole(int id) {
-		// TODO Auto-generated method stub
-		return null;
+		RoleMapper roleMapper = sqlSession.getMapper(RoleMapper.class);
+		return roleMapper.getRole(id);
 	}
 
 	@Override
 	public void createRole(RoleVO roleVO) {
-		// TODO Auto-generated method stub
+		RoleMapper roleMapper = sqlSession.getMapper(RoleMapper.class);
+		roleMapper.createRole(roleVO);
 		
 	}
 
 	@Override
 	public void updateRole(RoleVO roleVO) {
-		// TODO Auto-generated method stub
+		RoleMapper roleMapper = sqlSession.getMapper(RoleMapper.class);
+		roleMapper.updateRole(roleVO);
 		
 	}
 
 	@Override
-	public void deleteRole(RoleVO roleVO) {
-		// TODO Auto-generated method stub
+	public void deleteRole(int id) {
+		RoleMapper roleMapper = sqlSession.getMapper(RoleMapper.class);
+		roleMapper.deleteRole(id);
 		
 	}
 

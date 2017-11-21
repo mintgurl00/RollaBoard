@@ -17,7 +17,7 @@ public interface TaskDAO {
 
 	public void deleteTask(int id); // 선행TASK와 후행 TASK가 존재하면 처리해서 지워야함
 
-	void insertTask(TaskVO taskVO, int board_id);
+	void insertTask(TaskVO taskVO);
 
 	
 }

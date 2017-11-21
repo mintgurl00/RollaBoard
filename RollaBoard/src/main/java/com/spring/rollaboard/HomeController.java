@@ -1,6 +1,5 @@
 package com.spring.rollaboard;
 
-
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
@@ -13,6 +12,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -160,8 +161,61 @@ public class HomeController {
         result.addObject("roleList", roleList);
         result.setViewName("rolelist");
         return result;
-        
-    }  
+    }
+ 
+    @RequestMapping("createrole.do")
+	public ModelAndView insertrole(RoleVO updateRoleInfo, HttpSession session) throws Exception {
+    	ModelAndView result = new ModelAndView();
+    	int board_id;
+    	if (session.getAttribute("board_id") == null) {
+			result.setViewName("index");
+			return result;
+		}
+    	board_id = Integer.parseInt((String)session.getAttribute("board_id"));
+    	updateRoleInfo.setBoard_id(board_id);
+    	System.out.println("insertRole 정보들");
+    	System.out.println("board_id : " + updateRoleInfo.getBoard_id());
+    	System.out.println("Name : " + updateRoleInfo.getName());
+    	System.out.println("Desc : " + updateRoleInfo.getDescription());
+
+    	roleDAOService.createRole(updateRoleInfo);
+    	result.setViewName("subMenu");
+		return result;
+	}
+    
+    @RequestMapping("updaterole.do")
+	public ModelAndView updaterole(RoleVO updateRoleInfo, HttpServletResponse response) throws Exception {
+    	ModelAndView result = new ModelAndView();
+    	System.out.println("업데이트롤 정보들");
+    	System.out.println("id : " + updateRoleInfo.getId());
+    	System.out.println("Name : " + updateRoleInfo.getName());
+    	System.out.println("Desc : " + updateRoleInfo.getDescription());
+    	
+    	roleDAOService.updateRole(updateRoleInfo);
+    	// alert처리단
+    	response.setContentType("text/html; charset-utf-8");
+		PrintWriter out = response.getWriter();
+    	out.println("<script>alert('ROLE 정보가 수정되었습니다.');");
+    	out.println("</script>");
+        out.flush();
+    	result.setViewName("subMenu");
+		return result;
+	}
+    
+    @RequestMapping("deleteRole.do")
+    public ModelAndView deleteRole(int id, HttpServletResponse response) throws Exception {
+		ModelAndView result = new ModelAndView();
+    	System.out.println("딜리트 롤 id : " + id);
+		
+		roleDAOService.deleteRole(id);
+		// alert처리단
+		response.setContentType("text/html; charset-utf-8");
+		PrintWriter out = response.getWriter();
+        out.println("<script>alert('ROLE 삭제에 성공하였습니다');</script>");
+        out.flush(); 
+        result.setViewName("subMenu");
+        return result;
+	}
     
     @RequestMapping("memberlist.do")
     public ModelAndView memberlist(String board_id) {
@@ -177,10 +231,35 @@ public class HomeController {
 
     }
     
-    @RequestMapping("memberadmit.do")
-    public String memberadmit() {
-        return "memberadmit";
+    @RequestMapping("memberadmitform.do")
+    public ModelAndView memberadmitform(String board_id) {
+    	System.out.println("멤버승인으로 이동");
+    	System.out.println("보드아이디" + board_id);
+    	ModelAndView result = new ModelAndView();
+    	ArrayList<MemVO> boardMemberList = memDAOService.waitingMembers(Integer.parseInt(board_id));
+    	
+    	result.addObject("boardMemberList", boardMemberList);
+    	result.setViewName("memberadmitform");
+        return result;
     }
+    
+    @RequestMapping("admitmember.do")
+    public ModelAndView admitmember(String mem_id, HttpServletResponse response) throws Exception {
+    	System.out.println("멤버승인 성공");
+    	System.out.println("멤버아이디" + mem_id);
+    	ModelAndView result = new ModelAndView();
+    	memDAOService.admitMember(mem_id);
+    	
+    	response.setContentType("text/html; charset-utf-8");
+    	PrintWriter out = response.getWriter();
+    	out.println("<script>alert('멤버 승인에 성공했습니다.');</script>");
+    	out.flush();
+    	
+    	result.setViewName("updateboard");
+        return result;
+    }
+    
+    
     
     @RequestMapping("etc.do")
     public String etc() {
@@ -253,11 +332,33 @@ public class HomeController {
     	 * 3. 검색 & 필터
     	 * */
     	
-    	
     	ModelAndView result = new ModelAndView();
+    	int board_id = 0;
+    	System.out.println("세션 보드아이디 : " + session.getAttribute("board_id"));
+    	System.out.println("리쿼스트 보드아이디 : " + request.getParameter("board_id"));
+    	if (request.getParameter("board_id") == null) {
+    		if (session.getAttribute("board_id") == null) {
+    			List<BoardVO> boardList = boardDAOService.getBoards((String)(session.getAttribute("id"))); //수민. 대시보드로 갈 때 보드리스트 받아옴
+    			result.addObject("boardList", boardList);
+				result.setViewName("dashboard");
+				return result;
+			}
+    		board_id = Integer.parseInt((String) session.getAttribute( "board_id" ) ) ;	// 보드 id
+		} else {
+			board_id = Integer.parseInt((String) request.getParameter("board_id"));
+		}
+    	// board_id를 어디서도 받지 못했다면 대쉬보드로 간다.
+    	if (board_id == 0) {
+    		List<BoardVO> boardList = boardDAOService.getBoards((String)(session.getAttribute("id"))); //수민. 대시보드로 갈 때 보드리스트 받아옴
+			result.addObject("boardList", boardList);
+			result.setViewName("dashboard");
+			return result;
+		}
+    	String board_id2 = "" + board_id;
+    	session.setAttribute("board_id", board_id2);
+    	
     	String id = session.getAttribute( "id" ).toString() ;
-    	int board_id = Integer.parseInt( request.getParameter( "board_id" ) ) ;	// 보드 id
-    	   	
+    	  	
     	// 보드에 승인이 안되어 있으면 들어갈 수 없다.
     	String permission = boardDAOService.permitChk(board_id, id);
     	System.out.println("허가여부 : " + permission);
@@ -332,42 +433,72 @@ public class HomeController {
     }
     
     @RequestMapping("updateboard.do")
-    public ModelAndView updateboard(BoardVO boardVO) {
+    public ModelAndView updateboard(BoardVO boardVO, HttpSession session) {
     	ModelAndView result = new ModelAndView();
-    	ArrayList<RoleVO> roleList = roleDAOService.getRoles(boardVO.getId());
-    	
-    	System.out.println("업데이트보드 name = " + boardVO.getName());
+    	System.out.println("업데이트보드 session 보드아이디 : " + session.getAttribute("board_id"));
+    	int board_id;
+    	if (session.getAttribute("board_id") == null) {
+    		if (boardVO.getId() != 0) {	
+    			board_id = boardVO.getId();
+    		} else {
+    			result.setViewName("index");
+    			return result;
+    		}
+		} else {
+			board_id = Integer.parseInt((String)session.getAttribute("board_id"));
+		}
+    	boardVO = boardDAOService.getBoardInfo(board_id);
+		ArrayList<RoleVO> roleList = roleDAOService.getRoles(board_id);
+    	System.out.println("업데이트보드 id = " + board_id);
+    	result.addObject("boardVO", boardVO);
     	result.addObject("roleList", roleList); // 롤 리스트 넘겨줌
-    	result.addObject("boardVO", boardVO); // 보드 정보 넘겨줌
     	result.setViewName("updateboard");
         return result;
     }
     
     @RequestMapping("taskview.do")
-    public String taskview() {
-        return "taskview";
+    public String taskview(HttpServletRequest request) {
+    /*	System.out.println("555555");
+    	System.out.println("테스크 이름 " + request.getParameter("showtask"));
+    	String task_name = request.getParameter("showtask");
+    	ModelAndView result = new ModelAndView();
+    	
+    	result.addObject("task_name", task_name);
+    	result.setViewName("taskview");
+    */    return "taskview";
     }
     
+      
     @RequestMapping("updatetask.do")
     public String updatetask() {
         return "updatetask";
     }
     
 	@RequestMapping("createtask.do")
-	public String createtask() {
-		return "createtask";
+	public ModelAndView createtask(HttpServletRequest request) {
+		
+		System.out.println("리쿼스트 섹션아이디 : " + request.getParameter("section_id"));
+		String section_id = request.getParameter("section_id");  
+		System.out.println("111111");
+		ModelAndView result = new ModelAndView();
+		
+		result.addObject("section_id",section_id);
+        result.setViewName("createtask");
+        System.out.println("222222");
+		return result;
 	}
 	
 	@RequestMapping("inserttask.do")
 	public ModelAndView insertTask(HttpSession session, HttpServletResponse response, TaskVO taskVO, HttpServletRequest request) {
 		
-		int board_id = Integer.parseInt( request.getParameter( "board_id" ) ) ;
+		/*int section_id = Integer.parseInt( request.getParameter( "section_id" ) ) ;*/
 				
-		taskDAOService.insertTask(taskVO, board_id);
-		
+		taskDAOService.insertTask(taskVO);
+		System.out.println("3333333");
 		ModelAndView result = new ModelAndView();				
 		List<TaskVO> taskList = taskDAOService.getTasks();
 		result.addObject("taskList", taskList);
+		System.out.println("444");
 		result.setViewName("board");
 		return result;
 		
@@ -456,8 +587,10 @@ public class HomeController {
     	
     	
     	// 03. 태스크 리스트 추출
-    	ArrayList<TaskVO> taskList = taskDAOService.getTasksByBoard( board_id , keyword ) ;	// sql문에서 섹션별로 그룹해야 편할듯 + 섹션순서번호 정렬
+    	ArrayList<TaskVO> taskList = taskDAOService.getTasksByBoard2( board_id , keyword ) ;	// sql문에서 섹션별로 그룹해야 편할듯 + 섹션순서번호 정렬
+    	//ArrayList<TaskVO> taskList = taskDAOService.getTasksByBoard( board_id ) ;
     	System.out.println("태스크리스트추출");
+    	System.out.println("보드id:" + board_id + ", 키워드:" + keyword );
     	// 04. 롤 배치 리스트 추출
     	
     	
