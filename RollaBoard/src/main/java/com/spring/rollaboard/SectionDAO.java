@@ -7,7 +7,7 @@ public interface SectionDAO {
 
 	public SectionVO getSection(int id);
 	
-	public int getMaxSeqNum(int board_id);
+	public String getMaxSeqNum(int board_id);
 
 	public void createSection(SectionVO sectionVO);
 
@@ -16,4 +16,6 @@ public interface SectionDAO {
 	public void deleteSection(String section_id);
 	
 	public void deleteSectionInBoard(int section_id);
+	
+	public void updateSectionInBoard(int section_id, String section_name);
 }

@@ -41,21 +41,29 @@ ArrayList<SectionVO> sectionlist = (ArrayList<SectionVO>)request.getAttribute("s
     	SectionVO section = sectionlist.get(i);
     %>
       <tr>
-        <td><input type = "text" class = "form-control" id = "section_name" value = "<%=section.getName() %>" placeholder = "수정할 Section명을 입력하세요"></td>
+        <td>
+        <input type = "text" class = "form-control" name = "section_name" value = "<%=section.getName() %>" placeholder = "수정할 Section명을 입력하세요">
+        <input type = "hidden" class = "form-control" name = "section_id" value =  "<%=section.getId() %>">
+        </td>
         <td align = right>
         	<input type = button value = "수정" onclick = "location.href='./updatesection.do?section_id=<%=section.getId()%>'">&nbsp;&nbsp;
        		<input type = button value = "삭제" onclick = "location.href='./deletesection.do?section_id=<%=section.getId()%>'">
        	</td>
       </tr>
-   <%} %>
-   	  <tr>
-   	  	<td><input type = "text" class = "form-control" id = "section_name" placeholder = "추가할 Section명을 입력하세요"></td>
+   <%} %>	
+   </tbody>
+   </table>    
+   <form action = "createsection.do">
+   	<table class="table table-striped">
+   	  <tbody>
+   	  	<td><input type = "text" class = "form-control" name = "section_name" placeholder = "추가할 Section명을 입력하세요"></td>
    	  	<td align = right>
-        	<input type = button value = "추가" onclick = "location.href='./createsection.do'">&nbsp;&nbsp;
+        	<input type = submit value = "추가" >&nbsp;&nbsp;
        	</td>
-   	  </tr>
-    </tbody>
-  </table>
+      </tbody>
+     </table>
+   </form>
+  
 </div>
 </body>
 </html>

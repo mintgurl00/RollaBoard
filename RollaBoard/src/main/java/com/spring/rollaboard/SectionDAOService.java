@@ -56,8 +56,15 @@ public class SectionDAOService implements SectionDAO {
 	}
 
 	@Override
-	public int getMaxSeqNum(int board_id) {
+	public String getMaxSeqNum(int board_id) {
 		SectionMapper sectionMapper = sqlSession.getMapper(SectionMapper.class);
 		return sectionMapper.getMaxSeqNum(board_id);
+	}
+
+	@Override
+	public void updateSectionInBoard(int section_id, String section_name) {
+		SectionMapper sectionMapper = sqlSession.getMapper(SectionMapper.class);
+		sectionMapper.updateSectionInBoard(section_id, section_name);
+		
 	}
 }

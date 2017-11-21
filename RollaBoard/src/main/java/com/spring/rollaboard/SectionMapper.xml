@@ -28,8 +28,12 @@
 		DELETE FROM section WHERE ID = #{id}
 	</delete>
 	
-	<select id = "getMaxSeqNum" parameterType = "map" resultType = "int">
+	<select id = "getMaxSeqNum" parameterType = "map" resultType = "String">
 		SELECT MAX(SEQ_NUM) FROM section WHERE BOARD_ID = #{board_id}
 	</select>
+	
+	<update id = "updateSectionInBoard" parameterType = "map">
+		UPDATE SECTION SET NAME = #{section_name} WHERE ID = #{section_id}
+	</update>
 
 </mapper>
