@@ -86,6 +86,11 @@ public class BoardDAOService implements BoardDAO {
 		BoardMapper boardMapper = sqlSession.getMapper(BoardMapper.class);
 		boardMapper.deleteRefBoard(ref_id, board_id);
 	}
-
+	
+	@Override
+	public void addRefBoard(int ref_id, int board_id) {
+		BoardMapper boardMapper = sqlSession.getMapper(BoardMapper.class);
+		boardMapper.addRefBoard(ref_id, board_id);
+	}
 	
 }

@@ -550,9 +550,26 @@ public class HomeController {
     
     //참조보드 추가
     @RequestMapping("addrefboard.do")
-    public ModelAndView addrefboard() {
+    public ModelAndView addrefboard(HttpServletRequest request, HttpSession session) {
     	ModelAndView result = new ModelAndView();
+    	System.out.println("addrefboard.do 진입했는지 확인");
+    	System.out.println("내 보드 아이디: " + Integer.parseInt((String)session.getAttribute("board_id")));
+    	int board_id = Integer.parseInt((String)session.getAttribute("board_id"));
     	
+    	String name = request.getParameter("name");
+    	System.out.println("추가할 참조보드 이름 : " + name);
+    	
+    	BoardVO boardVO = boardDAOService.getBoard(name);
+    	
+    	int ref_id = boardVO.getId();
+    	System.out.println("참조보드 아이디 : " + ref_id);
+    	
+    	boardDAOService.addRefBoard(ref_id, board_id);
+    	
+    	// 현재 페이지에 머물 수 있는 앵커값 : chkVal
+    	String chkVal = "etc";
+    	result.addObject("chkVal", chkVal);
+    	result.setViewName("redirect:updateboard.do");
         return result;
     	
     }

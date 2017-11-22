@@ -26,6 +26,9 @@ public interface BoardDAO {
 	public void visibility(String visibility, String board_id);
 	
 	public void deleteRefBoard(int ref_id, int board_id);
+	
+	public void addRefBoard(int ref_id, int board_id);
+	
 
 
 }

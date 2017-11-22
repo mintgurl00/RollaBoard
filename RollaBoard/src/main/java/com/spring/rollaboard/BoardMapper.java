@@ -26,4 +26,7 @@ public interface BoardMapper {
 	public void visibility(@Param("visibility") String visibility, @Param("board_id") String board_id);
 	
 	public void deleteRefBoard(@Param("ref_id") int ref_id, @Param("board_id") int board_id);
+	
+	public void addRefBoard(@Param("ref_id") int ref_id, @Param("board_id") int board_id);
+	
 }
