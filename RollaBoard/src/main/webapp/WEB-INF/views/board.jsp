@@ -82,8 +82,6 @@ function initRefBoard( selectName ){
  * 보드 그리기 
  */
 function initBoard() {
-	<%-- $('#content').load("searchresult.do", {board_id: "<%=boardVO.getId() %>"}); --%>
-	/* $('#content').load("searchresult.do"); */
 	$('#content').load("searchresult.do", {
 		board_id: '<%=boardVO.getId() %>',
 		keyword:''
@@ -152,10 +150,13 @@ function showRefBoard(){
 	if( ref_board_id != $("#current_ref_board").val() ){
 		ref_board_id != $("#current_ref_board").prop( "value" , ref_board_id ) ;
 		alert( '참조보드 : ' + ref_board_id ) ;
+		
 		$("#content_ref").load("referenceboard.do", {
 			board_id: '<%=boardVO.getId() %>',
-			ref_board_id:$('#keyword').val()
+			ref_board_id:ref_board_id
 		}) ;
+		
+		alert( '작업 시작' ) ;
 	}
 }
 
