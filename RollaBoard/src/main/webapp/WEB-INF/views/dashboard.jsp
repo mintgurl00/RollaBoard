@@ -11,6 +11,7 @@
 	request.setCharacterEncoding("utf-8");
 	
 	List<BoardVO> boardList = (ArrayList<BoardVO>)request.getAttribute("boardList");
+	ArrayList<TaskVO> taskList = (ArrayList<TaskVO>) request.getAttribute("taskList");
 
 %>
 <script type = "text/javascript" language = "javascript">
@@ -57,18 +58,11 @@ function openPop() {
 <div id="rightside">
 <p align="right"><a href = "#" onClick = "openPop();" >회원정보수정</a> | <a href="logout.do">logout</a>&nbsp;</p>
 <br/>
-<div id="task" onclick="location.href='./taskview.do';"><h3>TASK 이름</h3><br/><br/>BOARD 이름</div>
-<div id="task" onclick="location.href='./taskview.do';"><h3>TASK 이름</h3><br/><br/>BOARD 이름</div>
-<div id="task" onclick="location.href='./taskview.do';"><h3>TASK 이름</h3><br/><br/>BOARD 이름</div>
-<div id="task" onclick="location.href='./taskview.do';"><h3>TASK 이름</h3><br/><br/>BOARD 이름</div>
-<div id="task" onclick="location.href='./taskview.do';"><h3>TASK 이름</h3><br/><br/>BOARD 이름</div>
-<div id="task" onclick="location.href='./taskview.do';"><h3>TASK 이름</h3><br/><br/>BOARD 이름</div>
-<div id="task" onclick="location.href='./taskview.do';"><h3>TASK 이름</h3><br/><br/>BOARD 이름</div>
-<div id="task" onclick="location.href='./taskview.do';"><h3>TASK 이름</h3><br/><br/>BOARD 이름</div>
-<div id="task" onclick="location.href='./taskview.do';"><h3>TASK 이름</h3><br/><br/>BOARD 이름</div>
-<div id="task" onclick="location.href='./taskview.do';"><h3>TASK 이름</h3><br/><br/>BOARD 이름</div>
-<div id="task" onclick="location.href='./taskview.do';"><h3>TASK 이름</h3><br/><br/>BOARD 이름</div>
-<div id="task" onclick="location.href='./taskview.do';"><h3>TASK 이름</h3><br/><br/>BOARD 이름</div>
+<% for (int k = 0; k < taskList.size(); k++) {
+	TaskVO taskVO = taskList.get(k);
+%>
+<div id="task" onclick="location.href='./taskview.do?task_id=<%=taskVO.getId() %>';"><h3><%=taskVO.getName()%></h3><br/><br/>BOARD 이름:<%=taskVO.getDescription() %></div>
+<%} %>
 
 
 </div>

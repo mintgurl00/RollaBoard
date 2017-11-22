@@ -12,18 +12,17 @@ public class TaskDAOService implements TaskDAO {
 
 	@Autowired
 	private SqlSession sqlSession; // Mybatis(ibatis)라이브러리가 제공하는 클래스
-
+	
 	@Override
-	public ArrayList<TaskVO> getTasks(int id) {	// 석원. 이거 곧 지울 듯
-		
-		return null;
+	public ArrayList<TaskVO> getMyTasks(String mem_id) {
+		TaskMapper taskMapper = sqlSession.getMapper(TaskMapper.class);	
+		return taskMapper.getMyTasks(mem_id);
 	}
 	
 	public ArrayList<TaskVO> getTasks() {
-		ArrayList<TaskVO> taskList = new ArrayList<TaskVO>();
 		TaskMapper taskMapper = sqlSession.getMapper(TaskMapper.class);	
-		taskList = taskMapper.getTasks();
-		return taskList;
+		return taskMapper.getTasks();
+		
 	}
 
 
@@ -210,4 +209,6 @@ public class TaskDAOService implements TaskDAO {
 		taskMapper.taskToRole(task_id, role_id);
 		
 	}
+
+
 }

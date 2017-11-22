@@ -13,6 +13,8 @@ public interface TaskMapper {
 	
 	public TaskVO getTask(int id);
 	
+	public ArrayList<TaskVO> getMyTasks(String mem_id);
+	
 	public void insertTask(TaskVO taskVO);
 	
 	public void updateTask(TaskVO TaskVO);

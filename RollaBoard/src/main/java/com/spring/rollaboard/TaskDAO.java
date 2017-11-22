@@ -3,7 +3,8 @@ package com.spring.rollaboard;
 import java.util.ArrayList;
 
 public interface TaskDAO {
-	public ArrayList<TaskVO> getTasks(int id);
+	
+	public ArrayList<TaskVO> getMyTasks(String mem_id);
 	
 	public ArrayList<TaskVO> getTasksByBoard( int board_id ) ;	// 석원.
 

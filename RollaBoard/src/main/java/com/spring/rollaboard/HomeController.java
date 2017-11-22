@@ -42,7 +42,7 @@ public class HomeController {
     public ModelAndView index() {
     	ModelAndView result = new ModelAndView();
     	Date date = new Date();
-    	System.out.println("시간! : " + date);
+    	System.out.println("현재 시간! : " + date);
     	return result;
     }
     
@@ -81,7 +81,7 @@ public class HomeController {
     	System.out.println( tfSQL.get( TaskFilter.CREDATE_ASC ) ) ;*/
     	
     	result.addObject("boardList", boardList); //수민
-    	result.setViewName("dashboard");
+    	result.setViewName("redirect:dashboard.do");
     	return result;
     }
     
@@ -125,6 +125,9 @@ public class HomeController {
     			return result;
 			}
     	}
+    	if (updateRoleInfo.getDescription().equals("")) {
+			updateRoleInfo.setDescription("없음");
+		}
     	updateRoleInfo.setBoard_id(board_id);
     	System.out.println("insertRole 정보들");
     	System.out.println("board_id : " + updateRoleInfo.getBoard_id());
@@ -635,43 +638,33 @@ public class HomeController {
     	return result;
     }
     
+    // 태스크 만들 폼을 가져오는 메소드이다.
 	@RequestMapping("createtask.do")
 	public ModelAndView createtask(HttpServletRequest request, HttpSession session) {
 		
 		System.out.println("리쿼스트 섹션아이디 : " + request.getParameter("section_id"));
 		String section_id = request.getParameter("section_id");  
-		System.out.println("111111");
 		ModelAndView result = new ModelAndView();
 		
 		result.addObject("section_id",section_id);
         result.setViewName("createtask");
-        System.out.println("222222");
 		return result;
 	}
 	
+	// 실제로 만드는 메소드
 	@RequestMapping("inserttask.do")
 	public ModelAndView insertTask(String taskToRole, HttpSession session, TaskVO taskVO, HttpServletRequest request) {
 		System.out.println("만들 태스크의 이름 : " + taskVO.getName());
 		
 		
-		/*int section_id = Integer.parseInt( request.getParameter( "section_id" ) ) ;*/
-		
 		// 태스크를 생성한다.
 		taskDAOService.insertTask(taskVO);
 		
-		System.out.println("3333333");
+
 		ModelAndView result = new ModelAndView();
-		System.out.println("444");
 		result.setViewName("redirect:board.do");
 		return result;
 		
-		
-		/*ModelAndView result = new ModelAndView();
-    	String id = session.getAttribute( "id" ).toString() ;
-    	int board_id = Integer.parseInt( request.getParameter( "board_id" ) ) ;	// 보드 id
-    	
-    	String board_name = boardVO.getName();
-    	String mem_id = (String)(session.getAttribute("id"));*/
     	
 	}
 	
@@ -688,6 +681,11 @@ public class HomeController {
     	ModelAndView result = new ModelAndView();
     	List<BoardVO> boardList = boardDAOService.getBoards((String)(session.getAttribute("id"))); //수민. 대시보드로 갈 때 보드리스트 받아옴
     	session.removeAttribute("board_id"); // 대쉬보드로 이동시 board_id 세션을 없앤다.
+    	// 대쉬보드에 내 TASK 보기
+    	String mem_id = (String) session.getAttribute("id");
+    	System.out.println("dashboard입니다.세션의 맴버아이디 : " + mem_id);
+    	ArrayList<TaskVO> taskList = taskDAOService.getMyTasks(mem_id);
+    	result.addObject("taskList", taskList);
     	result.addObject("id", session.getAttribute("id"));
     	result.addObject("boardList", boardList); //수민
     	result.setViewName("dashboard");
