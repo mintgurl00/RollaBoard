@@ -18,5 +18,6 @@ public interface RoleDAO {
 	
 	public ArrayList<RoleAndTaskVO> getRolesByBoard( int board_id ) ;	// 석원.
 	
+	public int getRoleIdByName(String name, int board_id); // 규성
 	
 }

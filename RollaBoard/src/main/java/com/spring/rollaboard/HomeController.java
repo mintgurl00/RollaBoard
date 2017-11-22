@@ -14,6 +14,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
@@ -103,7 +104,7 @@ public class HomeController {
     }
  
     @RequestMapping("createrole.do")
-	public ModelAndView insertrole(RoleVO updateRoleInfo, HttpSession session) throws Exception {
+	public ModelAndView createrole(RoleVO updateRoleInfo, HttpSession session, HttpServletResponse response) throws Exception {
     	ModelAndView result = new ModelAndView();
     	int board_id;
     	if (session.getAttribute("board_id") == null) {
@@ -111,6 +112,20 @@ public class HomeController {
 			return result;
 		}
     	board_id = Integer.parseInt((String)session.getAttribute("board_id"));
+    	// 롤 이름이 중복되는 값이면 만들어지지 않게 한다.
+    	ArrayList<RoleVO> roleList = roleDAOService.getRoles(board_id);	
+    	for (int i = 0; i < roleList.size(); i++) {
+    		RoleVO role = roleList.get(i);
+    		if (role.getName().equals(updateRoleInfo.getName())) {
+//    			// alert처리단
+//    			response.setContentType("text/html; charset-utf-8");
+//    			PrintWriter out = response.getWriter();
+//    	        out.println("<script>alert('ROLE이름이 중복됩니다! 생성할 수 없습니다.');</script>");
+//    	        out.flush(); 
+    	        result.setViewName("redirect:updateboard.do");
+    			return result;
+			}
+    	}
     	updateRoleInfo.setBoard_id(board_id);
     	System.out.println("insertRole 정보들");
     	System.out.println("board_id : " + updateRoleInfo.getBoard_id());
@@ -125,13 +140,32 @@ public class HomeController {
 	}
     
     @RequestMapping("updaterole.do")
-	public ModelAndView updaterole(RoleVO updateRoleInfo, HttpServletResponse response) throws Exception {
+	public ModelAndView updaterole(RoleVO updateRoleInfo, HttpServletResponse response, HttpSession session) throws Exception {
     	ModelAndView result = new ModelAndView();
     	System.out.println("업데이트롤 정보들");
     	System.out.println("id : " + updateRoleInfo.getId());
     	System.out.println("Name : " + updateRoleInfo.getName());
     	System.out.println("Desc : " + updateRoleInfo.getDescription());
-    	
+    	int board_id;
+    	if (session.getAttribute("board_id") == null) {
+			result.setViewName("index");
+			return result;
+		}
+    	board_id = Integer.parseInt((String)session.getAttribute("board_id"));
+    	// 롤 이름이 중복되는 값이면 만들어지지 않게 한다.
+    	ArrayList<RoleVO> roleList = roleDAOService.getRoles(board_id);	
+    	for (int i = 0; i < roleList.size(); i++) {
+    		RoleVO role = roleList.get(i);
+    		if (role.getName().equals(updateRoleInfo.getName())) {
+//    			// alert처리단
+//    			response.setContentType("text/html; charset-utf-8");
+//    			PrintWriter out = response.getWriter();
+//    	        out.println("<script>alert('ROLE이름이 중복됩니다! 생성할 수 없습니다.');</script>");
+//    	        out.flush(); 
+    	        result.setViewName("redirect:updateboard.do");
+    			return result;
+			}
+    	}
     	roleDAOService.updateRole(updateRoleInfo);
 
         String chkVal = "role";
@@ -561,22 +595,35 @@ public class HomeController {
     
       
     @RequestMapping("updatetaskform.do")
-    public  ModelAndView updatetaskform(TaskVO taskVO) {
+    public  ModelAndView updatetaskform(TaskVO taskVO, HttpSession session) {
     	ModelAndView result = new ModelAndView();
     	System.out.println("updatetaskform.do... taskVO.getId : " + taskVO.getId());
+    	// 배정할 롤 리스트를 같이 첨부해서 전송한다.
+		int board_id = Integer.parseInt((String)session.getAttribute("board_id"));
+		ArrayList<RoleVO> roleList = roleDAOService.getRoles(board_id);
+		result.addObject("roleList", roleList);
     	result.addObject("taskVO", taskVO);
     	result.setViewName("updatetask");
     	return result;
     }
     
     @RequestMapping("updatetask.do")
-    public ModelAndView updatetask(TaskVO taskVO) {
+    public ModelAndView updatetask(String taskToRole, TaskVO taskVO, HttpSession session) {
+    	ModelAndView result = new ModelAndView();
+    	System.out.println("태스크에 배정할 롤 이름! : " + taskToRole);
     	System.out.println("업데이트할 task_id : " + taskVO.getId());
     	if (taskVO.getStatus() == null) {
 			taskVO.setStatus("NORMAL");
 		}
-    	System.out.println("스테이터스 :" + taskVO.getStatus());
-    	ModelAndView result = new ModelAndView();
+    	System.out.println("스테이터스 :" + taskVO.getStatus());	
+    	// 롤 이름이 없으면 수행 안한다.
+    	if (taskToRole != null) {
+	    	// createtask에서 가져온 롤 이름으로 롤 아이디 찾는다.
+			int role_id = roleDAOService.getRoleIdByName(taskToRole, Integer.parseInt((String)session.getAttribute("board_id")));
+			// 태스크에 롤을 배정한다.
+			taskDAOService.taskToRole(taskVO.getId(), role_id);	
+    	}
+    	// 태스크 수정사항 업데이트
     	taskDAOService.updateTask(taskVO);
     	result.setViewName("redirect:board.do");
     	return result;
@@ -592,7 +639,7 @@ public class HomeController {
     }
     
 	@RequestMapping("createtask.do")
-	public ModelAndView createtask(HttpServletRequest request) {
+	public ModelAndView createtask(HttpServletRequest request, HttpSession session) {
 		
 		System.out.println("리쿼스트 섹션아이디 : " + request.getParameter("section_id"));
 		String section_id = request.getParameter("section_id");  
@@ -606,11 +653,15 @@ public class HomeController {
 	}
 	
 	@RequestMapping("inserttask.do")
-	public ModelAndView insertTask(HttpSession session, HttpServletResponse response, TaskVO taskVO, HttpServletRequest request) {
+	public ModelAndView insertTask(String taskToRole, HttpSession session, TaskVO taskVO, HttpServletRequest request) {
+		System.out.println("만들 태스크의 이름 : " + taskVO.getName());
+		
 		
 		/*int section_id = Integer.parseInt( request.getParameter( "section_id" ) ) ;*/
-		System.out.println("시작날짜 : " + taskVO.getStart_date());
+		
+		// 태스크를 생성한다.
 		taskDAOService.insertTask(taskVO);
+		
 		System.out.println("3333333");
 		ModelAndView result = new ModelAndView();
 		System.out.println("444");
@@ -975,7 +1026,128 @@ public class HomeController {
     	result.setViewName("searchresult");
 		return result;
 	}
-
     
+    /*
+     * 석원.
+     * 참조보드 로드용
+     * */
+    @RequestMapping("referenceboard.do")
+    public ModelAndView referenceboard( HttpServletRequest request , HttpSession session ) {
+    	System.out.println( "참조보드 로드 작업 시작" );
+    	ModelAndView result = new ModelAndView() ;
+    	int ref_board_id = Integer.parseInt( (String) request.getParameter( "ref_board_id" ) ) ;	// 이 메소드에서 쓸 값이라 int형으로 했어요.
+    	String orig_board_id = (String) request.getParameter( "board_id" ) ;	// 전달만 하는 거니까 String으로 그냥
+    	
+    	
+    	
+    	// 보드에 승인이 안되어 있으면 들어갈 수 없다.
+    	//..를 나중에 해야겠다.
+    	
+    	result.addObject( "ref_board_id", ref_board_id + "" ) ;
+    	result.addObject( "orig_board_id", orig_board_id ) ;
+    	result.setViewName( "boardref" ) ;
+        return result ;
+    }
+    
+    @RequestMapping("searchresultref.do")
+    public ModelAndView searchresultref( HttpServletRequest request , HttpSession session ){
+    	ModelAndView result = new ModelAndView() ;
+    	
+    	int board_id = Integer.parseInt( (String) request.getParameter( "board_idR" ) ) ;
+    	String keyword = (String) request.getParameter( "keywordR" ) ;
+    	String filter = (String) request.getParameter( "filterR" ) ;
+    	String[] filters = null ;
+    	String[] orders = null ;	// 나중에 해야함
+    	if( filter != null ){
+	    	System.out.println( "필터 값 : " + filter ); // test
+	    	StringTokenizer st = new StringTokenizer(filter," ");
+	    	filters = new String[ st.countTokens() ] ; 
+	    	for( int i = 0 ; i < filters.length ; i++ ){
+	    		// st.hasMoreTokens() ;
+	    		filters[ i ] = st.nextToken() ;
+	    	}
+	    	System.out.println( "전달된 필터 : " + filters.length +"개" );
+	    	for( String filterString : filters ){
+	    		System.out.print( filterString + " ");
+	    	}
+	    	System.out.println() ;
+    	}else{
+    		System.out.println( "전달된 필터는 없습니다." ) ;
+    	}
+    	/* ******************************************************************** */
+    	// 아래부터는 석원 구역. 보드에 태스크 보여주기
+    	
+    	/*
+    	 * 사실 이 부분에 보드멤버가 맞는지 확인하는 부분이 들어가야 한다.
+    	 * (뭐, 어서 일단 넘어가구요.)
+    	 * */
+    	
+    	// 01. 참조 보드 리스트 추출...은 할 필요 없고
+    	// 02. 섹션 리스트 추출
+    	ArrayList<SectionVO> sectionList = sectionDAOService.getSections( board_id ) ;
+    	System.out.println("섹션리스트추출");
+    	
+    	
+    	// 03. 태스크 리스트 추출
+    	ArrayList<TaskVO> taskList ;
+    	if( filters == null && orders == null ){
+    		taskList = taskDAOService.getTasksByBoard2( board_id , keyword ) ;	// sql문에서 섹션별로 그룹해야 편할듯 + 섹션순서번호 정렬
+    	} else {
+    		taskList = taskDAOService.getTasksByBoard2( board_id , keyword , filters , orders ) ;	
+    	}
+    	//ArrayList<TaskVO> taskList = taskDAOService.getTasksByBoard( board_id ) ;
+    	System.out.println("태스크리스트추출");
+    	System.out.println("보드id:" + board_id + ", 키워드:" + keyword );
+    	// 04. 롤 배치 리스트 추출
+    	
+    	
+    	
+    	// 태스크 배치
+    	ArrayList<ArrayList<TaskVO>> taskViewList = new ArrayList<ArrayList<TaskVO>>() ;	// 태스크리스트 저장객체 생성
+    	for( int i = 0 ; i < sectionList.size() ; i++ ){
+    		taskViewList.add( new ArrayList<TaskVO>() ) ;	// 섹션 수만큼 칸을 만들고
+    	}
+    	for( TaskVO task : taskList ){
+    		int t_sid = task.getSection_id() ;	// 태스크의 섹션아이디
+    		for( int j = 0 ; j < sectionList.size() ; j++ ){	// 섹션리스트 하나하나 섹션아이디 확인
+    			int sid = sectionList.get( j ).getId() ;
+    			if( sid == t_sid ){
+    				taskViewList.get( j ).add( task ) ;
+    				break ;
+    			}
+    		}
+    	}
+    	if( ! keyword.equals( "" ) ){
+	    	for( int i = 0 ; i < taskViewList.size() ; i++ ){	// 태스크 없는 섹션은 지우기
+	    		if( taskViewList.get(i).isEmpty() ){
+	    			taskViewList.remove( i ) ;
+	    			sectionList.remove( i ) ;
+	    			i-- ;
+	    		}
+	    	}
+    	}
+    	// 롤 배치(나중에 하려고 함)
+    	//ArrayList<ArrayList<ArrayList<RoleVO>>> roleViewList ;
+    	
+		// ....을 전달
+    	//result.addObject( "refBoardList" , refBoardList ) ;
+    	result.addObject( "sectionListR" , sectionList ) ;
+    	result.addObject( "taskViewListR" , taskViewList ) ;
+    	
+    	// 여기까지 석원구역.
+    	/* ******************************************************************** */
+    	
+    	
+    	result.addObject( "board_idR" , board_id + "" ) ;
+    	result.addObject( "keywordR" , keyword ) ;
+    	
+    	
+    	
+    	
+    	
+    	result.setViewName( "searchresultref" ) ;
+		return result ;
+    }
+
 }
 

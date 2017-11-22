@@ -48,4 +48,8 @@
 		INSERT INTO role_mem VALUES (#{role_id, javaType=int}, #{mem_id, javaType=String})
 	</insert>
 	
+	<select id = "getRoleIdByName" parameterType = "map" resultType = "int">
+		SELECT id FROM role WHERE BOARD_ID = #{board_id} AND NAME = #{name}
+	</select>
+	
 </mapper>

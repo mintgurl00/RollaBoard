@@ -5,7 +5,8 @@
 <%
 	String section_id = request.getParameter("section_id");
 	
-	ArrayList<TaskVO> Tasklist = (ArrayList<TaskVO>)request.getAttribute("tasklist");
+	ArrayList<TaskVO> Tasklist = (ArrayList<TaskVO>) request.getAttribute("tasklist");
+	
 %>
 
 <%
@@ -58,9 +59,6 @@ SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 		<input type="text" id="description" style="height:180px; width:380px;" name="description" >
 	</div>
 	
-	<div id="role">Role 배정(필수X)<br/>
-		<input type="text" id="role" style="height:180px; width:380px;">
-	</div>
 	
 	<h4>고급설정</h4>
 	<div id ="start_date"> 시작날짜  <br/>
