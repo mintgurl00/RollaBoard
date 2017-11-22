@@ -598,7 +598,7 @@ public class HomeController {
 		} else {
 	    	int board_id = boardDAOService.getBoard(board_name).getId();
 	    	System.out.println("갖고온 보드아이디 : " + board_id);
-	    	session.setAttribute("board_id", board_id);
+
 	    	TaskVO taskVO = taskDAOService.getTask(task_id);
 	    	result.addObject("taskVO", taskVO);
 	    	result.setViewName("taskview");
@@ -843,7 +843,7 @@ public class HomeController {
 				result.setViewName("dashboard");
 				return result;
 			}
-    		board_id = Integer.parseInt((String) session.getAttribute( "board_id" ) ) ;	// 보드 id
+    		board_id = Integer.parseInt((String) session.getAttribute("board_id")) ;	// 보드 id
 		} else {
 			board_id = Integer.parseInt((String) request.getParameter("board_id"));
 		}
