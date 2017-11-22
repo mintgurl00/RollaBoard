@@ -513,28 +513,28 @@ public class HomeController {
     }
     
     //참조보드 추가
-//    @RequestMapping("addrefboard.do")
-//    public ModelAndView addrefboard(HttpServletRequest request, HttpSession session) {
-//    	ModelAndView result = new ModelAndView();
-//    	
-//    	System.out.println("내 보드 아이디: " + Integer.parseInt((String)session.getAttribute("board_id")));
-//    	String board_id = (String) session.getAttribute("board_id");
-//    	
-//    	String ref_board_name = request.getParameter("ref_board_name");
-//    	System.out.println("입력받은 참조보드 이름 : " + ref_board_name);
-//    	
-//    	int ref_id = boardDAOService.getRefBoardId(ref_board_name);
-//    	System.out.println("참조보드 아이디 : " + ref_id);
-//    	
-//    	boardDAOService.addRefBoard(ref_id, board_id);
-//    	
-//    	// 현재 페이지에 머물 수 있는 앵커값 : chkVal
-//    	String chkVal = "etc";
-//    	result.addObject("chkVal", chkVal);
-//    	result.setViewName("redirect:updateboard.do");
-//        return result;
-//    	
-//    }
+    @RequestMapping("addrefboard.do")
+    public ModelAndView addrefboard(HttpServletRequest request, HttpSession session) {
+    	ModelAndView result = new ModelAndView();
+    	
+    	System.out.println("내 보드 아이디: " + Integer.parseInt((String)session.getAttribute("board_id")));
+    	String board_id = (String) session.getAttribute("board_id");
+    	
+    	String ref_board_name = request.getParameter("ref_board_name");
+    	System.out.println("입력받은 참조보드 이름 : " + ref_board_name);
+    	
+    	int ref_id = boardDAOService.getRefBoardId(ref_board_name);
+    	System.out.println("참조보드 아이디 : " + ref_id);
+    	
+    	boardDAOService.addRefBoard(ref_id, board_id);
+    	
+    	// 현재 페이지에 머물 수 있는 앵커값 : chkVal
+    	String chkVal = "etc";
+    	result.addObject("chkVal", chkVal);
+    	result.setViewName("redirect:updateboard.do");
+        return result;
+    	
+    }
     
     //참조보드 삭제
     @RequestMapping("deleterefboard.do")

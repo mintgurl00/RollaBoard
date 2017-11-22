@@ -27,9 +27,9 @@ public interface BoardDAO {
 	
 	public void deleteRefBoard(int ref_id, int board_id);
 	
-//	public void addRefBoard(int ref_id, String board_id);
-//	
-//	public int getRefBoardId(String ref_board_name);
+	public void addRefBoard(int ref_id, String board_id);
+	
+	public int getRefBoardId(String ref_board_name);
 
 
 }

@@ -72,16 +72,16 @@
 	</delete>
 
 
-	<!-- <!-- 참조보드 이름으로 id 찾기 -->
-	<!-- <SELECT id = "getRefBoardId" parameterType = "String" resultType = "int">
+	<!-- 참조보드 이름으로 id 찾기 -->
+	<SELECT id = "getRefBoardId" parameterType = "String" resultType = "int">
 		SELECT id FROM board WHERE name = #{ref_board_name}
-	</SELECT> -->
+	</SELECT>
 	
-	<!-- 참조보드 추가
+	<!-- 참조보드 추가 -->
 	<insert id = "addRefBoard" parameterType = "map">
 		INSERT INTO board_ref
 		VALUES ref_id = #{ref_id} and board_id = #{board_id}
-	</insert> -->
+	</insert>
 
 	
 </mapper>
