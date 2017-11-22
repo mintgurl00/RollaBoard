@@ -20,6 +20,10 @@
 		SELECT * FROM task WHERE id = #{id}
 	</select>
 	
+	<delete id = "deleteTask" parameterType = "int">
+		DELETE FROM task WHERE ID = #{id}
+	</delete>
+	
 	<!-- getTasksByBoard -->
 	<select id="getTasksByBoard" parameterType="map" resultMap="TaskResultMap">
 		SELECT *
@@ -89,6 +93,17 @@
 		 -->
 
 	</insert>
+	
+	<update id = "updateTask" parameterType = "com.spring.rollaboard.TaskVO">
+		UPDATE task SET DESCRIPTION = #{description}, 
+					 NAME = #{name}, 
+					 STATUS = #{status}, 
+					 SECTION_ID = #{section_id}, 
+					 START_DATE = #{start_date}, 
+					 DUE_DATE = #{due_date}, 
+					 PRIORITY = #{priority} 
+					 WHERE ID = #{id}
+	</update>
 	
 	
 </mapper>

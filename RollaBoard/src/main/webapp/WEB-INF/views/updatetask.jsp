@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
    pageEncoding="UTF-8"%>
+<%@ page import = "java.util.*, com.spring.rollaboard.*" %>
+<%@ page import = "java.text.SimpleDateFormat"%>
 <%
 // 세션 아이디 체크
 if(session.getAttribute("id") == null) {
@@ -7,6 +9,8 @@ if(session.getAttribute("id") == null) {
 	out.println("location.href='index.do'");
 	out.println("</script>");
 }
+
+TaskVO taskVO = (TaskVO) request.getAttribute("taskVO");
 %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -23,29 +27,62 @@ if(session.getAttribute("id") == null) {
 </style>
 </head>
 <body>
+
+<form action = "updatetask.do">
+
 <div id="frame">
+	<div id="id">
+		<input type="hidden" id="id" name="id" value = <%=taskVO.getId() %> size="40">
+	</div>
+	<div id="section_id">
+		<input type="hidden" id="section_id" name="section_id" value = <%=taskVO.getSection_id() %> size="40">
+	</div>
     <div id="taskname">
-        <input type="text" id="taskname" placeholder="TASK 이름을 입력하시오." size="40">
+        <input type="text" id="taskname" name="name" placeholder="TASK 이름을 입력하시오." size="40" value = "<%=taskVO.getName()%>">
     </div>
     
     <div id="content">내용(필수X)<br/>
-        <input type="textarea" id="content" style="height:180px; width:380px;">
+        <input type="textarea" id="content" name="description" style="height:180px; width:380px;" value = "<%=taskVO.getDescription()%>">
     </div>
     
     <div id="role">Role 배정(필수X)<br/>
         <input type="textarea" id="role" style="height:180px; width:380px;">
     </div>
-    
-    <div id="settings">
-        <input type="button" value="고급설정" onclick="location.href='./detailtask.do';">
-    </div>
+    <h4>고급설정</h4>
+	<div id ="start_date"> 시작날짜  <br/>
+		<input type="date" id="start_date" name="start_date" placeholder="yyyy-mm-dd" size="40" name ="start_date" value = "<%=taskVO.getStart_date()%>"><br/><br/><br/>
+	</div>
+	
+	<div id ="due_date"> 마감날짜  <br/>
+
+		<input type="date" id="due_date" placeholder="yyyy-mm-dd" size="40" name = "due_date" value = "<%=taskVO.getDue_date()%>"><br/><br/><br/>
+
+	</div>
+	
+	<div id ="cre_date"> 생성날짜  <br/>
+
+		<input type="date" id="cre_date" placeholder="yyyy-mm-dd" size="40" name = "cre_date" value = "<%=taskVO.getCre_date()%>" readonly><br/><br/><br/>
+
+	</div>
+	
+	<div id ="priority"> 중요도  <br/>
+		<input type="text" id="priority" placeholder="1~5중에 하나를 입력해주세요" size="40" name="priority" value = "<%=taskVO.getPriority()%>"><br/><br/><br/>
+	</div>
+	
+	<div id ="pre_Task"> 선행TASK  <br/>
+		<input type="text" id="pre_task" placeholder="Task id를 입력하시오" size="40" ><br/><br/><br/>
+	</div>
+	
+	<div id ="postTask"> 후행TASK  <br/>
+		<input type="text" id="post_task" placeholder="Task id를 입력하시오" size="40"><br/><br/><br/>
+	</div>
     
     <div id="button">
-        <input type="submit" value="확인" onclick='history.go(-1)'>
-        <input type="submit" value="취소" onclick='history.go(-1)'>
+        <input type="submit" value="확인">
+        <input type="button" value="취소" onclick='history.go(-1)'>
     </div>
 
 </div>
-
+</form>
 </body>
 </html>

@@ -80,6 +80,12 @@ public class BoardDAOService implements BoardDAO {
 		BoardMapper boardMapper = sqlSession.getMapper(BoardMapper.class);
 		boardMapper.visibility(visibility, board_id);
 	}
+	
+	@Override
+	public void deleteRefBoard(int ref_id, int board_id) {
+		BoardMapper boardMapper = sqlSession.getMapper(BoardMapper.class);
+		boardMapper.deleteRefBoard(ref_id, board_id);
+	}
 
 	
 }
