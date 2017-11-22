@@ -93,13 +93,4 @@ public class BoardDAOService implements BoardDAO {
 		boardMapper.addRefBoard(ref_id, board_id);
 	}
 	
-	@Override
-	public int getRefBoardId(String ref_board_name) {
-		BoardMapper boardMapper = sqlSession.getMapper(BoardMapper.class);
-		int ref_id = boardMapper.getRefBoardId(ref_board_name);
-		
-		return ref_id;
-	}
-
-	
 }

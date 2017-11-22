@@ -29,7 +29,6 @@ public interface BoardDAO {
 	
 	public void addRefBoard(int ref_id, int board_id);
 	
-	public int getRefBoardId(String ref_board_name);
 
 
 }

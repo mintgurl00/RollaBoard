@@ -10,7 +10,6 @@
 		<result property = "visibility" column = "VISIBILITY"/>
 	</resultMap>
 	
-	
 	<!-- getRefBoards -->
 	<select id="getRefBoards" resultMap="BoardResultMap">
 		SELECT br.REF_ID id, b.name name
@@ -70,16 +69,11 @@
 	<delete id = "deleteRefBoard" parameterType = "Map">
 		DELETE FROM board_ref WHERE ref_id = #{ref_id} and board_id = #{board_id}
 	</delete>
-
-	<!-- 참조보드 이름으로 id 찾기 -->
-	<SELECT id = "getRefBoardId" parameterType = "String" resultType = "int">
-		SELECT id FROM board WHERE name = #{ref_board_name}
-	</SELECT>
 	
 	<!-- 참조보드 추가 -->
 	<insert id = "addRefBoard" parameterType = "map">
 		INSERT INTO board_ref
-		VALUES ref_id = #{ref_id} and board_id = #{board_id}
+		VALUES (#{board_id}, #{ref_id})
 	</insert>
 
 	

@@ -555,10 +555,12 @@ public class HomeController {
     	System.out.println("내 보드 아이디: " + Integer.parseInt((String)session.getAttribute("board_id")));
     	int board_id = Integer.parseInt((String)session.getAttribute("board_id"));
     	
-    	String ref_board_name = request.getParameter("ref_board_name");
-    	System.out.println("추가할 참조보드 이름 : " + ref_board_name);
+    	String name = request.getParameter("name");
+    	System.out.println("추가할 참조보드 이름 : " + name);
     	
-    	int ref_id = boardDAOService.getRefBoardId(ref_board_name);
+    	BoardVO boardVO = boardDAOService.getBoard(name);
+    	
+    	int ref_id = boardVO.getId();
     	System.out.println("참조보드 아이디 : " + ref_id);
     	
     	boardDAOService.addRefBoard(ref_id, board_id);
