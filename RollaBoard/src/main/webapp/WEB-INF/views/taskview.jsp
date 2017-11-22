@@ -55,9 +55,14 @@ function updateTask() {
 
 	<div id="button">
 
+	<%if (session.getAttribute("board_id") != null) {%>
+
 		<input type=button value="확인" onclick = "location.href='./board.do';">
 		<input type=button value="수정" onclick = "javascript:updateTask()">
 		<input type=button value="삭제" onclick = "javascript:deleteTask()">
+	<%} else { %>
+		<input type=button value="확인" onclick = "location.href='./dashboard.do'">
+	<%} %>
 
 	</div>
 	<form id = "updatetask" action = "updatetaskform.do">

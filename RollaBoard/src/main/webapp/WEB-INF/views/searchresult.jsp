@@ -13,7 +13,8 @@
 	
 	ArrayList<ArrayList<TaskVO>> taskViewList = (ArrayList<ArrayList<TaskVO>>) request.getAttribute( "taskViewList" ) ;
 	ArrayList<SectionVO> sectionList = (ArrayList<SectionVO>) request.getAttribute( "sectionList" ) ; 
-	
+	ArrayList<ArrayList<ArrayList<RoleAndTaskVO>>> roleAndTaskList = 
+			(ArrayList<ArrayList<ArrayList<RoleAndTaskVO>>>) request.getAttribute( "roleAndTaskList" ) ;
 %>
 <%
 	String board_id = (String) request.getAttribute( "board_id" ) ;
@@ -80,6 +81,18 @@ for( int i = 0 ; i < sectionSize ; i++ ){
 			TASK내용:<%=taskViewList.get( i ).get( j ).getDescription() %><br />
 			TASK_id:<%=taskViewList.get( i ).get( j ).getId() %><br />
 			TASK상태:<%=taskViewList.get( i ).get( j ).getStatus() %><br />
+			
+			<%
+			if( roleAndTaskList.get( i ).get( j ) != null && roleAndTaskList.get( i ).get( j ).size() > 0 ){ %>
+				<b>롤 정보는</b><br />
+				<%
+				for( int k = 0 ; k < roleAndTaskList.get( i ).get( j ).size() ; k++ ){%>
+					<%=roleAndTaskList.get( i ).get( j ).get( k ).getRoleName() %>
+					<%=roleAndTaskList.get( i ).get( j ).get( k ).getMemName() %>
+				<%
+				}%>
+			<%
+			}%>
 		</div>
 	<%
 	} %>

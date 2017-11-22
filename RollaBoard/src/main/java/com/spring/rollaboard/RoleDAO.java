@@ -1,6 +1,7 @@
 package com.spring.rollaboard;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public interface RoleDAO {
 	
@@ -16,7 +17,7 @@ public interface RoleDAO {
 	
 	public void allocateRole(int role_id, String mem_id);
 	
-	public ArrayList<RoleAndTaskVO> getRolesByBoard( int board_id ) ;	// 석원.
+	public HashMap<Integer, ArrayList<RoleAndTaskVO>> getRATByTasks( int board_id ) ;	// 석원.
 	
 	public int getRoleIdByName(String name, int board_id); // 규성
 	

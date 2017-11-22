@@ -112,5 +112,5 @@
 	<insert id = "taskToRole" parameterType = "map">
 		INSERT INTO task_role (TASK_ID, ROLE_ID) VALUES (#{task_id}, #{role_id})
 	</insert>
-	
+
 </mapper>
