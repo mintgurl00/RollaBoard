@@ -41,7 +41,8 @@ public class HomeController {
     @RequestMapping("index.do")
     public ModelAndView index() {
     	ModelAndView result = new ModelAndView();
-    	result.setViewName("index");
+    	Date date = new Date();
+    	System.out.println("시간! : " + date);
     	return result;
     }
     
@@ -132,13 +133,10 @@ public class HomeController {
     	System.out.println("Desc : " + updateRoleInfo.getDescription());
     	
     	roleDAOService.updateRole(updateRoleInfo);
-    	// alert처리단
-    	response.setContentType("text/html; charset-utf-8");
-		PrintWriter out = response.getWriter();
-    	out.println("<script>alert('ROLE 정보가 수정되었습니다.');");
-    	out.println("</script>");
-        out.flush();
-    	result.setViewName("subMenu");
+
+        String chkVal = "role";
+        result.addObject("chkVal", chkVal);
+        result.setViewName("redirect:updateboard.do");
 		return result;
 	}
     
@@ -393,6 +391,9 @@ public class HomeController {
 		} else {
 			maxNum = Integer.parseInt(sectionDAOService.getMaxSeqNum(board_id)) + 1;
 		}
+    	if (section_name.equals("null")) {
+			section_name = "대분류" + maxNum;
+		}
     	SectionVO sectionVO = new SectionVO();
     	sectionVO.setBoard_id(board_id);
     	sectionVO.setSeq_num(maxNum);
@@ -416,8 +417,9 @@ public class HomeController {
     	if (sectionDAOService.getMaxSeqNum(board_id) == null) {
 			maxNum = 1;
 		} else {
-			maxNum = Integer.parseInt(sectionDAOService.getMaxSeqNum(board_id)) + 1;
+			maxNum = (Integer.parseInt(sectionDAOService.getMaxSeqNum(board_id)) + 1);
 		}
+    	System.out.println("맥스넘 보정값 : " + maxNum);
     	SectionVO sectionVO = new SectionVO();
     	sectionVO.setBoard_id(board_id);
     	sectionVO.setSeq_num(maxNum);
@@ -571,9 +573,35 @@ public class HomeController {
     }
     
       
+    @RequestMapping("updatetaskform.do")
+    public  ModelAndView updatetaskform(TaskVO taskVO) {
+    	ModelAndView result = new ModelAndView();
+    	System.out.println("updatetaskform.do... taskVO.getId : " + taskVO.getId());
+    	result.addObject("taskVO", taskVO);
+    	result.setViewName("updatetask");
+    	return result;
+    }
+    
     @RequestMapping("updatetask.do")
-    public String updatetask() {
-        return "updatetask";
+    public ModelAndView updatetask(TaskVO taskVO) {
+    	System.out.println("업데이트할 task_id : " + taskVO.getId());
+    	if (taskVO.getStatus() == null) {
+			taskVO.setStatus("NORMAL");
+		}
+    	System.out.println("스테이터스 :" + taskVO.getStatus());
+    	ModelAndView result = new ModelAndView();
+    	taskDAOService.updateTask(taskVO);
+    	result.setViewName("redirect:board.do");
+    	return result;
+    }
+    
+    @RequestMapping("deletetask.do")
+    public ModelAndView deletetask(int task_id) {
+    	System.out.println("지울 task_id : " + task_id);
+    	ModelAndView result = new ModelAndView();
+    	taskDAOService.deleteTask(task_id);
+    	result.setViewName("redirect:board.do");
+    	return result;
     }
     
 	@RequestMapping("createtask.do")

@@ -42,13 +42,15 @@ public class TaskDAOService implements TaskDAO {
 
 	@Override
 	public void updateTask(TaskVO taskVO) {
-		// TODO Auto-generated method stub
+		TaskMapper taskMapper = sqlSession.getMapper(TaskMapper.class);
+		taskMapper.updateTask(taskVO);
 		
 	}
 
 	@Override
 	public void deleteTask(int id) {
-		// TODO Auto-generated method stub
+		TaskMapper taskMapper = sqlSession.getMapper(TaskMapper.class);
+		taskMapper.deleteTask(id);
 		
 	}
 

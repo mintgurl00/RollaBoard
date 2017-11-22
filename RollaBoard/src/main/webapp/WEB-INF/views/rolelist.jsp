@@ -21,16 +21,16 @@ ArrayList<RoleVO> roleList = (ArrayList<RoleVO>) request.getAttribute("roleList"
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <script type = "text/javascript" language = "javascript">
-function chkBox() {
+function chkBox(cnt) {
 	var chk = confirm("삭제하시겠습니까?");
 	if (chk) {
-		document.getElementById("deleteRole").submit();
+		document.getElementById("deleteRole" + cnt).submit();
 	} else {
 		return;
 	}
 }
-function updateRoleForm() {
-	document.getElementById("updateRole").submit();
+function updateRoleForm(cnt) {
+	document.getElementById("updateRole" + cnt).submit();
 }
 
 
@@ -51,7 +51,7 @@ function updateRoleForm() {
     %>
     <form id = "none"></form>
       <div class = "row">
-      	<form id = "updateRole" action = "updaterole.do">
+      	<form id = "updateRole<%=roleVO.getId() %>" action = "updaterole.do">
         <div class = "col-xs-3">
         	<%=roleVO.getName() %>
         	<input type = "text" class = "form-control" name = "name" placeholder = "수정할 정보 입력(이름)" value = "<%=roleVO.getName() %>">
@@ -63,13 +63,13 @@ function updateRoleForm() {
         <div class = "col-xs-3" align = right>
         
         	<input type = "text" name = "id" value = "<%=roleVO.getId() %>" hidden>
-        	<button type = submit class = "btn btn-info" onclick = "javascript:updateRoleForm()" >수정</button>
+        	<button type = submit class = "btn btn-info" onclick = "javascript:updateRoleForm(<%=roleVO.getId() %>)" >수정</button>
 		</div>
         </form>
-        <form id = "deleteRole" action = "deleteRole.do">
+        <form id = "deleteRole<%=roleVO.getId() %>" action = "deleteRole.do">
         <div class = "col-xs-1">
         	<input type = "text" name = "id" value = "<%=roleVO.getId() %>" hidden>
-       		<input type = button class = "btn btn-default"  value = "삭제" onclick="javascript:chkBox()">
+       		<input type = button class = "btn btn-default"  value = "삭제" onclick="javascript:chkBox(<%=roleVO.getId() %>)">
        	</div>
        	</form> 
       	</div>
