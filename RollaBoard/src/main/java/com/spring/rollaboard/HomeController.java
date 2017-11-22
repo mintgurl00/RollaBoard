@@ -117,7 +117,7 @@ public class HomeController {
     	System.out.println("Desc : " + updateRoleInfo.getDescription());
 
     	roleDAOService.createRole(updateRoleInfo);
-    	String chkVal = "section";
+    	String chkVal = "rolelist";
     	result.addObject("chkVal", chkVal);
     	result.setViewName("redirect:updateboard.do");
 		return result;
@@ -494,8 +494,8 @@ public class HomeController {
     }
     
     //보드 공개여부 설정
-    @RequestMapping("etc1.do")
-    public ModelAndView etc(HttpServletRequest request, HttpSession session) {
+    @RequestMapping("visibility.do")
+    public ModelAndView visibility(HttpServletRequest request, HttpSession session) {
     	ModelAndView result = new ModelAndView();
     	String visibility = request.getParameter("visibility");
     	String board_id = (String) session.getAttribute("board_id");
@@ -513,10 +513,31 @@ public class HomeController {
     }
     
     //참조보드 추가
-    @RequestMapping("etc2.do")
-    public ModelAndView etc2() {
+    @RequestMapping("addrefboard.do")
+    public ModelAndView addrefboard() {
     	ModelAndView result = new ModelAndView();
     	
+        return result;
+    	
+    }
+    
+    //참조보드 삭제
+    @RequestMapping("deleterefboard.do")
+    public ModelAndView deleterefboard(HttpSession session, HttpServletRequest request) {
+    	ModelAndView result = new ModelAndView();
+    	
+    	System.out.println("참조보드 아이디: " + Integer.parseInt((String)request.getParameter("ref_id")));
+    	System.out.println("내 보드 아이디: " + Integer.parseInt((String)session.getAttribute("board_id")));
+    	
+    	int ref_id = Integer.parseInt((String)request.getParameter("ref_id"));
+    	int board_id = Integer.parseInt((String)session.getAttribute("board_id"));
+    	
+    	boardDAOService.deleteRefBoard(ref_id, board_id);
+    	
+    	// 현재 페이지에 머물 수 있는 앵커값 : chkVal
+    	String chkVal = "etc";
+    	result.addObject("chkVal", chkVal);
+    	result.setViewName("redirect:updateboard.do");
         return result;
     	
     }
@@ -810,7 +831,8 @@ public class HomeController {
     	ArrayList<MemVO> boardWaitingList = memDAOService.waitingMembers(board_id);
     	// SECTION 관리페이지 관련 정보들
     	ArrayList<SectionVO> sectionList = sectionDAOService.getSections(board_id);
-    	//기타설정 페이지 관련 정보들  - 밑에 추가할 것
+    	//기타설정 페이지 관련 정보들
+    	ArrayList<BoardVO> refBoardList = boardDAOService.getRefBoards(board_id);
     	
     	boardVO = boardDAOService.getBoardInfo(board_id);
     	System.out.println("업데이트보드 id = " + board_id);
@@ -820,6 +842,7 @@ public class HomeController {
     	result.addObject("boardMemberList", boardMemberList); // member 관리페이지 관련 정보들
     	result.addObject("boardWaitingList", boardWaitingList); // member 승인페이지 관련 정보들
     	result.addObject("sectionList", sectionList); // SECTION 관리페이지 관련 정보들
+    	result.addObject("refBoardList", refBoardList); // 기타설정 페이지 관련 정보들
     	result.setViewName("updateboard");
         return result;
     }
