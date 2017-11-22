@@ -633,16 +633,21 @@ public class HomeController {
 		}
     	System.out.println("스테이터스 :" + taskVO.getStatus());	
     	// 롤 이름이 없으면 수행 안한다.
-    	if (taskToRole != null) {
+    	if (taskToRole == null || (taskToRole == "")) {
+    		taskDAOService.updateTask(taskVO);
+        	result.setViewName("redirect:board.do");
+        	return result;
+    		
+    	} else{
+	    	// 태스크 수정사항 업데이트
+	    	System.out.println("널이아니야!!(롤배정을 설정했어)");
 	    	// updatetask에서 가져온 롤 이름으로 롤 아이디 찾는다.
 			int role_id = roleDAOService.getRoleIdByName(taskToRole, Integer.parseInt((String)session.getAttribute("board_id")));
 			// 태스크에 롤을 배정한다.
 			taskDAOService.taskToRole(taskVO.getId(), role_id);	
+			result.setViewName("redirect:board.do");
+        	return result;
     	}
-    	// 태스크 수정사항 업데이트
-    	taskDAOService.updateTask(taskVO);
-    	result.setViewName("redirect:board.do");
-    	return result;
     }
     
     @RequestMapping("deletetask.do")

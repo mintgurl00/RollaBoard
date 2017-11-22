@@ -3,6 +3,9 @@
 <!DOCTYPE html>
 <html>
 <style>
+body {
+	background: lightblue url("image/robotbg.jpg") no-repeat fixed center;
+}
 /* Full-width input fields */
 input[type=text], input[type=password] {
     width: 100%;

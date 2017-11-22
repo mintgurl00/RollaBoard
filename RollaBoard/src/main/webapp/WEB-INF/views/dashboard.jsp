@@ -65,7 +65,7 @@ function viewTask (cnt) {
 	TaskVO taskVO = taskList.get(k);
 %>
 <div id="task" onclick="javascript:viewTask(<%=taskVO.getId() %>)"><h3><%=taskVO.getName()%></h3><br/><br/>BOARD 이름:<%=taskVO.getDescription() %></div>
-<form id = "taskview<%=taskVO.getId() %>" action = "taskview.do">
+<form id = "taskview<%=taskVO.getId() %>" action = "taskview.do" hidden>
 	<input type = hidden name = "task_id" value = "<%=taskVO.getId() %>">
 	<input type = hidden name = "board_name" value = "<%=taskVO.getDescription()%>">
 </form>
