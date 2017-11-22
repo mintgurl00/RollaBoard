@@ -31,15 +31,18 @@ TaskVO taskVO = (TaskVO) request.getAttribute("taskVO");
 <form action = "updatetask.do">
 
 <div id="frame">
+	<div id="id">
+		<input type="hidden" id="id" name="id" value = <%=taskVO.getId() %> size="40">
+	</div>
 	<div id="section_id">
 		<input type="hidden" id="section_id" name="section_id" value = <%=taskVO.getSection_id() %> size="40">
 	</div>
     <div id="taskname">
-        <input type="text" id="taskname" placeholder="TASK 이름을 입력하시오." size="40" value = "<%=taskVO.getName()%>">
+        <input type="text" id="taskname" name="name" placeholder="TASK 이름을 입력하시오." size="40" value = "<%=taskVO.getName()%>">
     </div>
     
     <div id="content">내용(필수X)<br/>
-        <input type="textarea" id="content" style="height:180px; width:380px;" value = "<%=taskVO.getDescription()%>">
+        <input type="textarea" id="content" name="description" style="height:180px; width:380px;" value = "<%=taskVO.getDescription()%>">
     </div>
     
     <div id="role">Role 배정(필수X)<br/>
@@ -47,7 +50,7 @@ TaskVO taskVO = (TaskVO) request.getAttribute("taskVO");
     </div>
     <h4>고급설정</h4>
 	<div id ="start_date"> 시작날짜  <br/>
-		<input type="date" id="start_date" placeholder="yyyy-mm-dd" size="40" name ="start_date" value = "<%=taskVO.getStart_date()%>"><br/><br/><br/>
+		<input type="date" id="start_date" name="start_date" placeholder="yyyy-mm-dd" size="40" name ="start_date" value = "<%=taskVO.getStart_date()%>"><br/><br/><br/>
 	</div>
 	
 	<div id ="due_date"> 마감날짜  <br/>
@@ -67,7 +70,7 @@ TaskVO taskVO = (TaskVO) request.getAttribute("taskVO");
 	</div>
 	
 	<div id ="pre_Task"> 선행TASK  <br/>
-		<input type="text" id="pre_task" placeholder="Task id를 입력하시오" size="40" name="pre_Task"><br/><br/><br/>
+		<input type="text" id="pre_task" placeholder="Task id를 입력하시오" size="40" ><br/><br/><br/>
 	</div>
 	
 	<div id ="postTask"> 후행TASK  <br/>

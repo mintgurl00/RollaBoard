@@ -2,18 +2,15 @@
     pageEncoding="UTF-8"%>
 <%@ page import="java.util.*, com.spring.rollaboard.*"%>
 <%
-	TaskVO taskVO = (TaskVO) request.getAttribute("taskVO");
-
-	/* ArrayList<taskVO> taskViewList = (ArrayList<taskVO>)request.getAttribute("taskViewList"); */
-%>
-
-<%
 // 세션 아이디 체크
 if(session.getAttribute("id") == null) {
 	out.println("<script>alert('로그인이 필요합니다');");
 	out.println("location.href='index.do'");
 	out.println("</script>");
 }
+	TaskVO taskVO = (TaskVO) request.getAttribute("taskVO");
+	request.setAttribute("taskVO", taskVO);
+	/* ArrayList<taskVO> taskViewList = (ArrayList<taskVO>)request.getAttribute("taskViewList"); */
 %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -59,7 +56,15 @@ function updateTask() {
 		<input type=button value="삭제" onclick = "javascript:deleteTask()">
 	</div>
 	<form id = "updatetask" action = "updatetaskform.do">
-		<input type = hidden name = "taskVO" value = "<%=taskVO %>">
+		<input type = hidden name = "id" value = "<%=taskVO.getId() %>">
+		<input type = hidden name = "name" value = "<%=taskVO.getName() %>">
+		<input type = hidden name = "description" value = "<%=taskVO.getDescription() %>">
+		<input type = hidden name = "status" value = "<%=taskVO.getStatus() %>">
+		<input type = hidden name = "section_id" value = "<%=taskVO.getSection_id() %>">
+		<input type = hidden name = "start_date" value = "<%=taskVO.getStart_date() %>">
+		<input type = hidden name = "due_date" value = "<%=taskVO.getDue_date() %>">
+		<input type = hidden name = "cre_date" value = "<%=taskVO.getCre_date() %>">
+		<input type = hidden name = "priority" value = "<%=taskVO.getPriority() %>">	
 	</form>
 	<form id = "deletetask" action = "deletetask.do">
 		<input type = hidden name = "task_id" value = "<%=taskVO.getId() %>">
