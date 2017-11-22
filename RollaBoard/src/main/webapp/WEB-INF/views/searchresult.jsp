@@ -81,7 +81,7 @@ for( int i = 0 ; i < sectionSize ; i++ ){
 			TASK상태:<%=taskViewList.get( i ).get( j ).getStatus() %><br />
 			
 			<%
-			if( roleAndTaskList.get( i ).get( j ).size() > 0 ){ %>
+			if( roleAndTaskList.get( i ).get( j ) != null && roleAndTaskList.get( i ).get( j ).size() > 0 ){ %>
 				<b>롤 정보는</b><br />
 				<%
 				for( int k = 0 ; k < roleAndTaskList.get( i ).get( j ).size() ; k++ ){%>
