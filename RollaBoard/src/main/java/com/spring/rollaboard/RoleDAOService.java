@@ -1,6 +1,7 @@
 package com.spring.rollaboard;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -48,16 +49,22 @@ public class RoleDAOService implements RoleDAO {
 	/*
 	 * 석원. 보드에서 각 태스크의 롤 정보를 친절하게 보여주기 위해 불러오는 메소드입니다.
 	 * */
-	@Override
-	public ArrayList<RoleAndTaskVO> getRolesByBoard(int board_id) {
+	public HashMap<Integer, ArrayList<RoleAndTaskVO>> getRATByTasks( int board_id ) {
+		HashMap<Integer, ArrayList<RoleAndTaskVO>> ratMap = new HashMap<Integer, ArrayList<RoleAndTaskVO>>() ; 
+		RoleMapper roleMapper = sqlSession.getMapper( RoleMapper.class ) ;
 		
-
-		ArrayList<RoleAndTaskVO> roles = new ArrayList<RoleAndTaskVO>() ;
-		RoleMapper roleMapper = sqlSession.getMapper(RoleMapper.class);
-		roles = roleMapper.getRolesByBoard( board_id ) ;
+		ArrayList<RoleAndTaskVO> ratList = new ArrayList<RoleAndTaskVO>() ;
+		ratList = roleMapper.getRATByBoard( board_id ) ;
 		
+		for( RoleAndTaskVO rat : ratList ){
+			int taskId = rat.getTaskId() ;
+			if( ratMap.get( taskId ) == null ){
+				ratMap.put(taskId, new ArrayList<RoleAndTaskVO>() ) ;
+			}
+			ratMap.get( taskId ).add( rat ) ;
+		}
 		
-		return roles ;
+		return ratMap;
 	}
 	
 	// 규성 MEMBER를 ROLE에 배정

@@ -15,7 +15,7 @@
 	System.out.println("searchresultref.jsp") ;	
 	ArrayList<ArrayList<TaskVO>> taskViewList = (ArrayList<ArrayList<TaskVO>>) request.getAttribute( "taskViewListR" ) ;
 	ArrayList<SectionVO> sectionList = (ArrayList<SectionVO>) request.getAttribute( "sectionListR" ) ; 
-	
+
 %>
 <%
 	String board_id = (String) request.getAttribute( "board_idR" ) ;

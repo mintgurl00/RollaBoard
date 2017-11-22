@@ -11,16 +11,19 @@
 	</resultMap>
 	
 	<resultMap type = "RoleAndTaskVO" id = "RoleResultMap2">
-		<result property = "taskId" column = "ID"/>
-		<result property = "roleId" column = "BOARD_ID"/>
-		<result property = "memId" column = "NAME"/>
-		<result property = "roleName" column = "DESCRIPTION"/>
-		<result property = "memName" column = "DESCRIPTION"/>
+		<result property = "taskId" column = "TASK_ID"/>
+		<result property = "roleId" column = "ROLE_ID"/>
+		<result property = "roleName" column = "ROLE_NAME"/>
+		<result property = "memId" column = "MEM_ID"/>
+		<result property = "memName" column = "NAME"/>
 	</resultMap>
 	
-	<!-- getRolesByBoard -->
-	<select id="getRolesByBoard" resultMap="RoleResultMap2">
-	
+	<!-- getRATByBoard -->
+	<select id="getRATByBoard" parameterType="map" resultMap="RoleResultMap2">
+		SELECT ta.id task_id, ro.id role_id, ro.name role_name, mem.name name
+		FROM board bo, section se, task ta, task_role taro, role ro, role_mem rome, mem
+		WHERE bo.id=se.board_id AND se.id=ta.section_id AND ta.id=taro.task_id AND taro.role_id=ro.id AND taro.role_id=rome.role_id AND rome.mem_id=mem.id
+    		AND bo.id=#{board_id}
 	</select>
 		
 	<select id = "getRoles" resultMap = "RoleResultMap">
