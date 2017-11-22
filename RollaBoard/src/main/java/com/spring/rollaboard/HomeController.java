@@ -518,9 +518,9 @@ public class HomeController {
     @RequestMapping("addrefboard.do")
     public ModelAndView addrefboard(HttpServletRequest request, HttpSession session) {
     	ModelAndView result = new ModelAndView();
-    	
+    	System.out.println("addrefboard.do 진입했는지 확인");
     	System.out.println("내 보드 아이디: " + Integer.parseInt((String)session.getAttribute("board_id")));
-    	String board_id = (String) session.getAttribute("board_id");
+    	int board_id = Integer.parseInt((String)session.getAttribute("board_id"));
     	
     	String ref_board_name = request.getParameter("ref_board_name");
     	System.out.println("추가할 참조보드 이름 : " + ref_board_name);
