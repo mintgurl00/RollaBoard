@@ -40,8 +40,8 @@ SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 
 
 <div id="frame">
-	<div id="section_id"> section_id 
-		<input type="text" id="section_id" name="section_id" value = <%=section_id %> size="40">
+	<div id="section_id">
+		<input type="hidden" id="section_id" name="section_id" value = <%=section_id %> size="40">
 	</div>
 	
 	<!-- <div id="task_id"> task id 
@@ -53,21 +53,21 @@ SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 	</div>
 	
 	<div id="description">내용(필수X)<br/>
-		<input type="textarea" id="description" style="height:180px; width:380px;" name="description" >
+		<input type="text" id="description" style="height:180px; width:380px;" name="description" >
 	</div>
 	
 	<div id="role">Role 배정(필수X)<br/>
-		<input type="textarea" id="role" style="height:180px; width:380px;">
+		<input type="text" id="role" style="height:180px; width:380px;">
 	</div>
 	
 	<h4>고급설정</h4>
 	<div id ="start_date"> 시작날짜  <br/>
-		<input type="date" id="start_date" placeholder="yyyy-mm-dd" size="40" name ="start_date"><br/><br/><br/>
+		<input type="date" id="start_date" placeholder="yyyy-mm-dd" size="40" name ="start_date" value = "<%=sdf.format(dt).toString()%>"><br/><br/><br/>
 	</div>
 	
 	<div id ="due_date"> 마감날짜  <br/>
 
-		<input type="date" id="due_date" placeholder="yyyy-mm-dd" size="40" name = "due_date"><br/><br/><br/>
+		<input type="date" id="due_date" placeholder="yyyy-mm-dd" size="40" name = "due_date" value = "<%=sdf.format(dt).toString()%>"><br/><br/><br/>
 
 	</div>
 	
@@ -78,7 +78,7 @@ SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 	</div>
 	
 	<div id ="priority"> 중요도  <br/>
-		<input type="text" id="priority" placeholder="1~5중에 하나를 입력해주세요" size="40" name="priority"><br/><br/><br/>
+		<input type="text" id="priority" placeholder="1~5중에 하나를 입력해주세요" size="40" name="priority" value = "3"><br/><br/><br/>
 	</div>
 	
 	<div id ="pre_Task"> 선행TASK  <br/>

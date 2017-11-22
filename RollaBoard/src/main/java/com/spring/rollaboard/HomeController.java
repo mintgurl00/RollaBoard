@@ -41,7 +41,8 @@ public class HomeController {
     @RequestMapping("index.do")
     public ModelAndView index() {
     	ModelAndView result = new ModelAndView();
-    	result.setViewName("index");
+    	Date date = new Date();
+    	System.out.println("시간! : " + date);
     	return result;
     }
     
@@ -535,9 +536,31 @@ public class HomeController {
     }
     
       
+    @RequestMapping("updatetaskform.do")
+    public  ModelAndView updatetaskform(TaskVO taskVO) {
+    	ModelAndView result = new ModelAndView();
+    	
+    	result.addObject("taskVO", taskVO);
+    	result.setViewName("updatetask");
+    	return result;
+    }
+    
     @RequestMapping("updatetask.do")
-    public String updatetask() {
-        return "updatetask";
+    public ModelAndView updatetask(TaskVO taskVO) {
+    	System.out.println("업데이트할 task_id : " + taskVO.getId());
+    	ModelAndView result = new ModelAndView();
+    	taskDAOService.updateTask(taskVO);
+    	result.setViewName("redirect:board.do");
+    	return result;
+    }
+    
+    @RequestMapping("deletetask.do")
+    public ModelAndView deletetask(int task_id) {
+    	System.out.println("지울 task_id : " + task_id);
+    	ModelAndView result = new ModelAndView();
+    	taskDAOService.deleteTask(task_id);
+    	result.setViewName("redirect:board.do");
+    	return result;
     }
     
 	@RequestMapping("createtask.do")

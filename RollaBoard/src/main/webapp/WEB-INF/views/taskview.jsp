@@ -26,7 +26,20 @@ if(session.getAttribute("id") == null) {
 #comment{width:400px; height:250px; background-color:#FFFFFF; margin-left:50px; margin-top:20px}
 #button{margin-top:20px}
 </style>
+<script>
+function deleteTask() {
+	var chk = confirm("정말 삭제하시겠습니까?");
+	if(chk){
+		document.getElementById("deletetask").submit();
+	} else {
+		return;
+	}
+}
+function updateTask() {
+	document.getElementById("updatetask").submit();
+}
 
+</script>
 </head>
 <body>
 
@@ -41,10 +54,16 @@ if(session.getAttribute("id") == null) {
 	<div id="status">선행TASK: 만들 것 </div>	
 	<div id="status">후행TASK: 만들 것 </div>	
 	<div id="button">
-		<input type=button value="확인" onclick = 'history.go(-1)'>
-		<input type=button value="수정" onclick="location.href='./updatetask.do';">
-		<input type=button value="삭제" onclick = 'history.go(-1)'>
+		<input type=button value="확인" onclick = "location.href='./board.do';">
+		<input type=button value="수정" onclick = "javascript:updateTask()">
+		<input type=button value="삭제" onclick = "javascript:deleteTask()">
 	</div>
+	<form id = "updatetask" action = "updatetaskform.do">
+		<input type = hidden name = "taskVO" value = "<%=taskVO %>">
+	</form>
+	<form id = "deletetask" action = "deletetask.do">
+		<input type = hidden name = "task_id" value = "<%=taskVO.getId() %>">
+	</form>
 </div>
 </body>
 </html>
