@@ -32,7 +32,16 @@ function chkBox(cnt) {
 function updateRoleForm(cnt) {
 	document.getElementById("updateRole" + cnt).submit();
 }
-
+$(document).ready(function () {
+	$('.nameview').css("visibility", "hidden");
+	$('#toggle').click(function(){
+		if( $('.nameview').css("visibility") == "hidden") {
+			$('.nameview').css("visibility", "visible");
+		} else {
+			$('.nameview').css("visibility", "hidden" );
+		}
+	})
+})
 
 </script>
 </head>
@@ -42,7 +51,7 @@ function updateRoleForm(cnt) {
   <p>당신의 BOARD에서 업무수행을 지시할 ROLE을 관리해주세요</p>
   <div class = "page-header">
       <div class = "row" >
-        <div class = "col-xs-3"><h3>ROLE 이름</h3></div>
+        <div class = "col-xs-3" ><h3>ROLE 이름</h3></div>
         <div class = "col-xs-3"><h3>DESCRIPTION</h3></div>
         <div class = "col-xs-3"></div>
    	 </div>
@@ -52,15 +61,16 @@ function updateRoleForm(cnt) {
     <form id = "none"></form>
       <div class = "row">
       	<form id = "updateRole<%=roleVO.getId() %>" action = "updaterole.do">
-        <div class = "col-xs-3">
+        <div class = "col-xs-3"  >
         	<%=roleVO.getName() %>
-        	<input type = "text" class = "form-control" name = "name" placeholder = "수정할 정보 입력(이름)" value = "<%=roleVO.getName() %>">
+        	<input type = "text"  class = "form-control nameview" name = "name" placeholder = "수정할 정보 입력(이름)" value = "<%=roleVO.getName() %>" style = "visibility: ">
         </div>
         <div class = "col-xs-3">
         	<%=roleVO.getDescription() %>
-        	<input type = "text" class = "form-control" name = "description" placeholder = "수정할 정보 입력(설명)" value = "<%=roleVO.getDescription() %>">
+        	<input type = "text" class = "form-control nameview" name = "description" placeholder = "수정할 정보 입력(설명)" value = "<%=roleVO.getDescription() %>" style = "visibility:">
         </div>
-        <div class = "col-xs-3" align = right>
+        
+        <div class = "col-xs-3 nameview" align = right>
         
         	<input type = "text" name = "id" value = "<%=roleVO.getId() %>" hidden>
         	<button type = submit class = "btn btn-info" onclick = "javascript:updateRoleForm(<%=roleVO.getId() %>)" >수정</button>
@@ -75,6 +85,7 @@ function updateRoleForm(cnt) {
       	</div>
       	<br/>
    <%} %>
+   <div align = center><input type = button class = "btn btn-default" id = "toggle" value = "수정하기"></div>
    <br/>
    <br/>
   <center>

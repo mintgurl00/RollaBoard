@@ -101,7 +101,7 @@ function check_input() {
 }
 
 </script>
-<body>
+<body style = "background-color:lightblue">
 <form action="insertMember.do" name="joinform">
  	<div class="container-fluid">
 	<h2>회원가입</h2>
