@@ -525,6 +525,7 @@ public class HomeController {
     
     @RequestMapping("taskview.do")
     public String taskview(HttpServletRequest request) {
+    	System.out.println("id is " + request.getParameter("id"));
     /*	System.out.println("555555");
     	System.out.println("테스크 이름 " + request.getParameter("showtask"));
     	String task_name = request.getParameter("showtask");
@@ -582,6 +583,11 @@ public class HomeController {
 		return "detailtask";
 	}
     
+	@RequestMapping("deletetask.do")
+	public String deletetask(HttpServletRequest request) {
+		
+		return "redirect:/board.do?board_id=";
+	}
 	
 	// 보드관련 메소드--------------------------------------------
     
@@ -859,7 +865,7 @@ public class HomeController {
     	
     	
     	// 03. 태스크 리스트 추출
-    	ArrayList<TaskVO> taskList ;
+    	ArrayList<TaskVO> taskList;
     	if( filters == null && orders == null ){
     		taskList = taskDAOService.getTasksByBoard2( board_id , keyword ) ;	// sql문에서 섹션별로 그룹해야 편할듯 + 섹션순서번호 정렬
     	} else {

@@ -19,6 +19,7 @@ Date dt = new Date();
 SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd"); 
 
 %>
+
 <script>
 document.getElementById('cre_date').valueAsDate = new Date();
 
@@ -78,7 +79,7 @@ document.getElementById('cre_date').valueAsDate = new Date();
 	
 	<div id ="cre_date"> 생성날짜  <br/>
 
-		<input type="date" id="cre_date" placeholder="yyyy-mm-dd" size="40" name = "cre_date"><br/><br/><br/>
+		<input type="date" id="cre_date" placeholder="yyyy-mm-dd" size="40" name = "cre_date" ><br/><br/><br/>
 
 	</div>
 	

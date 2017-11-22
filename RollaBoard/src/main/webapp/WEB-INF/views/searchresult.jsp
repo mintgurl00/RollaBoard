@@ -73,7 +73,7 @@ for( int i = 0 ; i < sectionSize ; i++ ){
 	<%
 	for( int j = 0 ; j < taskViewList.get( i ).size() ; j++ ){
 	%>
-		<div id="task" onclick="location.href='./taskview.do';">
+		<div id="task" onclick="location.href='./taskview.do?id=<%=taskViewList.get( i ).get( j ).getId()%>&board_id=<%=board_id%>'">
 			<h3>TASK명:<%=taskViewList.get( i ).get( j ).getName() %></h3>
 			TASK내용:<%=taskViewList.get( i ).get( j ).getDescription() %><br />
 			TASK_id:<%=taskViewList.get( i ).get( j ).getId() %><br />
@@ -89,11 +89,15 @@ for( int i = 0 ; i < sectionSize ; i++ ){
 		<input type="hidden" name="section_id" value = "<%=sectionList.get(i).getId() %>" required></input>
 		<%-- <input type="hidden" name="task_id" value = "<%= %>" required></input> --%>
 		
-		<input type="submit" value="TASK생성"  ></input>
-		
+		<input type="submit" value="TASK생성"  ></input>	
 	    
 	</form>
 	
+	<%-- <form action="taskview.do">
+		<input type="text" name="task_id" value="<%=taskViewList.get(i).getId() %>" />
+		<input type="text" name="task_name" value="<%=taskViewList.get(i).getName() %>" placeholder = "SECTION명을 입력하세요." />
+		<input type="submit" value="수정" />
+	</form> --%>
 
 </div>
 

@@ -1,3 +1,4 @@
+<%@page import="com.spring.rollaboard.TaskVO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
     
@@ -5,7 +6,7 @@
 	String task_name = request.getParameter("name");
 	String task_description = request.getParameter("description");
 	String task_status = request.getParameter("status");
-
+	TaskVO taskVO = (TaskVO)request.getAttribute("taskVO");
 	/* ArrayList<taskVO> taskViewList = (ArrayList<taskVO>)request.getAttribute("taskViewList"); */
 %>
 
@@ -32,14 +33,14 @@ if(session.getAttribute("id") == null) {
 </head>
 <body>
 
-<div id="frame"><h1>TASK 이름 : <%-- <%=task_name %> --%></h1>
+<div id="frame"><h1>TASK 이름 : <%-- <%=taskVO.getName() %> --%></h1>
 	<div id="content">내용 : <%-- <%=task_description %> --%></div>
 	<div id="status">상태: <%-- <%=task_status %> --%></div>	
 	<div id="comment">댓글</div>
 	<div id="button">
 		<input type=button value="확인" onclick = 'history.go(-1)'>
-		<input type=button value="수정" onclick="location.href='./updatetask.do';">
-		<input type=button value="삭제" onclick = 'history.go(-1)'>
+		<input type=button value="수정" onclick="location.href='./updatetask.do?id=<%=taskVO.getId()%>';">
+		<input type=button value="삭제" onclick ="location.href='./deletetetask.do?id=<%=taskVO.getId()%>&board_id=';">
 	</div>
 </div>
 </body>
