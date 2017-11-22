@@ -1028,6 +1028,7 @@ public class HomeController {
 	    		if( taskViewList.get(i).isEmpty() ){
 	    			taskViewList.remove( i ) ;
 	    			sectionList.remove( i ) ;
+	    			roleAndTaskList.remove( i ) ;
 	    			i-- ;
 	    		}
 	    	}
