@@ -25,6 +25,7 @@
 	ArrayList<MemVO> boardMemberList = (ArrayList<MemVO>) request.getAttribute("boardMemberList");
 	ArrayList<MemVO> boardWaitingList = (ArrayList<MemVO>) request.getAttribute("boardWaitingList");
 	ArrayList<SectionVO> sectionList = (ArrayList<SectionVO>) request.getAttribute("sectionList");
+	ArrayList<BoardVO> refBoardList = (ArrayList<BoardVO>) request.getAttribute("refBoardList");
 %>
 <!DOCTYPE html>
 <html lang="en">
@@ -81,7 +82,6 @@ function updating() {
 		<div class = "col-xs-6 col-sm-1"><input type="button" name = "group" class="btn btn-primary" onclick = "admitPage()" value = "MEMBER승인"/></div>
 		<div class = "col-xs-6 col-sm-1"><input type="button" name = "group" class="btn btn-primary" onclick = "sectionPage()" value = "SECTION관리"/></div>
 		<div class = "col-xs-6 col-sm-1"><input type="button" name = "group" class="btn btn-primary" onclick = "ETCPage()" value = "기타설정"/></div>
-
 	</div>
 </div>
 
@@ -106,6 +106,10 @@ function updating() {
 	<%}else if (chkVal.equals("section")) { %>
 	<jsp:include page = "sectionlist.jsp" flush = "false" >
 			<jsp:param name="sectionList" value="<%=sectionList %>" />
+	</jsp:include>
+	<%}else if (chkVal.equals("etc")) { %>
+	<jsp:include page = "etcform.jsp" flush = "false" >
+			<jsp:param name="refBoardList" value="<%=refBoardList %>" />
 	</jsp:include>
 	<%}else { %>
 	<jsp:include page = "rolelist.jsp" flush = "false" >

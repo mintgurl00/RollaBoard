@@ -24,6 +24,8 @@ public interface BoardDAO {
 	public ArrayList<BoardVO> getRefBoards(int id);
 	
 	public void visibility(String visibility, String board_id);
+	
+	public void deleteRefBoard(int ref_id, int board_id);
 
 
 }

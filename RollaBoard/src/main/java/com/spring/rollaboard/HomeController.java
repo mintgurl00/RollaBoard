@@ -41,7 +41,8 @@ public class HomeController {
     @RequestMapping("index.do")
     public ModelAndView index() {
     	ModelAndView result = new ModelAndView();
-    	result.setViewName("index");
+    	Date date = new Date();
+    	System.out.println("시간! : " + date);
     	return result;
     }
     
@@ -117,7 +118,7 @@ public class HomeController {
     	System.out.println("Desc : " + updateRoleInfo.getDescription());
 
     	roleDAOService.createRole(updateRoleInfo);
-    	String chkVal = "section";
+    	String chkVal = "rolelist";
     	result.addObject("chkVal", chkVal);
     	result.setViewName("redirect:updateboard.do");
 		return result;
@@ -132,13 +133,10 @@ public class HomeController {
     	System.out.println("Desc : " + updateRoleInfo.getDescription());
     	
     	roleDAOService.updateRole(updateRoleInfo);
-    	// alert처리단
-    	response.setContentType("text/html; charset-utf-8");
-		PrintWriter out = response.getWriter();
-    	out.println("<script>alert('ROLE 정보가 수정되었습니다.');");
-    	out.println("</script>");
-        out.flush();
-    	result.setViewName("subMenu");
+
+        String chkVal = "role";
+        result.addObject("chkVal", chkVal);
+        result.setViewName("redirect:updateboard.do");
 		return result;
 	}
     
@@ -393,6 +391,9 @@ public class HomeController {
 		} else {
 			maxNum = Integer.parseInt(sectionDAOService.getMaxSeqNum(board_id)) + 1;
 		}
+    	if (section_name.equals("null")) {
+			section_name = "대분류" + maxNum;
+		}
     	SectionVO sectionVO = new SectionVO();
     	sectionVO.setBoard_id(board_id);
     	sectionVO.setSeq_num(maxNum);
@@ -416,8 +417,9 @@ public class HomeController {
     	if (sectionDAOService.getMaxSeqNum(board_id) == null) {
 			maxNum = 1;
 		} else {
-			maxNum = Integer.parseInt(sectionDAOService.getMaxSeqNum(board_id)) + 1;
+			maxNum = (Integer.parseInt(sectionDAOService.getMaxSeqNum(board_id)) + 1);
 		}
+    	System.out.println("맥스넘 보정값 : " + maxNum);
     	SectionVO sectionVO = new SectionVO();
     	sectionVO.setBoard_id(board_id);
     	sectionVO.setSeq_num(maxNum);
@@ -494,8 +496,8 @@ public class HomeController {
     }
     
     //보드 공개여부 설정
-    @RequestMapping("etc1.do")
-    public ModelAndView etc(HttpServletRequest request, HttpSession session) {
+    @RequestMapping("visibility.do")
+    public ModelAndView visibility(HttpServletRequest request, HttpSession session) {
     	ModelAndView result = new ModelAndView();
     	String visibility = request.getParameter("visibility");
     	String board_id = (String) session.getAttribute("board_id");
@@ -513,10 +515,31 @@ public class HomeController {
     }
     
     //참조보드 추가
-    @RequestMapping("etc2.do")
-    public ModelAndView etc2() {
+    @RequestMapping("addrefboard.do")
+    public ModelAndView addrefboard() {
     	ModelAndView result = new ModelAndView();
     	
+        return result;
+    	
+    }
+    
+    //참조보드 삭제
+    @RequestMapping("deleterefboard.do")
+    public ModelAndView deleterefboard(HttpSession session, HttpServletRequest request) {
+    	ModelAndView result = new ModelAndView();
+    	
+    	System.out.println("참조보드 아이디: " + Integer.parseInt((String)request.getParameter("ref_id")));
+    	System.out.println("내 보드 아이디: " + Integer.parseInt((String)session.getAttribute("board_id")));
+    	
+    	int ref_id = Integer.parseInt((String)request.getParameter("ref_id"));
+    	int board_id = Integer.parseInt((String)session.getAttribute("board_id"));
+    	
+    	boardDAOService.deleteRefBoard(ref_id, board_id);
+    	
+    	// 현재 페이지에 머물 수 있는 앵커값 : chkVal
+    	String chkVal = "etc";
+    	result.addObject("chkVal", chkVal);
+    	result.setViewName("redirect:updateboard.do");
         return result;
     	
     }
@@ -535,9 +558,35 @@ public class HomeController {
     }
     
       
+    @RequestMapping("updatetaskform.do")
+    public  ModelAndView updatetaskform(TaskVO taskVO) {
+    	ModelAndView result = new ModelAndView();
+    	System.out.println("updatetaskform.do... taskVO.getId : " + taskVO.getId());
+    	result.addObject("taskVO", taskVO);
+    	result.setViewName("updatetask");
+    	return result;
+    }
+    
     @RequestMapping("updatetask.do")
-    public String updatetask() {
-        return "updatetask";
+    public ModelAndView updatetask(TaskVO taskVO) {
+    	System.out.println("업데이트할 task_id : " + taskVO.getId());
+    	if (taskVO.getStatus() == null) {
+			taskVO.setStatus("NORMAL");
+		}
+    	System.out.println("스테이터스 :" + taskVO.getStatus());
+    	ModelAndView result = new ModelAndView();
+    	taskDAOService.updateTask(taskVO);
+    	result.setViewName("redirect:board.do");
+    	return result;
+    }
+    
+    @RequestMapping("deletetask.do")
+    public ModelAndView deletetask(int task_id) {
+    	System.out.println("지울 task_id : " + task_id);
+    	ModelAndView result = new ModelAndView();
+    	taskDAOService.deleteTask(task_id);
+    	result.setViewName("redirect:board.do");
+    	return result;
     }
     
 	@RequestMapping("createtask.do")
@@ -810,7 +859,8 @@ public class HomeController {
     	ArrayList<MemVO> boardWaitingList = memDAOService.waitingMembers(board_id);
     	// SECTION 관리페이지 관련 정보들
     	ArrayList<SectionVO> sectionList = sectionDAOService.getSections(board_id);
-    	//기타설정 페이지 관련 정보들  - 밑에 추가할 것
+    	//기타설정 페이지 관련 정보들
+    	ArrayList<BoardVO> refBoardList = boardDAOService.getRefBoards(board_id);
     	
     	boardVO = boardDAOService.getBoardInfo(board_id);
     	System.out.println("업데이트보드 id = " + board_id);
@@ -820,6 +870,7 @@ public class HomeController {
     	result.addObject("boardMemberList", boardMemberList); // member 관리페이지 관련 정보들
     	result.addObject("boardWaitingList", boardWaitingList); // member 승인페이지 관련 정보들
     	result.addObject("sectionList", sectionList); // SECTION 관리페이지 관련 정보들
+    	result.addObject("refBoardList", refBoardList); // 기타설정 페이지 관련 정보들
     	result.setViewName("updateboard");
         return result;
     }

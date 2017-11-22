@@ -66,4 +66,9 @@
 		UPDATE board SET visibility = #{visibility} WHERE id = #{board_id} <!-- 받아오는 visibility값은 TRUE or FALSE -->
 	</update>
 	
+	<!-- 참조보드 삭제 -->
+	<delete id = "deleteRefBoard" parameterType = "Map">
+		DELETE FROM board_ref WHERE ref_id = #{ref_id} and board_id = #{board_id}
+	</delete>
+	
 </mapper>
