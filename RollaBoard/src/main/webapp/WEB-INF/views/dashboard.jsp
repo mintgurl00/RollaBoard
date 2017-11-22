@@ -11,6 +11,7 @@
 	request.setCharacterEncoding("utf-8");
 	
 	List<BoardVO> boardList = (ArrayList<BoardVO>)request.getAttribute("boardList");
+	ArrayList<TaskVO> taskList = (ArrayList<TaskVO>) request.getAttribute("taskList");
 
 %>
 <script type = "text/javascript" language = "javascript">
@@ -19,6 +20,9 @@ function openPop() {
 			"UPDATE",
 			"resizeable = yes, menubar=no, width = 800, height = 500, left = 10, right = 10");
 	
+}
+function viewTask (cnt) {
+	document.getElementById("taskview" + cnt).submit();	
 }
 </script>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -57,18 +61,15 @@ function openPop() {
 <div id="rightside">
 <p align="right"><a href = "#" onClick = "openPop();" >회원정보수정</a> | <a href="logout.do">logout</a>&nbsp;</p>
 <br/>
-<div id="task" onclick="location.href='./taskview.do';"><h3>TASK 이름</h3><br/><br/>BOARD 이름</div>
-<div id="task" onclick="location.href='./taskview.do';"><h3>TASK 이름</h3><br/><br/>BOARD 이름</div>
-<div id="task" onclick="location.href='./taskview.do';"><h3>TASK 이름</h3><br/><br/>BOARD 이름</div>
-<div id="task" onclick="location.href='./taskview.do';"><h3>TASK 이름</h3><br/><br/>BOARD 이름</div>
-<div id="task" onclick="location.href='./taskview.do';"><h3>TASK 이름</h3><br/><br/>BOARD 이름</div>
-<div id="task" onclick="location.href='./taskview.do';"><h3>TASK 이름</h3><br/><br/>BOARD 이름</div>
-<div id="task" onclick="location.href='./taskview.do';"><h3>TASK 이름</h3><br/><br/>BOARD 이름</div>
-<div id="task" onclick="location.href='./taskview.do';"><h3>TASK 이름</h3><br/><br/>BOARD 이름</div>
-<div id="task" onclick="location.href='./taskview.do';"><h3>TASK 이름</h3><br/><br/>BOARD 이름</div>
-<div id="task" onclick="location.href='./taskview.do';"><h3>TASK 이름</h3><br/><br/>BOARD 이름</div>
-<div id="task" onclick="location.href='./taskview.do';"><h3>TASK 이름</h3><br/><br/>BOARD 이름</div>
-<div id="task" onclick="location.href='./taskview.do';"><h3>TASK 이름</h3><br/><br/>BOARD 이름</div>
+<% for (int k = 0; k < taskList.size(); k++) {
+	TaskVO taskVO = taskList.get(k);
+%>
+<div id="task" onclick="javascript:viewTask(<%=taskVO.getId() %>)"><h3><%=taskVO.getName()%></h3><br/><br/>BOARD 이름:<%=taskVO.getDescription() %></div>
+<form id = "taskview<%=taskVO.getId() %>" action = "taskview.do">
+	<input type = hidden name = "task_id" value = "<%=taskVO.getId() %>">
+	<input type = hidden name = "board_name" value = "<%=taskVO.getDescription()%>">
+</form>
+<%} %>
 
 
 </div>

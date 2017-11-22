@@ -14,7 +14,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
@@ -43,7 +42,7 @@ public class HomeController {
     public ModelAndView index() {
     	ModelAndView result = new ModelAndView();
     	Date date = new Date();
-    	System.out.println("시간! : " + date);
+    	System.out.println("현재 시간! : " + date);
     	return result;
     }
     
@@ -82,7 +81,7 @@ public class HomeController {
     	System.out.println( tfSQL.get( TaskFilter.CREDATE_ASC ) ) ;*/
     	
     	result.addObject("boardList", boardList); //수민
-    	result.setViewName("dashboard");
+    	result.setViewName("redirect:dashboard.do");
     	return result;
     }
     
@@ -126,6 +125,9 @@ public class HomeController {
     			return result;
 			}
     	}
+    	if (updateRoleInfo.getDescription().equals("")) {
+			updateRoleInfo.setDescription("없음");
+		}
     	updateRoleInfo.setBoard_id(board_id);
     	System.out.println("insertRole 정보들");
     	System.out.println("board_id : " + updateRoleInfo.getBoard_id());
@@ -550,47 +552,9 @@ public class HomeController {
     
     //참조보드 추가
     @RequestMapping("addrefboard.do")
-    public ModelAndView addrefboard(HttpServletRequest request, HttpSession session) {
+    public ModelAndView addrefboard() {
     	ModelAndView result = new ModelAndView();
-    	System.out.println("addrefboard.do 진입했는지 확인");
-    	System.out.println("내 보드 아이디: " + Integer.parseInt((String)session.getAttribute("board_id")));
-    	int board_id = Integer.parseInt((String)session.getAttribute("board_id"));
     	
-    	String name = request.getParameter("name");
-    	System.out.println("추가할 참조보드 이름 : " + name);
-    	
-    	ArrayList<BoardVO> allBoardList = boardDAOService.getAllBoards();
-    	
-    	for (int i = 0; i < allBoardList.size(); i++) {
-    		BoardVO boardVO = allBoardList.get(i);
-    		String dbName = boardVO.getName();
-    		
-    		if (name.equals(dbName)) {
-    			BoardVO board = boardDAOService.getBoard(name);
-    	    	
-    	    	int ref_id = board.getId();
-    	    	System.out.println("참조보드 아이디 : " + ref_id);
-    	    	
-    	    	boardDAOService.addRefBoard(ref_id, board_id);
-    	    	
-    	    	// 현재 페이지에 머물 수 있는 앵커값 : chkVal
-    	    	String chkVal = "etc";
-    	    	result.addObject("chkVal", chkVal);
-    	    	result.setViewName("redirect:updateboard.do");
-    	        return result;
-    			
-    		}
-    	}
-//		//존재하지 않는 BOARD명을 입력한 경우
-//		response.setContentType("text/html; charset-utf-8");
-//		PrintWriter out = response.getWriter();
-//        out.println("<script>alert('존재하지 않는 BOARD입니다. BOARD명을 다시 입력해주세요.');</script>");
-//        out.flush(); 
-    	
-    	// 현재 페이지에 머물 수 있는 앵커값 : chkVal
-    	String chkVal = "etc";
-    	result.addObject("chkVal", chkVal);
-    	result.setViewName("redirect:updateboard.do");
         return result;
     	
     }
@@ -622,13 +586,26 @@ public class HomeController {
     // TASK 관련 메소드 ----------------------------------------------------------------
     
     @RequestMapping(value = "taskview.do" )
-    public ModelAndView taskview(int task_id) {	
+    public ModelAndView taskview(HttpServletRequest request, HttpSession session) {	
     	ModelAndView result = new ModelAndView();
+    	int task_id = Integer.parseInt((String) request.getParameter("task_id"));
+    	String board_name = (String) request.getParameter("board_name");
     	System.out.println("태스크뷰 아이디 : " + task_id);
-    	TaskVO taskVO = taskDAOService.getTask(task_id);
-    	result.addObject("taskVO", taskVO);
-    	result.setViewName("taskview");
-        return result;
+    	System.out.println("태스크뷰.. board_name : " + board_name);
+    	if (board_name == null) {	
+    		TaskVO taskVO = taskDAOService.getTask(task_id);
+        	result.addObject("taskVO", taskVO);
+        	result.setViewName("taskview");
+            return result;
+		} else {
+	    	int board_id = boardDAOService.getBoard(board_name).getId();
+	    	System.out.println("갖고온 보드아이디 : " + board_id);
+	    	session.setAttribute("board_id", board_id);
+	    	TaskVO taskVO = taskDAOService.getTask(task_id);
+	    	result.addObject("taskVO", taskVO);
+	    	result.setViewName("taskview");
+	        return result;
+		}
     }
     
       
@@ -656,7 +633,7 @@ public class HomeController {
     	System.out.println("스테이터스 :" + taskVO.getStatus());	
     	// 롤 이름이 없으면 수행 안한다.
     	if (taskToRole != null) {
-	    	// createtask에서 가져온 롤 이름으로 롤 아이디 찾는다.
+	    	// updatetask에서 가져온 롤 이름으로 롤 아이디 찾는다.
 			int role_id = roleDAOService.getRoleIdByName(taskToRole, Integer.parseInt((String)session.getAttribute("board_id")));
 			// 태스크에 롤을 배정한다.
 			taskDAOService.taskToRole(taskVO.getId(), role_id);	
@@ -676,43 +653,33 @@ public class HomeController {
     	return result;
     }
     
+    // 태스크 만들 폼을 가져오는 메소드이다.
 	@RequestMapping("createtask.do")
 	public ModelAndView createtask(HttpServletRequest request, HttpSession session) {
 		
 		System.out.println("리쿼스트 섹션아이디 : " + request.getParameter("section_id"));
 		String section_id = request.getParameter("section_id");  
-		System.out.println("111111");
 		ModelAndView result = new ModelAndView();
 		
 		result.addObject("section_id",section_id);
         result.setViewName("createtask");
-        System.out.println("222222");
 		return result;
 	}
 	
+	// 실제로 만드는 메소드
 	@RequestMapping("inserttask.do")
 	public ModelAndView insertTask(String taskToRole, HttpSession session, TaskVO taskVO, HttpServletRequest request) {
 		System.out.println("만들 태스크의 이름 : " + taskVO.getName());
 		
 		
-		/*int section_id = Integer.parseInt( request.getParameter( "section_id" ) ) ;*/
-		
 		// 태스크를 생성한다.
-		taskDAOService.insertTask(taskVO);
+		taskDAOService.createTask(taskVO);
 		
-		System.out.println("3333333");
+
 		ModelAndView result = new ModelAndView();
-		System.out.println("444");
 		result.setViewName("redirect:board.do");
 		return result;
 		
-		
-		/*ModelAndView result = new ModelAndView();
-    	String id = session.getAttribute( "id" ).toString() ;
-    	int board_id = Integer.parseInt( request.getParameter( "board_id" ) ) ;	// 보드 id
-    	
-    	String board_name = boardVO.getName();
-    	String mem_id = (String)(session.getAttribute("id"));*/
     	
 	}
 	
@@ -729,6 +696,11 @@ public class HomeController {
     	ModelAndView result = new ModelAndView();
     	List<BoardVO> boardList = boardDAOService.getBoards((String)(session.getAttribute("id"))); //수민. 대시보드로 갈 때 보드리스트 받아옴
     	session.removeAttribute("board_id"); // 대쉬보드로 이동시 board_id 세션을 없앤다.
+    	// 대쉬보드에 내 TASK 보기
+    	String mem_id = (String) session.getAttribute("id");
+    	System.out.println("dashboard입니다.세션의 맴버아이디 : " + mem_id);
+    	ArrayList<TaskVO> taskList = taskDAOService.getMyTasks(mem_id);
+    	result.addObject("taskList", taskList);
     	result.addObject("id", session.getAttribute("id"));
     	result.addObject("boardList", boardList); //수민
     	result.setViewName("dashboard");
@@ -1064,128 +1036,7 @@ public class HomeController {
     	result.setViewName("searchresult");
 		return result;
 	}
-    
-    /*
-     * 석원.
-     * 참조보드 로드용
-     * */
-    @RequestMapping("referenceboard.do")
-    public ModelAndView referenceboard( HttpServletRequest request , HttpSession session ) {
-    	System.out.println( "참조보드 로드 작업 시작" );
-    	ModelAndView result = new ModelAndView() ;
-    	int ref_board_id = Integer.parseInt( (String) request.getParameter( "ref_board_id" ) ) ;	// 이 메소드에서 쓸 값이라 int형으로 했어요.
-    	String orig_board_id = (String) request.getParameter( "board_id" ) ;	// 전달만 하는 거니까 String으로 그냥
-    	
-    	
-    	
-    	// 보드에 승인이 안되어 있으면 들어갈 수 없다.
-    	//..를 나중에 해야겠다.
-    	
-    	result.addObject( "ref_board_id", ref_board_id + "" ) ;
-    	result.addObject( "orig_board_id", orig_board_id ) ;
-    	result.setViewName( "boardref" ) ;
-        return result ;
-    }
-    
-    @RequestMapping("searchresultref.do")
-    public ModelAndView searchresultref( HttpServletRequest request , HttpSession session ){
-    	ModelAndView result = new ModelAndView() ;
-    	
-    	int board_id = Integer.parseInt( (String) request.getParameter( "board_idR" ) ) ;
-    	String keyword = (String) request.getParameter( "keywordR" ) ;
-    	String filter = (String) request.getParameter( "filterR" ) ;
-    	String[] filters = null ;
-    	String[] orders = null ;	// 나중에 해야함
-    	if( filter != null ){
-	    	System.out.println( "필터 값 : " + filter ); // test
-	    	StringTokenizer st = new StringTokenizer(filter," ");
-	    	filters = new String[ st.countTokens() ] ; 
-	    	for( int i = 0 ; i < filters.length ; i++ ){
-	    		// st.hasMoreTokens() ;
-	    		filters[ i ] = st.nextToken() ;
-	    	}
-	    	System.out.println( "전달된 필터 : " + filters.length +"개" );
-	    	for( String filterString : filters ){
-	    		System.out.print( filterString + " ");
-	    	}
-	    	System.out.println() ;
-    	}else{
-    		System.out.println( "전달된 필터는 없습니다." ) ;
-    	}
-    	/* ******************************************************************** */
-    	// 아래부터는 석원 구역. 보드에 태스크 보여주기
-    	
-    	/*
-    	 * 사실 이 부분에 보드멤버가 맞는지 확인하는 부분이 들어가야 한다.
-    	 * (뭐, 어서 일단 넘어가구요.)
-    	 * */
-    	
-    	// 01. 참조 보드 리스트 추출...은 할 필요 없고
-    	// 02. 섹션 리스트 추출
-    	ArrayList<SectionVO> sectionList = sectionDAOService.getSections( board_id ) ;
-    	System.out.println("섹션리스트추출");
-    	
-    	
-    	// 03. 태스크 리스트 추출
-    	ArrayList<TaskVO> taskList ;
-    	if( filters == null && orders == null ){
-    		taskList = taskDAOService.getTasksByBoard2( board_id , keyword ) ;	// sql문에서 섹션별로 그룹해야 편할듯 + 섹션순서번호 정렬
-    	} else {
-    		taskList = taskDAOService.getTasksByBoard2( board_id , keyword , filters , orders ) ;	
-    	}
-    	//ArrayList<TaskVO> taskList = taskDAOService.getTasksByBoard( board_id ) ;
-    	System.out.println("태스크리스트추출");
-    	System.out.println("보드id:" + board_id + ", 키워드:" + keyword );
-    	// 04. 롤 배치 리스트 추출
-    	
-    	
-    	
-    	// 태스크 배치
-    	ArrayList<ArrayList<TaskVO>> taskViewList = new ArrayList<ArrayList<TaskVO>>() ;	// 태스크리스트 저장객체 생성
-    	for( int i = 0 ; i < sectionList.size() ; i++ ){
-    		taskViewList.add( new ArrayList<TaskVO>() ) ;	// 섹션 수만큼 칸을 만들고
-    	}
-    	for( TaskVO task : taskList ){
-    		int t_sid = task.getSection_id() ;	// 태스크의 섹션아이디
-    		for( int j = 0 ; j < sectionList.size() ; j++ ){	// 섹션리스트 하나하나 섹션아이디 확인
-    			int sid = sectionList.get( j ).getId() ;
-    			if( sid == t_sid ){
-    				taskViewList.get( j ).add( task ) ;
-    				break ;
-    			}
-    		}
-    	}
-    	if( ! keyword.equals( "" ) ){
-	    	for( int i = 0 ; i < taskViewList.size() ; i++ ){	// 태스크 없는 섹션은 지우기
-	    		if( taskViewList.get(i).isEmpty() ){
-	    			taskViewList.remove( i ) ;
-	    			sectionList.remove( i ) ;
-	    			i-- ;
-	    		}
-	    	}
-    	}
-    	// 롤 배치(나중에 하려고 함)
-    	//ArrayList<ArrayList<ArrayList<RoleVO>>> roleViewList ;
-    	
-		// ....을 전달
-    	//result.addObject( "refBoardList" , refBoardList ) ;
-    	result.addObject( "sectionListR" , sectionList ) ;
-    	result.addObject( "taskViewListR" , taskViewList ) ;
-    	
-    	// 여기까지 석원구역.
-    	/* ******************************************************************** */
-    	
-    	
-    	result.addObject( "board_idR" , board_id + "" ) ;
-    	result.addObject( "keywordR" , keyword ) ;
-    	
-    	
-    	
-    	
-    	
-    	result.setViewName( "searchresultref" ) ;
-		return result ;
-    }
 
+    
 }
 
