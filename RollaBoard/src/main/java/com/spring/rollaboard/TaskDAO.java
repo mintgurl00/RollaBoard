@@ -12,13 +12,13 @@ public interface TaskDAO {
 	
 	ArrayList<TaskVO> getTasks();
 
-	public void createTask(TaskVO taskVO); // 고급사항에서 받은 값들도 처리해야함
-
+	public void createTaskWithRole(TaskVO taskVO, int role_id);
+	
 	public void updateTask(TaskVO taskVO);
 
 	public void deleteTask(int id); // 선행TASK와 후행 TASK가 존재하면 처리해서 지워야함
 
-	void insertTask(TaskVO taskVO);
+	public void createTask(TaskVO taskVO);
 	
 	public void taskToRole(int task_id, int role_id);
 	

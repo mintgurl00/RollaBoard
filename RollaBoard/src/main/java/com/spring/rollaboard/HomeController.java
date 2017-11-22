@@ -584,13 +584,26 @@ public class HomeController {
     // TASK 관련 메소드 ----------------------------------------------------------------
     
     @RequestMapping(value = "taskview.do" )
-    public ModelAndView taskview(int task_id) {	
+    public ModelAndView taskview(HttpServletRequest request, HttpSession session) {	
     	ModelAndView result = new ModelAndView();
+    	int task_id = Integer.parseInt((String) request.getParameter("task_id"));
+    	String board_name = (String) request.getParameter("board_name");
     	System.out.println("태스크뷰 아이디 : " + task_id);
-    	TaskVO taskVO = taskDAOService.getTask(task_id);
-    	result.addObject("taskVO", taskVO);
-    	result.setViewName("taskview");
-        return result;
+    	System.out.println("태스크뷰.. board_name : " + board_name);
+    	if (board_name == null) {	
+    		TaskVO taskVO = taskDAOService.getTask(task_id);
+        	result.addObject("taskVO", taskVO);
+        	result.setViewName("taskview");
+            return result;
+		} else {
+	    	int board_id = boardDAOService.getBoard(board_name).getId();
+	    	System.out.println("갖고온 보드아이디 : " + board_id);
+	    	session.setAttribute("board_id", board_id);
+	    	TaskVO taskVO = taskDAOService.getTask(task_id);
+	    	result.addObject("taskVO", taskVO);
+	    	result.setViewName("taskview");
+	        return result;
+		}
     }
     
       
@@ -618,7 +631,7 @@ public class HomeController {
     	System.out.println("스테이터스 :" + taskVO.getStatus());	
     	// 롤 이름이 없으면 수행 안한다.
     	if (taskToRole != null) {
-	    	// createtask에서 가져온 롤 이름으로 롤 아이디 찾는다.
+	    	// updatetask에서 가져온 롤 이름으로 롤 아이디 찾는다.
 			int role_id = roleDAOService.getRoleIdByName(taskToRole, Integer.parseInt((String)session.getAttribute("board_id")));
 			// 태스크에 롤을 배정한다.
 			taskDAOService.taskToRole(taskVO.getId(), role_id);	
@@ -658,7 +671,7 @@ public class HomeController {
 		
 		
 		// 태스크를 생성한다.
-		taskDAOService.insertTask(taskVO);
+		taskDAOService.createTask(taskVO);
 		
 
 		ModelAndView result = new ModelAndView();

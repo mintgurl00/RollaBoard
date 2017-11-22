@@ -84,7 +84,7 @@ function radio_chk() {
   <form action = "addrefboard.do">
    	<table class="table table-striped">
    	  <tbody>
-   	  	<td><input type = "text" class = "form-control" name = "board_name" placeholder = "추가할 BOARD명을 입력하세요"></td>
+   	  	<td><input type = "text" class = "form-control" name = "name" placeholder = "추가할 BOARD명을 입력하세요(존재하는 BOARD명만 추가할 수 있습니다)"></td>
    	  	<td align = right>
         	<input type = submit class = "btn btn-info" value = "추가" >&nbsp;&nbsp;
        	</td>

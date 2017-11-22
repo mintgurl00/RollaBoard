@@ -50,6 +50,7 @@ window.onload = function(){
 	initRefBoard( "ref_board_select" ) ;
 	initBoard();
 	inputEnterToSearch();
+	$( "#ref_board" ).click( function(){showRefBoard()} ) ;
 }
 /*
  * 참조보드 select태그에 넣기 
@@ -81,8 +82,6 @@ function initRefBoard( selectName ){
  * 보드 그리기 
  */
 function initBoard() {
-	<%-- $('#content').load("searchresult.do", {board_id: "<%=boardVO.getId() %>"}); --%>
-	/* $('#content').load("searchresult.do"); */
 	$('#content').load("searchresult.do", {
 		board_id: '<%=boardVO.getId() %>',
 		keyword:''
@@ -143,6 +142,23 @@ function getFilter(){
 	return filterString
 }
 
+/*
+ * 참조 보드 부르기
+ */
+function showRefBoard(){
+	var ref_board_id = $( "#ref_board_select option:selected" ).val() ;
+	if( ref_board_id != $("#current_ref_board").val() ){
+		ref_board_id != $("#current_ref_board").prop( "value" , ref_board_id ) ;
+		alert( '참조보드 : ' + ref_board_id ) ;
+		
+		$("#content_ref").load("referenceboard.do", {
+			board_id: '<%=boardVO.getId() %>',
+			ref_board_id:ref_board_id
+		}) ;
+		
+		alert( '작업 시작' ) ;
+	}
+}
 
 </script>
 </head>
@@ -166,9 +182,11 @@ function getFilter(){
 	<a href = "#" onClick = "openPop();" >회원정보 수정</a> | <a href="logout.do">logout</a>&nbsp;
 </div>
 
+<!-- 참조 보드 선택 -->
 <div id="ref_board">
+	<input type="hidden" id="current_ref_board" value="-1" />
 	<select id="ref_board_select">
-    	<option value="">참조 BOARD 선택</option>
+    	<option value="-1">참조 BOARD 선택</option>
 	</select>
 </div>
 
@@ -193,6 +211,10 @@ function getFilter(){
 	
 </div>
 
+<!-- 참조 보드 -->
+<div id="content_ref">
+	
+</div>
 
 </body>
 </html>

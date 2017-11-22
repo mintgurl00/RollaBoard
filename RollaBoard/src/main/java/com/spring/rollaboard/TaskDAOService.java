@@ -24,19 +24,18 @@ public class TaskDAOService implements TaskDAO {
 		return taskMapper.getTasks();
 		
 	}
-
-
+	
 	@Override
-	public void createTask(TaskVO taskVO) {
+	public void createTaskWithRole(TaskVO taskVO, int role_id) {
 		TaskMapper taskMapper = sqlSession.getMapper(TaskMapper.class);
-		taskMapper.createTask(taskVO);
+		taskMapper.createTaskWithRole(taskVO, role_id);
 		
 	}
 	
 	@Override
-	public void insertTask(TaskVO taskVO) {
+	public void createTask(TaskVO taskVO) {
 		TaskMapper taskMapper = sqlSession.getMapper(TaskMapper.class);
-		taskMapper.insertTask(taskVO);
+		taskMapper.createTask(taskVO);
 	}
 
 	@Override
@@ -209,6 +208,7 @@ public class TaskDAOService implements TaskDAO {
 		taskMapper.taskToRole(task_id, role_id);
 		
 	}
+
 
 
 }

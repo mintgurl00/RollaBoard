@@ -21,6 +21,9 @@ function openPop() {
 			"resizeable = yes, menubar=no, width = 800, height = 500, left = 10, right = 10");
 	
 }
+function viewTask (cnt) {
+	document.getElementById("taskview" + cnt).submit();	
+}
 </script>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -61,7 +64,11 @@ function openPop() {
 <% for (int k = 0; k < taskList.size(); k++) {
 	TaskVO taskVO = taskList.get(k);
 %>
-<div id="task" onclick="location.href='./taskview.do?task_id=<%=taskVO.getId() %>';"><h3><%=taskVO.getName()%></h3><br/><br/>BOARD 이름:<%=taskVO.getDescription() %></div>
+<div id="task" onclick="javascript:viewTask(<%=taskVO.getId() %>)"><h3><%=taskVO.getName()%></h3><br/><br/>BOARD 이름:<%=taskVO.getDescription() %></div>
+<form id = "taskview<%=taskVO.getId() %>" action = "taskview.do">
+	<input type = hidden name = "task_id" value = "<%=taskVO.getId() %>">
+	<input type = hidden name = "board_name" value = "<%=taskVO.getDescription()%>">
+</form>
 <%} %>
 
 

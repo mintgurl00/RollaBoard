@@ -8,14 +8,14 @@ public interface TaskMapper {
 	//다시 수정 필요 !!!!!!!
 	
 	ArrayList<TaskVO> getTasks();
-	
-	public void createTask(TaskVO taskVO);
+
+	public void createTaskWithRole(TaskVO taskVO, int role_id); // 규성
 	
 	public TaskVO getTask(int id);
 	
 	public ArrayList<TaskVO> getMyTasks(String mem_id);
 	
-	public void insertTask(TaskVO taskVO);
+	public void createTask(TaskVO taskVO);
 	
 	public void updateTask(TaskVO TaskVO);
 	
