@@ -18,22 +18,7 @@
 	ArrayList<SectionVO> sectionList = (ArrayList<SectionVO>) request.getAttribute( "sectionList" ) ; 
 	ArrayList<BoardVO> refBoardList = (ArrayList<BoardVO>) request.getAttribute( "refBoardList" ) ;
 %>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
-<head>
 
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>board</title>
-<style>
-#header{float:left; width:1580px; height:70px; background-color:#B5B2FF}
-#logout{float:left; width:280px; height:70px; background-color:#B5B2FF}
-#ref_board{width:280px; height:50px; background-color:#DAD9FF}
-#filter{float:left; width:1860px; height:50px; background-color:#DAD9FF; text-align:right}
-#content{overflow:scroll; width:1880px; height:960px}
-#section{float:left; width:400px; height:900px; margin-left:40px; margin-top:40px; background-color:#DAD9FF; text-align:center}
-#task{width:350px; height:150px; margin-left:20px; margin-top:20px; background-color:#FFFFFF; text-align:center}
-
-</style>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script type = "text/javascript" language = "javascript">
 function openPop() {
@@ -152,16 +137,12 @@ function showRefBoard(){
 	if( ref_board_id != $("#current_ref_board").val() ){
 		ref_board_id != $("#current_ref_board").prop( "value" , ref_board_id ) ;
 		alert( '참조보드 : ' + ref_board_id ) ;
-		$("#content_ref").load("referenceboard.do", {
-			board_id: '<%=boardVO.getId() %>',
-			ref_board_id:$('#keyword').val()
-		}) ;
 	}
 }
 
 </script>
-</head>
-<body>
+
+
 <div id="header">
 <a href="./dashboard.do">로고</a>&nbsp;&nbsp;&nbsp;
 <font size="6"><%=boardVO.getName() %></font>
@@ -204,16 +185,9 @@ function showRefBoard(){
 	<button type="button" onclick="javascript:loadSearchResult()">검색버튼2</button>
 </div>
 
-
+참조보드 막 나오게 하기
 <!-- 보드 -->
 <div id="content">
 	
 </div>
 
-<!-- 참조 보드 -->
-<div id="content_ref">
-	
-</div>
-
-</body>
-</html>

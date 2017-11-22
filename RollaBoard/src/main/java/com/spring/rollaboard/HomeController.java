@@ -922,7 +922,79 @@ public class HomeController {
     	result.setViewName("searchresult");
 		return result;
 	}
-
     
+    /*
+     * 석원.
+     * 참조보드 로드용
+     * */
+    @RequestMapping("referenceboard.do")
+    public ModelAndView referenceboard( HttpServletRequest request ) {
+    	ModelAndView result = new ModelAndView() ;
+    	
+    	int ref_board_id = Integer.parseInt( request.getParameter( "ref_board_id" ) ) ;	// 이 메소드에서 쓸 값이라 int형으로 했어요.
+    	String orig_board_id = request.getParameter( "board_id" ) ;	// 전달만 하는 거니까 String으로 그냥
+    	
+    	/* ******************************************************************** */
+    	// 자 이제 참조보드의 태스크 보여주기
+    	
+    	// 01. 섹션 리스트 추출
+    	/*ArrayList<SectionVO> sectionList = sectionDAOService.getSections( ref_board_id ) ;
+    	System.out.println("참조보드의 섹션리스트추출");
+    	
+    	// 02. 태스크 리스트 추출
+    	ArrayList<TaskVO> taskList ;
+    	if( filters == null && orders == null ){
+    		taskList = taskDAOService.getTasksByBoard2( board_id , keyword ) ;	// sql문에서 섹션별로 그룹해야 편할듯 + 섹션순서번호 정렬
+    	} else {
+    		taskList = taskDAOService.getTasksByBoard2( board_id , keyword , filters , orders ) ;	
+    	}
+    	//ArrayList<TaskVO> taskList = taskDAOService.getTasksByBoard( board_id ) ;
+    	System.out.println("태스크리스트추출");
+    	System.out.println("보드id:" + board_id + ", 키워드:" + keyword );
+    	// 04. 롤 배치 리스트 추출
+    	
+    	
+    	
+    	// 태스크 배치
+    	ArrayList<ArrayList<TaskVO>> taskViewList = new ArrayList<ArrayList<TaskVO>>() ;	// 태스크리스트 저장객체 생성
+    	for( int i = 0 ; i < sectionList.size() ; i++ ){
+    		taskViewList.add( new ArrayList<TaskVO>() ) ;	// 섹션 수만큼 칸을 만들고
+    	}
+    	for( TaskVO task : taskList ){
+    		int t_sid = task.getSection_id() ;	// 태스크의 섹션아이디
+    		for( int j = 0 ; j < sectionList.size() ; j++ ){	// 섹션리스트 하나하나 섹션아이디 확인
+    			int sid = sectionList.get( j ).getId() ;
+    			if( sid == t_sid ){
+    				taskViewList.get( j ).add( task ) ;
+    				break ;
+    			}
+    		}
+    	}
+    	if( ! keyword.equals( "" ) ){
+	    	for( int i = 0 ; i < taskViewList.size() ; i++ ){	// 태스크 없는 섹션은 지우기
+	    		if( taskViewList.get(i).isEmpty() ){
+	    			taskViewList.remove( i ) ;
+	    			sectionList.remove( i ) ;
+	    			i-- ;
+	    		}
+	    	}
+    	}
+    	// 롤 배치(나중에 하려고 함)
+    	//ArrayList<ArrayList<ArrayList<RoleVO>>> roleViewList ;
+    	
+		// ....을 전달
+    	//result.addObject( "refBoardList" , refBoardList ) ;
+    	result.addObject( "sectionList" , sectionList ) ;
+    	result.addObject( "taskViewList" , taskViewList ) ;*/
+    	
+    	// 여기까지 석원구역.
+    	/* ******************************************************************** */
+
+    	result.addObject( "ref_board_id", ref_board_id + "" ) ;
+    	result.addObject( "orig_board_id", orig_board_id ) ;
+    	result.setViewName( "boardref" ) ;
+        return result ;
+    }
+
 }
 
