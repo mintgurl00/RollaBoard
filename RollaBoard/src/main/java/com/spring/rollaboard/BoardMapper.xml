@@ -30,6 +30,10 @@
 		SELECT * FROM board WHERE NAME = #{name}
 	</select>
 	
+	<update id = "updateBoard" parameterType = "com.spring.rollaboard.BoardVO">
+		UPDATE board SET NAME = #{name} WHERE ID = #{id}
+	</update>
+	
 	<insert id = "createBoard" parameterType="map">
 	<!-- INSERT INTO board VALUES (seq_board.NEXTVAL, #{board_name}, #{mem_id}, 'FALSE');
 		INSERT INTO board_mem VALUES ((SELECT id FROM board WHERE name=#{board_name}), #{mem_id}, 'TRUE', 'TRUE'); -->

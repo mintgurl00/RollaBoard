@@ -11,6 +11,8 @@ public interface BoardMapper {
 	
 	public BoardVO getBoard(String name);
 
+	public void updateBoard(BoardVO boardVO); // 보드 이름 바꾸는거
+	
 	public BoardVO getBoardInfo(int board_id);
 	
 	public int joinBoardChk(@Param("board_id") int board_id, @Param("mem_id") String mem_id);

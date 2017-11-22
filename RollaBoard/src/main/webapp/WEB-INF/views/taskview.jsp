@@ -1,12 +1,12 @@
 <%@page import="com.spring.rollaboard.TaskVO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-    
+<%@ page import="java.util.*, com.spring.rollaboard.*"%>
 <%
-	String task_name = request.getParameter("name");
-	String task_description = request.getParameter("description");
-	String task_status = request.getParameter("status");
-	TaskVO taskVO = (TaskVO)request.getAttribute("taskVO");
+
+	TaskVO taskVO = (TaskVO) request.getAttribute("taskVO");
+
+
 	/* ArrayList<taskVO> taskViewList = (ArrayList<taskVO>)request.getAttribute("taskViewList"); */
 %>
 
@@ -33,10 +33,23 @@ if(session.getAttribute("id") == null) {
 </head>
 <body>
 
-<div id="frame"><h1>TASK 이름 : <%-- <%=taskVO.getName() %> --%></h1>
-	<div id="content">내용 : <%-- <%=task_description %> --%></div>
-	<div id="status">상태: <%-- <%=task_status %> --%></div>	
+<%-- <<<<<<< HEAD
+<div id="frame"><h1>TASK 이름 : <%=taskVO.getName() %></h1>
+	<div id="content">내용 : <%=task_description %></div>
+	<div id="status">상태: <%=task_status %></div>	
 	<div id="comment">댓글</div>
+======= --%>
+<div id = ""><h1>TASK 이름 :  <%=taskVO.getName() %> </h1>
+	<div id="status">내용 :  <%=taskVO.getDescription() %> </div>
+	<div id="status">상태: <%=taskVO.getStatus() %> </div>	
+	<div id="status">댓글 : 해야 됨</div>
+	<div id="status">생성날짜: <%=taskVO.getCre_date() %> </div>	
+	<div id="status">시작날짜: <%=taskVO.getStart_date() %> </div>	
+	<div id="status">마감날짜: <%=taskVO.getDue_date() %> </div>	
+	<div id="status">중요도: <%=taskVO.getPriority() %> </div>	
+	<div id="status">선행TASK: 만들 것 </div>	
+	<div id="status">후행TASK: 만들 것 </div>	
+<!-- >>>>>>> branch 'master' of https://github.com/mintgurl00/RollaBoard.git -->
 	<div id="button">
 		<input type=button value="확인" onclick = 'history.go(-1)'>
 		<input type=button value="수정" onclick="location.href='./updatetask.do?id=<%=taskVO.getId()%>';">

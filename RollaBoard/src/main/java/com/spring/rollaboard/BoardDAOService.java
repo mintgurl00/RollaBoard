@@ -47,8 +47,8 @@ public class BoardDAOService implements BoardDAO {
 
 	@Override
 	public void updateBoard(BoardVO boardVO) {
-		// TODO Auto-generated method stub
-		
+		BoardMapper boardMapper = sqlSession.getMapper(BoardMapper.class);
+		boardMapper.updateBoard(boardVO);
 	}
 
 	@Override
