@@ -103,7 +103,7 @@ public class HomeController {
     }
  
     @RequestMapping("createrole.do")
-	public ModelAndView insertrole(RoleVO updateRoleInfo, HttpSession session) throws Exception {
+	public ModelAndView createrole(RoleVO updateRoleInfo, HttpSession session, HttpServletResponse response) throws Exception {
     	ModelAndView result = new ModelAndView();
     	int board_id;
     	if (session.getAttribute("board_id") == null) {
@@ -111,6 +111,20 @@ public class HomeController {
 			return result;
 		}
     	board_id = Integer.parseInt((String)session.getAttribute("board_id"));
+    	// 롤 이름이 중복되는 값이면 만들어지지 않게 한다.
+    	ArrayList<RoleVO> roleList = roleDAOService.getRoles(board_id);	
+    	for (int i = 0; i < roleList.size(); i++) {
+    		RoleVO role = roleList.get(i);
+    		if (role.getName().equals(updateRoleInfo.getName())) {
+//    			// alert처리단
+//    			response.setContentType("text/html; charset-utf-8");
+//    			PrintWriter out = response.getWriter();
+//    	        out.println("<script>alert('ROLE이름이 중복됩니다! 생성할 수 없습니다.');</script>");
+//    	        out.flush(); 
+    	        result.setViewName("redirect:updateboard.do");
+    			return result;
+			}
+    	}
     	updateRoleInfo.setBoard_id(board_id);
     	System.out.println("insertRole 정보들");
     	System.out.println("board_id : " + updateRoleInfo.getBoard_id());
@@ -125,13 +139,32 @@ public class HomeController {
 	}
     
     @RequestMapping("updaterole.do")
-	public ModelAndView updaterole(RoleVO updateRoleInfo, HttpServletResponse response) throws Exception {
+	public ModelAndView updaterole(RoleVO updateRoleInfo, HttpServletResponse response, HttpSession session) throws Exception {
     	ModelAndView result = new ModelAndView();
     	System.out.println("업데이트롤 정보들");
     	System.out.println("id : " + updateRoleInfo.getId());
     	System.out.println("Name : " + updateRoleInfo.getName());
     	System.out.println("Desc : " + updateRoleInfo.getDescription());
-    	
+    	int board_id;
+    	if (session.getAttribute("board_id") == null) {
+			result.setViewName("index");
+			return result;
+		}
+    	board_id = Integer.parseInt((String)session.getAttribute("board_id"));
+    	// 롤 이름이 중복되는 값이면 만들어지지 않게 한다.
+    	ArrayList<RoleVO> roleList = roleDAOService.getRoles(board_id);	
+    	for (int i = 0; i < roleList.size(); i++) {
+    		RoleVO role = roleList.get(i);
+    		if (role.getName().equals(updateRoleInfo.getName())) {
+//    			// alert처리단
+//    			response.setContentType("text/html; charset-utf-8");
+//    			PrintWriter out = response.getWriter();
+//    	        out.println("<script>alert('ROLE이름이 중복됩니다! 생성할 수 없습니다.');</script>");
+//    	        out.flush(); 
+    	        result.setViewName("redirect:updateboard.do");
+    			return result;
+			}
+    	}
     	roleDAOService.updateRole(updateRoleInfo);
 
         String chkVal = "role";
