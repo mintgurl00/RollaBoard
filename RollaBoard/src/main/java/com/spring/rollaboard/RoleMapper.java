@@ -19,4 +19,6 @@ public interface RoleMapper {
 	public void updateRole(RoleVO roleVO);
 	
 	public void allocateRole(@Param("role_id") int role_id, @Param("mem_id") String mem_id);
+	
+	public int getRoleIdByName(@Param("name") String name, @Param("board_id") int board_id);
 }

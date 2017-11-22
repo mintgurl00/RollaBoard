@@ -559,22 +559,35 @@ public class HomeController {
     
       
     @RequestMapping("updatetaskform.do")
-    public  ModelAndView updatetaskform(TaskVO taskVO) {
+    public  ModelAndView updatetaskform(TaskVO taskVO, HttpSession session) {
     	ModelAndView result = new ModelAndView();
     	System.out.println("updatetaskform.do... taskVO.getId : " + taskVO.getId());
+    	// 배정할 롤 리스트를 같이 첨부해서 전송한다.
+		int board_id = Integer.parseInt((String)session.getAttribute("board_id"));
+		ArrayList<RoleVO> roleList = roleDAOService.getRoles(board_id);
+		result.addObject("roleList", roleList);
     	result.addObject("taskVO", taskVO);
     	result.setViewName("updatetask");
     	return result;
     }
     
     @RequestMapping("updatetask.do")
-    public ModelAndView updatetask(TaskVO taskVO) {
+    public ModelAndView updatetask(String taskToRole, TaskVO taskVO, HttpSession session) {
+    	ModelAndView result = new ModelAndView();
+    	System.out.println("태스크에 배정할 롤 이름! : " + taskToRole);
     	System.out.println("업데이트할 task_id : " + taskVO.getId());
     	if (taskVO.getStatus() == null) {
 			taskVO.setStatus("NORMAL");
 		}
-    	System.out.println("스테이터스 :" + taskVO.getStatus());
-    	ModelAndView result = new ModelAndView();
+    	System.out.println("스테이터스 :" + taskVO.getStatus());	
+    	// 롤 이름이 없으면 수행 안한다.
+    	if (taskToRole != null) {
+	    	// createtask에서 가져온 롤 이름으로 롤 아이디 찾는다.
+			int role_id = roleDAOService.getRoleIdByName(taskToRole, Integer.parseInt((String)session.getAttribute("board_id")));
+			// 태스크에 롤을 배정한다.
+			taskDAOService.taskToRole(taskVO.getId(), role_id);	
+    	}
+    	// 태스크 수정사항 업데이트
     	taskDAOService.updateTask(taskVO);
     	result.setViewName("redirect:board.do");
     	return result;
@@ -590,7 +603,7 @@ public class HomeController {
     }
     
 	@RequestMapping("createtask.do")
-	public ModelAndView createtask(HttpServletRequest request) {
+	public ModelAndView createtask(HttpServletRequest request, HttpSession session) {
 		
 		System.out.println("리쿼스트 섹션아이디 : " + request.getParameter("section_id"));
 		String section_id = request.getParameter("section_id");  
@@ -604,11 +617,15 @@ public class HomeController {
 	}
 	
 	@RequestMapping("inserttask.do")
-	public ModelAndView insertTask(HttpSession session, HttpServletResponse response, TaskVO taskVO, HttpServletRequest request) {
+	public ModelAndView insertTask(String taskToRole, HttpSession session, TaskVO taskVO, HttpServletRequest request) {
+		System.out.println("만들 태스크의 이름 : " + taskVO.getName());
+		
 		
 		/*int section_id = Integer.parseInt( request.getParameter( "section_id" ) ) ;*/
-		System.out.println("시작날짜 : " + taskVO.getStart_date());
+		
+		// 태스크를 생성한다.
 		taskDAOService.insertTask(taskVO);
+		
 		System.out.println("3333333");
 		ModelAndView result = new ModelAndView();
 		System.out.println("444");

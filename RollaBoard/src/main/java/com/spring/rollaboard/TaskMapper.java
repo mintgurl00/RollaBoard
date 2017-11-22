@@ -36,4 +36,6 @@ public interface TaskMapper {
 			@Param("board_id") int board_id, @Param("keyword") String keyword,
 			@Param("sortQuery") String sortQuery );	// 석원
 	
+	public void taskToRole(@Param("task_id") int task_id, @Param("role_id") int role_id);
+	
 }
