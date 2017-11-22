@@ -523,7 +523,7 @@ public class HomeController {
     	String board_id = (String) session.getAttribute("board_id");
     	
     	String ref_board_name = request.getParameter("ref_board_name");
-    	System.out.println("입력받은 참조보드 이름 : " + ref_board_name);
+    	System.out.println("추가할 참조보드 이름 : " + ref_board_name);
     	
     	int ref_id = boardDAOService.getRefBoardId(ref_board_name);
     	System.out.println("참조보드 아이디 : " + ref_id);
