@@ -113,7 +113,7 @@ Create table task (
     id number primary key,
     name varchar2(30),
     description varchar2(100),
-    status varchar2(10) default 'BLOCKED' not null CONSTRAINT chk_status CHECK (status in ('BLOCKED', 'NORMAL', 'COMPLETE')),
+    status varchar2(10) default 'NORMAL' not null CONSTRAINT chk_status CHECK (status in ('BLOCKED', 'NORMAL', 'COMPLETE')),
     section_id number references section(id) on delete cascade,
     start_date date,
     due_date date,

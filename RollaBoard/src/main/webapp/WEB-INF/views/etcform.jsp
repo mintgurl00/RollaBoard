@@ -38,10 +38,10 @@ function radio_chk() {
 </head>
 <body>
 <div class="container">
-  <h2>참조 승인 여부 | 참조 BOARD 입력</h2>
-  <p>공개를 통해 다른BOARD에서 당신의 BOARD를 참조할 수 있게 하고 참조할 BOARD명을 입력하세요 </p>  
+  <h2>참조 승인 여부</h2>
+  <p>공개를 통해 다른BOARD에서 당신의 BOARD를 참조할 수 있게 할 수 있습니다. </p>  
   <br/><br/>
-  <form id = "visibility" action = "etc1.do">
+  <form id = "visibility" action = "visibility.do">
   <div class = "row">
   	<div class = "col-xs-4">공개여부</div>
   	<div class = "col-xs-3"><input type = "radio" name = "visibility" value = "TRUE" >공개</div>
@@ -49,29 +49,50 @@ function radio_chk() {
   	<div class = "col-xs-2"><input type = "submit" class = "btn btn-info" value = "저장" onclick="javascript:radio_chk()"></div>
   </div>
   </form>
-  
+</div>  
   <br/><br/>
   
-  <form id = "reference" action = "etc2.do">
-  <div class = "row">
-  	<div class = "col-xs-2">BOARD참조</div>
-  	<div class = "col-xs-4">
-  	<%for(int i = 0; i < refBoardList.size(); i++) {
-    	BoardVO boardVO = refBoardList.get(i);
-    %>
-    	<%=boardVO.getName() %>
-    	</br>
-    <%
-  	}
-    %>
-  	
-  	</div>
-  	<div class = "col-xs-4"><input type = "text" class = "form-control" name = "ref_board" placeholder = "참조할 board명 입력"></div>	
-  	<div class = "col-xs-2"><input type = "submit" class = "btn btn-info" value = "저장"></div>
-  </div>
-  </form>
-  <br/><br/>
+ 
+    	
+<div class="container">
+  <h2>참조보드 목록</h2>
+  <p>당신의 BOARD가 참조하고 있는 BOARD 목록입니다. 참조할 BOARD를 자유롭게 추가/삭제하세요.</p>            
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>참조 BOARD</th>
+      </tr>
+    </thead>
+    <tbody>
+    <%for (int i = 0; i < refBoardList.size(); i++) {
+    	BoardVO boardVO = refBoardList.get(i);%>
+      <tr>
+        <td><%=boardVO.getName() %></td>
+        
+        <td align = right>
+        <form action = "deleterefboard.do" method = "post">
+        	<input type = hidden name = "ref_id" value = "<%=boardVO.getId() %>">
+       		<input type = submit value = "삭제" class = "btn btn-default">
+   		</form>
+       	</td>
+      </tr>
+   
+   <%} %>
+    </tbody>
+  </table>
+  
+  <form action = "addrefboard.do">
+   	<table class="table table-striped">
+   	  <tbody>
+   	  	<td><input type = "text" class = "form-control" name = "ref_board_name" placeholder = "추가할 BOARD명을 입력하세요"></td>
+   	  	<td align = right>
+        	<input type = submit class = "btn btn-info" value = "추가" >&nbsp;&nbsp;
+       	</td>
+      </tbody>
+     </table>
+   </form>
+  
 </div>
+
 </body>
-</div>
 </html>

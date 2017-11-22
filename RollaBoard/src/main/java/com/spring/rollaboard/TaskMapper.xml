@@ -16,6 +16,10 @@
 		
 	</resultMap>
 	
+	<select id = "getTask" resultMap = "TaskResultMap">
+		SELECT * FROM task WHERE id = #{id}
+	</select>
+	
 	<!-- getTasksByBoard -->
 	<select id="getTasksByBoard" parameterType="map" resultMap="TaskResultMap">
 		SELECT *

@@ -11,7 +11,7 @@ public interface TaskMapper {
 	
 	public void createTask(TaskVO taskVO);
 	
-	public TaskVO getTask(TaskVO taskVO);
+	public TaskVO getTask(int id);
 	
 	public void insertTask(TaskVO taskVO);
 	

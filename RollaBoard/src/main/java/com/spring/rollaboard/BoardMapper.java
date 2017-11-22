@@ -11,6 +11,8 @@ public interface BoardMapper {
 	
 	public BoardVO getBoard(String name);
 
+	public void updateBoard(BoardVO boardVO); // 보드 이름 바꾸는거
+	
 	public BoardVO getBoardInfo(int board_id);
 	
 	public int joinBoardChk(@Param("board_id") int board_id, @Param("mem_id") String mem_id);
@@ -22,4 +24,10 @@ public interface BoardMapper {
 	public String permitChk(@Param("board_id") int board_id, @Param("mem_id") String mem_id); // 규성. 보드에 허가된 사람인지 체크
 	
 	public void visibility(@Param("visibility") String visibility, @Param("board_id") String board_id);
+	
+	public void deleteRefBoard(@Param("ref_id") int ref_id, @Param("board_id") int board_id);
+	
+//	public void addRefBoard(@Param("ref_id") int ref_id, @Param("board_id") String board_id);
+//	
+//	public int getRefBoardId(@Param("ref_board_name") String ref_Board_name);
 }

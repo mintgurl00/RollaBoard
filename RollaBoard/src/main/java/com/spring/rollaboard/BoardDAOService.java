@@ -47,8 +47,8 @@ public class BoardDAOService implements BoardDAO {
 
 	@Override
 	public void updateBoard(BoardVO boardVO) {
-		// TODO Auto-generated method stub
-		
+		BoardMapper boardMapper = sqlSession.getMapper(BoardMapper.class);
+		boardMapper.updateBoard(boardVO);
 	}
 
 	@Override
@@ -80,6 +80,26 @@ public class BoardDAOService implements BoardDAO {
 		BoardMapper boardMapper = sqlSession.getMapper(BoardMapper.class);
 		boardMapper.visibility(visibility, board_id);
 	}
+	
+	@Override
+	public void deleteRefBoard(int ref_id, int board_id) {
+		BoardMapper boardMapper = sqlSession.getMapper(BoardMapper.class);
+		boardMapper.deleteRefBoard(ref_id, board_id);
+	}
+	
+//	@Override
+//	public void addRefBoard(int ref_id, String board_id) {
+//		BoardMapper boardMapper = sqlSession.getMapper(BoardMapper.class);
+//		boardMapper.addRefBoard(ref_id, board_id);
+//	}
+//	
+//	@Override
+//	public int getRefBoardId(String ref_board_name) {
+//		BoardMapper boardMapper = sqlSession.getMapper(BoardMapper.class);
+//		int ref_id = boardMapper.getRefBoardId(ref_board_name);
+//		
+//		return ref_id;
+//	}
 
 	
 }

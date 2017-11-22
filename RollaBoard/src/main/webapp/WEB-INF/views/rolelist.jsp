@@ -49,7 +49,7 @@ function updateRoleForm() {
     <%for(int i = 0; i < roleList.size(); i++) {
     	RoleVO roleVO = roleList.get(i);
     %>
-    <form id = "이것은쓰레기"></form>
+    <form id = "none"></form>
       <div class = "row">
       	<form id = "updateRole" action = "updaterole.do">
         <div class = "col-xs-3">
@@ -63,13 +63,13 @@ function updateRoleForm() {
         <div class = "col-xs-3" align = right>
         
         	<input type = "text" name = "id" value = "<%=roleVO.getId() %>" hidden>
-        	<button type = submit class = "btn btn-default" onclick = "javascript:updateRoleForm()" >수정</button>
+        	<button type = submit class = "btn btn-info" onclick = "javascript:updateRoleForm()" >수정</button>
 		</div>
         </form>
         <form id = "deleteRole" action = "deleteRole.do">
         <div class = "col-xs-1">
         	<input type = "text" name = "id" value = "<%=roleVO.getId() %>" hidden>
-       		<input type = button class = "btn btn-info"  value = "삭제" onclick="javascript:chkBox()">
+       		<input type = button class = "btn btn-default"  value = "삭제" onclick="javascript:chkBox()">
        	</div>
        	</form> 
       	</div>

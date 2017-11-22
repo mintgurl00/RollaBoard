@@ -30,6 +30,10 @@
 		SELECT * FROM board WHERE NAME = #{name}
 	</select>
 	
+	<update id = "updateBoard" parameterType = "com.spring.rollaboard.BoardVO">
+		UPDATE board SET NAME = #{name} WHERE ID = #{id}
+	</update>
+	
 	<insert id = "createBoard" parameterType="map">
 	<!-- INSERT INTO board VALUES (seq_board.NEXTVAL, #{board_name}, #{mem_id}, 'FALSE');
 		INSERT INTO board_mem VALUES ((SELECT id FROM board WHERE name=#{board_name}), #{mem_id}, 'TRUE', 'TRUE'); -->
@@ -61,5 +65,23 @@
 	<update id = "visibility" parameterType = "com.spring.rollaboard.BoardVO">
 		UPDATE board SET visibility = #{visibility} WHERE id = #{board_id} <!-- 받아오는 visibility값은 TRUE or FALSE -->
 	</update>
+	
+	<!-- 참조보드 삭제 -->
+	<delete id = "deleteRefBoard" parameterType = "Map">
+		DELETE FROM board_ref WHERE ref_id = #{ref_id} and board_id = #{board_id}
+	</delete>
+
+
+	<!-- <!-- 참조보드 이름으로 id 찾기 -->
+	<!-- <SELECT id = "getRefBoardId" parameterType = "String" resultType = "int">
+		SELECT id FROM board WHERE name = #{ref_board_name}
+	</SELECT> -->
+	
+	<!-- 참조보드 추가
+	<insert id = "addRefBoard" parameterType = "map">
+		INSERT INTO board_ref
+		VALUES ref_id = #{ref_id} and board_id = #{board_id}
+	</insert> -->
+
 	
 </mapper>

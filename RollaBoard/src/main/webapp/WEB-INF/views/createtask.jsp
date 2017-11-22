@@ -19,6 +19,7 @@ Date dt = new Date();
 SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd"); 
 
 %>
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -48,7 +49,7 @@ SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 	</div>  -->
 	
 	<div id="taskname">
-		<input type="text" id="name" placeholder="TASK 이름을 입력하시오." size="40" name="name">
+		<input type="text" id="name" placeholder="TASK 이름을 입력하시오." size="40" name="name" required>
 	</div>
 	
 	<div id="description">내용(필수X)<br/>
@@ -61,15 +62,19 @@ SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 	
 	<h4>고급설정</h4>
 	<div id ="start_date"> 시작날짜  <br/>
-		<input type="text" id="start_Date" placeholder="yyyy-mm-dd" size="40" name ="start_date"><br/><br/><br/>
+		<input type="date" id="start_date" placeholder="yyyy-mm-dd" size="40" name ="start_date"><br/><br/><br/>
 	</div>
 	
 	<div id ="due_date"> 마감날짜  <br/>
-		<input type="text" id="due_date" placeholder="yyyy-mm-dd" size="40" name = "due_date"><br/><br/><br/>
+
+		<input type="date" id="due_date" placeholder="yyyy-mm-dd" size="40" name = "due_date"><br/><br/><br/>
+
 	</div>
 	
 	<div id ="cre_date"> 생성날짜  <br/>
-		<input type="text" id="cre_date" placeholder="yyyy-mm-dd" size="40" name = "cre_date" value = "<%=sdf.format(dt).toString() %>"><br/><br/><br/>
+
+		<input type="date" id="cre_date" placeholder="yyyy-mm-dd" size="40" name = "cre_date" value = "<%=sdf.format(dt).toString()%>" readonly><br/><br/><br/>
+
 	</div>
 	
 	<div id ="priority"> 중요도  <br/>

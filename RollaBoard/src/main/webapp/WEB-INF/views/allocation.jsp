@@ -50,7 +50,7 @@ function members(id) {
         <td>
         	<form id = "insertMemToRole" action = "insertmemtorole.do">
         		<input type = "hidden" name = "role_id" value = "<%=roleVO.getId() %>" >
-	        	<input type = "text" class = "form-control" name = "mem_id" placeholder = "맴버아이디 입력" >
+	        	<input type = "text" class = "form-control" name = "mem_id" placeholder = "맴버아이디 입력" required>
 	       		<input type = submit class = "btn btn-info" value = "배정" >
        		</form>
         </td>
