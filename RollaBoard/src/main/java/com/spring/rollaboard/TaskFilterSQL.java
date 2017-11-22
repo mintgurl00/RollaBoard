@@ -53,8 +53,8 @@ public class TaskFilterSQL {
 		sql.put( TaskFilter.STATUS_AB, "DECODE(STATUS, 'BLOCKED', 1, 2 ) DESC ") ;
 		sql.put( TaskFilter.STATUS_AC, "DECODE(STATUS, 'COMPLETE', 1, 2 ) DESC ") ;
 		
-		sql.put( TaskFilter.F_DUEDATE, "AND due_date <> NULL " ) ;
-		sql.put( TaskFilter.F_PRIORITY, "AND priority <> NULL " ) ;
+		sql.put( TaskFilter.F_DUEDATE, "AND due_date IS NOT NULL " ) ;
+		sql.put( TaskFilter.F_PRIORITY, "AND priority IS NOT NULL " ) ;
 	}
 	
 	public String get( TaskFilter taskFilter ){
