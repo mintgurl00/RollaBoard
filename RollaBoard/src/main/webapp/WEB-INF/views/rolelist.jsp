@@ -82,7 +82,7 @@ function updateRoleForm(cnt) {
   	<div class="form-group" >
       <label class="control-label col-sm-2" for="text">이름 </label>
       <div class="col-sm-4">
-        <input type="text" class="form-control" name = "name" placeholder = "추가할 ROLE의 이름 입력">
+        <input type="text" class="form-control" name = "name" placeholder = "추가할 ROLE의 이름 입력" required>
       </div>
     </div>
     <div class="form-group" >

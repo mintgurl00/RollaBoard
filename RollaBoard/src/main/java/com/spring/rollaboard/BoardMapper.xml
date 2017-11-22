@@ -10,6 +10,10 @@
 		<result property = "visibility" column = "VISIBILITY"/>
 	</resultMap>
 	
+	<!-- getAllBoards -->
+	<select id = "getAllBoards" resultMap="BoardResultMap">
+		SELECT * FROM board
+	</select>
 	
 	<!-- getRefBoards -->
 	<select id="getRefBoards" resultMap="BoardResultMap">
@@ -70,5 +74,13 @@
 	<delete id = "deleteRefBoard" parameterType = "Map">
 		DELETE FROM board_ref WHERE ref_id = #{ref_id} and board_id = #{board_id}
 	</delete>
+	
+	<!-- 참조보드 추가 -->
+	<insert id = "addRefBoard" parameterType = "map">
+		INSERT INTO board_ref
+		VALUES (#{board_id}, #{ref_id})
+	</insert>
+	
+
 	
 </mapper>
