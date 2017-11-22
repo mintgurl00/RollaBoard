@@ -10,6 +10,11 @@
 		<result property = "visibility" column = "VISIBILITY"/>
 	</resultMap>
 	
+	<!-- getAllBoards -->
+	<select id = "getAllBoards" resultMap="BoardResultMap">
+		SELECT * FROM board
+	</select>
+	
 	<!-- getRefBoards -->
 	<select id="getRefBoards" resultMap="BoardResultMap">
 		SELECT br.REF_ID id, b.name name
@@ -75,6 +80,7 @@
 		INSERT INTO board_ref
 		VALUES (#{board_id}, #{ref_id})
 	</insert>
+	
 
 	
 </mapper>

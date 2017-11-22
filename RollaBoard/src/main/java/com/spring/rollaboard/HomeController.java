@@ -559,12 +559,33 @@ public class HomeController {
     	String name = request.getParameter("name");
     	System.out.println("추가할 참조보드 이름 : " + name);
     	
-    	BoardVO boardVO = boardDAOService.getBoard(name);
+    	ArrayList<BoardVO> allBoardList = boardDAOService.getAllBoards();
     	
-    	int ref_id = boardVO.getId();
-    	System.out.println("참조보드 아이디 : " + ref_id);
-    	
-    	boardDAOService.addRefBoard(ref_id, board_id);
+    	for (int i = 0; i < allBoardList.size(); i++) {
+    		BoardVO boardVO = allBoardList.get(i);
+    		String dbName = boardVO.getName();
+    		
+    		if (name.equals(dbName)) {
+    			BoardVO board = boardDAOService.getBoard(name);
+    	    	
+    	    	int ref_id = board.getId();
+    	    	System.out.println("참조보드 아이디 : " + ref_id);
+    	    	
+    	    	boardDAOService.addRefBoard(ref_id, board_id);
+    	    	
+    	    	// 현재 페이지에 머물 수 있는 앵커값 : chkVal
+    	    	String chkVal = "etc";
+    	    	result.addObject("chkVal", chkVal);
+    	    	result.setViewName("redirect:updateboard.do");
+    	        return result;
+    			
+    		}
+    	}
+//		//존재하지 않는 BOARD명을 입력한 경우
+//		response.setContentType("text/html; charset-utf-8");
+//		PrintWriter out = response.getWriter();
+//        out.println("<script>alert('존재하지 않는 BOARD입니다. BOARD명을 다시 입력해주세요.');</script>");
+//        out.flush(); 
     	
     	// 현재 페이지에 머물 수 있는 앵커값 : chkVal
     	String chkVal = "etc";
