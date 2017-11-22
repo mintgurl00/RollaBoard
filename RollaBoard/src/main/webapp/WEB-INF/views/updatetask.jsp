@@ -11,6 +11,7 @@ if(session.getAttribute("id") == null) {
 }
 
 TaskVO taskVO = (TaskVO) request.getAttribute("taskVO");
+ArrayList<RoleVO> roleList = (ArrayList<RoleVO>) request.getAttribute("roleList");
 %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -46,8 +47,16 @@ TaskVO taskVO = (TaskVO) request.getAttribute("taskVO");
     </div>
     
     <div id="role">Role 배정(필수X)<br/>
-        <input type="textarea" id="role" style="height:180px; width:380px;">
-    </div>
+		<input list="roleList" name="taskToRole" >
+		<datalist id = "roleList">
+		<%for(int i = 0; i < roleList.size(); i++) {
+			RoleVO roleVO = roleList.get(i);
+		%>
+			<option value = "<%=roleVO.getName()%>">
+		<%} %>
+		</datalist>
+
+	</div>
     <h4>고급설정</h4>
 	<div id ="start_date"> 시작날짜  <br/>
 		<input type="date" id="start_date" name="start_date" placeholder="yyyy-mm-dd" size="40" name ="start_date" value = "<%=taskVO.getStart_date()%>"><br/><br/><br/>
