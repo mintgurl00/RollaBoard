@@ -21,7 +21,7 @@
 
 	<!-- createSection -->
 	<insert id = "createSection" parameterType = "com.spring.rollaboard.SectionVO">
-		INSERT INTO section VALUES (SEQ_SECTION.NEXTVAL, #{board_id}, #{name}, 1)
+		INSERT INTO section VALUES (SEQ_SECTION.NEXTVAL, #{board_id}, #{name}, #{seq_num})
 	</insert>
 	
 	<delete id = "deleteSection" parameterType = "int">

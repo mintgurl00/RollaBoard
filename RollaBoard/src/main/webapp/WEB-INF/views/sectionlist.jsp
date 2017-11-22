@@ -24,12 +24,12 @@ ArrayList<SectionVO> sectionlist = (ArrayList<SectionVO>)request.getAttribute("s
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
  <script>
- function updatesection() {
-  document.getElementById("updatesection").submit();
+ function updatesection(cnt) {
+  document.getElementById("updatesection" + cnt).submit();
  }
  
- function deletesection() {
-  document.getElementById("deletesection").submit();
+ function deletesection(cnt) {
+  document.getElementById("deletesection" + cnt).submit();
  }
  
  </script>
@@ -51,18 +51,18 @@ ArrayList<SectionVO> sectionlist = (ArrayList<SectionVO>)request.getAttribute("s
     %>
       <tr>
         <td>
-        <form id = "updatesection" action = "updatesection.do">
+        <form id = "updatesection<%=section.getId() %>" action = "updatesection.do">
         	<input type = "hidden" class = "form-control" name = "section_id" value =  "<%=section.getId() %>">
         	<input type = "text" class = "form-control" name = "section_name" value = "<%=section.getName() %>" placeholder = "수정할 Section명을 입력하세요">
        	</form>
         </td>
         <td align = right>
-       		<form id = "deletesection" action = "deletesection.do">
+       		<form id = "deletesection<%=section.getId() %>" action = "deletesection.do">
        			<input type = "hidden" class = "form-control" name = "section_id" value =  "<%=section.getId() %>">
        			
        		</form>
-       		<input type = submit class = "btn btn-info" value = "수정" onclick = "javascript:updatesection()">
-       		<input type = submit class = "btn btn-default" value = "삭제" onclick = "javascript:daletesection()" >
+       		<input type = submit class = "btn btn-info" value = "수정" onclick = "javascript:updatesection(<%=section.getId() %>)">
+       		<input type = submit class = "btn btn-default" value = "삭제" onclick = "javascript:deletesection(<%=section.getId() %>)" >
        	</td>
       </tr>
    <%} %>	
@@ -71,7 +71,7 @@ ArrayList<SectionVO> sectionlist = (ArrayList<SectionVO>)request.getAttribute("s
    <form action = "createsection.do">
    	<table class="table table-striped">
    	  <tbody>
-   	  	<td><input type = "text" class = "form-control" name = "section_name" placeholder = "추가할 Section명을 입력하세요"></td>
+   	  	<td><input type = "text" class = "form-control" name = "section_name" placeholder = "추가할 Section명을 입력하세요" required></td>
    	  	<td align = right>
         	<input type = submit class = "btn btn-info" value = "추가" >&nbsp;&nbsp;
        	</td>

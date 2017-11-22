@@ -133,12 +133,7 @@ public class HomeController {
     	System.out.println("Desc : " + updateRoleInfo.getDescription());
     	
     	roleDAOService.updateRole(updateRoleInfo);
-    	// alert처리단
-    	response.setContentType("text/html; charset-utf-8");
-		PrintWriter out = response.getWriter();
-    	out.println("<script>alert('ROLE 정보가 수정되었습니다.');");
-    	out.println("</script>");
-        out.flush();
+
         String chkVal = "role";
         result.addObject("chkVal", chkVal);
         result.setViewName("redirect:updateboard.do");
@@ -396,6 +391,9 @@ public class HomeController {
 		} else {
 			maxNum = Integer.parseInt(sectionDAOService.getMaxSeqNum(board_id)) + 1;
 		}
+    	if (section_name.equals("null")) {
+			section_name = "대분류" + maxNum;
+		}
     	SectionVO sectionVO = new SectionVO();
     	sectionVO.setBoard_id(board_id);
     	sectionVO.setSeq_num(maxNum);
@@ -419,8 +417,9 @@ public class HomeController {
     	if (sectionDAOService.getMaxSeqNum(board_id) == null) {
 			maxNum = 1;
 		} else {
-			maxNum = Integer.parseInt(sectionDAOService.getMaxSeqNum(board_id)) + 1;
+			maxNum = (Integer.parseInt(sectionDAOService.getMaxSeqNum(board_id)) + 1);
 		}
+    	System.out.println("맥스넘 보정값 : " + maxNum);
     	SectionVO sectionVO = new SectionVO();
     	sectionVO.setBoard_id(board_id);
     	sectionVO.setSeq_num(maxNum);
