@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
-
+//깃 테스트
 @Controller
 public class HomeController {
 
@@ -571,7 +571,9 @@ public class HomeController {
     	int ref_id = Integer.parseInt((String)request.getParameter("ref_id"));
     	int board_id = Integer.parseInt((String)session.getAttribute("board_id"));
     	
+
     	boardDAOService.deleteRefBoard(ref_id, board_id);
+
     	
     	// 현재 페이지에 머물 수 있는 앵커값 : chkVal
     	String chkVal = "etc";
