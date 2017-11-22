@@ -203,4 +203,11 @@ public class TaskDAOService implements TaskDAO {
 	public ArrayList<TaskVO> getTasksByBoard2(int board_id, String keyword, TaskFilter filter, TaskFilter[] orders ){
 		return getTasksByBoard2( board_id, keyword, new TaskFilter[]{ filter }, orders ) ;
 	}
+
+	@Override
+	public void taskToRole(int task_id, int role_id) {
+		TaskMapper taskMapper = sqlSession.getMapper(TaskMapper.class);
+		taskMapper.taskToRole(task_id, role_id);
+		
+	}
 }
