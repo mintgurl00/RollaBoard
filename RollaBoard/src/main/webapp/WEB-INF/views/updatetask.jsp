@@ -1,7 +1,8 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-   pageEncoding="UTF-8"%>
-<%@ page import = "java.util.*, com.spring.rollaboard.*" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page import="java.util.*"%>
 <%@ page import = "java.text.SimpleDateFormat"%>
+<%@ page import="com.spring.rollaboard.task.TaskVO"%>
+<%@ page import="com.spring.rollaboard.role.RoleVO"%>
 <%
 // 세션 아이디 체크
 if(session.getAttribute("id") == null) {

@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace = "com.spring.rollaboard.role.RoleMapper">
+
+	<resultMap type = "RoleVO" id = "RoleResultMap">
+		<result property = "id" column = "ID"/>
+		<result property = "board_id" column = "BOARD_ID"/>
+		<result property = "name" column = "NAME"/>
+		<result property = "description" column = "DESCRIPTION"/>
+	</resultMap>
+	
+	<resultMap type = "RoleAndTaskVO" id = "RoleResultMap2">
+		<result property = "taskId" column = "TASK_ID"/>
+		<result property = "roleId" column = "ROLE_ID"/>
+		<result property = "roleName" column = "ROLE_NAME"/>
+		<result property = "memId" column = "MEM_ID"/>
+		<result property = "memName" column = "NAME"/>
+	</resultMap>
+	
+	<!-- getRATByBoard -->
+	<select id="getRATByBoard" parameterType="map" resultMap="RoleResultMap2">
+		SELECT ta.id task_id, ro.id role_id, ro.name role_name, mem.name name
+		FROM board bo, section se, task ta, task_role taro, role ro, role_mem rome, mem
+		WHERE bo.id=se.board_id AND se.id=ta.section_id AND ta.id=taro.task_id AND taro.role_id=ro.id AND taro.role_id=rome.role_id AND rome.mem_id=mem.id
+    		AND bo.id=#{board_id}
+	</select>
+		
+	<select id = "getRoles" resultMap = "RoleResultMap">
+		SELECT * FROM role WHERE BOARD_ID = #{board_id, javaType=int}
+	</select>
+	
+	<select id = "getRole" resultMap = "RoleResultMap">
+		SELECT * FROM role WHERE ID = #{id, javaType=int}
+	</select>
+	
+	<insert id = "createRole" parameterType = "com.spring.rollaboard.role.RoleVO">
+		INSERT INTO role VALUES 
+		(SEQ_ROLE.NEXTVAL, #{board_id, javaType=int}, #{name, jdbcType=VARCHAR}, #{description})
+	</insert>
+	
+	<delete id = "deleteRole" parameterType = "int">
+		DELETE FROM role WHERE id = #{id}
+	</delete>
+	
+	<update id = "updateRole" parameterType = "com.spring.rollaboard.role.RoleVO">
+		UPDATE role SET NAME = #{name}, DESCRIPTION = #{description} where id = #{id}
+	</update>
+	 
+	<insert id = "allocateRole" parameterType = "map">
+		INSERT INTO role_mem VALUES (#{role_id, javaType=int}, #{mem_id, javaType=String})
+	</insert>
+	
+	<select id = "getRoleIdByName" parameterType = "map" resultType = "int">
+		SELECT id FROM role WHERE BOARD_ID = #{board_id} AND NAME = #{name}
+	</select>
+	
+</mapper>

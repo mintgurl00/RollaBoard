@@ -6,6 +6,12 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.spring.rollaboard.board.BoardMapper;
+import com.spring.rollaboard.board.BoardVO;
+import com.spring.rollaboard.section.SectionMapper;
+import com.spring.rollaboard.section.SectionVO;
+import com.spring.rollaboard.task.TaskVO;
+
 @Service
 public class BoardViewDAOService implements BoardViewDAO {
 
