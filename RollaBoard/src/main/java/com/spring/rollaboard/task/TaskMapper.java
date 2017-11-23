@@ -45,7 +45,19 @@ public interface TaskMapper {
 	/////////// 관계
 	public int isHavingPreTask( int id ) ;
 	public int isHavingPostTask( int id ) ;
+	public int isConnectedTask( int id ) ;
 	
+	public void addPostTask1of2(@Param("taskId") int taskId, @Param("postTaskId") int postTaskId) ;
+	public void addPostTask2of2(@Param("taskId") int taskId, @Param("postTaskId") int postTaskId) ;
 	public void addPreTask(@Param("taskId") int taskId, @Param("preTaskId") int preTaskId) ;
+
+	public void createPreTask(@Param("taskId") int taskId, @Param("preTaskId") int preTaskId);
+	// public void createPostTask(@Param("taskId") int taskId, @Param("postTaskId") int postTaskId);
+	
+	public void insertByPreTask1of2(@Param("preTaskId") int preTaskId);
+	public void insertByPreTask2of2(@Param("taskId") int taskId, @Param("preTaskId") int preTaskId);
+	public void insertByPostTask1of2(@Param("postTaskId") int postTaskId);
+	public void insertByPostTask2of2(@Param("taskId") int taskId, @Param("postTaskId") int postTaskId);
+	
 	
 }
