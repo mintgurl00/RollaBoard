@@ -84,7 +84,11 @@ $(document).ready(function () {
       	</div>
       	<br/>
    <%} %>
+   <%if (roleList.size() == 0) {%>
+   <center><h1>데이터가 없습니다.</h1></center>
+   <%} else { %>
    <div align = center><input type = button class = "btn btn-default" id = "toggle" value = "수정하기"></div>
+   <%} %>
    <br/>
    <br/>
 
