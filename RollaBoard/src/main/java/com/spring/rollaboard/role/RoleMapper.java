@@ -18,6 +18,8 @@ public interface RoleMapper {
 	
 	public void updateRole(RoleVO roleVO);
 	
+	public int chkAllocation(@Param("role_id") int role_id, @Param("mem_id") String mem_id);
+	
 	public void allocateRole(@Param("role_id") int role_id, @Param("mem_id") String mem_id);
 	
 	public void deallocateRole(@Param("role_id") int role_id, @Param("mem_id") String mem_id);

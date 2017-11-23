@@ -46,7 +46,11 @@
 	<update id = "updateRole" parameterType = "com.spring.rollaboard.role.RoleVO">
 		UPDATE role SET NAME = #{name}, DESCRIPTION = #{description} where id = #{id}
 	</update>
-	 
+	
+	<select id = "chkAllocation" parameterType = "map" resultType = "int">
+		SELECT COUNT(*) FROM role_mem WHERE mem_id = #{mem_id} AND role_id = #{role_id}
+	</select>
+	
 	<insert id = "allocateRole" parameterType = "map">
 		INSERT INTO role_mem VALUES (#{role_id, javaType=int}, #{mem_id, javaType=String})
 	</insert>

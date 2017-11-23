@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page import = "java.util.*" %>
+<%@ page import="com.spring.rollaboard.role.RoleVO"%>
 <% 
-	String pagefile = request.getParameter("page");
+	String chkVal = (String) request.getAttribute("chkVal");
 %>
 <!DOCTYPE html>
 <html lang="en">
@@ -13,8 +15,9 @@
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 </head>
 <body>
+<% System.out.println("chkVal : " + chkVal); %>
 <script type="text/javascript">
-location.href='updateboard.do' ;
+location.href='updateboard.do?chkVal=<%=chkVal%>';
 </script>
 </body>
 </html>

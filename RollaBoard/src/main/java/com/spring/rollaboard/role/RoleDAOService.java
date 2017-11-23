@@ -87,6 +87,12 @@ public class RoleDAOService implements RoleDAO {
 		RoleMapper roleMapper = sqlSession.getMapper(RoleMapper.class);
 		return roleMapper.getRoleIdByName(name, board_id);
 	}
+	
+	@Override
+	public int chkAllocation(int role_id, String mem_id) {
+		RoleMapper roleMapper = sqlSession.getMapper(RoleMapper.class);
+		return roleMapper.chkAllocation(role_id, mem_id);
+	}
 
 	
 	
