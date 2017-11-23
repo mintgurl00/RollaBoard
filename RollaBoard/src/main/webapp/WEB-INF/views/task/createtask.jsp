@@ -21,8 +21,6 @@ SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 
 %>
 
-
-
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -36,6 +34,60 @@ SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 #settings{margin-top:5px; margin-left:380px}
 #button{margin-top:20px; margin-left:200px}
 </style>
+
+<!-- 테스크 제목, 설명 입력 바이트 수 제한 --> 
+ <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+  <script>
+    $(document).ready( function() {
+        //글자 byte 수 제한
+        $('.byteLimit').blur(function(){
+                          
+            var thisObject = $(this);
+              
+            var limit = thisObject.attr("limitbyte"); //제한byte를 가져온다.
+            var str = thisObject.val();
+            var strLength = 0;
+            var strTitle = "";
+            var strPiece = "";
+            var check = false;
+                      
+            for (i = 0; i < str.length; i++){
+                var code = str.charCodeAt(i);
+                var ch = str.substr(i,1).toUpperCase();
+                //체크 하는 문자를 저장
+                strPiece = str.substr(i,1)
+                  
+                code = parseInt(code);
+                  
+                if ((ch < "0" || ch > "9") && (ch < "A" || ch > "Z") && ((code > 255) || (code < 0))){
+                    strLength = strLength + 3; //UTF-8 3byte 로 계산
+                }else{
+                    strLength = strLength + 1;
+                }
+                  
+                if(strLength>limit){ //제한 길이 확인
+                    check = true;
+                    break;
+                }else{
+                    strTitle = strTitle+strPiece; //제한길이 보다 작으면 자른 문자를 붙여준다.
+                }
+                  
+            }
+              
+            if(check){
+                alert(limit+"byte 초과된 문자는 잘려서 입력 됩니다.");
+            }
+              
+            thisObject.val(strTitle);
+              
+        });
+    });
+      
+  </script>
+
+
+
+
 </head>
 <body>
 
@@ -52,11 +104,12 @@ SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 	</div>  -->
 	
 	<div id="taskname">
-		<input type="text" id="name" placeholder="TASK 이름을 입력하시오." size="40" name="name" required>
+		<input type="text" id="name" placeholder="TASK 이름을 입력하시오." size="40" class="byteLimit" limitbyte="30"  name="name" required>
 	</div>
 	
 	<div id="description">내용(필수X)<br/>
-		<input type="text" id="description" style="height:180px; width:380px;" name="description" >
+		<input type="text" maxlength="100" id="description" style="height:180px; width:380px;" class="byteLimit" limitbyte="100" name="description" >
+		
 	</div>
 	
 	<h4>고급설정</h4>

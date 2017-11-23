@@ -102,7 +102,7 @@ function check_input() {
 </script>
 <body style = "background-color:lightblue">
 <form action="insertMember.do" name="joinform">
- 	<div class="container-fluid">
+ <div class="container-fluid">
 	<h2>회원가입</h2>
     <label><b>ID</b></label>
     <input type="text" placeholder="Enter ID" name="id" required>
