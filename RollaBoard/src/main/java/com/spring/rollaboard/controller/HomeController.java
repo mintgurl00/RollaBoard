@@ -139,7 +139,7 @@ public class HomeController {
     @RequestMapping("insertMember.do")
     public ModelAndView insertMember(MemVO memVO, HttpServletResponse response) throws Exception {
     	ModelAndView result = new ModelAndView();
-    	int chk = memDAOService.chkMemberId(memVO);
+    	int chk = memDAOService.chkMemberId(memVO);   // memVO 
     	System.out.println("chk = " + chk);
     	if (chk != 0) {
     		// alert처리단
