@@ -23,6 +23,7 @@ ArrayList<MemVO> boardMemberList = (ArrayList<MemVO>)request.getAttribute("board
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <script type = "text/javascript" language = "javascript">
+
 function chkBox(cnt) {
 	var chk = confirm("정말 강퇴하시겠습니까?");
 	if (chk) {
@@ -31,6 +32,12 @@ function chkBox(cnt) {
 		return;
 	}
 }
+
+function roles(id) {
+	window.open('memberroles.do?mem_id='+id, "roles",
+			"resizeable = yes, scrollbars = yes, menubar=no, width = 800, height = 500, left = 10, right = 10");
+}
+
 </script>
 </head>
 <body>
@@ -53,10 +60,13 @@ function chkBox(cnt) {
         <td><%=memVO.getId() %></td>
         
         <td align = right>
-        <form id = "deletemember<%=i %>" action = "deletemember.do?" method = "post">
+        <form id = "deletemember<%=i %>" action = "deletemember.do" method = "post">
         	<input type = hidden name = "mem_id" value = "<%=memVO.getId() %>">
        		<input type = button value = "강퇴" class = "btn btn-default" onclick = "javascript:chkBox(<%=i %>)">
    		</form>
+   		<form id = "getMemberRoles">
+       		<input type = button class = "btn btn-default" value = "ROLE확인" onclick = "javascript:roles('<%=memVO.getId() %>')" >
+       </form>
        	</td>
       </tr>
    

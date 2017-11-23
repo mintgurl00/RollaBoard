@@ -55,5 +55,10 @@
 		SELECT ID, NAME FROM role_mem A JOIN mem B ON A.mem_id = B.id WHERE ROLE_ID = #{role_id}
 	</select>
 	
+	<select id = "chkRoleToExpel" parameterType = "map" resultType = "int">
+		SELECT count(*) FROM ROLE_MEM A JOIN ROLE B ON A.ROLE_ID = B.ID 
+		WHERE MEM_ID = #{mem_id} AND BOARD_ID = #{board_id}
+	</select>
+	
 	
 </mapper>

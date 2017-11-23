@@ -4,6 +4,7 @@ import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
@@ -69,12 +70,13 @@ public class RoleController {
     	for (int i = 0; i < roleList.size(); i++) {
     		RoleVO role = roleList.get(i);
     		if (role.getName().equals(updateRoleInfo.getName())) {
-//    			// alert처리단
-//    			response.setContentType("text/html; charset-utf-8");
-//    			PrintWriter out = response.getWriter();
-//    	        out.println("<script>alert('ROLE이름이 중복됩니다! 생성할 수 없습니다.');</script>");
-//    	        out.flush(); 
-    	        result.setViewName("redirect:updateboard.do");
+    			// alert처리단
+    			response.setContentType("text/html; charset-utf-8");
+    			PrintWriter out = response.getWriter();
+    	        out.println("<script>alert('ROLE이름이 중복됩니다! 생성할 수 없습니다.');</script>");
+    	        out.flush();
+    	        result.addObject("chkVal", "role");
+    	        result.setViewName("main/subMenu");
     			return result;
 			}
     	}
@@ -112,12 +114,14 @@ public class RoleController {
     	for (int i = 0; i < roleList.size(); i++) {
     		RoleVO role = roleList.get(i);
     		if (role.getName().equals(updateRoleInfo.getName())) {
-//    			// alert처리단
-//    			response.setContentType("text/html; charset-utf-8");
-//    			PrintWriter out = response.getWriter();
-//    	        out.println("<script>alert('ROLE이름이 중복됩니다! 생성할 수 없습니다.');</script>");
-//    	        out.flush(); 
+    			// alert처리단
+    			response.setContentType("text/html; charset-utf-8");
+    			PrintWriter out = response.getWriter();
+    	        out.println("<script>alert('ROLE이름이 중복됩니다! 변경할 수 없습니다.');</script>");
+    	        out.flush(); 
     	        result.setViewName("redirect:updateboard.do");
+    			result.addObject("chkVal", "role");
+    			result.setViewName("main/subMenu");
     			return result;
 			}
     	}
@@ -184,13 +188,13 @@ public class RoleController {
     	int chk = boardDAOService.joinBoardChk(board_id, mem_id);
     	if (chk == 0) {
     		// alert처리단
-//    		response.setContentType("text/html; charset-utf-8");
-//    		PrintWriter out = response.getWriter();
-//            out.println("<script>alert('BOARD에 가입된 회원이 아닙니다.');</script>");
-//            out.flush(); 
+    		response.setContentType("text/html; charset-utf-8");
+    		PrintWriter out = response.getWriter();
+            out.println("<script>alert('BOARD에 가입된 회원이 아닙니다.');</script>");
+            out.flush(); 
             String chkVal = "allocation";
         	result.addObject("chkVal", chkVal);
-        	result.setViewName("redirect:updateboard.do");
+        	result.setViewName("main/subMenu");
             return result;
 		}
     	// 보드에 승인된 사람인지 확인한다.
@@ -198,15 +202,28 @@ public class RoleController {
     	System.out.println("허가여부 : " + permission);
     	if (permission.equals("FALSE")) {
     		// alert처리단
-//    		response.setContentType("text/html; charset-utf-8");
-//    		PrintWriter out = response.getWriter();
-//            out.println("<script>alert('아직 BOARD에 승인되지 않은 MEMBER입니다.');</script>");
-//            out.flush(); 
+    		response.setContentType("text/html; charset-utf-8");
+    		PrintWriter out = response.getWriter();
+            out.println("<script>alert('아직 BOARD에 승인되지 않은 MEMBER입니다.');</script>");
+            out.flush(); 
             String chkVal = "allocation";
         	result.addObject("chkVal", chkVal);
-        	result.setViewName("redirect:updateboard.do");
+        	result.setViewName("main/subMenu");
             return result;
 		}
+    	// 이미 배정하고자 하는 ROLE에 가입된 MEMBER인지 확인
+    	int duplication = roleDAOService.chkAllocation(role_id, mem_id);
+    	if (duplication != 0) {
+    		response.setContentType("text/html; charset-utf-8");
+    		PrintWriter out = response.getWriter();
+            out.println("<script>alert('이미 배정되어 있는 MEMBER입니다.');</script>");
+            out.flush(); 
+            String chkVal = "allocation";
+        	result.addObject("chkVal", chkVal);
+        	result.setViewName("main/subMenu");
+            return result;
+		}
+    	
     	
     	// DB의 role_mem 테이블에 삽입
     	roleDAOService.allocateRole(role_id, mem_id);
@@ -217,6 +234,19 @@ public class RoleController {
     	result.setViewName("redirect:updateboard.do");
     	return result;
 	}
+    
+    @RequestMapping("deletememtorole.do")
+    public ModelAndView deletememtorole (HttpServletRequest request) {
+    	ModelAndView result = new ModelAndView();
+    	String mem_id = (String)request.getParameter("id");
+    	int role_id = Integer.parseInt((String)request.getParameter("role_id"));
+    	System.out.println("배정 해제할 롤의 아이디 : " + role_id);
+    	System.out.println("배정 해제할 맴버의 아이디 : " + mem_id);
+    	roleDAOService.deallocateRole(role_id, mem_id);
+    	result.addObject("role_id", role_id);
+    	result.setViewName("redirect:rolemembers.do");
+    	return result;
+    }
     
     
 }

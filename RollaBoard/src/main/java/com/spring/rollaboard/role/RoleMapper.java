@@ -18,9 +18,15 @@ public interface RoleMapper {
 	
 	public void updateRole(RoleVO roleVO);
 	
+	public int chkAllocation(@Param("role_id") int role_id, @Param("mem_id") String mem_id);
+	
 	public void allocateRole(@Param("role_id") int role_id, @Param("mem_id") String mem_id);
+	
+	public void deallocateRole(@Param("role_id") int role_id, @Param("mem_id") String mem_id);
 	
 	public int getRoleIdByName(@Param("name") String name, @Param("board_id") int board_id);
 	
 	public ArrayList<RoleAndTaskVO> getRATByBoard( @Param("board_id") int board_id );	//석원
+
+	ArrayList<RoleVO> getRolesByMem(@Param("mem_id") String mem_id, @Param("board_id") int board_id);
 }
