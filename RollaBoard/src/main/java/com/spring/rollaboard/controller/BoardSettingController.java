@@ -82,7 +82,7 @@ public class BoardSettingController {
     	result.addObject("boardWaitingList", boardWaitingList); // member 승인페이지 관련 정보들
     	result.addObject("sectionList", sectionList); // SECTION 관리페이지 관련 정보들
     	result.addObject("refBoardList", refBoardList); // 기타설정 페이지 관련 정보들
-    	result.setViewName("updateboard");
+    	result.setViewName("boardsettings/updateboard");
         return result;
     }
 	
