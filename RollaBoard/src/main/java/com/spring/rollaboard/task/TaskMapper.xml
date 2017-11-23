@@ -131,5 +131,14 @@
 		    AND tc2.ref_level < tc1.ref_level
 		]]> 
 	</select>
+	
+	<!-- addPreTask -->
+	<insert id = "addPreTask" parameterType = "map">
+		INSERT ALL
+			INTO task (id, name, description, section_id, start_date, due_date, cre_date, priority)
+			VALUES (seq_task.NEXTVAL, #{name}, #{description}, #{section_id}, #{start_date}, #{due_date}, #{cre_date}, #{priority})
+			INTO task_role (TASK_ID, ROLE_ID) VALUES (seq_task.NEXTVAL, #{role_id})
+				SELECT * FROM DUAL
+	</insert>
 
 </mapper>
