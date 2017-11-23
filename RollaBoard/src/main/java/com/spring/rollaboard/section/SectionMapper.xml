@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace = "com.spring.rollaboard.section.SectionMapper">
+
+	<resultMap type = "SectionVO" id = "SectionResultMap">
+		<result property = "id" column = "ID"/>
+		<result property = "board_id" column = "BOARD_ID"/>
+		<result property = "name" column = "NAME"/>
+	</resultMap>
+	
+	<!-- getSections -->
+	<select id="getSections" resultMap="SectionResultMap">
+		SELECT *
+		FROM section
+		WHERE board_id=#{id, javaType=int}
+		ORDER BY seq_num ASC
+	</select>
+	
+	
+
+	<!-- createSection -->
+	<insert id = "createSection" parameterType = "com.spring.rollaboard.section.SectionVO">
+		INSERT INTO section VALUES (SEQ_SECTION.NEXTVAL, #{board_id}, #{name}, #{seq_num})
+	</insert>
+	
+	<delete id = "deleteSection" parameterType = "int">
+		DELETE FROM section WHERE ID = #{id}
+	</delete>
+	
+	<select id = "getMaxSeqNum" parameterType = "map" resultType = "String">
+		SELECT MAX(SEQ_NUM) FROM section WHERE BOARD_ID = #{board_id}
+	</select>
+	
+	<update id = "updateSection" parameterType = "map">
+		UPDATE SECTION SET NAME = #{section_name} WHERE ID = #{section_id}
+	</update>
+
+</mapper>

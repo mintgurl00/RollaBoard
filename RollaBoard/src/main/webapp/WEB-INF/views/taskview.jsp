@@ -1,7 +1,5 @@
-<%@page import="com.spring.rollaboard.TaskVO"%>
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<%@ page import="java.util.*, com.spring.rollaboard.*"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page import="com.spring.rollaboard.task.TaskVO"%>
 <%
 // 세션 아이디 체크
 if(session.getAttribute("id") == null) {
@@ -65,7 +63,7 @@ function updateTask() {
 	<%} %>
 
 	</div>
-	<form id = "updatetask" action = "updatetaskform.do">
+	<form id = "updatetask" action = "updatetaskform.do" method="post">
 		<input type = hidden name = "id" value = "<%=taskVO.getId() %>">
 		<input type = hidden name = "name" value = "<%=taskVO.getName() %>">
 		<input type = hidden name = "description" value = "<%=taskVO.getDescription() %>">

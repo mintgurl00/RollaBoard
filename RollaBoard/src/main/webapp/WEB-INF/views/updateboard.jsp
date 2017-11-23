@@ -1,7 +1,10 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<%@ page import = "com.spring.rollaboard.*" %>
-<%@ page import = "java.util.*" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page import="java.util.*"%>
+<%@ page import="com.spring.rollaboard.task.TaskVO"%>
+<%@ page import="com.spring.rollaboard.board.BoardVO"%>
+<%@ page import="com.spring.rollaboard.section.SectionVO"%>
+<%@ page import="com.spring.rollaboard.mem.MemVO"%>
+<%@ page import="com.spring.rollaboard.role.RoleVO"%>
 <%
 	// 세션 아이디 체크
 	if(session.getAttribute("id") == null) {
