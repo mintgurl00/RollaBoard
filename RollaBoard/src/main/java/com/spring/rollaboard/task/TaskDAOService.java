@@ -114,7 +114,7 @@ public class TaskDAOService implements TaskDAO {
 				case F_DUEDATE :	// **마감일 우선 보기
 					condition += sql.get( filter ) ;
 					if( orders == null ){
-						orders = new TaskFilter[]{ TaskFilter.STATUS_AC } ;
+						orders = new TaskFilter[]{ TaskFilter.STATUS_AC , TaskFilter.DUEDATE_ASC } ;
 					}
 					break ;
 				case F_ROLE :	//** 롤별 보여주기
