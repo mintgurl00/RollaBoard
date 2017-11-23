@@ -63,4 +63,10 @@
 		SELECT id FROM role WHERE BOARD_ID = #{board_id} AND NAME = #{name}
 	</select>
 	
+	<select id = "getRolesByMem" parameterType = "map" resultMap = "RoleResultMap">
+		SELECT A.ROLE_ID AS ID, B.BOARD_ID, B.NAME, DESCRIPTION 
+		FROM ROLE_MEM A JOIN ROLE B ON A.ROLE_ID = B.ID 
+		WHERE MEM_ID = #{mem_id} AND BOARD_ID = #{board_id}
+	</select>
+	
 </mapper>

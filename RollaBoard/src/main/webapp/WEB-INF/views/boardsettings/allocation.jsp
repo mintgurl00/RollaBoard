@@ -17,7 +17,7 @@ ArrayList<RoleVO> roleList = (ArrayList<RoleVO>)request.getAttribute("roleList")
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <title>memberlist</title>
+  <title>allocation</title>
   <meta charset="utf-8" Encoding = "UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
@@ -55,11 +55,10 @@ function members(id) {
        		</form>
         </td>
         <td align = right>
-        <form id = "getRoleMember">
+        <form id = "getRoleMembers">
        		<input type = button class = "btn btn-info" value = "배정된 맴버보기" onclick = "members(<%=roleVO.getId()%>)">
         </form>
        	</td>
-       	</form>
       </tr>
    <%} %>
     </tbody>

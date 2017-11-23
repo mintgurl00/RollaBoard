@@ -72,5 +72,10 @@ public class MemDAOService implements MemDAO {
 		MemMapper memMapper = sqlSession.getMapper(MemMapper.class);
 		return memMapper.getRoleMembers(role_id);
 	}
+	@Override
+	public int chkRoleToExpel(String mem_id, int board_id) {
+		MemMapper memMapper = sqlSession.getMapper(MemMapper.class);
+		return memMapper.chkRoleToExpel(mem_id, board_id);
+	}
 		
 }

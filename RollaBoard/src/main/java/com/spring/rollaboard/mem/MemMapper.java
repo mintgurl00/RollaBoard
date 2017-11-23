@@ -26,4 +26,6 @@ public interface MemMapper {
 	
 	public void deleteMember(@Param("mem_id") String mem_id); //수민-멤버강퇴
 
+	public int chkRoleToExpel(@Param("mem_id") String mem_id, @Param("board_id") int board_id); // 규성. 추방 전 롤배정 있는지
+
 }

@@ -27,4 +27,6 @@ public interface RoleMapper {
 	public int getRoleIdByName(@Param("name") String name, @Param("board_id") int board_id);
 	
 	public ArrayList<RoleAndTaskVO> getRATByBoard( @Param("board_id") int board_id );	//석원
+
+	ArrayList<RoleVO> getRolesByMem(@Param("mem_id") String mem_id, @Param("board_id") int board_id);
 }
