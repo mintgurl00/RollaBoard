@@ -42,7 +42,10 @@ public interface TaskMapper {
 
 	//public ArrayList<RoleAndTaskVO> getRATByBoard( @Param("board_id") int board_id );	//석원
 	
+	/////////// 관계
 	public int isHavingPreTask( int id ) ;
 	public int isHavingPostTask( int id ) ;
+	
+	public void addPreTask(@Param("taskId") int taskId, @Param("preTaskId") int preTaskId) ;
 	
 }
