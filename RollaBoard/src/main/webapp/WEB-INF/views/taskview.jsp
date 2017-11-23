@@ -65,7 +65,7 @@ function updateTask() {
 	<%} %>
 
 	</div>
-	<form id = "updatetask" action = "updatetaskform.do">
+	<form id = "updatetask" action = "updatetaskform.do" method="post">
 		<input type = hidden name = "id" value = "<%=taskVO.getId() %>">
 		<input type = hidden name = "name" value = "<%=taskVO.getName() %>">
 		<input type = hidden name = "description" value = "<%=taskVO.getDescription() %>">
