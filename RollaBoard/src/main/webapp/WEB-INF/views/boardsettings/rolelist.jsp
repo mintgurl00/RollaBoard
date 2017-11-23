@@ -87,7 +87,7 @@ $(document).ready(function () {
    <div align = center><input type = button class = "btn btn-default" id = "toggle" value = "수정하기"></div>
    <br/>
    <br/>
-  <center>
+
   <form id = "createRole" action = "createrole.do">
   	<div class="form-group" >
       <label class="control-label col-sm-2" for="text">이름 </label>
@@ -101,9 +101,9 @@ $(document).ready(function () {
         <input type="text" class="form-control" name = "description" placeholder = "추가할 ROLE의 설명 입력">
       </div>
     </div>
-  	<input type = submit class = "btn btn-default" value = "추가" >	
+  	<center><input type = submit class = "btn btn-default" value = "추가"></center>
   </form>
-  </center>
+
   </div>
 </div>
 </body>

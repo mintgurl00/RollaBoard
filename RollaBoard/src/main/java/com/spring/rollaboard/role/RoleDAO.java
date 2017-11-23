@@ -17,6 +17,8 @@ public interface RoleDAO {
 	
 	public void allocateRole(int role_id, String mem_id);
 	
+	public void deallocateRole(int role_id, String mem_id);
+	
 	public HashMap<Integer, ArrayList<RoleAndTaskVO>> getRATByTasks( int board_id ) ;	// 석원.
 	
 	public int getRoleIdByName(String name, int board_id); // 규성

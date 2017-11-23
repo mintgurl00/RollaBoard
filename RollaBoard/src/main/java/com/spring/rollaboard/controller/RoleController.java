@@ -4,6 +4,7 @@ import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
@@ -217,6 +218,19 @@ public class RoleController {
     	result.setViewName("redirect:updateboard.do");
     	return result;
 	}
+    
+    @RequestMapping("deletememtorole.do")
+    public ModelAndView deletememtorole (HttpServletRequest request) {
+    	ModelAndView result = new ModelAndView();
+    	String mem_id = (String)request.getParameter("id");
+    	int role_id = Integer.parseInt((String)request.getParameter("role_id"));
+    	System.out.println("배정 해제할 롤의 아이디 : " + role_id);
+    	System.out.println("배정 해제할 맴버의 아이디 : " + mem_id);
+    	roleDAOService.deallocateRole(role_id, mem_id);
+    	result.addObject("role_id", role_id);
+    	result.setViewName("redirect:rolemembers.do");
+    	return result;
+    }
     
     
 }

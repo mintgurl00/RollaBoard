@@ -51,6 +51,10 @@
 		INSERT INTO role_mem VALUES (#{role_id, javaType=int}, #{mem_id, javaType=String})
 	</insert>
 	
+	<insert id = "deallocateRole" parameterType = "map">
+		delete role_mem WHERE  ROLE_ID = #{role_id, javaType=int} AND MEM_ID = #{mem_id, javaType=String}
+	</insert>
+	
 	<select id = "getRoleIdByName" parameterType = "map" resultType = "int">
 		SELECT id FROM role WHERE BOARD_ID = #{board_id} AND NAME = #{name}
 	</select>
