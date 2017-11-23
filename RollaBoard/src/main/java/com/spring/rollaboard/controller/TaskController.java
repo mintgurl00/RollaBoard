@@ -57,7 +57,7 @@ public class TaskController {
     	if (board_name == null) {	
     		TaskVO taskVO = taskDAOService.getTask(task_id);
         	result.addObject("taskVO", taskVO);
-        	result.setViewName("taskview");
+        	result.setViewName("task/taskview");
             return result;
 		} else {
 	    	int board_id = boardDAOService.getBoard(board_name).getId();
