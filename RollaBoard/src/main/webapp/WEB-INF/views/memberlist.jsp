@@ -54,9 +54,9 @@ function chkBox(cnt) {
         <td><%=memVO.getId() %></td>
         
         <td align = right>
-        <form id = "deletemember<%=i %>" action = "deletemember.do?" method = "post">
+        <form id = "deletemember<%=memVO.getId() %>" action = "deletemember.do?" method = "post">
         	<input type = hidden name = "mem_id" value = "<%=memVO.getId() %>">
-       		<input type = button value = "강퇴" class = "btn btn-default" onclick = "javascript:chkBox(<%=i %>)">
+       		<input type = button value = "강퇴" class = "btn btn-default" onclick = "javascript:chkBox(<%=memVO.getId() %>)">
    		</form>
        	</td>
       </tr>
