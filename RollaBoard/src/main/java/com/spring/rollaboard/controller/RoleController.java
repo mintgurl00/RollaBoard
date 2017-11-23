@@ -51,7 +51,7 @@ public class RoleController {
         System.out.println("롤 리스트  id :" + board_id);
         ArrayList<RoleVO> roleList = roleDAOService.getRoles(Integer.parseInt(board_id));
         result.addObject("roleList", roleList);
-        result.setViewName("rolelist");
+        result.setViewName("boardsettings/rolelist");
         return result;
     }
  
@@ -140,7 +140,7 @@ public class RoleController {
 		PrintWriter out = response.getWriter();
         out.println("<script>alert('ROLE 삭제에 성공하였습니다');</script>");
         out.flush(); 
-        result.setViewName("subMenu");
+        result.setViewName("main/subMenu");
         return result;
 	}
     
@@ -155,7 +155,7 @@ public class RoleController {
     	
     	result.addObject("boardMemberList", boardMemberList);
     	result.addObject("roleList", roleList);
-    	result.setViewName("allocation");
+    	result.setViewName("boardsettings/allocation");
     	return result;
 	}
     
@@ -169,7 +169,7 @@ public class RoleController {
     	result.addObject("role_name", role_name);
     	result.addObject("roleMem", roleMem);
     	result.addObject("role_id", role_id);
-    	result.setViewName("rolemembers");
+    	result.setViewName("boardsettings/rolemembers");
     	return result;
     }
     

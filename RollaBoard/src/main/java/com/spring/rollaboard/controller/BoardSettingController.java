@@ -106,20 +106,11 @@ public class BoardSettingController {
     	ArrayList<MemVO> boardMemberList = memDAOService.waitingMembers(Integer.parseInt(board_id));
     	
     	result.addObject("boardWaitingList", boardMemberList);
-    	result.setViewName("memberadmitform");
+    	result.setViewName("boardsettings/memberadmitform");
         return result;
     }
 	    
-    //회원정보 수정 창으로 이동
-    @RequestMapping("updatememberform.do")
-    public ModelAndView updatememberform(HttpSession session) {
-    	ModelAndView result = new ModelAndView();
-    	// 회원정보수정시 기존 정보를 불러오기 위해 memDAOService.getMemInfoToUpdate를 사용한다(세션에서 ).
-    	MemVO memVO = memDAOService.getMemInfoToUpdate((String)session.getAttribute("id"));
-    	result.addObject("member", memVO);
-    	result.setViewName("updatememberform");
-        return result;
-    }
+
 	    
 	
     //기타설정 뷰로 이동
@@ -131,7 +122,7 @@ public class BoardSettingController {
     	ArrayList<BoardVO> refBoardList = boardDAOService.getRefBoards(board_id);
     	
     	result.addObject("refBoardList" , refBoardList) ;
-    	result.setViewName("etcform");
+    	result.setViewName("boardsettings/etcform");
     	
         return result;
     }

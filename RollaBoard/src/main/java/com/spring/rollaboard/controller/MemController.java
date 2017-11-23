@@ -51,32 +51,9 @@ public class MemController {
     	ArrayList<MemVO> boardMemberList = memDAOService.getBoardMembers(Integer.parseInt(board_id));
     	
     	result.addObject("boardMemberList", boardMemberList);
-    	result.setViewName("memberlist");
+    	result.setViewName("boardsettings/memberlist");
         return result;
 
-    }
-    
-    @RequestMapping("insertMember.do")
-    public ModelAndView insertMember(MemVO memVO, HttpServletResponse response) throws Exception {
-    	ModelAndView result = new ModelAndView();
-    	int chk = memDAOService.chkMemberId(memVO);
-    	System.out.println("chk = " + chk);
-    	if (chk != 0) {
-    		// alert처리단
-    		response.setContentType("text/html; charset-utf-8");
-    		PrintWriter out = response.getWriter();
-            out.println("<script>alert('이미 존재하는 아이디입니다.');</script>");
-            out.flush(); 
-    		result.setViewName("joinform");
-    		return result;
-		}
-    	memDAOService.insertMember(memVO);	
-    	response.setContentType("text/html; charset-utf-8");
-		PrintWriter out = response.getWriter();
-        out.println("<script>alert('회원가입 되었습니다!');</script>");
-        out.flush();
-		result.setViewName("index");
-    	return result;
     }
     
 

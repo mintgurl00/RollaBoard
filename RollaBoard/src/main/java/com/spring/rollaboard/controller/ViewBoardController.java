@@ -71,7 +71,7 @@ public class ViewBoardController {
     		if (session.getAttribute("board_id") == null) {
     			List<BoardVO> boardList = boardDAOService.getBoards((String)(session.getAttribute("id"))); //수민. 대시보드로 갈 때 보드리스트 받아옴
     			result.addObject("boardList", boardList);
-				result.setViewName("dashboard");
+				result.setViewName("dashboard/dashboard");
 				return result;
 			}
     		board_id = Integer.parseInt((String) session.getAttribute("board_id")) ;	// 보드 id
@@ -82,7 +82,7 @@ public class ViewBoardController {
     	if (board_id == 0) {
     		List<BoardVO> boardList = boardDAOService.getBoards((String)(session.getAttribute("id"))); //수민. 대시보드로 갈 때 보드리스트 받아옴
 			result.addObject("boardList", boardList);
-			result.setViewName("dashboard");
+			result.setViewName("dashboard/dashboard");
 			return result;
 		}
     	String board_id2 = "" + board_id;
@@ -102,7 +102,7 @@ public class ViewBoardController {
             System.out.println("승인안됨. 세션은? " + session.getAttribute("id"));
         	List<BoardVO> boardList = boardDAOService.getBoards(id); // 보드리스트 받아옴
         	result.addObject("boardList", boardList);
-            result.setViewName("dashboard");
+            result.setViewName("dashboard/dashboard");
             return result;
 		}
     	BoardVO boardVO = boardDAOService.getBoardInfo(board_id);
@@ -120,7 +120,7 @@ public class ViewBoardController {
     	/* ******************************************************************** */
     	
     	result.addObject( "boardVO" , boardVO ) ;	// 쓸 데가 많을 것 같아서 전달합니다. view에서 request객체를 통해 참조할 수 있습니다.
-    	result.setViewName("board");
+    	result.setViewName("board/board");
         return result;
     }
     
@@ -231,7 +231,7 @@ public class ViewBoardController {
     	//result.addObject( "rat_hasmap" , ratHashMap ) ;
     	result.addObject( "board_id" , board_id + "" ) ;
     	result.addObject( "keyword" , keyword ) ;
-    	result.setViewName("searchresult");
+    	result.setViewName("board/searchresult");
 		return result;
 	}
 
