@@ -1,3 +1,4 @@
+<%@page import="com.spring.rollaboard.TaskVO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ page import="java.util.*, com.spring.rollaboard.*"%>
@@ -40,6 +41,7 @@ function updateTask() {
 </head>
 <body>
 
+
 <div id = ""><h1>TASK 이름 :  <%=taskVO.getName() %> </h1>
 	<div id="status">내용 :  <%=taskVO.getDescription() %> </div>
 	<div id="status">상태: <%=taskVO.getStatus() %> </div>	
@@ -50,14 +52,18 @@ function updateTask() {
 	<div id="status">중요도: <%=taskVO.getPriority() %> </div>	
 	<div id="status">선행TASK: 만들 것 </div>	
 	<div id="status">후행TASK: 만들 것 </div>	
+
 	<div id="button">
+
 	<%if (session.getAttribute("board_id") != null) {%>
+
 		<input type=button value="확인" onclick = "location.href='./board.do';">
 		<input type=button value="수정" onclick = "javascript:updateTask()">
 		<input type=button value="삭제" onclick = "javascript:deleteTask()">
 	<%} else { %>
 		<input type=button value="확인" onclick = "location.href='./dashboard.do'">
 	<%} %>
+
 	</div>
 	<form id = "updatetask" action = "updatetaskform.do" method="post">
 		<input type = hidden name = "id" value = "<%=taskVO.getId() %>">

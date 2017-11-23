@@ -20,6 +20,8 @@ SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 
 %>
 
+
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -69,7 +71,9 @@ SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 	
 	<div id ="cre_date"> 생성날짜  <br/>
 
+
 		<input type="date" id="cre_date" placeholder="yyyy-mm-dd" size="40" name = "cre_date" value = "<%=sdf.format(dt).toString()%>" readonly><br/><br/><br/>
+
 
 	</div>
 	

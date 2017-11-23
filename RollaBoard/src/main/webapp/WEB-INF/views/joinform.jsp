@@ -3,6 +3,9 @@
 <!DOCTYPE html>
 <html>
 <style>
+body {
+	background: lightblue url("image/robotbg.jpg") no-repeat fixed center;
+}
 /* Full-width input fields */
 input[type=text], input[type=password] {
     width: 100%;
@@ -98,7 +101,7 @@ function check_input() {
 }
 
 </script>
-<body>
+<body style = "background-color:lightblue">
 <form action="insertMember.do" name="joinform">
  	<div class="container-fluid">
 	<h2>회원가입</h2>

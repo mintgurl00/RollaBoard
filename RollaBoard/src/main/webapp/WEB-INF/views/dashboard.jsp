@@ -29,6 +29,9 @@ function viewTask (cnt) {
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <title>dashboard</title>
 <style>
 #leftside{float:left; width:200px; height:960px; background-color:#B5B2FF}
@@ -46,11 +49,8 @@ function viewTask (cnt) {
 			for (int i=0; i<boardList.size(); i++) {
 				BoardVO board = boardList.get(i);
 			%>
-			
-			<a href="./board.do?board_id=<%=board.getId()%>" >
-			<%=board.getName() %>
-		
-			</a><br/><br/><br/><br/><br/>
+			<input type = "button" class = "btn btn-default" onclick = "location.href='./board.do?board_id=<%=board.getId()%>'" value = "<%=board.getName() %>">
+			<br/><br/><br/>
 			<%
 			}
 			%>
@@ -65,7 +65,7 @@ function viewTask (cnt) {
 	TaskVO taskVO = taskList.get(k);
 %>
 <div id="task" onclick="javascript:viewTask(<%=taskVO.getId() %>)"><h3><%=taskVO.getName()%></h3><br/><br/>BOARD 이름:<%=taskVO.getDescription() %></div>
-<form id = "taskview<%=taskVO.getId() %>" action = "taskview.do">
+<form id = "taskview<%=taskVO.getId() %>" action = "taskview.do" hidden>
 	<input type = hidden name = "task_id" value = "<%=taskVO.getId() %>">
 	<input type = hidden name = "board_name" value = "<%=taskVO.getDescription()%>">
 </form>
