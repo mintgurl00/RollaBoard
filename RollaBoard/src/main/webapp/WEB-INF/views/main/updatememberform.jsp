@@ -1,6 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ page import="java.util.*"%>
-<%@ page import="com.spring.rollaboard.role.RoleVO"%>
+<%@ page import="com.spring.rollaboard.mem.MemVO"%>
 <%
 	// 세션 아이디 체크
 	if(session.getAttribute("id") == null) {
@@ -9,16 +8,22 @@
 		out.println("</script>");
 	}
 	request.setCharacterEncoding("utf-8");
-	RoleVO roleVO = (RoleVO) request.getAttribute("roleVO");
-	String name = roleVO.getName();
-	String description =roleVO.getDescription();
+	MemVO memVO = (MemVO)request.getAttribute("member");
+	session.setAttribute("id", memVO.getId());
+	String name = memVO.getName();
+	String email = memVO.getEmail();
 	if (name == null) {
 		name = "";
 	}
-	if (description == null) {
-		description = "";
+	if (email == null) {
+		email = "";
 	}
 %>
+<script type = "text/javascript" language = "javascript">
+function closePop() {
+	window.close();
+}
+</script>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -34,8 +39,20 @@
 <div class="container-fluid" style="margin-top:10%; margin-left:20%">
   <h2>회원정보 수정</h2>
 
-  <form class="form-horizontal" action="updaterole.do" method = "post">
+  <form class="form-horizontal" action="updatemember.do" method = "post">
 
+    <div class="form-group">
+      <label class="control-label col-sm-2" for="id">ID:</label>
+      <div class="col-sm-6">
+        <input type="id" class="form-control" id="id" placeholder="Enter id" name="id" value = "<%=memVO.getId()%>" readonly>
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="control-label col-sm-2" for="pwd">Password:</label>
+      <div class="col-sm-6">          
+        <input type="password" class="form-control" id="password" placeholder="Enter password" name="password">
+      </div>
+    </div>
     <div class="form-group"> 
       <label class="control-label col-sm-2" for="name">Name:</label>
       <div class="col-sm-6">
@@ -44,16 +61,16 @@
       </div>
     
     <div class="form-group">        
-      <label class="control-label col-sm-2" for="description">Description:</label>
+      <label class="control-label col-sm-2" for="email">Email:</label>
         <div class="col-sm-6">
-         <input type="email" class="form-control" id="description" placeholder="Enter description" name="description" value = "<%=description%>">
+         <input type="email" class="form-control" id="email" placeholder="Enter email" name="email" value = "<%=email%>">
         </div>
       </div>
     <div class="form-group"  >        
       <div class="col-sm-offset-2 col-sm-10">
 
         <button type="submit" class="btn btn-default"  style="background-color: green"><b>변경하기</b></button>
-        <button type="button" class="btn btn-default"  style="background-color: gray" onclick = "history.go(-1)"><b>취소</b></button>
+        <button type="button" class="btn btn-default"  style="background-color: gray" onclick = "closePop();"><b>취소</b></button>
 
         
 

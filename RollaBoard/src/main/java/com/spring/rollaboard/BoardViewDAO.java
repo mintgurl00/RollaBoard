@@ -3,6 +3,10 @@ package com.spring.rollaboard;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import com.spring.rollaboard.board.BoardVO;
+import com.spring.rollaboard.section.SectionVO;
+import com.spring.rollaboard.task.TaskVO;
+
 /*
  * 석원
  * 보드 페이지에 나올 내용을 불러온다. (예쁘게 보여주기)
