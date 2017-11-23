@@ -135,7 +135,7 @@ public class ViewDashboardController {
     		PrintWriter out = response.getWriter();
             out.println("<script>alert('찾는 BOARD가 없습니다!(BOARD 이름을 다시 확인해주세요)');</script>");
             out.flush(); 
-    		result.setViewName("enterboard");
+    		result.setViewName("dashboard/enterboard");
             return result;
 		}
     	
