@@ -82,7 +82,7 @@ public class BoardSettingController {
     	result.addObject("boardWaitingList", boardWaitingList); // member 승인페이지 관련 정보들
     	result.addObject("sectionList", sectionList); // SECTION 관리페이지 관련 정보들
     	result.addObject("refBoardList", refBoardList); // 기타설정 페이지 관련 정보들
-    	result.setViewName("updateboard");
+    	result.setViewName("boardsettings/updateboard");
         return result;
     }
 	
@@ -149,9 +149,47 @@ public class BoardSettingController {
     
     //참조보드 추가
     @RequestMapping("addrefboard.do")
-    public ModelAndView addrefboard() {
+    public ModelAndView addrefboard(HttpServletRequest request, HttpSession session) {
     	ModelAndView result = new ModelAndView();
+    	System.out.println("addrefboard.do 진입했는지 확인");
+    	System.out.println("내 보드 아이디: " + Integer.parseInt((String)session.getAttribute("board_id")));
+    	int board_id = Integer.parseInt((String)session.getAttribute("board_id"));
     	
+    	String name = request.getParameter("name");
+    	System.out.println("추가할 참조보드 이름 : " + name);
+    	
+    	ArrayList<BoardVO> allBoardList = boardDAOService.getAllBoards();
+    	
+    	for (int i = 0; i < allBoardList.size(); i++) {
+    		BoardVO boardVO = allBoardList.get(i);
+    		String dbName = boardVO.getName();
+    		
+    		if (name.equals(dbName)) {
+    			BoardVO board = boardDAOService.getBoard(name);
+    	    	
+    	    	int ref_id = board.getId();
+    	    	System.out.println("참조보드 아이디 : " + ref_id);
+    	    	
+    	    	boardDAOService.addRefBoard(ref_id, board_id);
+    	    	
+    	    	// 현재 페이지에 머물 수 있는 앵커값 : chkVal
+    	    	String chkVal = "etc";
+    	    	result.addObject("chkVal", chkVal);
+    	    	result.setViewName("redirect:updateboard.do");
+    	        return result;
+    			
+    		}
+    	}
+//		//존재하지 않는 BOARD명을 입력한 경우
+//		response.setContentType("text/html; charset-utf-8");
+//		PrintWriter out = response.getWriter();
+//        out.println("<script>alert('존재하지 않는 BOARD입니다. BOARD명을 다시 입력해주세요.');</script>");
+//        out.flush(); 
+    	
+    	// 현재 페이지에 머물 수 있는 앵커값 : chkVal
+    	String chkVal = "etc";
+    	result.addObject("chkVal", chkVal);
+    	result.setViewName("redirect:updateboard.do");
         return result;
     	
     }
