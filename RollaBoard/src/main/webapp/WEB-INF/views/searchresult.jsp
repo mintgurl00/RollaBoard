@@ -13,7 +13,8 @@
 	
 	ArrayList<ArrayList<TaskVO>> taskViewList = (ArrayList<ArrayList<TaskVO>>) request.getAttribute( "taskViewList" ) ;
 	ArrayList<SectionVO> sectionList = (ArrayList<SectionVO>) request.getAttribute( "sectionList" ) ; 
-	
+	ArrayList<ArrayList<ArrayList<RoleAndTaskVO>>> roleAndTaskList = 
+			(ArrayList<ArrayList<ArrayList<RoleAndTaskVO>>>) request.getAttribute( "roleAndTaskList" ) ;
 %>
 <%
 	String board_id = (String) request.getAttribute( "board_id" ) ;
@@ -73,11 +74,25 @@ for( int i = 0 ; i < sectionSize ; i++ ){
 	<%
 	for( int j = 0 ; j < taskViewList.get( i ).size() ; j++ ){
 	%>
+
 		<div id="task" method = "post" onclick="location.href='./taskview.do?task_id=<%=taskViewList.get( i ).get( j ).getId() %>';" style="cursor:pointer">
+
 			<h3>TASK명:<%=taskViewList.get( i ).get( j ).getName() %></h3>
 			TASK내용:<%=taskViewList.get( i ).get( j ).getDescription() %><br />
 			TASK_id:<%=taskViewList.get( i ).get( j ).getId() %><br />
 			TASK상태:<%=taskViewList.get( i ).get( j ).getStatus() %><br />
+			
+			<%
+			if( roleAndTaskList.get( i ).get( j ) != null && roleAndTaskList.get( i ).get( j ).size() > 0 ){ %>
+				<b>롤 정보는</b><br />
+				<%
+				for( int k = 0 ; k < roleAndTaskList.get( i ).get( j ).size() ; k++ ){%>
+					<%=roleAndTaskList.get( i ).get( j ).get( k ).getRoleName() %>
+					<%=roleAndTaskList.get( i ).get( j ).get( k ).getMemName() %>
+				<%
+				}%>
+			<%
+			}%>
 		</div>
 	<%
 	} %>
@@ -89,11 +104,15 @@ for( int i = 0 ; i < sectionSize ; i++ ){
 		<input type="hidden" name="section_id" value = "<%=sectionList.get(i).getId() %>" required></input>
 		<%-- <input type="hidden" name="task_id" value = "<%= %>" required></input> --%>
 		
-		<input type="submit" value="TASK생성"  ></input>
-		
+		<input type="submit" value="TASK생성"  ></input>	
 	    
 	</form>
 	
+	<%-- <form action="taskview.do">
+		<input type="text" name="task_id" value="<%=taskViewList.get(i).getId() %>" />
+		<input type="text" name="task_name" value="<%=taskViewList.get(i).getName() %>" placeholder = "SECTION명을 입력하세요." />
+		<input type="submit" value="수정" />
+	</form> --%>
 
 </div>
 

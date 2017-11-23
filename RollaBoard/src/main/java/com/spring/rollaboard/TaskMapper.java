@@ -39,5 +39,10 @@ public interface TaskMapper {
 			@Param("sortQuery") String sortQuery );	// 석원
 	
 	public void taskToRole(@Param("task_id") int task_id, @Param("role_id") int role_id);
+
+	//public ArrayList<RoleAndTaskVO> getRATByBoard( @Param("board_id") int board_id );	//석원
+	
+	public int isHavingPreTask( int id ) ;
+	public int isHavingPostTask( int id ) ;
 	
 }

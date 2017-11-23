@@ -3,6 +3,7 @@ package com.spring.rollaboard;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.StringTokenizer;
 
@@ -18,7 +19,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
-
+//깃 테스트
 @Controller
 public class HomeController {
 
@@ -570,7 +571,9 @@ public class HomeController {
     	int ref_id = Integer.parseInt((String)request.getParameter("ref_id"));
     	int board_id = Integer.parseInt((String)session.getAttribute("board_id"));
     	
+
     	boardDAOService.deleteRefBoard(ref_id, board_id);
+
     	
     	// 현재 페이지에 머물 수 있는 앵커값 : chkVal
     	String chkVal = "etc";
@@ -598,7 +601,7 @@ public class HomeController {
 		} else {
 	    	int board_id = boardDAOService.getBoard(board_name).getId();
 	    	System.out.println("갖고온 보드아이디 : " + board_id);
-	    	session.setAttribute("board_id", board_id);
+
 	    	TaskVO taskVO = taskDAOService.getTask(task_id);
 	    	result.addObject("taskVO", taskVO);
 	    	result.setViewName("taskview");
@@ -630,16 +633,21 @@ public class HomeController {
 		}
     	System.out.println("스테이터스 :" + taskVO.getStatus());	
     	// 롤 이름이 없으면 수행 안한다.
-    	if (taskToRole != null) {
+    	if (taskToRole == null || (taskToRole == "")) {
+    		taskDAOService.updateTask(taskVO);
+        	result.setViewName("redirect:board.do");
+        	return result;
+    		
+    	} else{
+	    	// 태스크 수정사항 업데이트
+	    	System.out.println("널이아니야!!(롤배정을 설정했어)");
 	    	// updatetask에서 가져온 롤 이름으로 롤 아이디 찾는다.
 			int role_id = roleDAOService.getRoleIdByName(taskToRole, Integer.parseInt((String)session.getAttribute("board_id")));
 			// 태스크에 롤을 배정한다.
 			taskDAOService.taskToRole(taskVO.getId(), role_id);	
+			result.setViewName("redirect:board.do");
+        	return result;
     	}
-    	// 태스크 수정사항 업데이트
-    	taskDAOService.updateTask(taskVO);
-    	result.setViewName("redirect:board.do");
-    	return result;
     }
     
     @RequestMapping("deletetask.do")
@@ -843,7 +851,7 @@ public class HomeController {
 				result.setViewName("dashboard");
 				return result;
 			}
-    		board_id = Integer.parseInt((String) session.getAttribute( "board_id" ) ) ;	// 보드 id
+    		board_id = Integer.parseInt((String) session.getAttribute("board_id")) ;	// 보드 id
 		} else {
 			board_id = Integer.parseInt((String) request.getParameter("board_id"));
 		}
@@ -987,32 +995,42 @@ public class HomeController {
     		taskList = taskDAOService.getTasksByBoard2( board_id , keyword , filters , orders ) ;	
     	}
     	//ArrayList<TaskVO> taskList = taskDAOService.getTasksByBoard( board_id ) ;
-    	System.out.println("태스크리스트추출");
+    	System.out.println("태스크리스트추출 끝");
     	System.out.println("보드id:" + board_id + ", 키워드:" + keyword );
     	// 04. 롤 배치 리스트 추출
-    	
+    	HashMap<Integer, ArrayList<RoleAndTaskVO>> ratHashMap = roleDAOService.getRATByTasks( board_id ) ;
+    	ArrayList<ArrayList<ArrayList<RoleAndTaskVO>>> roleAndTaskList = new ArrayList<ArrayList<ArrayList<RoleAndTaskVO>>>() ;
     	
     	
     	// 태스크 배치
     	ArrayList<ArrayList<TaskVO>> taskViewList = new ArrayList<ArrayList<TaskVO>>() ;	// 태스크리스트 저장객체 생성
     	for( int i = 0 ; i < sectionList.size() ; i++ ){
     		taskViewList.add( new ArrayList<TaskVO>() ) ;	// 섹션 수만큼 칸을 만들고
+    		roleAndTaskList.add( new ArrayList<ArrayList<RoleAndTaskVO>>() ) ;	// *RAT
     	}
+    	
     	for( TaskVO task : taskList ){
     		int t_sid = task.getSection_id() ;	// 태스크의 섹션아이디
+    		
     		for( int j = 0 ; j < sectionList.size() ; j++ ){	// 섹션리스트 하나하나 섹션아이디 확인
     			int sid = sectionList.get( j ).getId() ;
     			if( sid == t_sid ){
     				taskViewList.get( j ).add( task ) ;
+    				int temp_id = task.getId() ;
+
+    				ArrayList<RoleAndTaskVO> temp = ratHashMap.get( temp_id ) ;
+    				roleAndTaskList.get( j ).add( temp ) ;	// *RAT
+    				//roleAndTaskList.get( j ).add( ratHashMap.get( task.getId() ) ) ;	// *RAT
     				break ;
     			}
     		}
     	}
-    	if( ! keyword.equals( "" ) ){
+    	if( ! keyword.equals( "" ) ){	// 검색 결과 화면이라면
 	    	for( int i = 0 ; i < taskViewList.size() ; i++ ){	// 태스크 없는 섹션은 지우기
 	    		if( taskViewList.get(i).isEmpty() ){
 	    			taskViewList.remove( i ) ;
 	    			sectionList.remove( i ) ;
+	    			roleAndTaskList.remove( i ) ;
 	    			i-- ;
 	    		}
 	    	}
@@ -1021,14 +1039,14 @@ public class HomeController {
     	//ArrayList<ArrayList<ArrayList<RoleVO>>> roleViewList ;
     	
 		// ....을 전달
-    	//result.addObject( "refBoardList" , refBoardList ) ;
+    	result.addObject( "roleAndTaskList" , roleAndTaskList ) ;
     	result.addObject( "sectionList" , sectionList ) ;
     	result.addObject( "taskViewList" , taskViewList ) ;
     	
     	// 여기까지 석원구역.
     	/* ******************************************************************** */
     	
-    	
+    	//result.addObject( "rat_hasmap" , ratHashMap ) ;
     	result.addObject( "board_id" , board_id + "" ) ;
     	result.addObject( "keyword" , keyword ) ;
     	result.setViewName("searchresult");
