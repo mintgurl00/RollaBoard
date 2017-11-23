@@ -1,8 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page import="java.util.*"%>
-<%@ page import="com.spring.rollaboard.mem.MemVO"%>
+<%@ page import="com.spring.rollaboard.role.*"%>
 <%
-	ArrayList<MemVO> roleMem = (ArrayList<MemVO>) request.getAttribute("roleMem");
+
+	ArrayList<RoleVO> roleList = (ArrayList<RoleVO>) request.getAttribute("roleList");
+	String board_name = (String) request.getAttribute("board_name");
+	String mem_name = (String) request.getAttribute("mem_name");
+	
 %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -17,27 +21,25 @@
 <body>
 
 <div class="container-fluid" style="margin-top:10%; margin-left:10%">
-	<h2>ROLE : '<%=request.getAttribute("role_name") %>'</h2>
+	<h2>'<%=mem_name %>'님 ROLE</h2>
+	<h3>in '<%=board_name %>'</h3>
+	
 	<br/>
-	<%if (roleMem.size() == 0) { %>
+	<%if (roleList.size() == 0) { %>
 	<center><h1>데이터가 없습니다</h1></center>
 	<%} else { 
-	for(int i = 0; i < roleMem.size(); i++) { 
-		MemVO memVO = roleMem.get(i);
+	for(int i = 0; i < roleList.size(); i++) { 
+		RoleVO roleVO = roleList.get(i);
 	%>
 	<form class="form-horizontal" action="deletememtorole.do" method = "post">
 	<div class="form-group">
-      <label class="control-label col-sm-1" for="id">ID:</label>
+      <label class="control-label col-sm-1" for="id">ROLE:</label>
       <div class="col-sm-3">
-        <input type="text" class="form-control" id="id<%=memVO.getId() %>"  name="id" value = "<%=memVO.getId() %>" readonly>
+        <input type="text" class="form-control" id="name<%=roleVO.getId() %>"  name="id" value = "<%=roleVO.getName() %>" readonly>
       </div>
-      <label class="control-label col-sm-1" for="id">NAME:</label>
+      <label class="control-label col-sm-2" for="id">DESCRIPTION:</label>
       <div class="col-sm-3">
-        <input type="text" class="form-control" id="name<%=memVO.getId() %>"  name="name" value = "<%=memVO.getName() %>" readonly>
-      </div>
-        <input type="hidden" class="form-control" id="role_id"  name="role_id" value = "<%=request.getAttribute("role_id") %>">
-      <div class = "col-sm-3">
-      	<button type = "submit" class="btn btn-default"><b>배정취소</b></button>
+        <input type="text" class="form-control" id="desc<%=roleVO.getId() %>"  name="name" value = "<%=roleVO.getDescription() %>" readonly>
       </div>
     </div>
     </form>

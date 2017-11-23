@@ -46,13 +46,27 @@
 	<update id = "updateRole" parameterType = "com.spring.rollaboard.role.RoleVO">
 		UPDATE role SET NAME = #{name}, DESCRIPTION = #{description} where id = #{id}
 	</update>
-	 
+	
+	<select id = "chkAllocation" parameterType = "map" resultType = "int">
+		SELECT COUNT(*) FROM role_mem WHERE mem_id = #{mem_id} AND role_id = #{role_id}
+	</select>
+	
 	<insert id = "allocateRole" parameterType = "map">
 		INSERT INTO role_mem VALUES (#{role_id, javaType=int}, #{mem_id, javaType=String})
 	</insert>
 	
+	<insert id = "deallocateRole" parameterType = "map">
+		delete role_mem WHERE  ROLE_ID = #{role_id, javaType=int} AND MEM_ID = #{mem_id, javaType=String}
+	</insert>
+	
 	<select id = "getRoleIdByName" parameterType = "map" resultType = "int">
 		SELECT id FROM role WHERE BOARD_ID = #{board_id} AND NAME = #{name}
+	</select>
+	
+	<select id = "getRolesByMem" parameterType = "map" resultMap = "RoleResultMap">
+		SELECT A.ROLE_ID AS ID, B.BOARD_ID, B.NAME, DESCRIPTION 
+		FROM ROLE_MEM A JOIN ROLE B ON A.ROLE_ID = B.ID 
+		WHERE MEM_ID = #{mem_id} AND BOARD_ID = #{board_id}
 	</select>
 	
 </mapper>

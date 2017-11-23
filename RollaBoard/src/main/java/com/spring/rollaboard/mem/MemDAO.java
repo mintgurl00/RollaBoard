@@ -24,4 +24,6 @@ public interface MemDAO {
 	
 	public MemVO getMemInfoToUpdate(String id);
 	
+	public int chkRoleToExpel(String mem_id, int board_id);
+	
 }

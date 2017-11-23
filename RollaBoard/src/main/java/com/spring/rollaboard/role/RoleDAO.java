@@ -15,10 +15,16 @@ public interface RoleDAO {
 	
 	public void deleteRole(int id); // 규성
 	
+	public int chkAllocation(int role_id, String mem_id);
+	
 	public void allocateRole(int role_id, String mem_id);
+	
+	public void deallocateRole(int role_id, String mem_id);
 	
 	public HashMap<Integer, ArrayList<RoleAndTaskVO>> getRATByTasks( int board_id ) ;	// 석원.
 	
 	public int getRoleIdByName(String name, int board_id); // 규성
+	
+	public ArrayList<RoleVO> getRolesByMem(String mem_id, int board_id); // 규성.
 	
 }
