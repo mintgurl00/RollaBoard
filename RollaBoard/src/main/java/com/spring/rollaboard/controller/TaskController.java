@@ -65,7 +65,7 @@ public class TaskController {
 
 	    	TaskVO taskVO = taskDAOService.getTask(task_id);
 	    	result.addObject("taskVO", taskVO);
-	    	result.setViewName("taskview");
+	    	result.setViewName("task/taskview");
 	        return result;
 		}
     }
@@ -80,7 +80,7 @@ public class TaskController {
 		ArrayList<RoleVO> roleList = roleDAOService.getRoles(board_id);
 		result.addObject("roleList", roleList);
     	result.addObject("taskVO", taskVO);
-    	result.setViewName("updatetask");
+    	result.setViewName("task/updatetask");
     	return result;
     }
     
@@ -129,7 +129,7 @@ public class TaskController {
 		ModelAndView result = new ModelAndView();
 		
 		result.addObject("section_id",section_id);
-        result.setViewName("createtask");
+        result.setViewName("task/createtask");
 		return result;
 	}
 	
@@ -152,7 +152,7 @@ public class TaskController {
 	
 	@RequestMapping("detailtask.do")
 	public String detailtask() {
-		return "detailtask";
+		return "task/detailtask";
 	}
     
     

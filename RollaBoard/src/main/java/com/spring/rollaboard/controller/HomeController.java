@@ -90,7 +90,7 @@ public class HomeController {
     
     @RequestMapping("joinform.do")
     public String joinform() {
-        return "joinform";
+        return "main/joinform";
     }
     
 	// (개인)회원정보 수정 처리
@@ -106,7 +106,7 @@ public class HomeController {
             out.println("<script>alert('비밀번호가 틀립니다.');</script>");
             out.flush(); 
             result.addObject("member", updateMemInfo);
-            result.setViewName("updatememberform");
+            result.setViewName("main/updatememberform");
     		return result;
             //developerdon.tistory.com/entry/JAVA-단에서-alert-처리하기-–-
 		}
@@ -121,10 +121,43 @@ public class HomeController {
     	out.println("window.close();</script>");
         out.flush();
         result.addObject("id", updateMemInfo.getId());
-    	result.setViewName("dashboard");
+    	result.setViewName("dashboard/dashboard");
 		return result;
 	}
     
+    //회원정보 수정 창으로 이동
+    @RequestMapping("updatememberform.do")
+    public ModelAndView updatememberform(HttpSession session) {
+    	ModelAndView result = new ModelAndView();
+    	// 회원정보수정시 기존 정보를 불러오기 위해 memDAOService.getMemInfoToUpdate를 사용한다(세션에서 ).
+    	MemVO memVO = memDAOService.getMemInfoToUpdate((String)session.getAttribute("id"));
+    	result.addObject("member", memVO);
+    	result.setViewName("main/updatememberform");
+        return result;
+    }
+    
+    @RequestMapping("insertMember.do")
+    public ModelAndView insertMember(MemVO memVO, HttpServletResponse response) throws Exception {
+    	ModelAndView result = new ModelAndView();
+    	int chk = memDAOService.chkMemberId(memVO);
+    	System.out.println("chk = " + chk);
+    	if (chk != 0) {
+    		// alert처리단
+    		response.setContentType("text/html; charset-utf-8");
+    		PrintWriter out = response.getWriter();
+            out.println("<script>alert('이미 존재하는 아이디입니다.');</script>");
+            out.flush(); 
+    		result.setViewName("main/joinform");
+    		return result;
+		}
+    	memDAOService.insertMember(memVO);	
+    	response.setContentType("text/html; charset-utf-8");
+		PrintWriter out = response.getWriter();
+        out.println("<script>alert('회원가입 되었습니다!');</script>");
+        out.flush();
+		result.setViewName("index");
+    	return result;
+    }
     
     
 }

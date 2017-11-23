@@ -53,7 +53,7 @@ public class SectionController {
     	
     	result.addObject("sectionList", sectionlist);
     	
-    	result.setViewName("sectionlist");
+    	result.setViewName("boardsettings/sectionlist");
         return result;
     }
     

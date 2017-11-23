@@ -57,20 +57,20 @@ public class ViewDashboardController {
     	result.addObject("taskList", taskList);
     	result.addObject("id", session.getAttribute("id"));
     	result.addObject("boardList", boardList); //수민
-    	result.setViewName("dashboard");
+    	result.setViewName("dashboard/dashboard");
         return result;
     }
     
     @RequestMapping("newboard.do")
     public ModelAndView newboard() {
     	ModelAndView result = new ModelAndView();
-    	result.setViewName("newboard");
+    	result.setViewName("dashboard/newboard");
         return result;
     }
     
     @RequestMapping("createboardform.do")
     public String createboardform() {
-    	return "createboardform";
+    	return "dashboard/createboardform";
     }
     
     @RequestMapping("createboard.do")
@@ -87,7 +87,7 @@ public class ViewDashboardController {
         	PrintWriter out = response.getWriter();
         	out.println("<script>alert('이미 사용중인 보드 이름입니다!'); history.go(-1);</script>");
         	out.flush();
-        	result.setViewName("createboard");
+        	result.setViewName("dashboard/createboard");
         	return result;
 		}
     	boardDAOService.createBoard(board_name, mem_id);
@@ -105,7 +105,7 @@ public class ViewDashboardController {
     	out.flush();
     	
     	result.addObject("board", boardVO);
-    	result.setViewName("newboard");
+    	result.setViewName("dashboard/newboard");
     	
     	return result;
     }
@@ -115,7 +115,7 @@ public class ViewDashboardController {
     @RequestMapping("enterboard.do")
     public ModelAndView enterboard() {
     	ModelAndView result = new ModelAndView();
-    	result.setViewName("enterboard");
+    	result.setViewName("dashboard/enterboard");
         return result;
     }
     
@@ -147,7 +147,7 @@ public class ViewDashboardController {
     		PrintWriter out = response.getWriter();
             out.println("<script>alert('이미 BOARD에 가입신청을 했습니다.');</script>");
             out.flush(); 
-    		result.setViewName("enterboard");
+    		result.setViewName("dashboard/enterboard");
             return result;
 		}
     	
@@ -162,7 +162,7 @@ public class ViewDashboardController {
 		PrintWriter out = response.getWriter();
         out.println("<script>alert('BOARD에 등록되었습니다. 관리자의 승인을 기다려주세요');</script>");
         out.flush(); 
-    	result.setViewName("newboard");
+    	result.setViewName("dashboard/newboard");
         return result;
     }
     
