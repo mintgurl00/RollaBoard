@@ -32,4 +32,7 @@ public interface TaskRefMapper {
 	public void createConnection(@Param("frontId") int frontId, @Param("backId") int backId);
 	
 	public void divideConnction(@Param("backId") int backId);
+	public void deleteTask(@Param("taskId") int taskId);
+	public void pullHead(@Param("headId") int headId);
+	public void eraseConnection(@Param("headId") int headId);
 }

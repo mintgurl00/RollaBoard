@@ -161,4 +161,23 @@
 		WHERE root_task_id=(SELECT root_task_id FROM task_conn WHERE task_id=#{backId})
 		    AND ref_level >= (SELECT ref_level FROM task_conn WHERE task_id=#{backId})
 	</update>
+	
+	<!-- deleteTask -->
+	<delete id = "deleteTask" parameterType = "map">
+		DELETE FROM task_conn 
+		WHERE task_id=#{taskId}
+	</delete>
+	
+	<!-- pullHead -->
+	<update id = "pullHead" parameterType = "map">
+		UPDATE task_conn
+		SET ref_level=ref_level-1
+		WHERE root_task_id=#{headId}
+	</update>
+	
+	<!-- eraseConnection -->
+	<delete id = "eraseConnection" parameterType = "map">
+		DELETE FROM task_conn 
+		WHERE root_task_id=#{headId}
+	</delete>
 </mapper>
