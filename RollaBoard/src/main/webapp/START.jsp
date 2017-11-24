@@ -12,7 +12,8 @@
 
 시작!!!
 <script type="text/javascript">
-location.href='./' ; 
+	//location.href='./test.do' ; 
+	location.href='./';
 </script>
 
 </body>

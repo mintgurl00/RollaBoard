@@ -44,7 +44,22 @@ public class ViewDashboardController {
 	private static final Logger logger = LoggerFactory.getLogger(ViewDashboardController.class);
 	
 	// 대시보드 관련 메소드--------------------------------------------
-    
+    	// 태스트용
+		@RequestMapping("test.do")
+	    public ModelAndView test() {
+	    	ModelAndView result = new ModelAndView();
+	    	String mem_id = "cdcase";
+	    	List<BoardVO> boardList = boardDAOService.getBoards(mem_id); //수민. 대시보드로 갈 때 보드리스트 받아옴
+	    	// 대쉬보드에 내 TASK 보기
+	    	System.out.println("dashboard입니다.세션의 맴버아이디 : " + mem_id);
+	    	ArrayList<TaskVO> taskList = taskDAOService.getMyTasks(mem_id);
+	    	result.addObject("taskList", taskList);
+	    	result.addObject("id", mem_id);
+	    	result.addObject("boardList", boardList); //수민
+	    	result.setViewName("test");
+	        return result;
+	    }
+	
     @RequestMapping("dashboard.do")
     public ModelAndView dashboard(HttpSession session) {
     	ModelAndView result = new ModelAndView();
