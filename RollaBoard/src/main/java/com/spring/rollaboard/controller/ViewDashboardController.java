@@ -46,13 +46,17 @@ public class ViewDashboardController {
 	// 대시보드 관련 메소드--------------------------------------------
     	// 태스트용
 		@RequestMapping("test.do")
-	    public ModelAndView test() {
+	    public ModelAndView test(HttpSession session) {
 	    	ModelAndView result = new ModelAndView();
 	    	String mem_id = "cdcase";
 	    	List<BoardVO> boardList = boardDAOService.getBoards(mem_id); //수민. 대시보드로 갈 때 보드리스트 받아옴
-	    	// 대쉬보드에 내 TASK 보기
-	    	System.out.println("dashboard입니다.세션의 맴버아이디 : " + mem_id);
 	    	ArrayList<TaskVO> taskList = taskDAOService.getMyTasks(mem_id);
+	    	session.setAttribute("board_id", 1);
+	    	session.setAttribute("id", mem_id);
+	    	ArrayList<BoardVO> refBoardList = boardDAOService.getRefBoards( 1 );
+	    	BoardVO boardVO = boardDAOService.getBoardInfo(1);
+	    	result.addObject("boardVO", boardVO);
+	    	result.addObject( "refBoardList" , refBoardList ) ;
 	    	result.addObject("taskList", taskList);
 	    	result.addObject("id", mem_id);
 	    	result.addObject("boardList", boardList); //수민

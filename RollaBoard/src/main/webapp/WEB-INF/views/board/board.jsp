@@ -19,22 +19,131 @@
 	ArrayList<SectionVO> sectionList = (ArrayList<SectionVO>) request.getAttribute( "sectionList" ) ; 
 	ArrayList<BoardVO> refBoardList = (ArrayList<BoardVO>) request.getAttribute( "refBoardList" ) ;
 %>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
+<html lang="en">
 <head>
-
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>board</title>
-<style>
-#header{float:left; width:1580px; height:70px; background-color:#B5B2FF}
-#logout{float:left; width:280px; height:70px; background-color:#B5B2FF}
+  <!-- Theme Made By www.w3schools.com - No Copyright -->
+  <title>Bootstrap Theme Company Page</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet" type="text/css">
+  <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet" type="text/css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <style>
 #ref_board{width:280px; height:50px; background-color:#DAD9FF}
 #filter{float:left; width:1860px; height:50px; background-color:#DAD9FF; text-align:right}
 #content{overflow:scroll; width:1880px; height:960px}
 #section{float:left; width:400px; height:900px; margin-left:40px; margin-top:40px; background-color:#DAD9FF; text-align:center}
 #task{width:350px; height:150px; margin-left:20px; margin-top:20px; background-color:#FFFFFF; text-align:center}
-
-</style>
+  
+  body {
+      font: 400 15px Lato, sans-serif;
+      line-height: 1.8;
+      color: #818181;
+  }
+  h2 {
+      font-size: 24px;
+      text-transform: uppercase;
+      color: #303030;
+      font-weight: 600;
+      margin-bottom: 30px;
+  }
+  h4 {
+      font-size: 19px;
+      line-height: 1.375em;
+      color: #303030;
+      font-weight: 400;
+      margin-bottom: 30px;
+  }  
+  .jumbotron {
+      background-color: #F44336;
+      color: #fff;
+      padding: 100px 25px;
+      font-family: Montserrat, sans-serif;
+  }
+  .container-fluid {
+      padding: 60px 50px;
+  }
+  .logo-small {
+      color: #F44336;
+      font-size: 50px;
+  }
+  .logo {
+      color: #F44336;
+      font-size: 200px;
+  }
+  .navbar {
+      margin-bottom: 0;
+      background-color: #F44336;
+      z-index: 9999;
+      border: 0;
+      font-size: 12px !important;
+      line-height: 1.42857143 !important;
+      letter-spacing: 4px;
+      border-radius: 0;
+      font-family: Montserrat, sans-serif;
+  }
+  .navbar li a, .navbar .navbar-brand {
+      color: #fff !important;
+  }
+  .navbar-nav li a:hover, .navbar-nav li.active a {
+      color: #F44336 !important;
+      background-color: #fff !important;
+  }
+  .navbar-default .navbar-toggle {
+      border-color: transparent;
+      color: #fff !important;
+  }
+  footer .glyphicon {
+      font-size: 20px;
+      margin-bottom: 20px;
+      color: #F44336;
+  }
+  .slideanim {visibility:hidden;}
+  .slide {
+      animation-name: slide;
+      -webkit-animation-name: slide;
+      animation-duration: 1s;
+      -webkit-animation-duration: 1s;
+      visibility: visible;
+  }
+  @keyframes slide {
+    0% {
+      opacity: 0;
+      transform: translateY(70%);
+    } 
+    100% {
+      opacity: 1;
+      transform: translateY(0%);
+    }
+  }
+  @-webkit-keyframes slide {
+    0% {
+      opacity: 0;
+      -webkit-transform: translateY(70%);
+    } 
+    100% {
+      opacity: 1;
+      -webkit-transform: translateY(0%);
+    }
+  }
+  @media screen and (max-width: 768px) {
+    .col-sm-4 {
+      text-align: center;
+      margin: 25px 0;
+    }
+    .btn-lg {
+        width: 100%;
+        margin-bottom: 35px;
+    }
+  }
+  @media screen and (max-width: 480px) {
+    .logo {
+        font-size: 150px;
+    }
+  }
+  </style>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script type = "text/javascript" language = "javascript">
 function openPop() {
@@ -163,49 +272,66 @@ function showRefBoard(){
 
 </script>
 </head>
-<body>
-<div id="header">
-<a href="./dashboard.do">로고</a>&nbsp;&nbsp;&nbsp;
-<font size="6"><%=boardVO.getName() %></font>
-<%if ( id.equals(boardVO.getAdmin()) ) {%>
-<form action = "updateboard.do" method = "post">
-	<input type = "hidden" name = "id" value = "<%=boardVO.getId()%>">
-	<input type = "hidden" name = "name" value = "<%=boardVO.getName()%>">
-	<input type = "hidden" name = "admin" value = "<%=boardVO.getAdmin()%>">
-	<input type = "hidden" name = "visibility" value = "<%=boardVO.getVisibility()%>">
-	<input type = "hidden" name = "chkVal" value = "role">
-	<button type="submit" class="btn btn-default" name = "name">BOARD설정</button>
-</form>
-<%} %>
-</div>
+<body id="myPage" data-spy="scroll" data-target=".navbar" data-offset="60">
 
-<div id="logout" align="right">
-	<a href = "#" onClick = "openPop();" >회원정보 수정</a> | <a href="logout.do">logout</a>&nbsp;
-</div>
-
-<!-- 참조 보드 선택 -->
-<div id="ref_board">
+<nav class="navbar navbar-default navbar-fixed-top">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>                        
+      </button>
+      <a class="navbar-brand" href="./dashboard.do">ROLLABOARD</a>
+    </div>
+    <div class="collapse navbar-collapse" id="myNavbar">
+      <ul class="nav navbar-nav navbar-right">
+        <%if ( id.equals(boardVO.getAdmin()) ) {%>
+        <li>
+        <a onClick = "document.getElementById('boardSetting').submit()" style = "cursor:pointer">BOARD 설정</a>
+        <form id = "boardSetting" action = "updateboard.do" method = "post" style = "margin-top:5px;">
+			<input type = "hidden" name = "id" value = "<%=boardVO.getId()%>">
+			<input type = "hidden" name = "name" value = "<%=boardVO.getName()%>">
+			<input type = "hidden" name = "admin" value = "<%=boardVO.getAdmin()%>">
+			<input type = "hidden" name = "visibility" value = "<%=boardVO.getVisibility()%>">
+			<input type = "hidden" name = "chkVal" value = "role">
+		</form>
+		</li>
+		<%} %>
+        <li>
+        <!-- 참조 보드 선택 -->
+	<div >
 	<input type="hidden" id="current_ref_board" value="-1" />
 	<select id="ref_board_select">
     	<option value="-1">참조 BOARD 선택</option>
 	</select>
+	</div>
+		</li>
+        <li><a onClick = "openPop();" style = "cursor:pointer" >회원정보수정</a></li>
+        <li><a href="logout.do">LOGOUT</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<div class="jumbotron text-center">
+  <h1><%=boardVO.getName() %></h1> 
+  <p>당신의 꿈을 현실로 만들어 드립니다!</p> 
+  <form>
+    <div class="input-group" >
+      	<input type="text" name="keyword" id="keyword" class="form-control" size="50" placeholder="검색할 TASK 입력">
+      	<input type="hidden" name="written_keyword" id="written_keyword" value=""/>
+		<input type ="hidden" name="board_id" value="<%=boardVO.getId()%>" />
+      <div class="input-group-btn">
+        <button type="button" class="btn btn-danger" onclick="javascript:loadSearchResult()">검색</button>
+      </div>
+    </div> 
+  </form>
+  <div align = right>
+      <input type="checkbox" class="filter" id="chk_duedate" name="due" value="FALSE" onclick="javascript:filterResult(this)"/>
+		마감일순 보기
+    </div>
 </div>
-
-<!-- 필터와 검색 -->
-
-<div id="filter">
-	<!-- <a href=#>관계 TASK보기</a>&nbsp;
-	<a href=#>마감날짜순</a>&nbsp; -->
-	<input type="checkbox" class="filter" id="chk_duedate" name="due" value="FALSE" onclick="javascript:filterResult(this)"/>
-	마감일 보기
-	<!-- <a href=#>시작날짜순</a>&nbsp;
-	<a href=#>중요도순</a>	 -->
-	<input type="text" name="keyword" id="keyword" placeholder="task명을 입력하세요." value=""/>
-	<input type="hidden" name="written_keyword" id="written_keyword" value=""/>
-	<input type ="hidden" name="board_id" value="<%=boardVO.getId()%>" />
-	<button type="button" onclick="javascript:loadSearchResult()">검색버튼2</button>
-</div>
-
 
 <!-- 보드 -->
 <div id="content">
@@ -216,6 +342,50 @@ function showRefBoard(){
 <div id="content_ref">
 	
 </div>
+
+<footer class="container-fluid text-center">
+  <a href="#myPage" title="To Top">
+    <span class="glyphicon glyphicon-chevron-up"></span>
+  </a>
+  <div class="w3-light-grey w3-container w3-padding-32" style="margin-top:75px;padding-right:58px"><p class="w3-right"><b>Rollaboard</b> all rights reserved </p></div>
+</footer>
+
+<script>
+$(document).ready(function(){
+  // Add smooth scrolling to all links in navbar + footer link
+  $(".navbar a, footer a[href='#myPage']").on('click', function(event) {
+    // Make sure this.hash has a value before overriding default behavior
+    if (this.hash !== "") {
+      // Prevent default anchor click behavior
+      event.preventDefault();
+
+      // Store hash
+      var hash = this.hash;
+
+      // Using jQuery's animate() method to add smooth page scroll
+      // The optional number (900) specifies the number of milliseconds it takes to scroll to the specified area
+      $('html, body').animate({
+        scrollTop: $(hash).offset().top
+      }, 900, function(){
+   
+        // Add hash (#) to URL when done scrolling (default click behavior)
+        window.location.hash = hash;
+      });
+    } // End if
+  });
+  
+  $(window).scroll(function() {
+    $(".slideanim").each(function(){
+      var pos = $(this).offset().top;
+
+      var winTop = $(window).scrollTop();
+        if (pos < winTop + 600) {
+          $(this).addClass("slide");
+        }
+    });
+  });
+})
+</script>
 
 </body>
 </html>

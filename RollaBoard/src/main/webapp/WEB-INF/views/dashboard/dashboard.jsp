@@ -4,11 +4,11 @@
 <%@ page import="com.spring.rollaboard.board.BoardVO"%>
 <%
 	// 세션 아이디 체크
-	/* if(session.getAttribute("id") == null) {
+	if(session.getAttribute("id") == null) {
 		out.println("<script>alert('로그인이 필요합니다');");
 		out.println("location.href='index.do'");
 		out.println("</script>");
-	} */
+	}
 	session.setAttribute("id", "cdcase");
 	request.setCharacterEncoding("utf-8");
 	
@@ -24,6 +24,7 @@
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins">
 <style>
+mycolor {background-color: #f4511e;}
 body,h1,h2,h3,h4,h5 {font-family: "Poppins", sans-serif}
 body {font-size:16px;}
 .w3-half img{margin-bottom:-6px;margin-top:16px;opacity:0.8;cursor:pointer}
@@ -45,7 +46,7 @@ width:700px; /* optional, though better have one */
 <body>
 
 <!-- Sidebar/menu -->
-<nav class="w3-sidebar w3-blue w3-collapse w3-top w3-large w3-padding" style="z-index:3;width:300px;font-weight:bold;" id="mySidebar"><br>
+<nav class="w3-sidebar w3-red w3-collapse w3-top w3-large w3-padding mycolor" style="z-index:3;width:300px;font-weight:bold;" id="mySidebar"><br>
   <a href="javascript:void(0)" onclick="w3_close()" class="w3-button w3-hide-large w3-display-topleft" style="width:100%;font-size:19px">Close Menu</a>
   <p class="w3-display-topleft w3-hide-medium w3-hide-small" style="font-size:15px;cursor:pointer"><a onClick = "openPop();">회원정보수정</a> | <a href="logout.do">logout</a></p>
   <div class="w3-container">
@@ -62,8 +63,8 @@ width:700px; /* optional, though better have one */
 </nav>
 
 <!-- Top menu on small screens -->
-<header class="w3-container w3-top w3-hide-large w3-blue w3-xlarge w3-padding">
-  <a href="javascript:void(0)" class="w3-button w3-blue w3-margin-right" onclick="w3_open()">☰</a>
+<header class="w3-container w3-top w3-hide-large w3-red w3-xlarge w3-padding">
+  <a href="javascript:void(0)" class="w3-button w3-red w3-margin-right" onclick="w3_open()">☰</a>
   <p class="w3-display-topleft w3-hide-medium w3-hide-small" style="font-size:15px"><a onClick = "openPop();" class = "w3-button">회원정보수정</a> | <a href="logout.do" class = "w3-button">logout</a></p>
   <span>MY BOARD</span>
   <span class = "w3-display-topright">
@@ -114,7 +115,7 @@ width:700px; /* optional, though better have one */
 <!-- End page content -->
 </div>
 
-<!-- W3.CSS Container -->
+<!-- Rollaboard Container -->
 <div class="w3-light-grey w3-container w3-padding-32" style="margin-top:75px;padding-right:58px"><p class="w3-right"><b>Rollaboard</b> all rights reserved </p></div>
 
 <script>
