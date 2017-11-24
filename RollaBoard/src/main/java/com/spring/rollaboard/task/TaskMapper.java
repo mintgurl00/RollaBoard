@@ -41,7 +41,7 @@ public interface TaskMapper {
 	public void taskToRole(@Param("task_id") int task_id, @Param("role_id") int role_id);
 
 	//public ArrayList<RoleAndTaskVO> getRATByBoard( @Param("board_id") int board_id );	//석원
-	
+	/*
 	/////////// 관계
 	public int isHavingPreTask( int id ) ;
 	public int isHavingPostTask( int id ) ;
@@ -58,6 +58,6 @@ public interface TaskMapper {
 	public void insertByPreTask2of2(@Param("taskId") int taskId, @Param("preTaskId") int preTaskId);
 	public void insertByPostTask1of2(@Param("postTaskId") int postTaskId);
 	public void insertByPostTask2of2(@Param("taskId") int taskId, @Param("postTaskId") int postTaskId);
-	
+	*/
 	
 }
