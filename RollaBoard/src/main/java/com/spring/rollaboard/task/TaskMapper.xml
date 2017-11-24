@@ -119,9 +119,9 @@
 	
 	
 	
+	<!-- 
 	
-	
-	<!-- isHavingPreTask -->
+	isHavingPreTask
 	<select id = "isHavingPreTask" resultType="int">
 		SELECT COUNT(*) 
 		FROM task_conn
@@ -129,7 +129,7 @@
 			AND ref_level > 0
 	</select>
 	
-	<!-- isHavingPostTask -->
+	isHavingPostTask
 	<select id = "isHavingPostTask" resultType="int">
 		<![CDATA[
 		SELECT COUNT(*)
@@ -140,20 +140,20 @@
 		]]> 
 	</select>
 	
-	<!-- isConnectedTask -->
+	isConnectedTask
 	<select id = "isConnectedTask" resultType="int">
 		SELECT COUNT(*) 
 		FROM task_conn
 		WHERE task_id=#{id}
 	</select>
 	
-	<!-- addPostTask1of2 -->
+	addPostTask1of2
 	<update id = "addPostTask1of2" parameterType = "map">
 		UPDATE task_conn
 		SET root_task_id=#{taskId}, ref_level=ref_level+1
 		WHERE root_task_id=#{preTaskId}
 	</update>
-	<!-- addPostTask2of2 -->
+	addPostTask2of2
 	<insert id = "addPostTask2of2" parameterType = "map">
 		INSERT ALL
 		    INTO task_conn(root_task_id, task_id, ref_level)
@@ -163,7 +163,7 @@
 		WHERE task_id=#{postTaskId}
 	</insert>
 	
-	<!-- addPreTask -->
+	addPreTask
 	<insert id = "addPreTask" parameterType = "map">
 		INSERT ALL
 		    INTO task_conn(root_task_id, task_id, ref_level)
@@ -173,7 +173,7 @@
 		WHERE task_id=#{preTaskId}
 	</insert>
 	
-	<!-- createPreTask -->
+	createPreTask
 	<insert id="createPreTask" parameterType="map">
 		INSERT ALL
 		    INTO task_conn(root_task_id, task_id, ref_level) VALUES(#{preTaskId}, #{preTaskId}, 0)
@@ -181,7 +181,7 @@
 		SELECT * FROM DUAL
 	</insert>
 	
-	<!-- insertByPreTask1of2 -->
+	insertByPreTask1of2
 	<update id = "insertByPreTask1of2" parameterType = "map">
 		<![CDATA[
 		UPDATE task_conn
@@ -189,7 +189,7 @@
 		WHERE ref_level>(SELECT ref_level FROM task_conn0 WHERE task_id=#{preTaskId})
 		]]> 
 	</update>	
-	<!-- insertByPreTask2of2 -->
+	insertByPreTask2of2
 	<insert id = "insertByPreTask2of2" parameterType = "map">
 		INSERT ALL
 		    INTO task_conn(root_task_id, task_id, ref_level)
@@ -199,7 +199,7 @@
 		WHERE task_id=#{preTaskId}
 	</insert>
 	
-	<!-- insertByPostTask1of2 -->
+	insertByPostTask1of2
 	<update id = "insertByPostTask1of2" parameterType = "map">
 		<![CDATA[
 		UPDATE task_conn
@@ -207,7 +207,7 @@
 		WHERE ref_level>=(SELECT ref_level FROM task_conn0 WHERE task_id=#{postTaskId})
 		]]> 
 	</update>	
-	<!-- insertByPostTask2of2 -->
+	insertByPostTask2of2
 	<insert id = "insertByPostTask2of2" parameterType = "map">
 		INSERT ALL
 		    INTO task_conn(root_task_id, task_id, ref_level)
@@ -215,5 +215,5 @@
 		SELECT t.root_task_id r_t_rid, t.task_id r_t_id, t.ref_level r_t_lv
 		FROM task_conn t
 		WHERE task_id=#{postTaskId}
-	</insert>
+	</insert> -->
 </mapper>

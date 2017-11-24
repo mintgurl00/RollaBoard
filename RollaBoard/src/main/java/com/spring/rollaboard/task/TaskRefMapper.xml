@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace = "com.spring.rollaboard.task.TaskRefMapper">
+
+	<!-- <resultMap type = "TaskVO" id = "TaskResultMap">
+		<result property = "id" column = "ID"/>
+		<result property = "name" column = "NAME"/>
+		<result property = "description" column = "DESCRIPTION"/>
+		<result property = "status" column = "STATUS"/>
+		<result property = "section_id" column = "SECTION_ID"/>
+		<result property = "start_date" column = "START_DATE"/>
+		<result property = "due_date" column = "DUE_DATE"/>
+		<result property = "cre_date" column = "CRE_DATE"/>
+		<result property = "priority" column = "PRIORITY"/>
+		
+	</resultMap> -->
+	
+	<!-- isHavingPreTask -->
+	<select id = "isHavingPreTask" resultType="int">
+		SELECT COUNT(*) 
+		FROM task_conn
+		WHERE task_id=#{id}
+			AND ref_level > 0
+	</select>
+	
+	<!-- isHavingPostTask -->
+	<select id = "isHavingPostTask" resultType="int">
+		<![CDATA[
+		SELECT COUNT(*)
+		FROM task_conn tc1, task_conn0 tc2
+		where tc1.root_task_id=tc2.root_task_id
+		    AND tc2.task_id=#{id}
+		    AND tc2.ref_level < tc1.ref_level
+		]]> 
+	</select>
+	
+	<!-- isConnectedTask -->
+	<select id = "isConnectedTask" resultType="int">
+		SELECT COUNT(*) 
+		FROM task_conn
+		WHERE task_id=#{id}
+	</select>
+	
+	<!-- addPostTask1of2 -->
+	<update id = "addPostTask1of2" parameterType = "map">
+		UPDATE task_conn
+		SET root_task_id=#{taskId}, ref_level=ref_level+1
+		WHERE root_task_id=#{preTaskId}
+	</update>
+	<!-- addPostTask2of2 -->
+	<insert id = "addPostTask2of2" parameterType = "map">
+		INSERT ALL
+		    INTO task_conn(root_task_id, task_id, ref_level)
+		    VALUES( r_t_rid, #{taskId}, r_t_lv-1 )
+		SELECT t.root_task_id r_t_rid, t.task_id r_t_id, t.ref_level r_t_lv
+		FROM task_conn t
+		WHERE task_id=#{postTaskId}
+	</insert>
+	
+	<!-- addPreTask -->
+	<insert id = "addPreTask" parameterType = "map">
+		INSERT ALL
+		    INTO task_conn(root_task_id, task_id, ref_level)
+		    VALUES( r_t_rid, #{taskId}, r_t_lv+1 )
+		SELECT t.root_task_id r_t_rid, t.task_id r_t_id, t.ref_level r_t_lv
+		FROM task_conn0 t
+		WHERE task_id=#{preTaskId}
+	</insert>
+	
+	<!-- createPreTask -->
+	<insert id="createPreTask" parameterType="map">
+		INSERT ALL
+		    INTO task_conn(root_task_id, task_id, ref_level) VALUES(#{preTaskId}, #{preTaskId}, 0)
+		    INTO task_conn(root_task_id, task_id, ref_level) VALUES(#{preTaskId}, #{taskId}, 1) 
+		SELECT * FROM DUAL
+	</insert>
+	
+	<!-- insertByPreTask1of2 -->
+	<update id = "insertByPreTask1of2" parameterType = "map">
+		<![CDATA[
+		UPDATE task_conn
+		SET ref_level=ref_level+1
+		WHERE ref_level>(SELECT ref_level FROM task_conn0 WHERE task_id=#{preTaskId})
+		]]> 
+	</update>	
+	<!-- insertByPreTask2of2 -->
+	<insert id = "insertByPreTask2of2" parameterType = "map">
+		INSERT ALL
+		    INTO task_conn(root_task_id, task_id, ref_level)
+		    VALUES( r_t_rid, #{taskId}, r_t_lv+1 )
+		SELECT t.root_task_id r_t_rid, t.task_id r_t_id, t.ref_level r_t_lv
+		FROM task_conn t
+		WHERE task_id=#{preTaskId}
+	</insert>
+	
+	<!-- insertByPostTask1of2 -->
+	<update id = "insertByPostTask1of2" parameterType = "map">
+		<![CDATA[
+		UPDATE task_conn
+		SET ref_level=ref_level+1
+		WHERE ref_level>=(SELECT ref_level FROM task_conn0 WHERE task_id=#{postTaskId})
+		]]> 
+	</update>	
+	<!-- insertByPostTask2of2 -->
+	<insert id = "insertByPostTask2of2" parameterType = "map">
+		INSERT ALL
+		    INTO task_conn(root_task_id, task_id, ref_level)
+		    VALUES( r_t_rid, #{taskId}, r_t_lv-1 )
+		SELECT t.root_task_id r_t_rid, t.task_id r_t_id, t.ref_level r_t_lv
+		FROM task_conn t
+		WHERE task_id=#{postTaskId}
+	</insert>
+	
+	<!-- linkConnection -->
+	<update id="linkConnection" parameterType="map">
+		UPDATE task_conn
+		SET root_task_id=(SELECT root_task_id FROM task_conn WHERE task_id=#{frontId}),
+		    ref_level=ref_level+1+(SELECT ref_level FROM task_conn WHERE task_id=#{frontId})
+		WHERE root_task_id=#{backId}
+	</update>
+	
+	<!-- appendTask -->
+	<update id="appendTask" parameterType="map">
+		INSERT ALL
+		    INTO task_conn(root_task_id, task_id, ref_level)
+		    VALUES( r_t_rid, #{taskId}, r_t_lv+1 )
+		SELECT t.root_task_id r_t_rid, t.task_id r_t_id, t.ref_level r_t_lv
+		FROM task_conn t
+		WHERE task_id=#{tailId}
+	</update>
+	
+	<!-- appendConnection1of2 -->
+	<update id = "appendConnection1of2" parameterType = "map">
+		UPDATE task_conn
+		SET root_task_id=#{headId}, ref_level=ref_level+1
+		WHERE root_task_id=#{taskId}
+	</update>
+	<!-- appendConnection2of2 -->
+	<insert id = "appendConnection2of2" parameterType = "map">
+		INSERT ALL
+		    INTO task_conn(root_task_id, task_id, ref_level)
+		    VALUES( r_t_rid, #{headId}, r_t_lv-1 )
+		SELECT t.root_task_id r_t_rid, t.task_id r_t_id, t.ref_level r_t_lv
+		FROM task_conn t
+		WHERE task_id=#{taskId}
+	</insert>
+	
+	<!-- createConnection -->
+	<insert id="createConnection" parameterType="map">
+		INSERT ALL
+		    INTO task_conn(root_task_id, task_id, ref_level) VALUES(#{frontId}, #{frontId}, 0)
+		    INTO task_conn(root_task_id, task_id, ref_level) VALUES(#{backId}, #{backId}, 1) 
+		SELECT * FROM DUAL
+	</insert>
+	
+	<!-- divideConnction -->
+	<update id = "divideConnction" parameterType = "map">
+		UPDATE task_conn
+		SET root_task_id=#{backId}, ref_level=ref_level-(SELECT ref_level FROM task_conn WHERE task_id=#{backId})
+		WHERE root_task_id=(SELECT root_task_id FROM task_conn WHERE task_id=#{backId})
+		    AND ref_level >= (SELECT ref_level FROM task_conn WHERE task_id=#{backId})
+	</update>
+</mapper>
