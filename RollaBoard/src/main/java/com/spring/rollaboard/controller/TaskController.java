@@ -77,7 +77,11 @@ public class TaskController {
     	System.out.println("updatetaskform.do... taskVO.getId : " + taskVO.getId());
     	// 배정할 롤 리스트를 같이 첨부해서 전송한다.
 		int board_id = Integer.parseInt((String)session.getAttribute("board_id"));
+		System.out.println("board_id : " + board_id);
 		ArrayList<RoleVO> roleList = roleDAOService.getRoles(board_id);
+		// 배정된 롤 리스트도 보여준다.
+		ArrayList<RoleVO> allocatedRole = roleDAOService.getRolesByTask(taskVO.getId());
+		result.addObject("allocatedRole", allocatedRole);
 		result.addObject("roleList", roleList);
     	result.addObject("taskVO", taskVO);
     	result.setViewName("task/updatetask");
@@ -154,6 +158,18 @@ public class TaskController {
 	@RequestMapping("detailtask.do")
 	public String detailtask() {
 		return "task/detailtask";
+	}
+	
+	@RequestMapping("deallocatetask.do")
+	public ModelAndView deallocatetask(int role_id, int task_id) {
+		ModelAndView result = new ModelAndView();
+		System.out.println("deallocatetask.do... task_id : " + task_id);
+		TaskVO taskVO = taskDAOService.getTask(task_id);
+		roleDAOService.deallocateTask(role_id, task_id);
+		System.out.println("TASK_ROLE 삭제완료");
+		result.addObject("taskVO", taskVO);
+		result.setViewName("redirect:updatetaskform.do");
+		return result;
 	}
     
     

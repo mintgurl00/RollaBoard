@@ -13,6 +13,7 @@ if(session.getAttribute("id") == null) {
 
 TaskVO taskVO = (TaskVO) request.getAttribute("taskVO");
 ArrayList<RoleVO> roleList = (ArrayList<RoleVO>) request.getAttribute("roleList");
+ArrayList<RoleVO> allocatedRole = (ArrayList<RoleVO>) request.getAttribute("allocatedRole");
 %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -99,7 +100,18 @@ ArrayList<RoleVO> roleList = (ArrayList<RoleVO>) request.getAttribute("roleList"
     <div id="content">내용(필수X)<br/>
         <input type="textarea" id="content" name="description" style="height:180px; width:380px;" class="byteLimit" limitbyte="100"   value = "<%=taskVO.getDescription()%>">
     </div>
-    
+    <div id = "allocated">배정된 ROLE<br/>
+    	<%for(int h = 0; h < allocatedRole.size(); h++) {
+    		RoleVO allocRole = allocatedRole.get(h);
+    	%>
+    	<form id = "deleteAllocation" action = "deallocatetask.do">
+    	<input type = "text" name = "role_name" value = "<%=allocRole.getName() %>" readonly>
+    	<input type = "hidden" name = "role_id" value = "<%=allocRole.getId() %>">
+    	<input type = "hidden" name = task_id" value = "<%=taskVO.getId() %>">
+    	<input type = "submit" value = "배정취소">
+    	</form>
+    	<%} %>
+    </div>
     <div id="role">Role 배정(필수X)<br/>
 		<input list="roleList" name="taskToRole" >
 		<datalist id = "roleList">
