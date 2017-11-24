@@ -79,6 +79,16 @@ request.getAttribute("postTaskId") ;
             thisObject.val(strTitle);
               
         });
+        
+        $(".checkDiff > input").blur(function(){
+        	var oldVal = $("this > input[type='hidden'").val() ;
+        	var newVal = $("this > input[type='text'").val() ;
+        	if(oldVal!=newVal){
+        		$(".checkDiff > input[type='text']").css("background-color", "#ff0000");
+        	}else{
+        		$(".checkDiff > input[type='text']").css("background-color", "#ffffff");
+        	}
+        });
     });
       
   </script>
@@ -137,11 +147,13 @@ request.getAttribute("postTaskId") ;
 		<input type="text" id="priority" placeholder="1~5중에 하나를 입력해주세요" size="40" name="priority" value = "<%=taskVO.getPriority()%>"><br/><br/><br/>
 	</div>
 	
-	<div id ="pre_Task"> 선행TASK  <br/>
+	<div id ="pre_Task" class="checkDiff"> 선행TASK  <br/>
+		<input type="hidden" name="hidden_pre_task" value="<%=preTaskId %>" />
 		<input type="text" id="pre_task" name="pre_task" value="<%=preTaskId %>" placeholder="Task id를 입력하시오" size="40"><br/><br/><br/>
 	</div>
 	
-	<div id ="postTask"> 후행TASK  <br/>
+	<div id ="post_Task" class="checkDiff"> 후행TASK  <br/>
+		<input type="hidden" name="hidden_post_task" value="<%=postTaskId %>" />
 		<input type="text" id="post_task" name="post_task" value="<%=postTaskId %>" placeholder="Task id를 입력하시오" size="40"><br/><br/><br/>
 	</div>
     

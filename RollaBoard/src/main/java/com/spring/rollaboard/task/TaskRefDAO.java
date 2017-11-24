@@ -20,6 +20,8 @@ public interface TaskRefDAO {
 	public void insertByPreTask(int taskId, int preTaskId) ;
 	public void insertByPostTask(int taskId, int postTaskId) ;
 
+	////////////////////////////////////////////////
+	
 	// 제거 또는 연결에서 제외
 	public void pullFromConnection(int taskId) ;
 	public void breakConnection(int taskId) ;

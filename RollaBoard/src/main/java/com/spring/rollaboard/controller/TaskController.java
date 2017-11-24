@@ -101,12 +101,26 @@ public class TaskController {
     	System.out.println("태스크에 배정할 롤 이름! : " + taskToRole);
     	System.out.println("업데이트할 task_id : " + taskVO.getId());
     	
-		if(!request.getParameter("pre_task").equals("")){
-			taskRefDAOService.addPreTask(taskVO.getId(), Integer.parseInt(request.getParameter("pre_task")));
+    	/*
+    	 *  태스크 관계 처리하는 부분
+    	 * */
+    	if(!request.getParameter("pre_task").equals(request.getParameter("hidden_pre_task"))){
+			String oldPreTask = request.getParameter("hidden_pre_task");
+			String newPreTask = request.getParameter("pre_task");
+			if(!oldPreTask.equals(""))
+				taskRefDAOService.cutPreTask(taskVO.getId(), Integer.parseInt(oldPreTask));	// 일단 기존 것은 지우고
+			if(!newPreTask.equals(""))
+				taskRefDAOService.addPreTask(taskVO.getId(), Integer.parseInt(newPreTask));	// 추가
 		}
-		if(!request.getParameter("post_task").equals("")){
-			taskRefDAOService.addPostTask(taskVO.getId(), Integer.parseInt(request.getParameter("post_task")));
+    	if(!request.getParameter("post_task").equals(request.getParameter("hidden_post_task"))){
+			String oldPostTask = request.getParameter("hidden_post_task");
+			String newPostTask = request.getParameter("post_task");
+			if(!oldPostTask.equals(""))
+				taskRefDAOService.cutPostTask(taskVO.getId(), Integer.parseInt(oldPostTask));	// 일단 기존 것은 지우고
+			if(!newPostTask.equals(""))
+				taskRefDAOService.addPostTask(taskVO.getId(), Integer.parseInt(newPostTask));	// 추가
 		}
+		/////////////////////////////////////////
     	
     	if (taskVO.getStatus() == null) {
 			taskVO.setStatus("NORMAL");

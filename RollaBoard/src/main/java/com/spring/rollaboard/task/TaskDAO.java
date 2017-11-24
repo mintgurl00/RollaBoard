@@ -22,4 +22,6 @@ public interface TaskDAO {
 	
 	public void taskToRole(int task_id, int role_id);
 	
+	public void turnComplete(int task_id);
+	
 }

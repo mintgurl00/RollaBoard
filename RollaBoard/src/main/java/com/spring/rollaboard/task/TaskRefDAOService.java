@@ -296,12 +296,23 @@ public class TaskRefDAOService implements TaskRefDAO {
 	public void linkConnection(int frontTask, int backTask) {
 		TaskRefMapper taskRefMapper = sqlSession.getMapper( TaskRefMapper.class ) ;
 		taskRefMapper.linkConnection(frontTask, backTask);
+		turnBlocked(frontTask) ;
+	}
+
+	private void turnBlocked(int task_id) {
+		TaskMapper taskMapper = sqlSession.getMapper( TaskMapper.class ) ;
+		taskMapper.turnBlocked(task_id);
+	}
+	private void turnNormal(int task_id) {
+		TaskMapper taskMapper = sqlSession.getMapper( TaskMapper.class ) ;
+		taskMapper.turnNormal(task_id);
 	}
 
 	@Override
 	public void appendTask(int tailId, int taskId) {
 		TaskRefMapper taskRefMapper = sqlSession.getMapper( TaskRefMapper.class ) ;
 		taskRefMapper.appendTask(tailId, taskId);
+		turnBlocked(tailId) ;
 	}
 
 	@Override
@@ -309,29 +320,35 @@ public class TaskRefDAOService implements TaskRefDAO {
 		TaskRefMapper taskRefMapper = sqlSession.getMapper( TaskRefMapper.class ) ;
 		taskRefMapper.appendConnection1of2(taskId, headId);
 		taskRefMapper.appendConnection2of2(taskId, headId);
+		turnBlocked(taskId) ;
 	}
 
 	@Override
 	public void createConnection(int frontId, int backId) {
 		TaskRefMapper taskRefMapper = sqlSession.getMapper( TaskRefMapper.class ) ;
 		taskRefMapper.createConnection(frontId, backId);
+		turnBlocked(frontId) ;
 	}
 
 	@Override
 	public void divideConnction(int frontId, int backId) {
 		TaskRefMapper taskRefMapper = sqlSession.getMapper( TaskRefMapper.class ) ;
 		taskRefMapper.divideConnction(backId);
+		turnNormal(backId);
 	}
 
 	@Override
 	public void cutTail(int tailId) {
 		TaskRefMapper taskRefMapper = sqlSession.getMapper( TaskRefMapper.class ) ;
 		taskRefMapper.deleteTask(tailId);
+		turnNormal(tailId);
 	}
 
 	@Override
 	public void cutHead(int headId) {
 		TaskRefMapper taskRefMapper = sqlSession.getMapper( TaskRefMapper.class ) ;
+		int nextHeadId = taskRefMapper.getPostTaskId(headId);
+		turnNormal(nextHeadId);
 		taskRefMapper.pullHead(headId);
 		taskRefMapper.deleteTask(headId);
 	}
@@ -340,6 +357,7 @@ public class TaskRefDAOService implements TaskRefDAO {
 	public void perishConnection(int headId, int tailId) {
 		TaskRefMapper taskRefMapper = sqlSession.getMapper( TaskRefMapper.class ) ;
 		taskRefMapper.eraseConnection(headId);
+		turnNormal(headId);turnNormal(tailId);
 	}
 
 	@Override
@@ -359,6 +377,7 @@ public class TaskRefDAOService implements TaskRefDAO {
 		TaskRefMapper taskRefMapper = sqlSession.getMapper( TaskRefMapper.class ) ;
 		taskRefMapper.hideFromConnection(taskId) ;
 		taskRefMapper.deleteTask(taskId) ;
+		turnNormal(taskId);
 	}
 
 	@Override
