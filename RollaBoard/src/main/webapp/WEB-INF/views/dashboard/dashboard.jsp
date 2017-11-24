@@ -9,7 +9,6 @@
 		out.println("location.href='index.do'");
 		out.println("</script>");
 	}
-	session.setAttribute("id", "cdcase");
 	request.setCharacterEncoding("utf-8");
 	
 	List<BoardVO> boardList = (ArrayList<BoardVO>)request.getAttribute("boardList");

@@ -34,17 +34,49 @@ function updateRoleForm(cnt) {
 	document.getElementById("updateRole" + cnt).submit();
 }
 $(document).ready(function () {
-	$('.nameview').css("visibility", "hidden");
+
 	$('#toggle').click(function(){
-		if( $('.nameview').css("visibility") == "hidden") {
-			$('.nameview').css("visibility", "visible");
+		if( $('#nameview' + cnt).css("display") == "none") {
+			$('#nameview' + cnt).css("display", "block");
 		} else {
-			$('.nameview').css("visibility", "hidden" );
+			$('#nameview' + cnt).css("display", "none" );
 		}
 	});
 	
 	
 })
+
+function flip(cnt) {
+	if( $('.nameview' + cnt).css("display") == "none") {
+		$('.nameview' + cnt).css("display", "block");
+		
+	} 
+	if( $('.origin' + cnt).css("display") == "none") {
+		$('.origin' + cnt).css("display", "block");
+	} else {
+		$('.origin' + cnt).css("display", "none" );
+	}
+	$('#focus' + cnt).focus();
+	
+}
+
+function fadeout (cnt) {
+	if( $('.nameview' + cnt).css("display") != "none") {
+		$('.nameview' + cnt).css("display", "none");	
+	} 
+	if( $('.origin' + cnt).css("display") == "none") {
+		$('.origin' + cnt).css("display", "block");
+	}
+}
+
+function descfadeout(cnt) {
+	if( $('.nameview' + cnt).css("display") != "none") {
+		$('.nameview' + cnt).css("display", "none");	
+	} 
+	if( $('.origin' + cnt).css("display") == "none") {
+		$('.origin' + cnt).css("display", "block");
+	}
+}
 </script>
   
 <!-- 글자수제한 스크립트 -->
@@ -69,20 +101,29 @@ $(document).ready(function () {
       <div class = "row">
       	<form id = "updateRole<%=roleVO.getId() %>" action = "updaterole.do">
         <div class = "col-xs-3"  >
+        <div class= "origin<%=roleVO.getId() %> " style = "display:block; cursor:pointer" onclick = "javascript:flip(<%=roleVO.getId() %>)">
         	<%=roleVO.getName() %>
-        	<input type = "text"  class = "byteLimit nameview"  limitbyte="20" name = "name" placeholder = "수정할 정보 입력(이름)" value = "<%=roleVO.getName() %>" style = "visibility: ">
+        </div>
+        	<input type = "text" id = "focus<%=roleVO.getId() %>" class = "byteLimit nameview<%=roleVO.getId() %>" 
+        	 limitbyte="20" name = "name" placeholder = "수정할 정보 입력(이름)" value = "<%=roleVO.getName() %>" style = "display:none" >
         </div>
         <div class = "col-xs-3">
+        <div class= "origin<%=roleVO.getId() %>" style = "display:block">
         	<%=roleVO.getDescription() %>
-        	<input type = "text" class = "byteLimit nameview" limitbyte="100" name = "description" placeholder = "수정할 정보 입력(설명)" value = "<%=roleVO.getDescription() %>" style = "visibility:">
+       	</div>
+        	<input type = "text" id = "desc<%=roleVO.getId() %>" class = "byteLimit nameview nameview<%=roleVO.getId() %>" 
+        	limitbyte="100" name = "description" placeholder = "수정할 정보 입력(설명)" value = "<%=roleVO.getDescription() %>" style = "display:none" >
         </div>
         
-        <div class = "col-xs-3 nameview" align = right>
+        <div class = "col-xs-2 nameview<%=roleVO.getId() %>" align = right style = "display:none">
         
         	<input type = "text" name = "id" value = "<%=roleVO.getId() %>" hidden>
-        	<button type = submit class = "btn btn-info" onclick = "javascript:updateRoleForm(<%=roleVO.getId() %>)" >수정</button>
+        	<button type = button class = "btn btn-info" onclick = "javascript:updateRoleForm(<%=roleVO.getId() %>)" >수정</button>
 		</div>
         </form>
+        <div class = "nameview<%=roleVO.getId() %> col-xs-2" style = "display:none">
+        	<input type = "button" class = "btn btn-default"  value = "취소" onclick = "javascript:fadeout('<%=roleVO.getId() %>')" >
+        </div>
         <form id = "deleteRole<%=roleVO.getId() %>" action = "deleteRole.do">
         <div class = "col-xs-1">
         	<input type = "text" name = "id" value = "<%=roleVO.getId() %>" hidden>
@@ -95,7 +136,7 @@ $(document).ready(function () {
    <%if (roleList.size() == 0) {%>
    <center><h1>데이터가 없습니다.</h1></center>
    <%} else { %>
-   <div align = center><input type = button class = "btn btn-default" id = "toggle" value = "수정하기"></div>
+   
    <%} %>
    <br/>
    <br/>

@@ -231,6 +231,8 @@ public class ViewBoardController {
     	/* ******************************************************************** */
     	
     	//result.addObject( "rat_hasmap" , ratHashMap ) ;
+    	BoardVO boardVO = boardDAOService.getBoardInfo(board_id);
+    	result.addObject("boardVO", boardVO);
     	result.addObject( "board_id" , board_id + "" ) ;
     	result.addObject( "keyword" , keyword ) ;
     	result.setViewName("board/searchresult");

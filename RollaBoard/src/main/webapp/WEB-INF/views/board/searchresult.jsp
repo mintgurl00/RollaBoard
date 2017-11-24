@@ -14,7 +14,7 @@
 		out.println("</script>");
 	}
 	String id = (String) session.getAttribute("id");
-	
+	BoardVO boardVO = (BoardVO) request.getAttribute("boardVO");
 	ArrayList<ArrayList<TaskVO>> taskViewList = (ArrayList<ArrayList<TaskVO>>) request.getAttribute( "taskViewList" ) ;
 	ArrayList<SectionVO> sectionList = (ArrayList<SectionVO>) request.getAttribute( "sectionList" ) ; 
 	ArrayList<ArrayList<ArrayList<RoleAndTaskVO>>> roleAndTaskList = 
@@ -70,6 +70,7 @@ for( int i = 0 ; i < sectionSize ; i++ ){
 	<!-- 섹션 표시줄 -->
 	<%=sectionList.get(i).getName() %>
 	<br />
+	<%if ( id.equals(boardVO.getAdmin()) ) {%>
 	<form action="updatesectioninboard.do">
 		<input type="hidden" name="section_id" 	value="<%=sectionList.get(i).getId() %>" />
 		<input type="text" name="section_name" class="byteLimit" limitbyte="30"	value="<%=sectionList.get(i).getName() %>" placeholder = "SECTION명을 입력하세요." />
@@ -79,7 +80,7 @@ for( int i = 0 ; i < sectionSize ; i++ ){
 		<input type="hidden" name="section_id" value="<%=sectionList.get(i).getId() %>" />
 		<input type="submit" value="삭제" />
 	</form>
-	
+	<%} %>
 	<!-- 태스크 표시 -->
 	<%
 	for( int j = 0 ; j < taskViewList.get( i ).size() ; j++ ){
