@@ -39,17 +39,17 @@ top:20px; /* in conjunction with left property, decides the text position */
 left:25px;
 width:700px; /* optional, though better have one */
 }
-#task{float:left; width:200px; height:200px; margin-left:40px; margin-top:40px; background-color:#BDBDBF; text-align:center; cursor:pointer}
+#task{float:left; width:250px; height:250px; margin-left:40px; margin-top:40px; background-color:#BDBDBF; text-align:center; cursor:pointer}
 
 </style>
 <body>
 
 <!-- Sidebar/menu -->
-<nav class="w3-sidebar w3-cyan w3-collapse w3-top w3-large w3-padding" style="z-index:3;width:300px;font-weight:bold;" id="mySidebar"><br>
+<nav class="w3-sidebar w3-blue w3-collapse w3-top w3-large w3-padding" style="z-index:3;width:300px;font-weight:bold;" id="mySidebar"><br>
   <a href="javascript:void(0)" onclick="w3_close()" class="w3-button w3-hide-large w3-display-topleft" style="width:100%;font-size:19px">Close Menu</a>
-  <p class="w3-display-topleft w3-hide-medium w3-hide-small" style="font-size:15px"><a onClick = "openPop();" class = "w3-button">회원정보수정</a> | <a href="logout.do" class = "w3-button">logout</a></p>
+  <p class="w3-display-topleft w3-hide-medium w3-hide-small" style="font-size:15px;cursor:pointer"><a onClick = "openPop();">회원정보수정</a> | <a href="logout.do">logout</a></p>
   <div class="w3-container">
-    <h2 class="w3-padding-64"><b>MY<br>BOARD</b></h2>
+    <h2 class="w3-padding-64"><b>My<br>Board</b></h2>
   </div>
   <div class="w3-bar-block">
   	<% for (int i = 0; i < boardList.size(); i++) {
@@ -62,8 +62,8 @@ width:700px; /* optional, though better have one */
 </nav>
 
 <!-- Top menu on small screens -->
-<header class="w3-container w3-top w3-hide-large w3-cyan w3-xlarge w3-padding">
-  <a href="javascript:void(0)" class="w3-button w3-cyan w3-margin-right" onclick="w3_open()">☰</a>
+<header class="w3-container w3-top w3-hide-large w3-blue w3-xlarge w3-padding">
+  <a href="javascript:void(0)" class="w3-button w3-blue w3-margin-right" onclick="w3_open()">☰</a>
   <p class="w3-display-topleft w3-hide-medium w3-hide-small" style="font-size:15px"><a onClick = "openPop();" class = "w3-button">회원정보수정</a> | <a href="logout.do" class = "w3-button">logout</a></p>
   <span>MY BOARD</span>
   <span class = "w3-display-topright">
@@ -80,7 +80,7 @@ width:700px; /* optional, though better have one */
   <!-- Header -->
   <div class="w3-container" style="margin-top:40px" id="showcase">
     <h1 class="w3-jumbo"><b>MY TASK</b></h1>
-    <hr style="width:50px;border:5px solid red" class="w3-round">
+    <hr style="width:50px;border:5px solid orange" class="w3-round">
   </div>
   
   <!-- Photo grid (modal) -->
@@ -92,7 +92,7 @@ width:700px; /* optional, though better have one */
 	<% for (int k = 0; k < taskList.size(); k++) {
 		TaskVO taskVO = taskList.get(k);
 	%>
-    <div id="task" onclick="javascript:viewTask(<%=taskVO.getId() %>)"><h3><%=taskVO.getName()%></h3><br/><br/>BOARD 이름:<%=taskVO.getDescription() %></div>
+    <div id="task" onclick="javascript:viewTask(<%=taskVO.getId() %>)"><br/><h3><%=taskVO.getName()%></h3><br/>in <%=taskVO.getDescription() %></div>
     <form id = "taskview<%=taskVO.getId() %>" action = "taskview.do" hidden>
 		<input type = hidden name = "task_id" value = "<%=taskVO.getId() %>">
 		<input type = hidden name = "board_name" value = "<%=taskVO.getDescription()%>">
@@ -110,18 +110,6 @@ width:700px; /* optional, though better have one */
       <p id="caption"></p>
     </div>
   </div>
-
-  
-  
-
-
-  
-
- 
-
-  
-  
-
 
 <!-- End page content -->
 </div>

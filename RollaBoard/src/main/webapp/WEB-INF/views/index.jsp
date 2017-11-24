@@ -25,7 +25,7 @@ body {
 	<br>  <br> <br> <br> <br>  <br> <br> <br>
   <div class = "row">
 	<div class = "col-sm-offset-2">
-  	<h1 >RollaBoard <br></h1>  <h2> LOGIN </h2>
+  	<h1><b>RollaBoard</b> <br></h1>  <h2> LOGIN </h2>
   </div>
   </div>
   <form class="form-horizontal" action="login.do" method = "post">
