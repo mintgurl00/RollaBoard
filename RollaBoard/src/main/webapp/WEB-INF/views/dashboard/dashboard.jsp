@@ -9,7 +9,6 @@
 		out.println("location.href='index.do'");
 		out.println("</script>");
 	}
-	session.setAttribute("id", "cdcase");
 	request.setCharacterEncoding("utf-8");
 	
 	List<BoardVO> boardList = (ArrayList<BoardVO>)request.getAttribute("boardList");
@@ -20,6 +19,7 @@
 <html>
 <title>Dashboard</title>
 <meta charset="UTF-8">
+<link href = "reset.css">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins">
@@ -80,7 +80,7 @@ width:700px; /* optional, though better have one */
 
   <!-- Header -->
   <div class="w3-container" style="margin-top:40px" id="showcase">
-    <h1 class="w3-jumbo"><b>MY TASK</b></h1>
+    <h1 class="w3-jumbo"><b>My Tasks</b></h1>
     <hr style="width:50px;border:5px solid orange" class="w3-round">
   </div>
   
