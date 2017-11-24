@@ -28,7 +28,7 @@ if(session.getAttribute("id") == null) {
 <div class = "form-group">
 	<label for = "board_name" class = "control-label col-xs-2">BOARD 이름</label>
 	<div class = "col-xs-10">
-	<input type = "text" class = "form-control" id = "board_name" name = "name" placeholder="Board 코드를 입력하세요">
+	<input type = "text" class = "form-control" id = "board_name" name = "name" placeholder="Board 이름을 정확히 입력하세요">
 	</div>
 </div>
 <div class = "form-group">
