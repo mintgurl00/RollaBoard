@@ -26,5 +26,9 @@ public interface RoleDAO {
 	public int getRoleIdByName(String name, int board_id); // 규성
 	
 	public ArrayList<RoleVO> getRolesByMem(String mem_id, int board_id); // 규성.
+
+	public ArrayList<RoleVO> getRolesByTask(int task_id);
+
+	public void deallocateTask(int role_id, int task_id);
 	
 }

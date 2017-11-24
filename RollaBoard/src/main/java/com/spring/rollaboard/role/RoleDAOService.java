@@ -100,6 +100,19 @@ public class RoleDAOService implements RoleDAO {
 		return roleMapper.getRolesByMem(mem_id, board_id);
 	}
 
+	@Override
+	public ArrayList<RoleVO> getRolesByTask(int task_id) {
+		RoleMapper roleMapper = sqlSession.getMapper(RoleMapper.class);
+		return roleMapper.getRolesByTask(task_id);
+	}
+
+	@Override
+	public void deallocateTask(int role_id, int task_id) {
+		RoleMapper roleMapper = sqlSession.getMapper(RoleMapper.class);
+		roleMapper.deallocateTask(role_id, task_id);
+		
+	}
+
 	
 	
 	

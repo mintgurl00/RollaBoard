@@ -69,4 +69,12 @@
 		WHERE MEM_ID = #{mem_id} AND BOARD_ID = #{board_id}
 	</select>
 	
+	<select id = "getRolesByTask" parameterType = "map" resultMap = "RoleResultMap" >
+		select ID, NAME, BOARD_ID, B.DESCRIPTION from task_role A JOIN ROLE B ON A.ROLE_ID = B.ID WHERE TASK_ID = #{task_id, javaType=int}
+	</select>
+	
+	<delete id = "deallocateTask" parameterType = "map">
+		delete task_role WHERE ROLE_ID = #{role_id, javaType=int} AND TASK_ID = #{task_id, javaType=String}
+	</delete>
+	
 </mapper>
