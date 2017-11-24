@@ -319,7 +319,7 @@ function showRefBoard(){
   <p>당신의 꿈을 현실로 만들어 드립니다!</p> 
   <form>
     <div class="input-group" >
-      	<input type="text" name="keyword" id="keyword" class="form-control" size="50" placeholder="검색할 TASK 입력">
+      	<input type="text" name="keyword" id="keyword" class="form-control" size="50" placeholder="검색할 TASK 입력" required>
       	<input type="hidden" name="written_keyword" id="written_keyword" value=""/>
 		<input type ="hidden" name="board_id" value="<%=boardVO.getId()%>" />
       <div class="input-group-btn">

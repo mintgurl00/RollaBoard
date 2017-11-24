@@ -99,8 +99,10 @@ public class ViewBoardController {
     		PrintWriter out = response.getWriter();
             out.println("<script>alert('아직 승인되지 않았습니다.');</script>");
             out.flush(); 
-            System.out.println("승인안됨. 세션은? " + session.getAttribute("id"));
         	List<BoardVO> boardList = boardDAOService.getBoards(id); // 보드리스트 받아옴
+        	session.removeAttribute("board_id"); // 대쉬보드로 이동시 board_id 세션을 없앤다.
+        	ArrayList<TaskVO> taskList = taskDAOService.getMyTasks(id);
+        	result.addObject("taskList", taskList);
         	result.addObject("boardList", boardList);
             result.setViewName("dashboard/dashboard");
             return result;
