@@ -1,11 +1,8 @@
 package com.spring.rollaboard.controller;
 
-import java.io.PrintWriter;
 import java.util.ArrayList;
-import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
@@ -16,14 +13,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.spring.rollaboard.board.BoardDAOService;
-import com.spring.rollaboard.board.BoardVO;
 import com.spring.rollaboard.cmt.CmtDAOService;
 import com.spring.rollaboard.mem.MemDAOService;
-import com.spring.rollaboard.mem.MemVO;
 import com.spring.rollaboard.role.RoleDAOService;
 import com.spring.rollaboard.role.RoleVO;
 import com.spring.rollaboard.section.SectionDAOService;
 import com.spring.rollaboard.task.TaskDAOService;
+import com.spring.rollaboard.task.TaskRefDAOService;
 import com.spring.rollaboard.task.TaskVO;
 
 //깃 테스트
@@ -40,6 +36,8 @@ public class TaskController {
 	private SectionDAOService sectionDAOService;
 	@Autowired
 	private TaskDAOService taskDAOService;
+	@Autowired
+	private TaskRefDAOService taskRefDAOService;
 	@Autowired
 	private BoardDAOService boardDAOService;
 	
@@ -78,6 +76,19 @@ public class TaskController {
     	// 배정할 롤 리스트를 같이 첨부해서 전송한다.
 		int board_id = Integer.parseInt((String)session.getAttribute("board_id"));
 		ArrayList<RoleVO> roleList = roleDAOService.getRoles(board_id);
+		
+		int taskId = taskVO.getId() ;
+		int preTaskId = -1, postTaskId = -1 ;
+		if(taskRefDAOService.isConnectedTask(taskId)){
+			if(taskRefDAOService.isHavingPostTask(taskId))
+				postTaskId = taskRefDAOService.getPostTaskId(taskId);
+			if(taskRefDAOService.isHavingPreTask(taskId))
+				preTaskId = taskRefDAOService.getPreTaskId(taskId);
+		}
+		if( preTaskId > -1)
+			result.addObject("preTaskId", preTaskId);
+		if( postTaskId > -1)
+			result.addObject("preTaskId", postTaskId);
 		result.addObject("roleList", roleList);
     	result.addObject("taskVO", taskVO);
     	result.setViewName("task/updatetask");
@@ -85,10 +96,18 @@ public class TaskController {
     }
     
     @RequestMapping("updatetask.do")
-    public ModelAndView updatetask(String taskToRole, TaskVO taskVO, HttpSession session) {
+    public ModelAndView updatetask(String taskToRole, TaskVO taskVO, HttpSession session, HttpServletRequest request) {
     	ModelAndView result = new ModelAndView();
     	System.out.println("태스크에 배정할 롤 이름! : " + taskToRole);
     	System.out.println("업데이트할 task_id : " + taskVO.getId());
+    	
+		if(!request.getParameter("pre_task").equals("")){
+			taskRefDAOService.addPreTask(taskVO.getId(), Integer.parseInt(request.getParameter("pre_task")));
+		}
+		if(!request.getParameter("post_task").equals("")){
+			taskRefDAOService.addPostTask(taskVO.getId(), Integer.parseInt(request.getParameter("post_task")));
+		}
+    	
     	if (taskVO.getStatus() == null) {
 			taskVO.setStatus("NORMAL");
 		}
@@ -138,16 +157,12 @@ public class TaskController {
 	public ModelAndView insertTask(String taskToRole, HttpSession session, TaskVO taskVO, HttpServletRequest request) {
 		System.out.println("만들 태스크의 이름 : " + taskVO.getName());
 		
-		
-		
 		// 태스크를 생성한다.
 		taskDAOService.createTask(taskVO);
-		
 
 		ModelAndView result = new ModelAndView();
 		result.setViewName("redirect:board.do");
-		return result;
-		
+		return result;	
     	
 	}
 	

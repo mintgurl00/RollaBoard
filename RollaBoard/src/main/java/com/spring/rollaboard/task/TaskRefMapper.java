@@ -1,7 +1,5 @@
 package com.spring.rollaboard.task;
 
-import java.util.ArrayList;
-
 import org.apache.ibatis.annotations.Param;
 
 public interface TaskRefMapper {
@@ -16,7 +14,6 @@ public interface TaskRefMapper {
 	public void addPreTask(@Param("taskId") int taskId, @Param("preTaskId") int preTaskId) ;
 
 	public void createPreTask(@Param("taskId") int taskId, @Param("preTaskId") int preTaskId);
-	// public void createPostTask(@Param("taskId") int taskId, @Param("postTaskId") int postTaskId);
 	
 	public void insertByPreTask1of2(@Param("preTaskId") int preTaskId);
 	public void insertByPreTask2of2(@Param("taskId") int taskId, @Param("preTaskId") int preTaskId);
@@ -33,6 +30,11 @@ public interface TaskRefMapper {
 	
 	public void divideConnction(@Param("backId") int backId);
 	public void deleteTask(@Param("taskId") int taskId);
+	public void hideFromConnection(@Param("taskId") int taskId);
 	public void pullHead(@Param("headId") int headId);
 	public void eraseConnection(@Param("headId") int headId);
+	
+	public int getPreTaskId(int id);
+	public int getPostTaskId(int id);
+	
 }

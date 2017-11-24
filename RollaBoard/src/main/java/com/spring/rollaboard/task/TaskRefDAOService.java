@@ -118,28 +118,8 @@ public class TaskRefDAOService implements TaskRefDAO {
 		createPreTask(postTaskId, taskId);
 	}
 
-/*	@Override
-	public void cutPreTask(int taskId, int preTaskId) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void cutPostTask(int taskId, int postTaskId) {
-		// TODO Auto-generated method stub
-		
-	}*/
-
-	@Override
-	public void pullFromConnection(int taskId) {
-		// TODO Auto-generated method stub
-		
-	}
-	//////////////////////////////////////////
-
 	@Override
 	public void addPreTask(int taskId, int preTaskId) {
-		TaskRefMapper taskRefMapper = sqlSession.getMapper( TaskRefMapper.class ) ;
 		Case preTaskCase, taskCase ;
 		preTaskCase = checkTaskConn(preTaskId);
 		taskCase = checkTaskConn(taskId);
@@ -154,18 +134,22 @@ public class TaskRefDAOService implements TaskRefDAO {
 		}else if(preTaskCase==Case.POSTCONN){
 			if(taskCase==Case.POSTCONN){
 				System.out.println( "대상[후].연결 : *대상의후행T를끊고*선행T에 T연결을 뒤에잇기" ) ;
-				/////////////
+				cutPostTask(preTaskId);
+				appendConnection(preTaskId, taskId);
 			}else{
 				System.out.println( "대상[후].미연결 : *대상의후행T를끊고*선행T에 T를 뒤에붙이기" ) ;
-				//////////////
+				cutPostTask(preTaskId);
+				createConnection(preTaskId, taskId);
 			}
 		}else if(preTaskCase==Case.BOTHCONN){
 			if(taskCase==Case.POSTCONN){
 				System.out.println( "대상[선&후].연결 : *대상의후행T를끊고*선행T연결에 T연결을 뒤에잇기" ) ;
-				/////////////
+				cutPostTask(preTaskId);
+				linkConnection(preTaskId, taskId);
 			}else{
 				System.out.println( "대상[선&후].미연결 : *대상의후행T를끊고*선행T연결에 T를 뒤에붙이기" ) ;
-				////////////
+				cutPostTask(preTaskId);
+				appendTask(preTaskId, taskId);
 			}
 		}else{
 			if(taskCase==Case.POSTCONN){
@@ -181,17 +165,17 @@ public class TaskRefDAOService implements TaskRefDAO {
 
 	@Override
 	public void addPostTask(int taskId, int postTaskId) {
-		TaskRefMapper taskRefMapper = sqlSession.getMapper( TaskRefMapper.class ) ;
 		Case postTaskCase, taskCase ;
 		postTaskCase = checkTaskConn(postTaskId);
 		taskCase = checkTaskConn(taskId);
 		if(postTaskCase==Case.PRECONN){
 			if(taskCase==Case.PRECONN){
 				System.out.println( "대상[선].연결 : *대상의선행T를끊고*T연결에 후행T를 앞에붙이기") ;
-				/////////////////////
+				cutPreTask(postTaskId);
+				appendTask(taskId, postTaskId);
 			}else{
 				System.out.println( "대상[선].연결 : *대상의선행T를끊고*T연결에 후행T를 앞에붙이기") ;
-				//////////////////////
+				createConnection(taskId, postTaskId);	
 			}
 		}else if(postTaskCase==Case.POSTCONN){
 			if(taskCase==Case.PRECONN){
@@ -204,10 +188,12 @@ public class TaskRefDAOService implements TaskRefDAO {
 		}else if(postTaskCase==Case.BOTHCONN){
 			if(taskCase==Case.PRECONN){
 				System.out.println( "대상[선&후].연결 : *대상의선행T를끊고*T연결과 후행T연결을 잇기" ) ;
-				/////////////
+				cutPreTask(postTaskId);
+				linkConnection(taskId, postTaskId);
 			}else{
 				System.out.println( "대상[선&후].미연결 : *대상의선행T를끊고*후행T연결에 T를 앞에붙이기" ) ;
-				////////////
+				cutPreTask(postTaskId);
+				appendConnection(taskId, postTaskId);
 			}
 		}else{
 			if(taskCase==Case.PRECONN){
@@ -256,22 +242,31 @@ public class TaskRefDAOService implements TaskRefDAO {
 		cutPostTask(taskId, taskCase, postTaskId, postTaskCase);
 	}
 	
+	public void cutPostTask(int taskId) {
+		int postTaskId = getPostTaskId(taskId) ;
+		cutPostTask(taskId, postTaskId);
+	}
+	public void cutPreTask(int taskId) {
+		int postTaskId = getPreTaskId(taskId) ;
+		cutPreTask(taskId, postTaskId);
+	}
+	
 	public void cutPostTask(int taskId, Case taskCase , int postTaskId, Case postTaskCase ) {
 		if(postTaskCase==Case.BOTHCONN || postTaskCase==Case.POSTCONN){
 			if(taskCase==Case.BOTHCONN){
 				System.out.println( "대상[선].연결 : T연결과 후행T연결로 분리") ;
 				divideConnction(taskId, postTaskId);
 			}else{
-				System.out.println( "대상[선].미연결 : T연결삭제") ;
+				System.out.println( "대상[선].미연결 : T삭제, (+T연결재정렬)") ;
 				cutHead(taskId);
 			}
 		}else if(postTaskCase==Case.PRECONN || postTaskCase==Case.NONE){
 			if(taskCase==Case.BOTHCONN){
-				System.out.println( "대상[x].연결 : 선행T연결삭제(+T연결재정렬)" ) ;
-				cutHead(postTaskId);
+				System.out.println( "대상[x].연결 : 후행T연결삭제" ) ;
+				cutTail(postTaskId);
 			}else{
-				System.out.println( "대상[x].미연결 : 선행T연결삭제, T연결삭제" ) ;
-				perishConnection(postTaskId, taskId);
+				System.out.println( "대상[x].미연결 : 후행T연결삭제, T연결삭제" ) ;
+				perishConnection(taskId, postTaskId);
 			}
 		}
 	}
@@ -345,5 +340,32 @@ public class TaskRefDAOService implements TaskRefDAO {
 	public void perishConnection(int headId, int tailId) {
 		TaskRefMapper taskRefMapper = sqlSession.getMapper( TaskRefMapper.class ) ;
 		taskRefMapper.eraseConnection(headId);
+	}
+
+	@Override
+	public int getPreTaskId(int taskId) {
+		TaskRefMapper taskRefMapper = sqlSession.getMapper( TaskRefMapper.class ) ;
+		return taskRefMapper.getPreTaskId(taskId);
+	}
+
+	@Override
+	public int getPostTaskId(int taskId) {
+		TaskRefMapper taskRefMapper = sqlSession.getMapper( TaskRefMapper.class ) ;
+		return taskRefMapper.getPostTaskId(taskId);
+	}
+
+	@Override
+	public void pullFromConnection(int taskId) {
+		TaskRefMapper taskRefMapper = sqlSession.getMapper( TaskRefMapper.class ) ;
+		taskRefMapper.hideFromConnection(taskId) ;
+		taskRefMapper.deleteTask(taskId) ;
+	}
+
+	@Override
+	public void breakConnection(int taskId) {
+		TaskRefMapper taskRefMapper = sqlSession.getMapper( TaskRefMapper.class ) ;
+		if(isHavingPostTask(taskId))
+			taskRefMapper.divideConnction(getPostTaskId(taskId));
+		taskRefMapper.deleteTask(taskId) ;
 	}
 }

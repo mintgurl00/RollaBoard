@@ -13,6 +13,11 @@ if(session.getAttribute("id") == null) {
 
 TaskVO taskVO = (TaskVO) request.getAttribute("taskVO");
 ArrayList<RoleVO> roleList = (ArrayList<RoleVO>) request.getAttribute("roleList");
+//String preTaskId = ""
+String postTaskId = "" ;
+String preTaskId = request.getAttribute("preTaskId").toString() ;
+request.getAttribute("postTaskId") ;
+	
 %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -52,7 +57,7 @@ ArrayList<RoleVO> roleList = (ArrayList<RoleVO>) request.getAttribute("roleList"
                   
                 code = parseInt(code);
                   
-                if ((ch < "0" || ch > "9") && (ch < "A" || ch > "Z") && ((code > 255) || (code < 0))){
+                if ((ch < "0" || ch > "9") && (ch < "A" || ch > "Z") && ((code > 255) || (code < 0)) ){
                     strLength = strLength + 3; //UTF-8 3byte 로 계산
                 }else{
                     strLength = strLength + 1;
@@ -133,11 +138,11 @@ ArrayList<RoleVO> roleList = (ArrayList<RoleVO>) request.getAttribute("roleList"
 	</div>
 	
 	<div id ="pre_Task"> 선행TASK  <br/>
-		<input type="text" id="pre_task" placeholder="Task id를 입력하시오" size="40" ><br/><br/><br/>
+		<input type="text" id="pre_task" name="pre_task" value="<%=preTaskId %>" placeholder="Task id를 입력하시오" size="40"><br/><br/><br/>
 	</div>
 	
 	<div id ="postTask"> 후행TASK  <br/>
-		<input type="text" id="post_task" placeholder="Task id를 입력하시오" size="40"><br/><br/><br/>
+		<input type="text" id="post_task" name="post_task" value="<%=postTaskId %>" placeholder="Task id를 입력하시오" size="40"><br/><br/><br/>
 	</div>
     
     <div id="button">
