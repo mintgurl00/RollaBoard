@@ -11,9 +11,13 @@
 바로 웰컴으로 가는 페이지
 
 시작!!!
+ 
 <script type="text/javascript">
-location.href='./' ; 
+
+	//location.href='./test.do' ; 
+	location.href='./';
 </script>
+
 
 </body>
 </html>
