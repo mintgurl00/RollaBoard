@@ -8,7 +8,6 @@ if(session.getAttribute("id") == null) {
 	out.println("location.href='index.do'");
 	out.println("</script>");
 }
-
 ArrayList<RoleVO> roleList = (ArrayList<RoleVO>) request.getAttribute("roleList");
 %>
 <!DOCTYPE html>
@@ -20,8 +19,10 @@ ArrayList<RoleVO> roleList = (ArrayList<RoleVO>) request.getAttribute("roleList"
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-<script type = "text/javascript" language = "javascript">
-function chkBox(cnt) {
+  <script src="https://code.jquery.com/jquery-1.10.2.js">     </script>
+  
+  <script type = "text/javascript" language = "javascript">
+  function chkBox(cnt) {
 	var chk = confirm("삭제하시겠습니까?");
 	if (chk) {
 		document.getElementById("deleteRole" + cnt).submit();
@@ -40,62 +41,16 @@ $(document).ready(function () {
 		} else {
 			$('.nameview').css("visibility", "hidden" );
 		}
-	})
+	});
+	
+	
 })
-
 </script>
-
+  
 <!-- 글자수제한 스크립트 -->
- <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
-  <script>
-    $(document).ready( function() {
-        //글자 byte 수 제한
-        $('.byteLimit').blur(function(){
-                          
-            var thisObject = $(this);
-              
-            var limit = thisObject.attr("limitbyte"); //제한byte를 가져온다.
-            var str = thisObject.val();
-            var strLength = 0;
-            var strTitle = "";
-            var strPiece = "";
-            var check = false;
-                      
-            for (i = 0; i < str.length; i++){
-                var code = str.charCodeAt(i);
-                var ch = str.substr(i,1).toUpperCase();
-                //체크 하는 문자를 저장
-                strPiece = str.substr(i,1)
-                  
-                code = parseInt(code);
-                  
-                if ((ch < "0" || ch > "9") && (ch < "A" || ch > "Z") && ((code > 255) || (code < 0))){
-                    strLength = strLength + 3; //UTF-8 3byte 로 계산
-                }else{
-                    strLength = strLength + 1;
-                }
-                  
-                if(strLength>limit){ //제한 길이 확인
-                    check = true;
-                    break;
-                }else{
-                    strTitle = strTitle+strPiece; //제한길이 보다 작으면 자른 문자를 붙여준다.
-                }
-                  
-            }
-              
-            if(check){
-                alert(limit+"byte 초과된 문자는 잘려서 입력 됩니다.");
-            }
-              
-            thisObject.val(strTitle);
-              
-        });
-    });
-      
-  </script>
-
-
+  <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+  <script src = "js/rolelist.js"></script>
+  
 </head>
 <body>
 <div class="container">
@@ -115,11 +70,11 @@ $(document).ready(function () {
       	<form id = "updateRole<%=roleVO.getId() %>" action = "updaterole.do">
         <div class = "col-xs-3"  >
         	<%=roleVO.getName() %>
-        	<input type = "text"  class = "byteLimit" limitbyte="20" name = "name" placeholder = "수정할 정보 입력(이름)" value = "<%=roleVO.getName() %>" style = "visibility: ">
+        	<input type = "text"  class = "byteLimit nameview"  limitbyte="20" name = "name" placeholder = "수정할 정보 입력(이름)" value = "<%=roleVO.getName() %>" style = "visibility: ">
         </div>
         <div class = "col-xs-3">
         	<%=roleVO.getDescription() %>
-        	<input type = "text" class = "byteLimit" limitbyte="100" name = "description" placeholder = "수정할 정보 입력(설명)" value = "<%=roleVO.getDescription() %>" style = "visibility:">
+        	<input type = "text" class = "byteLimit nameview" limitbyte="100" name = "description" placeholder = "수정할 정보 입력(설명)" value = "<%=roleVO.getDescription() %>" style = "visibility:">
         </div>
         
         <div class = "col-xs-3 nameview" align = right>
