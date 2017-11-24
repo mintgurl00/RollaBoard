@@ -22,9 +22,10 @@
 <html lang="en">
 <head>
   <!-- Theme Made By www.w3schools.com - No Copyright -->
-  <title>Bootstrap Theme Company Page</title>
+  <title>Board Page</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href = "reset.css">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
   <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet" type="text/css">
   <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet" type="text/css">
@@ -33,14 +34,15 @@
   <style>
 #ref_board{width:280px; height:50px; background-color:#DAD9FF}
 #filter{float:left; width:1860px; height:50px; background-color:#DAD9FF; text-align:right}
-#content{overflow:scroll; width:1880px; height:960px}
-#section{float:left; width:400px; height:900px; margin-left:40px; margin-top:40px; background-color:#DAD9FF; text-align:center}
-#task{width:350px; height:150px; margin-left:20px; margin-top:20px; background-color:#FFFFFF; text-align:center}
+#content{overflow:auto; width:auto; height:auto; margin-top:0px;}
+#section{overflow-x:hidden; float:left; width:300px; height:600px; margin-left:10px; margin-top:10px; background-color:#DAD9FF; text-align:center}
+#task{width:260px; height:auto; margin-left:20px; margin-top:20px; background-color:#BDBDBF; text-align:center}
   
   body {
       font: 400 15px Lato, sans-serif;
+      height:auto;
       line-height: 1.8;
-      color: #818181;
+
   }
   h2 {
       font-size: 24px;
@@ -59,7 +61,7 @@
   .jumbotron {
       background-color: #F44336;
       color: #fff;
-      padding: 100px 25px;
+      padding: 40px 25px;
       font-family: Montserrat, sans-serif;
   }
   .container-fluid {
@@ -315,8 +317,7 @@ function showRefBoard(){
 </nav>
 
 <div class="jumbotron text-center">
-  <h1><%=boardVO.getName() %></h1> 
-  <p>당신의 꿈을 현실로 만들어 드립니다!</p> 
+  <h3><%=boardVO.getName() %></h3>  
   <form>
     <div class="input-group" >
       	<input type="text" name="keyword" id="keyword" class="form-control" size="50" placeholder="검색할 TASK 입력">
@@ -330,7 +331,7 @@ function showRefBoard(){
   <div align = right>
       <input type="checkbox" class="filter" id="chk_duedate" name="due" value="FALSE" onclick="javascript:filterResult(this)"/>
 		마감일순 보기
-    </div>
+  </div>
 </div>
 
 <!-- 보드 -->

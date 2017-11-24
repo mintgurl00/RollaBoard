@@ -133,20 +133,21 @@ for( int i = 0 ; i < sectionSize ; i++ ){
 
 		<div id="task" method = "post" onclick="location.href='./taskview.do?task_id=<%=taskViewList.get( i ).get( j ).getId() %>';" style="cursor:pointer">
 
-			<h3>TASK명:<%=taskViewList.get( i ).get( j ).getName() %></h3>
-			TASK내용:<%=taskViewList.get( i ).get( j ).getDescription() %><br />
-			TASK_id:<%=taskViewList.get( i ).get( j ).getId() %><br />
-			TASK상태:<%=taskViewList.get( i ).get( j ).getStatus() %><br />
+			<h3><%=taskViewList.get( i ).get( j ).getName() %></h3>
+			내용:<%=taskViewList.get( i ).get( j ).getDescription() %><br />
+			STATUS:<%=taskViewList.get( i ).get( j ).getStatus() %><br />
 			
 			<%
 			if( roleAndTaskList.get( i ).get( j ) != null && roleAndTaskList.get( i ).get( j ).size() > 0 ){ %>
-				<b>롤 정보는</b><br />
+				<b>ROLE</b><br />
 				<%
 				for( int k = 0 ; k < roleAndTaskList.get( i ).get( j ).size() ; k++ ){%>
-					<%=roleAndTaskList.get( i ).get( j ).get( k ).getRoleName() %>
+					<b><%=roleAndTaskList.get( i ).get( j ).get( k ).getRoleName() %> : </b>
 					<%=roleAndTaskList.get( i ).get( j ).get( k ).getMemName() %>
+					<br/>
 				<%
 				}%>
+				
 			<%
 			}%>
 		</div>
@@ -160,7 +161,7 @@ for( int i = 0 ; i < sectionSize ; i++ ){
 		<input type="hidden" name="section_id" value = "<%=sectionList.get(i).getId() %>" required></input>
 		<%-- <input type="hidden" name="task_id" value = "<%= %>" required></input> --%>
 		
-		<input type="submit" value="TASK생성"  ></input>	
+		<input type="submit" class = "btn btn-default" value="TASK생성"  ></input>	
 	    
 	</form>
 	
@@ -179,6 +180,8 @@ for( int i = 0 ; i < sectionSize ; i++ ){
 <%
 if( keyword.equals( "" ) ){	// 검색 결과가 *아니*라면
 %>
-	<button type="button" onclick="location.href='createsectioninboard.do';">섹션만들기</button>
+	<div>
+	<button type="button" class = "btn btn-info" onclick="location.href='createsectioninboard.do';">추가+</button>
+	</div>
 <% 
 }%>

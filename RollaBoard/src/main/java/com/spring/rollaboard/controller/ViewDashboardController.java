@@ -67,9 +67,13 @@ public class ViewDashboardController {
     @RequestMapping("dashboard.do")
     public ModelAndView dashboard(HttpSession session) {
     	ModelAndView result = new ModelAndView();
+    	if (session.getAttribute("id") == null) {
+			result.setViewName("redirect:index.do");
+		}
     	List<BoardVO> boardList = boardDAOService.getBoards((String)(session.getAttribute("id"))); //수민. 대시보드로 갈 때 보드리스트 받아옴
     	session.removeAttribute("board_id"); // 대쉬보드로 이동시 board_id 세션을 없앤다.
     	// 대쉬보드에 내 TASK 보기
+    	
     	String mem_id = (String) session.getAttribute("id");
     	System.out.println("dashboard입니다.세션의 맴버아이디 : " + mem_id);
     	ArrayList<TaskVO> taskList = taskDAOService.getMyTasks(mem_id);
