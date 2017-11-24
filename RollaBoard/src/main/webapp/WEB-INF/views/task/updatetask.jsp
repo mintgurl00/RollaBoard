@@ -81,12 +81,12 @@ request.getAttribute("postTaskId") ;
         });
         
         $(".checkDiff > input").blur(function(){
-        	var oldVal = $("this > input[type='hidden'").val() ;
-        	var newVal = $("this > input[type='text'").val() ;
+        	var oldVal = $(this).parent().children("input[type='hidden']").val() ;
+        	var newVal = $(this).parent().children("input[type='text']").val() ;
         	if(oldVal!=newVal){
-        		$(".checkDiff > input[type='text']").css("background-color", "#ff0000");
+        		$(this).css("background-color", "#ff0000");
         	}else{
-        		$(".checkDiff > input[type='text']").css("background-color", "#ffffff");
+        		$(this).css("background-color", "#ffffff");
         	}
         });
     });
