@@ -8,6 +8,7 @@ if(session.getAttribute("id") == null) {
 	out.println("location.href='index.do'");
 	out.println("</script>");
 }
+
 ArrayList<RoleVO> roleList = (ArrayList<RoleVO>) request.getAttribute("roleList");
 %>
 <!DOCTYPE html>
