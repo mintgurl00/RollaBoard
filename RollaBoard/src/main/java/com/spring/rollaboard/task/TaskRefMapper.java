@@ -30,9 +30,9 @@ public interface TaskRefMapper {
 	
 	public void divideConnction(@Param("backId") int backId);
 	public void deleteTask(@Param("taskId") int taskId);
-	public void hideFromConnection(@Param("taskId") int taskId);
+	public void hideFromConnection(@Param("taskId") int taskId);	// 해당Task보다 큰 ref_level을가지고 있으면 ref_level-=1
 	public void pullHead(@Param("headId") int headId);
-	public void eraseConnection(@Param("headId") int headId);
+	public void eraseConnection(@Param("rootId") int rootId);	// root TASK인 관계 전부 삭제
 	
 	public int getPreTaskId(int id);
 	public int getPostTaskId(int id);

@@ -177,7 +177,7 @@
 	<!-- eraseConnection -->
 	<delete id = "eraseConnection" parameterType = "map">
 		DELETE FROM task_conn 
-		WHERE root_task_id=#{headId}
+		WHERE root_task_id=#{rootId}
 	</delete>
 	
 	<!-- getPreTaskId -->

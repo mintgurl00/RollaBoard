@@ -348,7 +348,7 @@ public class TaskRefDAOService implements TaskRefDAO {
 	public void cutHead(int headId) {
 		TaskRefMapper taskRefMapper = sqlSession.getMapper( TaskRefMapper.class ) ;
 		int nextHeadId = taskRefMapper.getPostTaskId(headId);
-		turnNormal(nextHeadId);
+		turnNormal(nextHeadId);turnNormal(headId);
 		taskRefMapper.pullHead(headId);
 		taskRefMapper.deleteTask(headId);
 	}
@@ -373,18 +373,25 @@ public class TaskRefDAOService implements TaskRefDAO {
 	}
 
 	@Override
-	public void pullFromConnection(int taskId) {
+	public void pullFromConnection(int taskId) {	// 연결에서 뽑아내기(기존 연결은 유지)
 		TaskRefMapper taskRefMapper = sqlSession.getMapper( TaskRefMapper.class ) ;
-		taskRefMapper.hideFromConnection(taskId) ;
+		if(taskRefMapper.isHavingPostTask(taskId)>0){
+			taskRefMapper.hideFromConnection(taskId) ;
+		}else{
+		}
 		taskRefMapper.deleteTask(taskId) ;
 		turnNormal(taskId);
 	}
 
 	@Override
-	public void breakConnection(int taskId) {
+	public void breakConnection(int taskId) {	// 해당 Task를 없애고 연결을 분리시킴
 		TaskRefMapper taskRefMapper = sqlSession.getMapper( TaskRefMapper.class ) ;
-		if(isHavingPostTask(taskId))
-			taskRefMapper.divideConnction(getPostTaskId(taskId));
-		taskRefMapper.deleteTask(taskId) ;
+		if(isHavingPostTask(taskId)){
+			int postTaskId = getPostTaskId(taskId);
+			taskRefMapper.divideConnction(postTaskId);
+			turnNormal(postTaskId);
+		}
+		turnNormal(taskId);
+		taskRefMapper.deleteTask(taskId);
 	}
 }

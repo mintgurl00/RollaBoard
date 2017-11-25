@@ -93,6 +93,7 @@ public class TaskController {
 			result.addObject("preTaskId", "");
 		if( postTaskId > -1)
 			result.addObject("postTaskId", postTaskId);
+		else
 			result.addObject("postTaskId", "");
 		
 		// 배정된 롤 리스트도 보여준다.
@@ -157,6 +158,12 @@ public class TaskController {
     public ModelAndView deletetask(int task_id) {
     	System.out.println("지울 task_id : " + task_id);
     	ModelAndView result = new ModelAndView();
+
+    	//////관계를 일단 먼저 삭제하는 중
+    	if(taskRefDAOService.isConnectedTask(task_id)){
+    		taskRefDAOService.pullFromConnection(task_id);
+    	}
+    	//////.
     	taskDAOService.deleteTask(task_id);
     	result.setViewName("redirect:board.do");
     	return result;
