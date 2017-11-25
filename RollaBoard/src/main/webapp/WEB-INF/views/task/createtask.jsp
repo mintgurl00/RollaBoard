@@ -25,6 +25,7 @@ SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<link rel="stylesheet" href="css/reset.css">
 <title>task 생성</title>
 <style>
 #frame{width:500px; height:90%; background-color:#DAD9FF; margin-top:100px; margin-left:700px}
@@ -109,7 +110,7 @@ SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 	
 	<div id="description">내용(필수X)<br/>
 		<input type="text" maxlength="100" id="description" style="height:180px; width:380px;" class="byteLimit" limitbyte="100" name="description" >
-		
+		<input type="hidden" name="status" value="NORMAL" />
 	</div>
 	
 	<h4>고급설정</h4>

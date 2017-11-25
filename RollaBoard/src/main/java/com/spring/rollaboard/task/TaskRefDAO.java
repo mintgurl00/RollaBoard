@@ -51,5 +51,5 @@ public interface TaskRefDAO {
 	public void divideConnction(int frontId, int backId);
 	public void cutTail(int tailId);
 	public void cutHead(int headId);
-	public void perishConnection(int headId, int tailId);
+	public void perishConnection(int rootId);
 }

@@ -41,6 +41,14 @@
 		WHERE task_id=#{id}
 	</select>
 	
+	<!-- getConnLength -->
+	<select id = "getConnLength" resultType="int">
+		SELECT COUNT(*)
+		FROM task_conn tc1, task_conn tc2
+		where tc1.root_task_id=tc2.root_task_id
+		    AND tc2.task_id=#{id}
+	</select>
+	
 	<!-- addPostTask1of2 -->
 	<update id = "addPostTask1of2" parameterType = "map">
 		UPDATE task_conn
@@ -174,10 +182,37 @@
 		WHERE root_task_id=#{headId}
 	</update>
 	
+	<!-- turnNormalConnByRoot -->
+	<update id = "turnNormalConnByRoot" parameterType = "map">
+		MERGE INTO task ta
+	    	USING (SELECT task_id FROM task_conn WHERE root_task_id=#{rootId}) taco
+	    	ON (ta.id=taco.task_id)
+		WHEN MATCHED THEN 
+	    	UPDATE SET ta.status='NORMAL'
+	</update>
+	
+	<!-- turnNormalConn -->
+	<update id = "turnNormalConn" parameterType = "map">
+		MERGE INTO task ta
+	    USING (SELECT tc1.task_id FROM task_conn tc1, task_conn tc2
+	        WHERE tc1.root_task_id=tc2.root_task_id 
+	            AND tc2.task_id=#{taskId}
+	        ) taco
+	    ON (ta.id=taco.task_id)
+		WHEN MATCHED THEN 
+		    UPDATE SET ta.status='NORMAL'
+	</update>
+	
+	<!-- eraseConnectionByRoot -->
+	<delete id = "eraseConnectionByRoot" parameterType = "map">
+		DELETE FROM task_conn 
+		WHERE root_task_id=#{rootId}
+	</delete>
+	
 	<!-- eraseConnection -->
 	<delete id = "eraseConnection" parameterType = "map">
 		DELETE FROM task_conn 
-		WHERE root_task_id=#{rootId}
+		WHERE root_task_id IN (SELECT root_task_id FROM task_conn WHERE task_id=#{taskId})
 	</delete>
 	
 	<!-- getPreTaskId -->

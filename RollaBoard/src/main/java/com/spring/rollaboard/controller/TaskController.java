@@ -105,6 +105,7 @@ public class TaskController {
     	return result;
     }
     
+    // 태스크 수정 처리
     @RequestMapping("updatetask.do")
     public ModelAndView updatetask(String taskToRole, TaskVO taskVO, HttpSession session, HttpServletRequest request) {
     	ModelAndView result = new ModelAndView();
@@ -151,13 +152,18 @@ public class TaskController {
     }
     
     @RequestMapping("deletetask.do")
-    public ModelAndView deletetask(int task_id) {
+    public ModelAndView deletetask(int task_id, HttpServletRequest request) {
     	System.out.println("지울 task_id : " + task_id);
     	ModelAndView result = new ModelAndView();
 
     	//////관계를 일단 먼저 삭제하는 중
     	if(taskRefDAOService.isConnectedTask(task_id)){
-    		taskRefDAOService.pullFromConnection(task_id);
+    		// 일단 관계 브레이크로 구현
+    		if( request.getAttribute("pullOut")==null ){
+    			taskRefDAOService.breakConnection(task_id);
+    		} else {
+    			taskRefDAOService.pullFromConnection(task_id);
+			}
     	}
     	//////.
     	taskDAOService.deleteTask(task_id);
@@ -182,12 +188,13 @@ public class TaskController {
 	@RequestMapping("inserttask.do")
 	public ModelAndView insertTask(String taskToRole, HttpSession session, TaskVO taskVO, HttpServletRequest request) {
 		System.out.println("만들 태스크의 이름 : " + taskVO.getName());
-		
+
+		taskVO.setStatus("NORMAL");
 		// 태스크를 생성한다.
 		taskDAOService.createTask(taskVO);    	
-    	if (taskVO.getStatus() == null) {
+    	/*if (taskVO.getStatus() == null) {
 			taskVO.setStatus("NORMAL");
-		}
+		}*/
 
 		ModelAndView result = new ModelAndView();
 		result.setViewName("redirect:board.do");
