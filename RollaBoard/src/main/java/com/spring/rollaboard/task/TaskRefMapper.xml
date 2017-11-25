@@ -3,16 +3,15 @@
 
 <mapper namespace = "com.spring.rollaboard.task.TaskRefMapper">
 
-	<resultMap type = "TaskVO" id = "TaskResultMap">
-		<result property = "id" column = "ID"/>
-		<result property = "name" column = "NAME"/>
-		<result property = "description" column = "DESCRIPTION"/>
-		<result property = "status" column = "STATUS"/>
-		<result property = "section_id" column = "SECTION_ID"/>
-		<result property = "start_date" column = "START_DATE"/>
-		<result property = "due_date" column = "DUE_DATE"/>
-		<result property = "cre_date" column = "CRE_DATE"/>
-		<result property = "priority" column = "PRIORITY"/>
+	<resultMap type = "RefTaskVO" id = "RefTaskResultMap">
+		<result property = "preTaskId" column = "PRE_TASK_ID"/>
+		<result property = "preTaskName" column = "PRE_TASK_NAME"/>
+		<result property = "preTaskSecId" column = "PRE_TASK_SEC_ID"/>
+		<result property = "preTaskSecName" column = "PRE_TASK_SEC_NAME"/>
+		<result property = "postTaskId" column = "POST_TASK_ID"/>
+		<result property = "postTaskName" column = "POST_TASK_NAME"/>
+		<result property = "postTaskSecId" column = "POST_TASK_SEC_ID"/>
+		<result property = "postTaskSecName" column = "POST_TASK_SEC_NAME"/>
 	</resultMap>
 	
 	<!-- isHavingPreTask -->

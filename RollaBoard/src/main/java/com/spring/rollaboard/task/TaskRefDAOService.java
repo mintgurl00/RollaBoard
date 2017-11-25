@@ -42,25 +42,6 @@ public class TaskRefDAOService implements TaskRefDAO {
 			return true ;
 	}
 
-/*	@Override
-	public void addPreTask(int taskId, int preTaskId) {
-		TaskRefMapper taskMapper = sqlSession.getMapper( TaskRefMapper.class ) ;
-		if( isConnectedTask(preTaskId) )
-			taskMapper.addPreTask(taskId, preTaskId);
-		else
-			createPreTask(taskId, preTaskId);
-	}*/
-
-/*	@Override
-	public void addPostTask(int taskId, int postTaskId) {
-		TaskRefMapper taskMapper = sqlSession.getMapper( TaskRefMapper.class ) ;
-		if( isConnectedTask(postTaskId) ){
-			taskMapper.addPostTask1of2(taskId, postTaskId);
-			taskMapper.addPostTask1of2(taskId, postTaskId);
-		} else
-			createPostTask(taskId, postTaskId);
-	}*/
-
 	@Override
 	public void insertByPreTask(int taskId, int preTaskId) {
 		// preTask 지정 대상에 postTask가 있을 때
@@ -296,7 +277,7 @@ public class TaskRefDAOService implements TaskRefDAO {
 	public void linkConnection(int frontTask, int backTask) {
 		TaskRefMapper taskRefMapper = sqlSession.getMapper( TaskRefMapper.class ) ;
 		taskRefMapper.linkConnection(frontTask, backTask);
-		turnBlocked(frontTask) ;
+		turnBlocked(backTask) ;
 	}
 
 	private void turnBlocked(int task_id) {
@@ -312,7 +293,7 @@ public class TaskRefDAOService implements TaskRefDAO {
 	public void appendTask(int tailId, int taskId) {
 		TaskRefMapper taskRefMapper = sqlSession.getMapper( TaskRefMapper.class ) ;
 		taskRefMapper.appendTask(tailId, taskId);
-		turnBlocked(tailId) ;
+		turnBlocked(taskId) ;
 	}
 
 	@Override
@@ -320,14 +301,14 @@ public class TaskRefDAOService implements TaskRefDAO {
 		TaskRefMapper taskRefMapper = sqlSession.getMapper( TaskRefMapper.class ) ;
 		taskRefMapper.appendConnection1of2(taskId, headId);
 		taskRefMapper.appendConnection2of2(taskId, headId);
-		turnBlocked(taskId) ;
+		turnBlocked(headId) ;
 	}
 
 	@Override
 	public void createConnection(int frontId, int backId) {
 		TaskRefMapper taskRefMapper = sqlSession.getMapper( TaskRefMapper.class ) ;
 		taskRefMapper.createConnection(frontId, backId);
-		turnBlocked(frontId) ;
+		turnBlocked(backId) ;
 	}
 
 	@Override
