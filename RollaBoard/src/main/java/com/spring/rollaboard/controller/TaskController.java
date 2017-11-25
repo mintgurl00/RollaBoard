@@ -131,10 +131,6 @@ public class TaskController {
 				taskRefDAOService.addPostTask(taskVO.getId(), Integer.parseInt(newPostTask));	// 추가
 		}
 		/////////////////////////////////////////
-    	
-    	if (taskVO.getStatus() == null) {
-			taskVO.setStatus("NORMAL");
-		}
     	System.out.println("스테이터스 :" + taskVO.getStatus());	
     	// 롤 이름이 없으면 수행 안한다.
     	if (taskToRole == null || (taskToRole == "")) {
@@ -188,7 +184,10 @@ public class TaskController {
 		System.out.println("만들 태스크의 이름 : " + taskVO.getName());
 		
 		// 태스크를 생성한다.
-		taskDAOService.createTask(taskVO);
+		taskDAOService.createTask(taskVO);    	
+    	if (taskVO.getStatus() == null) {
+			taskVO.setStatus("NORMAL");
+		}
 
 		ModelAndView result = new ModelAndView();
 		result.setViewName("redirect:board.do");
