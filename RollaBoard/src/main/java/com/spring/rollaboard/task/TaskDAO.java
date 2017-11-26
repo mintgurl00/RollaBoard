@@ -21,7 +21,7 @@ public interface TaskDAO {
 	public void createTask(TaskVO taskVO);
 	
 	public void taskToRole(int task_id, int role_id);
-	
-	public void turnComplete(int task_id);
-	
+
+	public void pushComplete(int task_id);
+	public void cancelComplete(int task_id);
 }

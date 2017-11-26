@@ -6,7 +6,7 @@ import org.springframework.stereotype.Component;
 public class RefTaskVO {
 	
 	private int refTaskId, refTaskSecId;
-	private String refTaskName, refTaskSecName ;
+	private String refTaskName, refTaskSecName, refTaskStatus ;
 	
 	public int getRefTaskId() {
 		return refTaskId;
@@ -39,6 +39,7 @@ public class RefTaskVO {
 		this.refTaskName = "" ;
 		this.refTaskSecId = 0 ;
 		this.refTaskSecName = "" ;
+		this.refTaskStatus = "" ;
 	}
 	
 	public RefTaskVO copyFrom(RefTaskVO refTaskVO){
@@ -46,7 +47,15 @@ public class RefTaskVO {
 		this.refTaskName = refTaskVO.refTaskName ;
 		this.refTaskSecId = refTaskVO.refTaskSecId ;
 		this.refTaskSecName = refTaskVO.refTaskSecName ;
+		this.refTaskStatus = refTaskVO.refTaskStatus ;
 		return this;
+	}
+	
+	public String getRefTaskStatus() {
+		return refTaskStatus;
+	}
+	public void setRefTaskStatus(String refTaskStatus) {
+		this.refTaskStatus = refTaskStatus;
 	}
 	
 }
