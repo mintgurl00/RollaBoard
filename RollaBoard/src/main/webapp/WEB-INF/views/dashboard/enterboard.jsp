@@ -24,15 +24,13 @@ if(session.getAttribute("id") == null) {
 
 <H4 align = center>입장할 Board의 이름을 입력하세요</H4>
 
-<form class = form-horizental" action = "joinboard.do">
+<form class = "form-horizental" action = "joinboard.do">
 <div class = "form-group">
 	<label for = "board_name" class = "control-label col-xs-2">BOARD 이름</label>
-	<div class = "col-xs-10">
+	<div class = "col-xs-8">
 	<input type = "text" class = "form-control" id = "board_name" name = "name" placeholder="Board 이름을 정확히 입력하세요">
 	</div>
-</div>
-<div class = "form-group">
-	<div class = "col-xs-offset-2 col-xs-10">
+	<div class = "col-xs-2">
 	<button type = "submit" class = "btn btn-info">입장하기</button>
 	</div>
 </div>
