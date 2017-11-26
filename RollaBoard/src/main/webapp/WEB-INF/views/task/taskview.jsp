@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page import="com.spring.rollaboard.task.TaskVO"%>
+<%@ page import="com.spring.rollaboard.task.RefTaskVO"%>
 <%
 // 세션 아이디 체크
 if(session.getAttribute("id") == null) {
@@ -10,6 +11,15 @@ if(session.getAttribute("id") == null) {
 	TaskVO taskVO = (TaskVO) request.getAttribute("taskVO");
 	request.setAttribute("taskVO", taskVO);
 	/* ArrayList<taskVO> taskViewList = (ArrayList<taskVO>)request.getAttribute("taskViewList"); */
+	
+	// 관계 태스크 보여주기 위한 기능
+	RefTaskVO preTaskVO = null, postTaskVO = null ;
+	preTaskVO = (RefTaskVO) request.getAttribute("preTaskVO");
+	postTaskVO = (RefTaskVO) request.getAttribute("postTaskVO");/* 
+	if(preTaskVO == null)
+		preTaskVO = new RefTaskVO(1);
+	if(postTaskVO == null)
+		postTaskVO = new RefTaskVO(1); */
 %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -47,10 +57,24 @@ function updateTask() {
 	<div id="status">생성날짜: <%=taskVO.getCre_date() %> </div>	
 	<div id="status">시작날짜: <%=taskVO.getStart_date() %> </div>	
 	<div id="status">마감날짜: <%=taskVO.getDue_date() %> </div>	
-	<div id="status">중요도: <%=taskVO.getPriority() %> </div>	
-	<div id="status">선행TASK: 만들 것 </div>	
-	<div id="status">후행TASK: 만들 것 </div>	
-
+	<div id="status">중요도: <%=taskVO.getPriority() %> </div>
+	
+	<%
+	if(preTaskVO != null || postTaskVO != null) {
+		%>
+		<b>관계 있는 태스크입니다.</b>
+		<%
+		if(preTaskVO != null) {
+			%>
+			<div id="status">선행TASK: <%=preTaskVO.getRefTaskName() %> </div>
+			<%
+		}
+		if(postTaskVO != null) {
+			%>	
+			<div id="status">후행TASK: <%=postTaskVO.getRefTaskName() %> </div>	
+			<%
+		}
+	}%>
 	<div id="button">
 
 	<%if (session.getAttribute("board_id") != null) {%>

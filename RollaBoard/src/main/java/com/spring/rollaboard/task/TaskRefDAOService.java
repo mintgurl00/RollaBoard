@@ -269,8 +269,7 @@ public class TaskRefDAOService implements TaskRefDAO {
 	// 태스크의 연결상태 구분용
 	enum Case{
 		PRECONN, POSTCONN, BOTHCONN, 
-		NONE,
-		CONN
+		NONE
 	}
 
 	@Override
@@ -381,7 +380,7 @@ public class TaskRefDAOService implements TaskRefDAO {
 
 	private int getConnLength(int taskId) {
 		TaskRefMapper taskRefMapper = sqlSession.getMapper( TaskRefMapper.class ) ;
-		return 0;
+		return taskRefMapper.getConnLength(taskId);
 	}
 
 	@Override
@@ -417,5 +416,38 @@ public class TaskRefDAOService implements TaskRefDAO {
 				break;
 			}
 		}
+	}
+
+	@Override
+	public RefTaskVO getPreTask(int taskId) {
+		TaskRefMapper taskRefMapper = sqlSession.getMapper( TaskRefMapper.class ) ;
+		return taskRefMapper.getRefTask(taskId, -1);
+	}
+
+	@Override
+	public RefTaskVO getPostTask(int taskId) {
+		TaskRefMapper taskRefMapper = sqlSession.getMapper( TaskRefMapper.class ) ;
+		return taskRefMapper.getRefTask(taskId, 1);
+	}
+
+	@Override
+	public Case getConnectedTask(int taskId, RefTaskVO preTask, RefTaskVO postTask) {
+		Case taskCase = checkTaskConn(taskId);
+		switch (taskCase) {
+		case BOTHCONN:
+			preTask.copyFrom(getPreTask(taskId));
+			postTask.copyFrom(getPostTask(taskId));
+			break;
+		case PRECONN:
+			preTask.copyFrom(getPreTask(taskId));
+			break;
+		case POSTCONN:
+			postTask.copyFrom(getPostTask(taskId));
+			break;
+		default:
+			System.out.println("getConnectedTask(). 연결된 TASK가 없다.");
+			break;
+		}
+		return taskCase;
 	}
 }

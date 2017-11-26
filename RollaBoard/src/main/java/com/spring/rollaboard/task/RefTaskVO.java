@@ -1,64 +1,52 @@
 package com.spring.rollaboard.task;
 
-import java.sql.Date;
-
 import org.springframework.stereotype.Component;
 
 @Component
 public class RefTaskVO {
 	
-	private int preTaskId, preTaskSecId;
-	private String preTaskName, preTaskSecName ;
-	private int postTaskId, postTaskSecId;
+	private int refTaskId, refTaskSecId;
+	private String refTaskName, refTaskSecName ;
 	
-	public int getPreTaskId() {
-		return preTaskId;
+	public int getRefTaskId() {
+		return refTaskId;
 	}
-	public void setPreTaskId(int preTaskId) {
-		this.preTaskId = preTaskId;
+	public void setRefTaskId(int refTaskId) {
+		this.refTaskId = refTaskId;
 	}
-	public int getPreTaskSecId() {
-		return preTaskSecId;
+	public int getRefTaskSecId() {
+		return refTaskSecId;
 	}
-	public void setPreTaskSecId(int preTaskSecId) {
-		this.preTaskSecId = preTaskSecId;
+	public void setRefTaskSecId(int refTaskSecId) {
+		this.refTaskSecId = refTaskSecId;
 	}
-	public String getPreTaskName() {
-		return preTaskName;
+	public String getRefTaskName() {
+		return refTaskName;
 	}
-	public void setPreTaskName(String preTaskName) {
-		this.preTaskName = preTaskName;
+	public void setRefTaskName(String refTaskName) {
+		this.refTaskName = refTaskName;
 	}
-	public String getPreTaskSecName() {
-		return preTaskSecName;
+	public String getRefTaskSecName() {
+		return refTaskSecName;
 	}
-	public void setPreTaskSecName(String preTaskSecName) {
-		this.preTaskSecName = preTaskSecName;
+	public void setRefTaskSecName(String refTaskSecName) {
+		this.refTaskSecName = refTaskSecName;
 	}
-	public int getPostTaskId() {
-		return postTaskId;
+	
+	public RefTaskVO(){}	// 기본 생성자
+	public RefTaskVO(int value){
+		this.refTaskId = 0 ;
+		this.refTaskName = "" ;
+		this.refTaskSecId = 0 ;
+		this.refTaskSecName = "" ;
 	}
-	public void setPostTaskId(int postTaskId) {
-		this.postTaskId = postTaskId;
+	
+	public RefTaskVO copyFrom(RefTaskVO refTaskVO){
+		this.refTaskId = refTaskVO.refTaskId ;
+		this.refTaskName = refTaskVO.refTaskName ;
+		this.refTaskSecId = refTaskVO.refTaskSecId ;
+		this.refTaskSecName = refTaskVO.refTaskSecName ;
+		return this;
 	}
-	public int getPostTaskSecId() {
-		return postTaskSecId;
-	}
-	public void setPostTaskSecId(int postTaskSecId) {
-		this.postTaskSecId = postTaskSecId;
-	}
-	public String getPostTaskName() {
-		return postTaskName;
-	}
-	public void setPostTaskName(String postTaskName) {
-		this.postTaskName = postTaskName;
-	}
-	public String getPostTaskSecName() {
-		return postTaskSecName;
-	}
-	public void setPostTaskSecName(String postTaskSecName) {
-		this.postTaskSecName = postTaskSecName;
-	}
-	private String postTaskName, postTaskSecName ;
 	
 }
