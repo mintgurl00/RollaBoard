@@ -16,7 +16,7 @@ public class TaskVO {
 	private Date due_date;
 	private Date cre_date;
 	private int priority;
-	
+	private String location; //수민 태스크 위치 추가
 	
 	public int getId() {
 		return id;
@@ -48,13 +48,6 @@ public class TaskVO {
 	public void setSection_id(int section_id) {
 		this.section_id = section_id;
 	}
-	
-	public int getPriority() {
-		return priority;
-	}
-	public void setPriority(int priority) {
-		this.priority = priority;
-	}
 	public Date getStart_date() {
 		return start_date;
 	}
@@ -73,6 +66,17 @@ public class TaskVO {
 	public void setCre_date(Date cre_date) {
 		this.cre_date = cre_date;
 	}
+	public int getPriority() {
+		return priority;
+	}
+	public void setPriority(int priority) {
+		this.priority = priority;
+	}
+	public String getLocation() {
+		return location;
+	}
+	public void setLocation(String location) {
+		this.location = location;
+	}
 	
-
 }

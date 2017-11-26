@@ -13,6 +13,7 @@
 		<result property = "due_date" column = "DUE_DATE"/>
 		<result property = "cre_date" column = "CRE_DATE"/>
 		<result property = "priority" column = "PRIORITY"/>
+		<result property = "location" column = "LOCATION"/> <!-- 수민 태스크 위치 추가 -->
 	</resultMap>
 	
 	<select id = "getTask" resultMap = "TaskResultMap">
@@ -83,9 +84,10 @@
 		SELECT * FROM task 
 	</select>
 	
+	<!-- 수민 태스크 위치 추가 -->
 	<insert id = "createTask" parameterType = "com.spring.rollaboard.task.TaskVO">		
-		INSERT INTO task (id, name, description, status, section_id, start_date, due_date, cre_date, priority)
-		VALUES (seq_task.NEXTVAL, #{name}, #{description}, #{status}, #{section_id}, #{start_date}, #{due_date}, #{cre_date}, #{priority})
+		INSERT INTO task (id, name, description, status, section_id, start_date, due_date, cre_date, priority, location)
+		VALUES (seq_task.NEXTVAL, #{name}, #{description}, #{status}, #{section_id}, #{start_date}, #{due_date}, #{cre_date}, #{priority}, #{location})
 	</insert>
 	
 	<insert id = "createTaskWithRole" parameterType = "com.spring.rollaboard.task.TaskVO">
