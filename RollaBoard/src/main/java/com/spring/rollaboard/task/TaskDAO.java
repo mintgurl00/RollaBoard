@@ -24,4 +24,6 @@ public interface TaskDAO {
 
 	public void pushComplete(int task_id);
 	public void cancelComplete(int task_id);
+	
+	public boolean checkStatus(int task_id, String status);
 }

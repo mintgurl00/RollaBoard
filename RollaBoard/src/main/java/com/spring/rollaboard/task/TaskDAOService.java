@@ -241,6 +241,15 @@ public class TaskDAOService implements TaskDAO {
 			//02-02 후행 Task의 상태가 COMPLETE면 따로 처리하지 않는다.(나중에 생각해 보자)
 		}
 	}
+
+	@Override
+	public boolean checkStatus(int task_id, String status) {
+		TaskMapper taskMapper = sqlSession.getMapper(TaskMapper.class);
+		if( taskMapper.checkStatus(task_id, status) > 0 )
+			return true ;
+		else
+			return false ;
+	}
 	
 	
 	
