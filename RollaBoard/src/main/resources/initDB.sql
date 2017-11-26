@@ -118,6 +118,7 @@ Create table task (
     start_date date,
     due_date date,
     cre_date date,
+    location varchar2(40),
     priority number(1)
     );
     
