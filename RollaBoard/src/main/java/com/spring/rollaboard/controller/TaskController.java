@@ -227,6 +227,14 @@ public class TaskController {
 		result.setViewName("redirect:updatetaskform.do");
 		return result;
 	}
+	
+	 //수민 구글맵스
+    @RequestMapping("tasklocation.do")
+    public ModelAndView googlemaps() throws Exception {
+    	ModelAndView result = new ModelAndView();
+		result.setViewName("task/tasklocation");
+    	return result;
+    }
     
     
 }

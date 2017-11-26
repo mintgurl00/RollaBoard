@@ -136,6 +136,13 @@ SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 		<input type="text" id="priority" placeholder="1~5중에 하나를 입력해주세요" size="40" name="priority" value = "3"><br/><br/><br/>
 	</div>
 	
+	<!-- 수민 구글맵스 -->
+	<div id ="location">
+		<a href="tasklocation.do" onclick="window.open(this.href, '_blank'); return false;">
+		<input type="button" id="location" name="location" value = "위치추가"><br/><br/><br/>
+		</a>
+	</div>
+	
 <!--<div id ="pre_Task"> 선행TASK  <br/>
 		<input type="text" id="pre_task" name="pre_task" placeholder="Task id를 입력하시오" size="40" value=""><br/><br/><br/>
 	</div>
