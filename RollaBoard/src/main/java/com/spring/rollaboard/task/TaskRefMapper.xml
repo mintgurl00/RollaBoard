@@ -3,18 +3,16 @@
 
 <mapper namespace = "com.spring.rollaboard.task.TaskRefMapper">
 
-	<!-- <resultMap type = "TaskVO" id = "TaskResultMap">
-		<result property = "id" column = "ID"/>
-		<result property = "name" column = "NAME"/>
-		<result property = "description" column = "DESCRIPTION"/>
-		<result property = "status" column = "STATUS"/>
-		<result property = "section_id" column = "SECTION_ID"/>
-		<result property = "start_date" column = "START_DATE"/>
-		<result property = "due_date" column = "DUE_DATE"/>
-		<result property = "cre_date" column = "CRE_DATE"/>
-		<result property = "priority" column = "PRIORITY"/>
-		
-	</resultMap> -->
+	<resultMap type = "RefTaskVO" id = "RefTaskResultMap">
+		<result property = "preTaskId" column = "PRE_TASK_ID"/>
+		<result property = "preTaskName" column = "PRE_TASK_NAME"/>
+		<result property = "preTaskSecId" column = "PRE_TASK_SEC_ID"/>
+		<result property = "preTaskSecName" column = "PRE_TASK_SEC_NAME"/>
+		<result property = "postTaskId" column = "POST_TASK_ID"/>
+		<result property = "postTaskName" column = "POST_TASK_NAME"/>
+		<result property = "postTaskSecId" column = "POST_TASK_SEC_ID"/>
+		<result property = "postTaskSecName" column = "POST_TASK_SEC_NAME"/>
+	</resultMap>
 	
 	<!-- isHavingPreTask -->
 	<select id = "isHavingPreTask" resultType="int">
@@ -28,7 +26,7 @@
 	<select id = "isHavingPostTask" resultType="int">
 		<![CDATA[
 		SELECT COUNT(*)
-		FROM task_conn tc1, task_conn0 tc2
+		FROM task_conn tc1, task_conn tc2
 		where tc1.root_task_id=tc2.root_task_id
 		    AND tc2.task_id=#{id}
 		    AND tc2.ref_level < tc1.ref_level
@@ -40,6 +38,14 @@
 		SELECT COUNT(*) 
 		FROM task_conn
 		WHERE task_id=#{id}
+	</select>
+	
+	<!-- getConnLength -->
+	<select id = "getConnLength" resultType="int">
+		SELECT COUNT(*)
+		FROM task_conn tc1, task_conn tc2
+		where tc1.root_task_id=tc2.root_task_id
+		    AND tc2.task_id=#{id}
 	</select>
 	
 	<!-- addPostTask1of2 -->
@@ -64,7 +70,7 @@
 		    INTO task_conn(root_task_id, task_id, ref_level)
 		    VALUES( r_t_rid, #{taskId}, r_t_lv+1 )
 		SELECT t.root_task_id r_t_rid, t.task_id r_t_id, t.ref_level r_t_lv
-		FROM task_conn0 t
+		FROM task_conn t
 		WHERE task_id=#{preTaskId}
 	</insert>
 	
@@ -81,7 +87,7 @@
 		<![CDATA[
 		UPDATE task_conn
 		SET ref_level=ref_level+1
-		WHERE ref_level>(SELECT ref_level FROM task_conn0 WHERE task_id=#{preTaskId})
+		WHERE ref_level>(SELECT ref_level FROM task_conn WHERE task_id=#{preTaskId})
 		]]> 
 	</update>	
 	<!-- insertByPreTask2of2 -->
@@ -99,7 +105,7 @@
 		<![CDATA[
 		UPDATE task_conn
 		SET ref_level=ref_level+1
-		WHERE ref_level>=(SELECT ref_level FROM task_conn0 WHERE task_id=#{postTaskId})
+		WHERE ref_level>=(SELECT ref_level FROM task_conn WHERE task_id=#{postTaskId})
 		]]> 
 	</update>	
 	<!-- insertByPostTask2of2 -->
@@ -150,7 +156,7 @@
 	<insert id="createConnection" parameterType="map">
 		INSERT ALL
 		    INTO task_conn(root_task_id, task_id, ref_level) VALUES(#{frontId}, #{frontId}, 0)
-		    INTO task_conn(root_task_id, task_id, ref_level) VALUES(#{backId}, #{backId}, 1) 
+		    INTO task_conn(root_task_id, task_id, ref_level) VALUES(#{frontId}, #{backId}, 1) 
 		SELECT * FROM DUAL
 	</insert>
 	
@@ -160,5 +166,79 @@
 		SET root_task_id=#{backId}, ref_level=ref_level-(SELECT ref_level FROM task_conn WHERE task_id=#{backId})
 		WHERE root_task_id=(SELECT root_task_id FROM task_conn WHERE task_id=#{backId})
 		    AND ref_level >= (SELECT ref_level FROM task_conn WHERE task_id=#{backId})
+	</update>
+	
+	<!-- deleteTask -->
+	<delete id = "deleteTask" parameterType = "map">
+		DELETE FROM task_conn 
+		WHERE task_id=#{taskId}
+	</delete>
+	
+	<!-- pullHead -->
+	<update id = "pullHead" parameterType = "map">
+		UPDATE task_conn
+		SET ref_level=ref_level-1
+		WHERE root_task_id=#{headId}
+	</update>
+	
+	<!-- turnNormalConnByRoot -->
+	<update id = "turnNormalConnByRoot" parameterType = "map">
+		MERGE INTO task ta
+	    	USING (SELECT task_id FROM task_conn WHERE root_task_id=#{rootId}) taco
+	    	ON (ta.id=taco.task_id)
+		WHEN MATCHED THEN 
+	    	UPDATE SET ta.status='NORMAL'
+	</update>
+	
+	<!-- turnNormalConn -->
+	<update id = "turnNormalConn" parameterType = "map">
+		MERGE INTO task ta
+	    USING (SELECT tc1.task_id FROM task_conn tc1, task_conn tc2
+	        WHERE tc1.root_task_id=tc2.root_task_id 
+	            AND tc2.task_id=#{taskId}
+	        ) taco
+	    ON (ta.id=taco.task_id)
+		WHEN MATCHED THEN 
+		    UPDATE SET ta.status='NORMAL'
+	</update>
+	
+	<!-- eraseConnectionByRoot -->
+	<delete id = "eraseConnectionByRoot" parameterType = "map">
+		DELETE FROM task_conn 
+		WHERE root_task_id=#{rootId}
+	</delete>
+	
+	<!-- eraseConnection -->
+	<delete id = "eraseConnection" parameterType = "map">
+		DELETE FROM task_conn 
+		WHERE root_task_id IN (SELECT root_task_id FROM task_conn WHERE task_id=#{taskId})
+	</delete>
+	
+	<!-- getPreTaskId -->
+	<select id = "getPreTaskId" resultType="int">
+		SELECT tc1.task_id task_id 
+		FROM task_conn tc1, task_conn tc2
+		where tc1.root_task_id=tc2.root_task_id
+		    AND tc2.task_id=#{id}
+		    AND tc1.ref_level=(SELECT ref_level FROM task_conn WHERE task_id=#{id})-1
+	</select>
+	
+	<!-- getPostTaskId -->
+	<select id = "getPostTaskId" resultType="int">
+		SELECT tc1.task_id task_id 
+		FROM task_conn tc1, task_conn tc2
+		where tc1.root_task_id=tc2.root_task_id
+		    AND tc2.task_id=#{id}
+		    AND tc1.ref_level=(SELECT ref_level FROM task_conn WHERE task_id=#{id})+1
+	</select>
+	
+	<!-- hideFromConnection -->
+	<update id = "hideFromConnection" parameterType = "map">
+		<![CDATA[
+		UPDATE task_conn 
+		SET ref_level=ref_level-1 
+		WHERE root_task_id=(SELECT root_task_id FROM task_conn WHERE task_id=#{taskId})
+		    AND ref_level>(SELECT ref_level FROM task_conn WHERE task_id=#{taskId})
+		]]> 
 	</update>
 </mapper>

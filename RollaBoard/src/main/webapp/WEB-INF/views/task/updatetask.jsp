@@ -13,6 +13,8 @@ if(session.getAttribute("id") == null) {
 
 TaskVO taskVO = (TaskVO) request.getAttribute("taskVO");
 ArrayList<RoleVO> roleList = (ArrayList<RoleVO>) request.getAttribute("roleList");
+String postTaskId = request.getAttribute("postTaskId").toString() ;
+String preTaskId = request.getAttribute("preTaskId").toString() ;
 ArrayList<RoleVO> allocatedRole = (ArrayList<RoleVO>) request.getAttribute("allocatedRole");
 %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -53,7 +55,7 @@ ArrayList<RoleVO> allocatedRole = (ArrayList<RoleVO>) request.getAttribute("allo
                   
                 code = parseInt(code);
                   
-                if ((ch < "0" || ch > "9") && (ch < "A" || ch > "Z") && ((code > 255) || (code < 0))){
+                if ((ch < "0" || ch > "9") && (ch < "A" || ch > "Z") && ((code > 255) || (code < 0)) ){
                     strLength = strLength + 3; //UTF-8 3byte 로 계산
                 }else{
                     strLength = strLength + 1;
@@ -74,6 +76,16 @@ ArrayList<RoleVO> allocatedRole = (ArrayList<RoleVO>) request.getAttribute("allo
               
             thisObject.val(strTitle);
               
+        });
+        
+        $(".checkDiff > input").blur(function(){
+        	var oldVal = $(this).parent().children("input[type='hidden']").val() ;
+        	var newVal = $(this).parent().children("input[type='text']").val() ;
+        	if(oldVal!=newVal){
+        		$(this).css("background-color", "#ff0000");
+        	}else{
+        		$(this).css("background-color", "#ffffff");
+        	}
         });
     });
       
@@ -144,12 +156,14 @@ ArrayList<RoleVO> allocatedRole = (ArrayList<RoleVO>) request.getAttribute("allo
 		<input type="text" id="priority" placeholder="1~5중에 하나를 입력해주세요" size="40" name="priority" value = "<%=taskVO.getPriority()%>"><br/><br/><br/>
 	</div>
 	
-	<div id ="pre_Task"> 선행TASK  <br/>
-		<input type="text" id="pre_task" placeholder="Task id를 입력하시오" size="40" ><br/><br/><br/>
+	<div id ="pre_Task" class="checkDiff"> 선행TASK  <br/>
+		<input type="hidden" name="hidden_pre_task" value="<%=preTaskId %>" />
+		<input type="text" id="pre_task" name="pre_task" value="<%=preTaskId %>" placeholder="Task id를 입력하시오" size="40"><br/><br/><br/>
 	</div>
 	
-	<div id ="postTask"> 후행TASK  <br/>
-		<input type="text" id="post_task" placeholder="Task id를 입력하시오" size="40"><br/><br/><br/>
+	<div id ="post_Task" class="checkDiff"> 후행TASK  <br/>
+		<input type="hidden" name="hidden_post_task" value="<%=postTaskId %>" />
+		<input type="text" id="post_task" name="post_task" value="<%=postTaskId %>" placeholder="Task id를 입력하시오" size="40"><br/><br/><br/>
 	</div>
     
     <div id="button">

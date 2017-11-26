@@ -25,8 +25,9 @@
   <title>Board Page</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link href = "reset.css">
+  <link href="css/reset.css">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
   <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet" type="text/css">
   <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet" type="text/css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
@@ -34,13 +35,13 @@
   <style>
 #ref_board{width:280px; height:50px; background-color:#DAD9FF}
 #filter{float:left; width:1860px; height:50px; background-color:#DAD9FF; text-align:right}
-#content{overflow:auto; width:auto; height:auto; margin-top:0px;}
-#section{overflow-x:hidden; float:left; width:300px; height:600px; margin-left:10px; margin-top:10px; background-color:#DAD9FF; text-align:center}
-#task{width:260px; height:auto; margin-left:20px; margin-top:20px; background-color:#BDBDBF; text-align:center}
+#content{overflow:scroll; float:none; width:inherit; height:inherit; margin-top:0px;}
+#section{overflow-x:hidden; float:left; width:300px; height:700px; margin-left:10px; margin-top:10px; background-color:#DAD9FF; border-radius:10px; text-align:center}
+#task{width:260px; height:auto; margin-left:20px; margin-top:20px; background-color:#BDBDBF; border-radius:10px; text-align:center}
   
   body {
       font: 400 15px Lato, sans-serif;
-      height:auto;
+      height:inherit;
       line-height: 1.8;
 
   }
@@ -324,7 +325,7 @@ function showRefBoard(){
       	<input type="hidden" name="written_keyword" id="written_keyword" value=""/>
 		<input type ="hidden" name="board_id" value="<%=boardVO.getId()%>" />
       <div class="input-group-btn">
-        <button type="button" class="btn btn-danger" onclick="javascript:loadSearchResult()">검색</button>
+        <input type="button" class="btn btn-danger" onclick="javascript:loadSearchResult()" value = "검색">
       </div>
     </div> 
   </form>
@@ -344,13 +345,8 @@ function showRefBoard(){
 	
 </div>
 
-<footer class="container-fluid text-center">
-  <a href="#myPage" title="To Top">
-    <span class="glyphicon glyphicon-chevron-up"></span>
-  </a>
-  <div class="w3-light-grey w3-container w3-padding-32" style="margin-top:75px;padding-right:58px"><p class="w3-right"><b>Rollaboard</b> all rights reserved </p></div>
-</footer>
 
+</body>
 <script>
 $(document).ready(function(){
   // Add smooth scrolling to all links in navbar + footer link
@@ -388,5 +384,5 @@ $(document).ready(function(){
 })
 </script>
 
-</body>
+
 </html>

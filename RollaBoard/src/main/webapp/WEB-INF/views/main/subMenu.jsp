@@ -17,7 +17,11 @@
 <body>
 <% System.out.println("chkVal : " + chkVal); %>
 <script type="text/javascript">
-location.href='updateboard.do?chkVal=<%=chkVal%>';
+if (chkVal.equals("dash")) {
+	location.href='dashboard.do';
+} else {
+	location.href='updateboard.do?chkVal=<%=chkVal%>';
+}
 </script>
 </body>
 </html>

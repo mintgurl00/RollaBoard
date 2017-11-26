@@ -209,7 +209,12 @@ public class TaskDAOService implements TaskDAO {
 	public void taskToRole(int task_id, int role_id) {
 		TaskMapper taskMapper = sqlSession.getMapper(TaskMapper.class);
 		taskMapper.taskToRole(task_id, role_id);
-		
+	}
+
+	@Override
+	public void turnComplete(int task_id) {
+		TaskMapper taskMapper = sqlSession.getMapper(TaskMapper.class);
+		taskMapper.turnComplete(task_id);
 	}
 	
 	

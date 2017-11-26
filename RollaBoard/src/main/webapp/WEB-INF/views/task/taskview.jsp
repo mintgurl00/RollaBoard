@@ -17,7 +17,7 @@ if(session.getAttribute("id") == null) {
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>태스크보기</title>
 <style>
-#frame{position:absolute; top:30%; left:45%; width:500px; height:700px; overflow:hidden; background-color:#DAD9FF; margin-top:-150px; margin-left:-100px; text-align:center}
+#frame{position:absolute; border-radius:10px; width:450px; height:550px; overflow:auto; background-color:#DAD9FF; margin-right: 10px; text-align:center}
 #content{width:400px; height:250px; background-color:#FFFFFF; margin-left:50px}
 #comment{width:400px; height:250px; background-color:#FFFFFF; margin-left:50px; margin-top:20px}
 #button{margin-top:20px}
@@ -40,7 +40,7 @@ function updateTask() {
 <body>
 
 
-<div id = ""><h1>TASK 이름 :  <%=taskVO.getName() %> </h1>
+<div id = "frame"><h1>TASK 이름 :  <%=taskVO.getName() %> </h1>
 	<div id="status">내용 :  <%=taskVO.getDescription() %> </div>
 	<div id="status">상태: <%=taskVO.getStatus() %> </div>	
 	<div id="status">댓글 : 해야 됨</div>

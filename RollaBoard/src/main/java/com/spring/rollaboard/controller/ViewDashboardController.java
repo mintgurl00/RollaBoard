@@ -77,6 +77,9 @@ public class ViewDashboardController {
     	String mem_id = (String) session.getAttribute("id");
     	System.out.println("dashboard입니다.세션의 맴버아이디 : " + mem_id);
     	ArrayList<TaskVO> taskList = taskDAOService.getMyTasks(mem_id);
+    	// 회원정보수정시 기존 정보를 불러오기 위해 memDAOService.getMemInfoToUpdate를 사용한다(세션에서 ).
+    	MemVO memVO = memDAOService.getMemInfoToUpdate((String)session.getAttribute("id"));
+    	result.addObject("member", memVO);
     	result.addObject("taskList", taskList);
     	result.addObject("id", session.getAttribute("id"));
     	result.addObject("boardList", boardList); //수민

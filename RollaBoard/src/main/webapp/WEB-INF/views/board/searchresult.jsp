@@ -64,17 +64,25 @@ for( int i = 0 ; i < sectionSize ; i++ ){
   <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
   <script src = "js/rolelist.js"></script>
 
+<!-- TASK클릭 시 함수 -->
+<script>
+function clicktask(id) {
+	window.open("./taskview.do?task_id=" + id,
+			"TASK",
+			"resizeable = yes, menubar=no, width = 470, height = 800, left = 10, right = 10");
 
+}
 
-<div id="section">
+</script>
+
+<div id="section" >
 	<!-- 섹션 표시줄 -->
-	<%=sectionList.get(i).getName() %>
-	<br />
+	<h4><%=sectionList.get(i).getName() %></h4>
 	<%if ( id.equals(boardVO.getAdmin()) ) {%>
 	<form action="updatesectioninboard.do">
 		<input type="hidden" name="section_id" 	value="<%=sectionList.get(i).getId() %>" />
-		<input type="text" name="section_name" class="byteLimit" limitbyte="30"	value="<%=sectionList.get(i).getName() %>" placeholder = "SECTION명을 입력하세요." />
-		<input type="submit" value="수정" />
+		<input type="text" name="section_name"  class="byteLimit" limitbyte="30"	value="<%=sectionList.get(i).getName() %>" placeholder = "SECTION명을 입력하세요." />
+		<input type="submit" value="수정" class="btn btn-default" />
 	</form>
 	<form action="deletesectioninboard.do">
 		<input type="hidden" name="section_id" value="<%=sectionList.get(i).getId() %>" />
@@ -86,7 +94,7 @@ for( int i = 0 ; i < sectionSize ; i++ ){
 	for( int j = 0 ; j < taskViewList.get( i ).size() ; j++ ){
 	%>
 
-		<div id="task" method = "post" onclick="location.href='./taskview.do?task_id=<%=taskViewList.get( i ).get( j ).getId() %>';" style="cursor:pointer">
+		<div id="task" method = "post" onclick="javascript:clicktask('<%=taskViewList.get( i ).get( j ).getId() %>')" style="cursor:pointer">
 
 			<h3><%=taskViewList.get( i ).get( j ).getName() %></h3>
 			내용:<%=taskViewList.get( i ).get( j ).getDescription() %><br />
@@ -105,6 +113,15 @@ for( int i = 0 ; i < sectionSize ; i++ ){
 				
 			<%
 			}%>
+			<div id="id01" class="w3-modal">
+		    <div class="w3-modal-content">
+		      <div class="w3-container">
+		        <span onclick="document.getElementById('id01').style.display='none'" class="w3-button w3-display-topright">&times;</span>
+		        <p>Some text. Some text. Some text.</p>
+		        <p>Some text. Some text. Some text.</p>
+		      </div>
+		    </div>
+		  </div>
 		</div>
 	<%
 	} %>

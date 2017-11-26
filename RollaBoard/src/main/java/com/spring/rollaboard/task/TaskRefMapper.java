@@ -1,7 +1,5 @@
 package com.spring.rollaboard.task;
 
-import java.util.ArrayList;
-
 import org.apache.ibatis.annotations.Param;
 
 public interface TaskRefMapper {
@@ -10,13 +8,13 @@ public interface TaskRefMapper {
 	public int isHavingPreTask( int id ) ;
 	public int isHavingPostTask( int id ) ;
 	public int isConnectedTask( int id ) ;
+	public int getConnLength( int id ) ;
 	
 	public void addPostTask1of2(@Param("taskId") int taskId, @Param("postTaskId") int postTaskId) ;
 	public void addPostTask2of2(@Param("taskId") int taskId, @Param("postTaskId") int postTaskId) ;
 	public void addPreTask(@Param("taskId") int taskId, @Param("preTaskId") int preTaskId) ;
 
 	public void createPreTask(@Param("taskId") int taskId, @Param("preTaskId") int preTaskId);
-	// public void createPostTask(@Param("taskId") int taskId, @Param("postTaskId") int postTaskId);
 	
 	public void insertByPreTask1of2(@Param("preTaskId") int preTaskId);
 	public void insertByPreTask2of2(@Param("taskId") int taskId, @Param("preTaskId") int preTaskId);
@@ -32,4 +30,15 @@ public interface TaskRefMapper {
 	public void createConnection(@Param("frontId") int frontId, @Param("backId") int backId);
 	
 	public void divideConnction(@Param("backId") int backId);
+	public void deleteTask(@Param("taskId") int taskId);
+	public void hideFromConnection(@Param("taskId") int taskId);	// 해당Task보다 큰 ref_level을가지고 있으면 ref_level-=1
+	public void pullHead(@Param("headId") int headId);
+	public void turnNormalConnByRoot(@Param("rootId") int rootId);	// *관계 제거하기 전에* normal 설정
+	public void turnNormalConn(@Param("taskId") int taskId);
+	public void eraseConnectionByRoot(@Param("rootId") int rootId);	// root TASK인 관계 전부 삭제
+	public void eraseConnection(@Param("taskId") int taskId);
+	
+	public int getPreTaskId(int id);
+	public int getPostTaskId(int id);
+	
 }
