@@ -61,4 +61,5 @@ public interface TaskRefDAO {
 	public RefTaskVO getPreTask(int taskId);
 	public RefTaskVO getPostTask(int taskId);
 	public Case getConnectedTask(int taskId, RefTaskVO preTask, RefTaskVO postTask);
+	
 }

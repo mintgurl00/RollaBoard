@@ -115,13 +115,13 @@
 	<update id="turnBlocked" parameterType="map">
 		UPDATE task
 		SET status='BLOCKED'
-		WHERE id=#{task_id} AND status='NORMAL'
+		WHERE id=#{task_id} <!-- AND status='NORMAL' -->
 	</update>
 	<!-- turnNormal -->
 	<update id="turnNormal" parameterType="map">
 		UPDATE task
 		SET status='NORMAL'
-		WHERE id=#{task_id} AND status='BLOCKED'
+		WHERE id=#{task_id} <!-- AND status='BLOCKED' -->
 	</update>
 	<!-- turnComplete -->
 	<update id="turnComplete" parameterType="map">
@@ -129,8 +129,25 @@
 		SET status='COMPLETE'
 		WHERE id=#{task_id} AND status='NORMAL'
 	</update>
-	<!-- cancelComplete -->
-<!-- 	<update id="cancelComplete" parameterType="map">
-	</update> -->
+	
+	<!-- turnStatusPostTask -->
+	<update id="turnStatusPostTask" parameterType="map">
+		MERGE INTO task ta
+		    USING (
+		        SELECT tc1.task_id task_id
+		        FROM task_conn tc1, task_conn tc2
+		        WHERE tc1.root_task_id=tc2.root_task_id
+		            AND tc2.task_id=#{task_id} 
+		            AND tc1.ref_level=(SELECT ref_level FROM task_conn WHERE task_id=#{task_id})+1
+		    ) p_ta
+		    ON (ta.id=p_ta.task_id
+		    <if test="cond_status != null" >
+		    	AND ta.status=#{cond_status}
+		    </if>
+		    )
+		WHEN MATCHED THEN
+		    UPDATE SET status=#{status} 
+	</update>
+
 	
 </mapper>
