@@ -75,18 +75,18 @@ function clicktask(id) {
 
 </script>
 
-<div id="section" >
+<div id="section" class="input-group" >
 	<!-- 섹션 표시줄 -->
 	<h4><%=sectionList.get(i).getName() %></h4>
 	<%if ( id.equals(boardVO.getAdmin()) ) {%>
 	<form action="updatesectioninboard.do">
 		<input type="hidden" name="section_id" 	value="<%=sectionList.get(i).getId() %>" />
-		<input type="text" name="section_name"  class="byteLimit" limitbyte="30"	value="<%=sectionList.get(i).getName() %>" placeholder = "SECTION명을 입력하세요." />
+		<input type="text" name="section_name"  class="byteLimit form-control" limitbyte="30" value="<%=sectionList.get(i).getName() %>" placeholder = "SECTION명을 입력하세요." />
 		<input type="submit" value="수정" class="btn btn-default" />
 	</form>
 	<form action="deletesectioninboard.do">
 		<input type="hidden" name="section_id" value="<%=sectionList.get(i).getId() %>" />
-		<input type="submit" value="삭제" />
+		<input type="submit" value="삭제" class="btn btn-default"/>
 	</form>
 	<%} %>
 	<!-- 태스크 표시 -->
@@ -152,6 +152,7 @@ function clicktask(id) {
 <%
 if( keyword.equals( "" ) ){	// 검색 결과가 *아니*라면
 %>
+	<br/>
 	<div>
 	<button type="button" class = "btn btn-info" onclick="location.href='createsectioninboard.do';">추가+</button>
 	</div>

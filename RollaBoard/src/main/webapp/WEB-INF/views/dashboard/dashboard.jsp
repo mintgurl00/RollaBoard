@@ -76,23 +76,23 @@ width:700px; /* optional, though better have one */
 <div id="id01" class="w3-modal">
     <div class="w3-modal-content w3-animate-top w3-card-4" style = "max-width:550px">
       <header class="w3-container w3-teal">
-        <span onclick="document.getElementById('id01').style.display='none'" class="w3-button w3-display-topright">&times;</span>
-        <h2>회원정보 수정</h2>
+        <span onclick="javascript:clickcancel()" class="w3-button w3-display-topright">&times;</span>
+        <h3>회원정보 수정</h3>
       </header>
-  <form class="w3-container" action="updatemember.do" method = "post">
-    <div class="w3-section">
-      <label>ID:</label>
-        <input class = "w3-input w3-border w3-margin-bottom" type="id" id="id" placeholder="Enter id" name="id" value = "<%=member.getId()%>" readonly>
-      <label>Password:</label>      
-        <input class = "w3-input w3-border w3-margin-bottom" type="password" id="password" placeholder="Enter password" name="password">
-      <label>Name:</label>
-        <input class = "w3-input w3-border w3-margin-bottom" type="name" id="name" placeholder="Enter name" name="name" value = "<%=name%>">       
-      <label>Email:</label>
-         <input class = "w3-input w3-border w3-margin-bottom" type="email"  id="email" placeholder="Enter email" name="email" value = "<%=email%>">
-        <button type="submit" class="w3-button w3-block w3-green w3-section w3-padding"  style="background-color: green"><b>변경하기</b></button>
-    	<button onclick="document.getElementById('id01').style.display='none'" type="button" class = "w3-button w3-block w3-red"><b>취소</b></button>
-    </div>
-  </form>
+	  <form class="w3-container" action="updatemember.do" method = "post">
+	    <div class="w3-section">
+	      <label>ID:</label>
+	        <input class = "w3-input w3-border w3-margin-bottom" type="id" id="id" placeholder="Enter id" name="id" value = "<%=member.getId()%>" readonly>
+	      <label>Password:</label>      
+	        <input class = "w3-input w3-border w3-margin-bottom" type="password" id="password" placeholder="Enter password" name="password">
+	      <label>Name:</label>
+	        <input class = "w3-input w3-border w3-margin-bottom" type="name" id="name" placeholder="Enter name" name="name" value = "<%=name%>">       
+	      <label>Email:</label>
+	         <input class = "w3-input w3-border w3-margin-bottom" type="email"  id="email" placeholder="Enter email" name="email" value = "<%=email%>">
+	        <button type="submit" class="w3-button w3-block w3-green w3-section w3-padding"  style="background-color: green"><b>변경하기</b></button>
+	    	<button onclick="javascript:clickcancel()" type="button" class = "w3-button w3-block w3-red"><b>취소</b></button>
+	    </div>
+	  </form>
  	 </div>
 </div>
   
@@ -172,20 +172,16 @@ function onClick(element) {
   captionText.innerHTML = element.alt;
 }
 
-// 회원정보 수정창 오픈
-function openPop() {
-	window.open("./updatememberform.do",
-			"UPDATE",
-			"resizeable = yes, menubar=no, width = 800, height = 500, left = 10, right = 10");
-	
-}
-
 // 태스크 보기
 function viewTask (cnt) {
 	document.getElementById("taskview" + cnt).submit();	
 }
 
-
+// 회원정보수정 캔슬클릭시
+function clickcancel() {
+	document.getElementById('id01').style.display='none';
+	window.location.reload();
+}
 </script>
 
 </body>
