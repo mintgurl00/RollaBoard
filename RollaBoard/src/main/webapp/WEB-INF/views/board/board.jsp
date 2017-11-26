@@ -48,13 +48,13 @@
   <style>
 #ref_board{width:280px; height:50px; background-color:#DAD9FF}
 #filter{float:left; width:1860px; height:50px; background-color:#DAD9FF; text-align:right}
-#content{overflow:scroll; width:auto; height:auto; margin-top:0px;}
-#section{overflow:scroll; float:left; width:300px; height:700px; margin-left:10px; background-color:#DAD9FF; border-radius:10px; text-align:center}
+#content{overflow:scroll; float:none; width:inherit; height:inherit; margin-top:0px;}
+#section{overflow-x:hidden; float:left; width:300px; height:700px; margin-left:10px; margin-top:10px; background-color:#DAD9FF; border-radius:10px; text-align:center}
 #task{width:260px; height:auto; margin-left:20px; margin-top:20px; background-color:#BDBDBF; border-radius:10px; text-align:center}
   
   body {
       font: 400 15px Lato, sans-serif;
-      height:auto;
+      height:inherit;
       line-height: 1.8;
 
   }
