@@ -84,7 +84,7 @@ function deletesectioninboard(cnt) {
 
 <div id="section">
 	<!-- 섹션 표시줄 -->
-	<h4><%=sectionList.get(i).getName() %></h4>
+	<h4><b><%=sectionList.get(i).getName() %></b></h4>
 	<%if ( id.equals(boardVO.getAdmin()) ) {%>
 	<div class = "row">
 	<div class = "col-xs-offset-1 col-xs-5">
