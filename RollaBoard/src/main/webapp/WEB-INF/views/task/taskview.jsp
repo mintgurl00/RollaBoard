@@ -64,6 +64,16 @@ function updateTask() {
 	<div id="status">마감날짜: <%=taskVO.getDue_date() %> </div>	
 	<div id="status">중요도: <%=taskVO.getPriority() %> </div>
 	
+	<!-- 수민 태스크 위치 추가 -->
+	<form action="showgooglemaps.do">
+		<div id="status">
+		위치: <%=taskVO.getLocation() %>
+		<input type="hidden" id="location" name="location" value="<%=taskVO.getLocation() %>">
+		<input type="submit" value="지도보기">
+		</div> 
+	</form>
+
+	
 	<%
 	if(preTaskVO != null || postTaskVO != null) {
 		%>
@@ -102,6 +112,7 @@ function updateTask() {
 		<input type = hidden name = "due_date" value = "<%=taskVO.getDue_date() %>">
 		<input type = hidden name = "cre_date" value = "<%=taskVO.getCre_date() %>">
 		<input type = hidden name = "priority" value = "<%=taskVO.getPriority() %>">	
+		<input type = hidden name = "location" value = "<%=taskVO.getLocation() %>">	
 	</form>
 	<form id = "deletetask" action = "deletetask.do">
 		<input type = hidden id="task_id" name = "task_id" value = "<%=taskVO.getId() %>">

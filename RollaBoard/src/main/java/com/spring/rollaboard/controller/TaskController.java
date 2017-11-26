@@ -279,5 +279,17 @@ public class TaskController {
 		return "task/statusbtn/normal";
 	}
 	
+	//수민 구글맵스보기
+    @RequestMapping("showgooglemaps.do")
+    public ModelAndView showgooglemaps(HttpServletRequest request) throws Exception {
+    	ModelAndView result = new ModelAndView();
+    	
+    	String location = request.getParameter("location");
+    	System.out.println("태스크 위치: " + location);
+    	
+    	result.addObject("location", location);
+		result.setViewName("task/showgooglemaps");
+    	return result;
+    }
 }
 

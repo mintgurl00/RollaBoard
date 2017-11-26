@@ -118,6 +118,7 @@ Create table task (
     start_date date,
     due_date date,
     cre_date date,
+    location varchar2(40),--ALTER TABLE task ADD location varchar(40); 이걸로 추가하세요.-석원
     priority number(1)
     );
     
