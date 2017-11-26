@@ -3,6 +3,7 @@
 <%@ page import="com.spring.rollaboard.task.TaskVO"%>
 <%@ page import="com.spring.rollaboard.board.BoardVO"%>
 <%@ page import="com.spring.rollaboard.section.SectionVO"%>
+<%@ page import="com.spring.rollaboard.mem.MemVO"%>
 <%
 	System.out.println("board");
 	// 세션 아이디 체크
@@ -11,8 +12,20 @@
 		out.println("location.href='index.do'");
 		out.println("</script>");
 	}
+	// 회원정보수정시 필요한 정보들
+	MemVO member = (MemVO) request.getAttribute("member");
+	String name = member.getName();
+	String email = member.getEmail();
+	if (name == null) {
+		name = "";
+	}
+	if (email == null) {
+		email = "";
+	}
+	
 	String id = (String) session.getAttribute("id");
-
+	//
+	
 	BoardVO boardVO = (BoardVO) request.getAttribute("boardVO");
 	// 석원.
 	ArrayList<ArrayList<TaskVO>> taskViewList = (ArrayList<ArrayList<TaskVO>>) request.getAttribute( "taskViewList" ) ;
@@ -310,7 +323,7 @@ function showRefBoard(){
 	</select>
 	</div>
 		</li>
-        <li><a onClick = "openPop();" style = "cursor:pointer" >회원정보수정</a></li>
+        <li><a onClick = "document.getElementById('updateMember').style.display='block'" style = "cursor:pointer" >회원정보수정</a></li>
         <li><a href="logout.do">LOGOUT</a></li>
       </ul>
     </div>
@@ -318,6 +331,7 @@ function showRefBoard(){
 </nav>
 
 <div class="jumbotron text-center">
+<br/>
   <h3><%=boardVO.getName() %></h3>  
   <form>
     <div class="input-group" >
@@ -345,7 +359,29 @@ function showRefBoard(){
 	
 </div>
 
-
+<!-- Modal창으로 회원정보수정 출력 -->
+<div id="updateMember" class="w3-modal">
+    <div class="w3-modal-content w3-animate-top w3-card-4" style = "max-width:550px">
+      <header class="w3-container w3-teal">
+        <span onclick="javascript:clickcancel()" class="w3-button w3-display-topright">&times;</span>
+        <h3>회원정보 수정</h3>
+      </header>
+	  <form class="w3-container" action="updatemember.do" method = "post">
+	    <div class="w3-section">
+	      <label>ID:</label>
+	        <input class = "w3-input w3-border w3-margin-bottom" type="id" id="id" placeholder="Enter id" name="id" value = "<%=member.getId()%>" readonly>
+	      <label>Password:</label>      
+	        <input class = "w3-input w3-border w3-margin-bottom" type="password" id="password" placeholder="Enter password" name="password">
+	      <label>Name:</label>
+	        <input class = "w3-input w3-border w3-margin-bottom" type="name" id="name" placeholder="Enter name" name="name" value = "<%=name%>">       
+	      <label>Email:</label>
+	         <input class = "w3-input w3-border w3-margin-bottom" type="email"  id="email" placeholder="Enter email" name="email" value = "<%=email%>">
+	        <button type="submit" class="w3-button w3-block w3-green w3-section w3-padding"  style="background-color: green"><b>변경하기</b></button>
+	    	<button onclick="javascript:clickcancel()" type="button" class = "w3-button w3-block w3-red"><b>취소</b></button>
+	    </div>
+	  </form>
+ 	 </div>
+</div>
 </body>
 <script>
 $(document).ready(function(){
@@ -382,6 +418,12 @@ $(document).ready(function(){
     });
   });
 })
+
+// 회원정보수정 캔슬클릭시
+function clickcancel() {
+	document.getElementById('id01').style.display='none';
+	window.location.reload();
+}
 </script>
 
 

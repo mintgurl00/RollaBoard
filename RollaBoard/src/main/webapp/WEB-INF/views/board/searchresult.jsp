@@ -72,22 +72,36 @@ function clicktask(id) {
 			"resizeable = yes, menubar=no, width = 470, height = 800, left = 10, right = 10");
 
 }
+function updatesectioninboard(cnt) {
+	document.getElementById("updatesectioninboard" + cnt).submit();
+}
+
+function deletesectioninboard(cnt) {
+	document.getElementById("deletesectioninboard" + cnt).submit();
+}
 
 </script>
 
-<div id="section" >
+<div id="section">
 	<!-- 섹션 표시줄 -->
-	<h4><%=sectionList.get(i).getName() %></h4>
+	<h4><b><%=sectionList.get(i).getName() %></b></h4>
 	<%if ( id.equals(boardVO.getAdmin()) ) {%>
-	<form action="updatesectioninboard.do">
+	<div class = "row">
+	<div class = "col-xs-offset-1 col-xs-5">
+	<form id = "updatesectioninboard<%=sectionList.get(i).getId() %>" action="updatesectioninboard.do">
 		<input type="hidden" name="section_id" 	value="<%=sectionList.get(i).getId() %>" />
-		<input type="text" name="section_name"  class="byteLimit" limitbyte="30"	value="<%=sectionList.get(i).getName() %>" placeholder = "SECTION명을 입력하세요." />
-		<input type="submit" value="수정" class="btn btn-default" />
+		<input type="text" name="section_name"  class="byteLimit form-control" limitbyte="30" value="<%=sectionList.get(i).getName() %>" placeholder = "SECTION명을 입력하세요." />		
+	</form>	
+	</div>
+
+	<input type="button" onclick = "javascript:updatesectioninboard(<%=sectionList.get(i).getId() %>)" value="수정" class="btn btn-default" />
+	<input type="button" onclick = "javascript:deletesectioninboard(<%=sectionList.get(i).getId() %>)" value="삭제" class="btn btn-default"/>
+
+	</div>
+	<form id = "deletesectioninboard<%=sectionList.get(i).getId() %>" action="deletesectioninboard.do">
+		<input type="hidden" name="section_id" value="<%=sectionList.get(i).getId() %>" />	
 	</form>
-	<form action="deletesectioninboard.do">
-		<input type="hidden" name="section_id" value="<%=sectionList.get(i).getId() %>" />
-		<input type="submit" value="삭제" />
-	</form>
+	<hr/>
 	<%} %>
 	<!-- 태스크 표시 -->
 	<%
@@ -152,7 +166,8 @@ function clicktask(id) {
 <%
 if( keyword.equals( "" ) ){	// 검색 결과가 *아니*라면
 %>
-	<div>
+	<div id = "section">
+	<br/>
 	<button type="button" class = "btn btn-info" onclick="location.href='createsectioninboard.do';">추가+</button>
 	</div>
 <% 
