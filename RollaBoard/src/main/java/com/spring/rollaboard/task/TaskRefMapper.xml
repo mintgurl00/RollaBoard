@@ -3,15 +3,11 @@
 
 <mapper namespace = "com.spring.rollaboard.task.TaskRefMapper">
 
-	<resultMap type = "RefTaskVO" id = "RefTaskResultMap">
-		<result property = "preTaskId" column = "PRE_TASK_ID"/>
-		<result property = "preTaskName" column = "PRE_TASK_NAME"/>
-		<result property = "preTaskSecId" column = "PRE_TASK_SEC_ID"/>
-		<result property = "preTaskSecName" column = "PRE_TASK_SEC_NAME"/>
-		<result property = "postTaskId" column = "POST_TASK_ID"/>
-		<result property = "postTaskName" column = "POST_TASK_NAME"/>
-		<result property = "postTaskSecId" column = "POST_TASK_SEC_ID"/>
-		<result property = "postTaskSecName" column = "POST_TASK_SEC_NAME"/>
+	<resultMap type="RefTaskVO" id ="RefTaskResultMap">
+		<result property = "refTaskId" column = "TASK_ID"/>
+		<result property = "refTaskName" column = "TASK_NAME"/>
+		<result property = "refTaskSecId" column = "TASK_SEC_ID"/>
+		<result property = "refTaskSecName" column = "TASK_SEC_NAME"/>
 	</resultMap>
 	
 	<!-- isHavingPreTask -->
@@ -241,4 +237,18 @@
 		    AND ref_level>(SELECT ref_level FROM task_conn WHERE task_id=#{taskId})
 		]]> 
 	</update>
+	
+	<!-- getRefTask -->
+	<select id="getRefTask" resultMap="RefTaskResultMap">
+		SELECT ta.id task_id, ta.name task_name, sec.id sec_id, sec.name sec_name
+		FROM task ta
+			INNER JOIN section sec 
+			ON ta.section_id=sec.id 
+		WHERE ta.id IN (
+		    SELECT tc1.task_id task_id 
+		    FROM task_conn tc1, task_conn tc2
+		    WHERE tc1.root_task_id=tc2.root_task_id
+		        AND tc2.task_id=#{taskId} 
+		        AND tc1.ref_level=(SELECT ref_level FROM task_conn WHERE task_id=#{taskId})+#{offset} )
+	</select>
 </mapper>

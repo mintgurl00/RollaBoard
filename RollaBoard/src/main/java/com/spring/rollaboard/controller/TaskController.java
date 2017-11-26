@@ -18,6 +18,7 @@ import com.spring.rollaboard.mem.MemDAOService;
 import com.spring.rollaboard.role.RoleDAOService;
 import com.spring.rollaboard.role.RoleVO;
 import com.spring.rollaboard.section.SectionDAOService;
+import com.spring.rollaboard.task.RefTaskVO;
 import com.spring.rollaboard.task.TaskDAOService;
 import com.spring.rollaboard.task.TaskRefDAOService;
 import com.spring.rollaboard.task.TaskVO;
@@ -52,20 +53,28 @@ public class TaskController {
     	String board_name = (String) request.getParameter("board_name");
     	System.out.println("태스크뷰 아이디 : " + task_id);
     	System.out.println("태스크뷰.. board_name : " + board_name);
-    	if (board_name == null) {	
-    		TaskVO taskVO = taskDAOService.getTask(task_id);
-        	result.addObject("taskVO", taskVO);
-        	result.setViewName("task/taskview");
-            return result;
-		} else {
+    	if (board_name != null) {
 	    	int board_id = boardDAOService.getBoard(board_name).getId();
-	    	System.out.println("갖고온 보드아이디 : " + board_id);
-
-	    	TaskVO taskVO = taskDAOService.getTask(task_id);
-	    	result.addObject("taskVO", taskVO);
-	    	result.setViewName("task/taskview");
-	        return result;
+	    	System.out.println("갖고온 보드아이디 : " + board_id);	
 		}
+    	TaskVO taskVO = taskDAOService.getTask(task_id);
+    	
+    	// 관계 있는지 확인하고 관계 TASK 정보 가져오기
+    	RefTaskVO preTaskVO = null, postTaskVO = null ;
+    	if( taskRefDAOService.isConnectedTask(task_id)){
+    		preTaskVO = new RefTaskVO(1);
+    		postTaskVO = new RefTaskVO(1);
+        	result.addObject("isConnected", "TRUE");
+    		taskRefDAOService.getConnectedTask(task_id, preTaskVO, postTaskVO);
+    		if(preTaskVO.getRefTaskId() > 0)
+    			result.addObject("preTaskVO", preTaskVO);
+    		if(postTaskVO.getRefTaskId() > 0)
+    			result.addObject("postTaskVO", postTaskVO);
+    	}
+    	
+    	result.addObject("taskVO", taskVO);
+    	result.setViewName("task/taskview");
+        return result;
     }
     
       

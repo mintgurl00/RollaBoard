@@ -1,5 +1,7 @@
 package com.spring.rollaboard.task;
 
+import com.spring.rollaboard.task.TaskRefDAOService.Case;
+
 /*
  * 석원.
  * 태스크 관계 관련
@@ -52,4 +54,11 @@ public interface TaskRefDAO {
 	public void cutTail(int tailId);
 	public void cutHead(int headId);
 	public void perishConnection(int rootId);
+	
+	//////////////////////////////////////////////////////
+	
+	//////// 관계 태스크 가져오기
+	public RefTaskVO getPreTask(int taskId);
+	public RefTaskVO getPostTask(int taskId);
+	public Case getConnectedTask(int taskId, RefTaskVO preTask, RefTaskVO postTask);
 }

@@ -41,4 +41,7 @@ public interface TaskRefMapper {
 	public int getPreTaskId(int id);
 	public int getPostTaskId(int id);
 	
+	/////////////관계태스크정보 가져오기
+	public RefTaskVO getRefTask(@Param("taskId") int taskId, @Param("offset") int offset); // offset. -1:선행, +1:후행 
+	
 }
