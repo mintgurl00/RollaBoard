@@ -26,6 +26,7 @@ if(session.getAttribute("id") == null) {
 <head>
 <link href="reset.css">
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
 <style>
       /* Always set the map height explicitly to define the size of the div
        * element that contains the map. */
@@ -66,7 +67,6 @@ if(session.getAttribute("id") == null) {
 <script src="js/taskview.js"></script>
 
 <script>
-
 //처음 맵 상태
 function initMap() {
 	
