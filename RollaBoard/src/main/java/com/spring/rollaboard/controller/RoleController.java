@@ -99,6 +99,9 @@ public class RoleController {
     @RequestMapping("updaterole.do")
 	public ModelAndView updaterole(RoleVO updateRoleInfo, HttpServletResponse response, HttpSession session) throws Exception {
     	ModelAndView result = new ModelAndView();
+    	if (updateRoleInfo.getName() == null || updateRoleInfo.getName().equals("")) {
+			updateRoleInfo.setName("No Name");
+		}
     	System.out.println("업데이트롤 정보들");
     	System.out.println("id : " + updateRoleInfo.getId());
     	System.out.println("Name : " + updateRoleInfo.getName());

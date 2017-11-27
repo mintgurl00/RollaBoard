@@ -51,6 +51,27 @@ function deletesectioninboard(cnt) {
 }
 
 </script>
+
+<!-- TASK클릭 시 함수 -->
+<script>
+function clicktask(id) {/* 
+	window.open("./taskview.do?task_id=" + id,
+			"TASK",
+			"resizeable = yes, menubar=no, width = 470, height = 800, left = 10, right = 10"); */
+	$("#taskViewArea").load("taskview.do",{
+		task_id:id
+	});
+	$("#myModal").modal();
+}
+function updatesectioninboard(cnt) {
+	document.getElementById("updatesectioninboard" + cnt).submit();
+}
+
+function deletesectioninboard(cnt) {
+	document.getElementById("deletesectioninboard" + cnt).submit();
+}
+
+</script>
 <link href="css/task.css" rel="stylesheet" type="text/css" >
 <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
 
@@ -110,7 +131,6 @@ for( int i = 0 ; i < sectionSize ; i++ ){
 	for( int j = 0 ; j < taskViewList.get( i ).size() ; j++ ){
 		String status = taskViewList.get( i ).get( j ).getStatus();	// 태스크 상태
 	%>
-
 		<div method ="post" 
 		class="task <%=status %>" 
 		onclick="javascript:clicktask('<%=taskViewList.get( i ).get( j ).getId() %>')">
@@ -134,7 +154,6 @@ for( int i = 0 ; i < sectionSize ; i++ ){
 				<%
 			}
 			%>
-			
 			
 			<%
 			if( roleAndTaskList.get( i ).get( j ) != null && roleAndTaskList.get( i ).get( j ).size() > 0 ){ %>

@@ -31,16 +31,138 @@
 	ArrayList<BoardVO> refBoardList = (ArrayList<BoardVO>) request.getAttribute("refBoardList");
 	String visible = (String) request.getAttribute("visible");
 %>
-<!DOCTYPE html>
 <html lang="en">
 <head>
   <title>updateboard</title>
-  <meta charset="utf-8" Encoding = "UTF-8">
+  <meta charset="utf-8" >
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href="reset.css">
+  <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet" type="text/css">
+  <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet" type="text/css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<style>
+body {
+      font: 400 15px Lato, sans-serif;
+      height:inherit;
+      line-height: 1.8;
 
+  }
+  h2 {
+      font-size: 24px;
+      text-transform: uppercase;
+      color: #303030;
+      font-weight: 600;
+      margin-bottom: 30px;
+  }
+  h4 {
+      font-size: 19px;
+      line-height: 1.375em;
+      color: #303030;
+      font-weight: 400;
+      margin-bottom: 30px;
+  }  
+  .jumbotron {
+      background-color: #F44336;
+      color: #fff;
+      padding: 40px 25px;
+      font-family: Montserrat, sans-serif;
+  }
+  .container-fluid {
+      padding: 60px 50px;
+  }
+  .logo-small {
+      color: #F44336;
+      font-size: 50px;
+  }
+  .logo {
+      color: #F44336;
+      font-size: 200px;
+  }
+  .navbar {
+      margin-bottom: 0;
+      background-color: #F44336;
+      z-index: 9999;
+      border: 0;
+      font-size: 12px !important;
+      line-height: 1.42857143 !important;
+      letter-spacing: 4px;
+      border-radius: 0;
+      font-family: Montserrat, sans-serif;
+  }
+  .navbar li a, .navbar .navbar-brand {
+      color: #fff !important;
+  }
+  .navbar-nav li a:hover, .navbar-nav li.active a {
+      color: #F44336 !important;
+      background-color: #fff !important;
+  }
+  .navbar-default .navbar-toggle {
+      border-color: transparent;
+      color: #fff !important;
+  }
+  footer .glyphicon {
+      font-size: 20px;
+      margin-bottom: 20px;
+      color: #F44336;
+  }
+  .slideanim {visibility:hidden;}
+  .slide {
+      animation-name: slide;
+      -webkit-animation-name: slide;
+      animation-duration: 1s;
+      -webkit-animation-duration: 1s;
+      visibility: visible;
+  }
+  @keyframes slide {
+    0% {
+      opacity: 0;
+      transform: translateY(70%);
+    } 
+    100% {
+      opacity: 1;
+      transform: translateY(0%);
+    }
+  }
+  @-webkit-keyframes slide {
+    0% {
+      opacity: 0;
+      -webkit-transform: translateY(70%);
+    } 
+    100% {
+      opacity: 1;
+      -webkit-transform: translateY(0%);
+    }
+  }
+  @media screen and (max-width: 768px) {
+    .col-sm-4 {
+      text-align: center;
+      margin: 25px 0;
+    }
+    .btn-lg {
+        width: 100%;
+        margin-bottom: 35px;
+    }
+  }
+  @media screen and (max-width: 480px) {
+    .logo {
+        font-size: 150px;
+    }
+  }
+  .boxing {
+	  width: 300px;
+	  height: 50px;
+	  font-size: 10pt;
+	  float: left;
+	  color: #63717f;
+	  padding-top: 12px;
+	  -webkit-border-radius: 5px;
+	  -moz-border-radius: 5px;
+	  border-radius: 10px;
+  }
+</style>
 
 <script>
 function rolePage() {
@@ -76,30 +198,53 @@ function updating() {
   <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
   <script src = "js/rolelist.js"></script>
 
-
-
 </head>
-<body>
+<body id="myPageUpdate" data-spy="scroll" data-target=".navbar" data-offset="60">
 
-<div class = "page-header">
-	<div class = "row">
-		<div class = "col-xs-1 col-sm-1"></div>
-		<div class = "col-xs-8 col-sm-2">
-		<form id = "updating" action = "updateboardname.do">
-			<input type = "text" class = "byteLimit" limitbyte="50" name = "board_name" value = "<%=boardVO.getName() %>" placeholder = "Board명을 입력하세요" required>
+<nav class="navbar navbar-default navbar-fixed-top">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar2">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>                        
+      </button>
+    <form id = "updating" action = "updateboardname.do" class = "boxing">
+		<input type = "text" class = "byteLimit form-control" limitbyte="50" name = "board_name" value = "<%=boardVO.getName() %>" placeholder = "Board명을 입력하세요" required>
+	</form>
+    </div>
+    <div class="collapse navbar-collapse" id="myNavbar2">
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+        	<a onclick = "rolePage()" style = "cursor:pointer">ROLE관리</a>
+        	
+		</li>
+        <li>
+        	<a onclick = "allocatePage()" style = "cursor:pointer">ROLE배정</a>
+        	
+		</li>
+        <li>
+        	<a onclick = "memberPage()" style = "cursor:pointer">MEMBER관리</a>
+        	
+		</li>
+		<li>
+			<a onclick = "admitPage()" style = "cursor:pointer">MEMBER승인</a>
+			
+		</li>
+		<li>
+			<a onclick = "sectionPage()" style = "cursor:pointer">SECTION관리</a>
+			
+		</li>
+		<li>
+			<a onclick = "ETCPage()" style = "cursor:pointer">기타설정</a>
+			
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
 
-		</form>
-		</div>
-		<div class = "col-xs-6 col-sm-1"><input type="button" name = "group" class="btn btn-primary" onclick = "rolePage()" value = "ROLE관리"/></div>
-		<div class = "col-xs-6 col-sm-1"><input type="button" name = "group" class="btn btn-primary" onclick = "allocatePage()" value = "ROLE배정"/></div>
-		<div class = "col-xs-6 col-sm-1"><input type="button" name = "group" class="btn btn-primary" onclick = "memberPage()" value = "MEMBER관리"/></div>
-		<div class = "col-xs-6 col-sm-1"><input type="button" name = "group" class="btn btn-primary" onclick = "admitPage()" value = "MEMBER승인"/></div>
-		<div class = "col-xs-6 col-sm-1"><input type="button" name = "group" class="btn btn-primary" onclick = "sectionPage()" value = "SECTION관리"/></div>
-		<div class = "col-xs-6 col-sm-1"><input type="button" name = "group" class="btn btn-primary" onclick = "ETCPage()" value = "기타설정"/></div>
-	</div>
-</div>
-
-<div id=resultBlock class="wrapper">
+<div id=resultBlock class="wrapper" style = "padding-top:60px">
 	<%if (chkVal == null) {%>
 	<jsp:include page = "rolelist.jsp" flush = "false" >
 			<jsp:param name="roleList" value="<%=roleList %>" />
@@ -132,12 +277,19 @@ function updating() {
 	</jsp:include>
 	<%} %>
 </div>
-<div class = "row" align = center>
-	<div class = "col-xs-12 left">
+
+<footer class="container-fluid text-center">
 	<input type = "submit" class = "btn btn-info" value = "확인" onclick = "javascript:updating()" >&nbsp; 
 	<input type = "button" class = "btn btn-info" value = "돌아가기" onclick = "location.href='board.do?board_id=<%=boardVO.getId()%>'">
-	</div>
-</div>
+</footer>
 <br/>
 </body>
+<script>
+// 회원정보수정 캔슬클릭시
+function clickcancel() {
+	document.getElementById('id01').style.display='none';
+	window.location.reload();
+}
+</script>
+
 </html>

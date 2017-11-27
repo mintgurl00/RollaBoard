@@ -125,7 +125,7 @@ width:700px; /* optional, though better have one */
   <div class="w3-row-padding">
   	<div >
   	<% if (taskList.size() == 0) {%>
-  		<h2 class="w3-jumbo"><b>No Tasks</b></h2>
+  		<center><h2>No Tasks</h2></center>
   	<%} else { %>
 	<% for (int k = 0; k < taskList.size(); k++) {
 		TaskVO taskVO = taskList.get(k);

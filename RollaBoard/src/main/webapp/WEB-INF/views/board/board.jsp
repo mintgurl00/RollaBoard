@@ -47,6 +47,125 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <link rel="stylesheet" type="text/css" href="css/board.css" >
 
+
+<style>
+h2 {
+    font-size: 24px;
+    text-transform: uppercase;
+    color: #303030;
+    font-weight: 600;
+    margin-bottom: 30px;
+}
+h4 {
+    font-size: 19px;
+    line-height: 1.375em;
+    color: #303030;
+    font-weight: 400;
+    margin-bottom: 30px;
+}  
+.jumbotron {
+    background-color: #F44336;
+    color: #fff;
+    padding: 40px 25px;
+    font-family: Montserrat, sans-serif;
+}
+.container-fluid {
+    padding: 60px 50px;
+}
+.logo-small {
+    color: #F44336;
+    font-size: 50px;
+}
+.logo {
+    color: #F44336;
+    font-size: 200px;
+}
+.navbar {
+    margin-bottom: 0;
+    background-color: #F44336;
+    z-index: 9999;
+    border: 0;
+    font-size: 12px !important;
+    line-height: 1.42857143 !important;
+    letter-spacing: 4px;
+    border-radius: 0;
+    font-family: Montserrat, sans-serif;
+}
+.navbar li a, .navbar .navbar-brand {
+    color: #fff !important;
+}
+.navbar-nav li a:hover, .navbar-nav li.active a {
+    color: #F44336 !important;
+    background-color: #fff !important;
+}
+.navbar-default .navbar-toggle {
+    border-color: transparent;
+    color: #fff !important;
+}
+footer .glyphicon {
+    font-size: 20px;
+    margin-bottom: 20px;
+    color: #F44336;
+}
+.slideanim {visibility:hidden;}
+.slide {
+    animation-name: slide;
+    -webkit-animation-name: slide;
+    animation-duration: 1s;
+    -webkit-animation-duration: 1s;
+    visibility: visible;
+}
+@keyframes slide {
+  0% {
+    opacity: 0;
+    transform: translateY(70%);
+  } 
+  100% {
+    opacity: 1;
+    transform: translateY(0%);
+  }
+}
+@-webkit-keyframes slide {
+  0% {
+    opacity: 0;
+    -webkit-transform: translateY(70%);
+  } 
+  100% {
+    opacity: 1;
+    -webkit-transform: translateY(0%);
+  }
+}
+@media screen and (max-width: 768px) {
+  .col-sm-4 {
+    text-align: center;
+    margin: 25px 0;
+  }
+  .btn-lg {
+      width: 100%;
+      margin-bottom: 35px;
+  }
+}
+@media screen and (max-width: 480px) {
+  .logo {
+      font-size: 150px;
+  }
+}
+.selectBox02 {position:relative;display:inline-block;width:200px;height:50px;background-color:#F44336}
+.selectBox02 .txt {display:block;width:188px;height:48px;padding-left:10px;line-height:50px;border:1px solid #F44336;text-align:center;color:#FFF}
+.selectBox02 select {position:absolute;left:0;top:0;display:block;width:200px;padding-left:10px;height:50px;opacity:0;filter: alpha(opacity=0);z-index:10;
+	appearance:none; /* 기본 스타일 없애기 */
+	-webkit-appearance:none;
+	-moz-appearance:none;
+	-o-appearance:none
+}
+ 
+.selectBox02.focus {border: 1px solid #66afe9;
+	-webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(102, 175, 233, .6); 
+	box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(102, 175, 233, .6) /* focus효과*/
+}
+</style>
+
+
 <script type = "text/javascript" language = "javascript">
 function openPop() {
 	window.open("./updatememberform.do",
@@ -180,7 +299,9 @@ function showRefBoard(){
 </head>
 <body id="myPage" data-spy="scroll" data-target=".navbar" data-offset="60">
 
+
 <nav class="navbar navbar-default navbar-fixed-top">
+
 <div class="container">
 	<div class="navbar-header">
 		<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
@@ -204,10 +325,11 @@ function showRefBoard(){
 			}%>
 			<li>
 				<!-- 참조 보드 선택 -->
-				<div>
-					<input type="hidden" id="current_ref_board" value="-1" /> <select
-						id="ref_board_select">
-						<option value="-1">참조 BOARD 선택</option>
+				<div class = "selectBox02">
+				<input type="hidden" id="current_ref_board" value="-1" /> 
+				<span class = "txt">참조 BOARD 선택</span>				
+					<select id="ref_board_select">
+						<option value="-1"></option>
 					</select>
 				</div>
 			</li>
@@ -217,7 +339,9 @@ function showRefBoard(){
 				<li><a href="logout.do">LOGOUT</a></li>
 		</ul>
 	</div>
+
 </div>
+
 </nav>
 
 <div class="jumbotron text-center">
@@ -319,39 +443,19 @@ function showRefBoard(){
 
 </body>
 <script>
+$(".selectBox02 select").change(function () {
+	var changeTxt = $(this).find("option:selected").text();
+	$(this).parent().find(".txt").text(changeTxt);
+ });
+$(".selectBox02 select").focus(function () {
+	$(this).parent().addClass("focus");
+});
+$(".selectBox02 select").blur(function () {
+	$(this).parent().removeClass("focus");
+});
+
 $(document).ready(function(){
-  // Add smooth scrolling to all links in navbar + footer link
-  $(".navbar a, footer a[href='#myPage']").on('click', function(event) {
-    // Make sure this.hash has a value before overriding default behavior
-    if (this.hash !== "") {
-      // Prevent default anchor click behavior
-      event.preventDefault();
-
-      // Store hash
-      var hash = this.hash;
-
-      // Using jQuery's animate() method to add smooth page scroll
-      // The optional number (900) specifies the number of milliseconds it takes to scroll to the specified area
-      $('html, body').animate({
-        scrollTop: $(hash).offset().top
-      }, 900, function(){
-   
-        // Add hash (#) to URL when done scrolling (default click behavior)
-        window.location.hash = hash;
-      });
-    } // End if
-  });
   
-  $(window).scroll(function() {
-    $(".slideanim").each(function(){
-      var pos = $(this).offset().top;
-
-      var winTop = $(window).scrollTop();
-        if (pos < winTop + 600) {
-          $(this).addClass("slide");
-        }
-    });
-  });
 })
 
 // 회원정보수정 캔슬클릭시
