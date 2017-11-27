@@ -38,128 +38,15 @@
 <title>Board Page</title>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<link href="css/reset.css">
+<link rel="stylesheet" type="text/css" href="css/reset.css" >
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet" type="text/css">
 <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet" type="text/css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-<style>
-#ref_board{width:280px; height:50px; background-color:#DAD9FF}
-#filter{float:left; width:1860px; height:50px; background-color:#DAD9FF; text-align:right}
-#content{overflow:scroll; float:none; width:inherit; height:inherit; margin-top:0px;}
-#section{overflow-x:hidden; float:left; width:300px; height:700px; margin-left:10px; margin-top:10px; background-color:#DAD9FF; border-radius:10px; text-align:center}
-#task{width:260px; height:auto; margin-left:20px; margin-top:20px; background-color:#BDBDBF; border-radius:10px; text-align:center}
-  
-body {
-    font: 400 15px Lato, sans-serif;
-    height:inherit;
-    line-height: 1.8;
+<link rel="stylesheet" type="text/css" href="css/board.css" >
 
-}
-h2 {
-    font-size: 24px;
-    text-transform: uppercase;
-    color: #303030;
-    font-weight: 600;
-    margin-bottom: 30px;
-}
-h4 {
-    font-size: 19px;
-    line-height: 1.375em;
-    color: #303030;
-    font-weight: 400;
-    margin-bottom: 30px;
-}  
-.jumbotron {
-    background-color: #F44336;
-    color: #fff;
-    padding: 40px 25px;
-    font-family: Montserrat, sans-serif;
-}
-.container-fluid {
-    padding: 60px 50px;
-}
-.logo-small {
-    color: #F44336;
-    font-size: 50px;
-}
-.logo {
-    color: #F44336;
-    font-size: 200px;
-}
-.navbar {
-    margin-bottom: 0;
-    background-color: #F44336;
-    z-index: 9999;
-    border: 0;
-    font-size: 12px !important;
-    line-height: 1.42857143 !important;
-    letter-spacing: 4px;
-    border-radius: 0;
-    font-family: Montserrat, sans-serif;
-}
-.navbar li a, .navbar .navbar-brand {
-    color: #fff !important;
-}
-.navbar-nav li a:hover, .navbar-nav li.active a {
-    color: #F44336 !important;
-    background-color: #fff !important;
-}
-.navbar-default .navbar-toggle {
-    border-color: transparent;
-    color: #fff !important;
-}
-footer .glyphicon {
-    font-size: 20px;
-    margin-bottom: 20px;
-    color: #F44336;
-}
-.slideanim {visibility:hidden;}
-.slide {
-    animation-name: slide;
-    -webkit-animation-name: slide;
-    animation-duration: 1s;
-    -webkit-animation-duration: 1s;
-    visibility: visible;
-}
-@keyframes slide {
-  0% {
-    opacity: 0;
-    transform: translateY(70%);
-  } 
-  100% {
-    opacity: 1;
-    transform: translateY(0%);
-  }
-}
-@-webkit-keyframes slide {
-  0% {
-    opacity: 0;
-    -webkit-transform: translateY(70%);
-  } 
-  100% {
-    opacity: 1;
-    -webkit-transform: translateY(0%);
-  }
-}
-@media screen and (max-width: 768px) {
-  .col-sm-4 {
-    text-align: center;
-    margin: 25px 0;
-  }
-  .btn-lg {
-      width: 100%;
-      margin-bottom: 35px;
-  }
-}
-@media screen and (max-width: 480px) {
-  .logo {
-      font-size: 150px;
-  }
-}
-</style>
 <script type = "text/javascript" language = "javascript">
 function openPop() {
 	window.open("./updatememberform.do",
@@ -170,7 +57,12 @@ function openPop() {
 /*
  * 석원.
  */
+ 
+ 
 window.onload = function(){
+    $("#myBtn").click(function(){
+        $("#myModal").modal();
+    });
 	initRefBoard( "ref_board_select" ) ;
 	initBoard();
 	inputEnterToSearch();
@@ -206,7 +98,7 @@ function initRefBoard( selectName ){
  * 보드 그리기 
  */
 function initBoard() {
-	$('#content').load("searchresult.do", {
+	$('#work_board').load("searchresult.do", {
 		board_id: '<%=boardVO.getId() %>',
 		keyword:''
 	});
@@ -250,7 +142,7 @@ function filterResult( obj ){	// 필터버튼 클릭
 	var filter = getFilter() ;
 	/* alert( '필터스트링 : ' + filter ) ; */
 	// 03 페이지 로드
-	$('#content').load("searchresult.do", {
+	$('#work_board').load("searchresult.do", {
 		board_id: '<%=boardVO.getId() %>',
 		keyword:$('#written_keyword').val(),
 		filter: filter
@@ -347,8 +239,45 @@ function showRefBoard(){
   </div>
 </div>
 
+<button type="button" class="btn btn-default btn-lg" id="myBtn">Login</button>
+
+
+<!-- MODAL TASK -->
+
+<div class="modal fade" id="myModal" role="dialog">
+	<div class="modal-dialog" style="margin:55px auto;">
+		<div class="modal-content" id="taskViewArea">
+			<!-- <div class="modal-header" style="padding:35px 50px;">
+			<button type="button" class="close" data-dismiss="modal">&times;</button>
+			<h4><span class="glyphicon glyphicon-lock"></span> Login</h4>
+			</div>
+			<div class="modal-body" style="padding:40px 50px;">
+				<form role="form">
+					<div class="form-group">
+						<label for="usrname"><span class="glyphicon glyphicon-user"></span> Username</label>
+						<input type="text" class="form-control" id="usrname" placeholder="Enter email">
+					</div>
+					<div class="form-group">
+						<label for="psw"><span class="glyphicon glyphicon-eye-open"></span> Password</label>
+						<input type="text" class="form-control" id="psw" placeholder="Enter password">
+					</div>
+					<div class="checkbox">
+						<label><input type="checkbox" value="" checked>Remember me</label>
+					</div>
+				    <button type="submit" class="btn btn-success btn-block"><span class="glyphicon glyphicon-off"></span> Login</button>
+				</form>
+			</div>
+			<div class="modal-footer">
+				<button type="submit" class="btn btn-danger btn-default pull-left" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span> Cancel</button>
+				<p>Not a member?<a href="#">Sign Up</a></p>
+				<p>Forgot <a href="#">Password?</a></p>
+			</div> -->
+		</div> 
+	</div>
+
+</div>
 <!-- 보드 -->
-<div id="content">
+<div id="work_board">
 	
 </div>
 
@@ -380,6 +309,17 @@ function showRefBoard(){
 		</form>
 	</div>
 </div>
+
+
+
+
+
+
+
+
+
+
+
 </body>
 <script>
 $(document).ready(function(){
