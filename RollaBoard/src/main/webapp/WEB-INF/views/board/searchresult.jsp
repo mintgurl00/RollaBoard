@@ -31,6 +31,27 @@ keyword : <%=keyword %> <br />
  -->
 
 
+<!-- TASK클릭 시 함수 -->
+<script>
+function clicktask(id) {/* 
+	window.open("./taskview.do?task_id=" + id,
+			"TASK",
+			"resizeable = yes, menubar=no, width = 470, height = 800, left = 10, right = 10"); */
+	$("#taskViewArea").load("taskview.do",{
+		task_id:id
+	});
+	$("#myModal").modal();
+}
+function updatesectioninboard(cnt) {
+	document.getElementById("updatesectioninboard" + cnt).submit();
+}
+
+function deletesectioninboard(cnt) {
+	document.getElementById("deletesectioninboard" + cnt).submit();
+}
+
+</script>
+
 <!-- 결과 나오는 부분 -->
 
 <%
@@ -60,27 +81,6 @@ int sectionSize = sectionList.size() ;
 for( int i = 0 ; i < sectionSize ; i++ ){
 %>
 
-<!-- 글자수제한 스크립트 -->
-  <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
-  <script src = "js/rolelist.js"></script>
-
-<!-- TASK클릭 시 함수 -->
-<script>
-function clicktask(id) {
-	window.open("./taskview.do?task_id=" + id,
-			"TASK",
-			"resizeable = yes, menubar=no, width = 470, height = 800, left = 10, right = 10");
-
-}
-function updatesectioninboard(cnt) {
-	document.getElementById("updatesectioninboard" + cnt).submit();
-}
-
-function deletesectioninboard(cnt) {
-	document.getElementById("deletesectioninboard" + cnt).submit();
-}
-
-</script>
 
 <div id="section">
 	<!-- 섹션 표시줄 -->
