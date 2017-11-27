@@ -50,7 +50,7 @@
 <div class = "form-group">
 	<div class = "row">
 		<div class = "col-xs-1"></div>
-		<div class = "col-xs-10"><input type = "text" class = "form-control byteLimit" limitbyte="50" id = "board_name" name = "name" placeholder = "Board명을 입력하세요"></div>
+		<div class = "col-xs-10"><input type = "text" class = "form-control byteLimit" limitbyte="50" id = "board_name" name = "name" placeholder = "Board명을 입력하세요" required></div>
 	</div>
 </div>
 
