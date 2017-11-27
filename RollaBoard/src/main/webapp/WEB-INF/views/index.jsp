@@ -18,7 +18,7 @@ body {
     background: -webkit-linear-gradient(left, red , yellow); /* For Safari 5.1 to 6.0 */
     background: -o-linear-gradient(right, red, yellow); /* For Opera 11.1 to 12.0 */
     background: -moz-linear-gradient(right, red, yellow); /* For Firefox 3.6 to 15 */
-    background: linear-gradient(to right, red , orange); /* Standard syntax (must be last) */
+    background: linear-gradient(to right, red , yellow); /* Standard syntax (must be last) */
 }
 
 </style>
