@@ -5,7 +5,7 @@ import java.util.ArrayList;
 public interface BoardDAO {
 	public ArrayList<BoardVO> getBoards(String id);
 	
-	public ArrayList<BoardVO> getAllBoards();
+	public ArrayList<BoardVO> getAllBoards(); // VISIBILITY = 'TRUE' 조건 추가함(11.27)
 
 	public BoardVO getBoard(String name); // 규성. 보드이름으로 보드정보 가져옴(joinboard에 사용)
 
@@ -30,6 +30,8 @@ public interface BoardDAO {
 	public void deleteRefBoard(int ref_id, int board_id);
 	
 	public void addRefBoard(int ref_id, int board_id);
+
+	public String getVisibility(int board_id);
 	
 
 

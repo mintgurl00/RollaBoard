@@ -103,7 +103,7 @@ public class HomeController {
     		// alert처리단
     		response.setContentType("text/html; charset-utf-8");
     		PrintWriter out = response.getWriter();
-            out.println("<script>alert('Password incorrect !'); history.go(-1); window.location.reload();</script>");
+            out.println("<script>alert('Password incorrect !'); history.go(-1); </script>");
             out.flush(); 
     		return;
             //developerdon.tistory.com/entry/JAVA-단에서-alert-처리하기-–-
@@ -121,7 +121,7 @@ public class HomeController {
         out.flush();      
         result.addObject("chkVal", chkVal);
         result.addObject("id", updateMemInfo.getId());
-        result.setViewName("main/submenu");
+        result.setViewName("main/submenu2");
 		return;
 	}
     

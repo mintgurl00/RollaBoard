@@ -1,5 +1,6 @@
 package com.spring.rollaboard.controller;
 
+import java.io.PrintWriter;
 import java.util.ArrayList;
 
 import javax.servlet.http.HttpServletRequest;
@@ -70,8 +71,9 @@ public class BoardSettingController {
     	ArrayList<MemVO> boardWaitingList = memDAOService.waitingMembers(board_id);
     	// SECTION 관리페이지 관련 정보들
     	ArrayList<SectionVO> sectionList = sectionDAOService.getSections(board_id);
-    	//기타설정 페이지 관련 정보들
+    	// 기타설정 페이지 관련 정보들
     	ArrayList<BoardVO> refBoardList = boardDAOService.getRefBoards(board_id);
+    	String visible = boardDAOService.getVisibility(board_id);
     	
     	boardVO = boardDAOService.getBoardInfo(board_id);
     	System.out.println("업데이트보드 id = " + board_id);
@@ -82,6 +84,7 @@ public class BoardSettingController {
     	result.addObject("boardWaitingList", boardWaitingList); // member 승인페이지 관련 정보들
     	result.addObject("sectionList", sectionList); // SECTION 관리페이지 관련 정보들
     	result.addObject("refBoardList", refBoardList); // 기타설정 페이지 관련 정보들
+    	result.addObject("visible", visible);
     	result.setViewName("boardsettings/updateboard");
         return result;
     }
@@ -120,7 +123,9 @@ public class BoardSettingController {
     	
     	int board_id = Integer.parseInt((String) session.getAttribute("board_id"));
     	ArrayList<BoardVO> refBoardList = boardDAOService.getRefBoards(board_id);
-    	
+    	// 공개, 비공개의 현재값 가져오기
+    	String visible = boardDAOService.getVisibility(board_id);
+    	result.addObject("visible", visible);
     	result.addObject("refBoardList" , refBoardList) ;
     	result.setViewName("boardsettings/etcform");
     	
@@ -142,14 +147,14 @@ public class BoardSettingController {
        	// 현재 페이지에 머물 수 있는 앵커값 : chkVal
     	String chkVal = "etc";
     	result.addObject("chkVal", chkVal);
-    	result.setViewName("redirect:updateboard.do");
+    	result.setViewName("main/subMenu");
         return result;
     	
     }
     
     //참조보드 추가
     @RequestMapping("addrefboard.do")
-    public ModelAndView addrefboard(HttpServletRequest request, HttpSession session) {
+    public ModelAndView addrefboard(HttpServletRequest request, HttpSession session, HttpServletResponse response) throws Exception {
     	ModelAndView result = new ModelAndView();
     	System.out.println("addrefboard.do 진입했는지 확인");
     	System.out.println("내 보드 아이디: " + Integer.parseInt((String)session.getAttribute("board_id")));
@@ -157,39 +162,30 @@ public class BoardSettingController {
     	
     	String name = request.getParameter("name");
     	System.out.println("추가할 참조보드 이름 : " + name);
-    	
-    	ArrayList<BoardVO> allBoardList = boardDAOService.getAllBoards();
-    	
-    	for (int i = 0; i < allBoardList.size(); i++) {
-    		BoardVO boardVO = allBoardList.get(i);
-    		String dbName = boardVO.getName();
     		
-    		if (name.equals(dbName)) {
-    			BoardVO board = boardDAOService.getBoard(name);
-    	    	
-    	    	int ref_id = board.getId();
-    	    	System.out.println("참조보드 아이디 : " + ref_id);
-    	    	
-    	    	boardDAOService.addRefBoard(ref_id, board_id);
-    	    	
-    	    	// 현재 페이지에 머물 수 있는 앵커값 : chkVal
-    	    	String chkVal = "etc";
-    	    	result.addObject("chkVal", chkVal);
-    	    	result.setViewName("redirect:updateboard.do");
-    	        return result;
-    			
-    		}
-    	}
-//		//존재하지 않는 BOARD명을 입력한 경우
-//		response.setContentType("text/html; charset-utf-8");
-//		PrintWriter out = response.getWriter();
-//        out.println("<script>alert('존재하지 않는 BOARD입니다. BOARD명을 다시 입력해주세요.');</script>");
-//        out.flush(); 
+    	BoardVO refBoard = boardDAOService.getBoard(name);
+    	if (refBoard == null) {
+    		//존재하지 않는 BOARD명을 입력한 경우
+    		response.setContentType("text/html; charset-utf-8");
+    		PrintWriter out = response.getWriter();
+            out.println("<script>alert('존재하지 않는 BOARD입니다. BOARD명을 다시 입력해주세요.');</script>");
+            out.flush(); 
+		} else if (refBoard.getVisibility() != "TRUE") {
+    		// 비공개 BOARD명을 입력한 경우
+    		response.setContentType("text/html; charset-utf-8");
+    		PrintWriter out = response.getWriter();
+            out.println("<script>alert('비공개 Board 입니다');</script>");
+            out.flush(); 
+		} else {
+			int ref_id = refBoard.getId();
+			boardDAOService.addRefBoard(ref_id, board_id);
+			System.out.println("보드참조 완료!");
+		}
     	
     	// 현재 페이지에 머물 수 있는 앵커값 : chkVal
     	String chkVal = "etc";
     	result.addObject("chkVal", chkVal);
-    	result.setViewName("redirect:updateboard.do");
+    	result.setViewName("main/subMenu");
         return result;
     	
     }
@@ -212,7 +208,7 @@ public class BoardSettingController {
     	// 현재 페이지에 머물 수 있는 앵커값 : chkVal
     	String chkVal = "etc";
     	result.addObject("chkVal", chkVal);
-    	result.setViewName("redirect:updateboard.do");
+    	result.setViewName("main/subMenu");
         return result;
     	
     }
