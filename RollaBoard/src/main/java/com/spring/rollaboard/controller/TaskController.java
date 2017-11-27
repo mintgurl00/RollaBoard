@@ -228,6 +228,68 @@ public class TaskController {
 		return result;
 	}
     
-    
+	// 완료 버튼 처리
+	@RequestMapping("complete.go.do")
+	public ModelAndView pushCompleteBtn(HttpServletRequest request){
+		ModelAndView result = new ModelAndView() ;
+		int task_id = Integer.parseInt( (String) request.getParameter("task_id") ) ;
+		System.out.println("완료버튼 처리 : " + task_id );
+		taskDAOService.pushComplete( task_id );
+		result.setViewName("task/statusbtn/complete");
+		return result ;
+	}
+	
+	// 완료 취소 버튼 처리
+	@RequestMapping("completecancel.go.do")
+	public ModelAndView cancelCompleteBtn(HttpServletRequest request){
+		ModelAndView result = new ModelAndView() ;
+		int task_id = Integer.parseInt( (String) request.getParameter("task_id") ) ;
+		System.out.println("완료취소버튼 처리 : " + task_id);
+		taskDAOService.cancelComplete( task_id );
+		if(taskDAOService.checkStatus(task_id, "NORMAL"))
+			result.setViewName("task/statusbtn/normal");
+		else
+			result.setViewName("task/statusbtn/blocked");
+		return result ;
+	}
+	
+	
+	@RequestMapping("setCompleteArea.do")
+	public String setCompleteArea(HttpServletRequest request) {
+		String status = (String) request.getParameter("status");
+		System.out.println("완료구역 초기화 : " + status);
+		if(status.equals("NORMAL"))
+			return "redirect:normal.status.do";
+		else if(status.equals("COMPLETE"))
+			return "redirect:complete.status.do";
+		else
+			return "redirect:blocked.status.do";
+	}
+	
+	@RequestMapping("complete.status.do")
+	public String statusComplete() {
+		return "task/statusbtn/complete";
+	}
+	@RequestMapping("blocked.status.do")
+	public String statusBlocked() {
+		return "task/statusbtn/blocked";
+	}
+	@RequestMapping("normal.status.do")
+	public String statusNormal() {
+		return "task/statusbtn/normal";
+	}
+	
+	//수민 구글맵스보기
+    @RequestMapping("showgooglemaps.do")
+    public ModelAndView showgooglemaps(HttpServletRequest request) throws Exception {
+    	ModelAndView result = new ModelAndView();
+    	
+    	String location = request.getParameter("location");
+    	System.out.println("태스크 위치: " + location);
+    	
+    	result.addObject("location", location);
+		result.setViewName("task/showgooglemaps");
+    	return result;
+    }
 }
 

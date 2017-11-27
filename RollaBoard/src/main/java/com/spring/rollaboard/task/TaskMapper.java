@@ -40,9 +40,13 @@ public interface TaskMapper {
 	
 	public void taskToRole(@Param("task_id") int task_id, @Param("role_id") int role_id);
 
-	public void turnBlocked(@Param("task_id") int task_id);	// 석원 normal->blocked
-	public void turnNormal(@Param("task_id") int task_id);	// 석원 blocked->normal
+	public void turnBlocked(@Param("task_id") int task_id);	// 석원 normal,complete->blocked
+	public void turnNormal(@Param("task_id") int task_id);	// 석원 blocked,complete->normal
 	public void turnComplete(@Param("task_id") int task_id);	// 석원 normal->complete
+	public void turnStatusPostTask(@Param("task_id") int task_id, 
+			@Param("status") String status, @Param("cond_status") String cond_status);	// 석원.
+	public int checkStatus(@Param("task_id") int task_id, @Param("cond_status") String cond_status);	// 석원
+	//public void turnBlockPostTask(@Param("task_id") int task_id);	//
 	//public void cancelComplete(@Param("task_id") int task_id);	// 석원 complete->normal
 	
 }

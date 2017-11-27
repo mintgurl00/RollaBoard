@@ -15,6 +15,9 @@ public class TaskDAOService implements TaskDAO {
 
 	@Autowired
 	private SqlSession sqlSession; // Mybatis(ibatis)라이브러리가 제공하는 클래스
+
+	@Autowired
+	private TaskRefDAOService taskRefDAOService;
 	
 	@Override
 	public ArrayList<TaskVO> getMyTasks(String mem_id) {
@@ -212,9 +215,40 @@ public class TaskDAOService implements TaskDAO {
 	}
 
 	@Override
-	public void turnComplete(int task_id) {
+	public void pushComplete(int task_id) {
+		TaskMapper taskMapper = sqlSession.getMapper(TaskMapper.class); 
+		taskMapper.turnComplete(task_id);	// 01 해당 Task의 상태 COMPLETE로 바꾸고
+		if(taskRefDAOService.isHavingPostTask(task_id))	// 02 후행 Task 있으면 후행 Task의 상태 NORMAL
+			taskMapper.turnStatusPostTask(task_id, "NORMAL", "BLOCKED");
+	}
+	
+	@Override
+	public void cancelComplete(int task_id) {
 		TaskMapper taskMapper = sqlSession.getMapper(TaskMapper.class);
-		taskMapper.turnComplete(task_id);
+		// 01 해당 Task의 상태 COMPLETE를......
+		
+		if(!taskRefDAOService.isHavingPreTask(task_id)){
+			taskMapper.turnNormal(task_id);	// 01-01 선행 Task가 없으면 NORMAL로 바꾸고
+		}else{	// 01-02 선행 Task가 있으면......
+			if(taskRefDAOService.getPreTask(task_id).getRefTaskStatus().equals("COMPLETE"))
+				taskMapper.turnNormal(task_id);	// 01-02-01 선행 Task의 상태가 COMPLETE면 NORMAL
+			else
+				taskMapper.turnBlocked(task_id);	// 01-02-02 선행 Task의 상태가 COMPLETE가 아니면 BLOCKED
+		}
+		// 02 후행 Task가 있으면...
+		if(taskRefDAOService.isHavingPostTask(task_id)){
+			taskMapper.turnStatusPostTask(task_id, "BLOCKED", "NORMAL");	// 02-01 후행 Task의 상태가 NORMAL이면 BLOCKED로
+			//02-02 후행 Task의 상태가 COMPLETE면 따로 처리하지 않는다.(나중에 생각해 보자)
+		}
+	}
+
+	@Override
+	public boolean checkStatus(int task_id, String status) {
+		TaskMapper taskMapper = sqlSession.getMapper(TaskMapper.class);
+		if( taskMapper.checkStatus(task_id, status) > 0 )
+			return true ;
+		else
+			return false ;
 	}
 	
 	

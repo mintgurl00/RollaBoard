@@ -8,6 +8,7 @@
 		<result property = "refTaskName" column = "TASK_NAME"/>
 		<result property = "refTaskSecId" column = "TASK_SEC_ID"/>
 		<result property = "refTaskSecName" column = "TASK_SEC_NAME"/>
+		<result property = "refTaskStatus" column = "STATUS"/>
 	</resultMap>
 	
 	<!-- isHavingPreTask -->
@@ -240,7 +241,7 @@
 	
 	<!-- getRefTask -->
 	<select id="getRefTask" resultMap="RefTaskResultMap">
-		SELECT ta.id task_id, ta.name task_name, sec.id sec_id, sec.name sec_name
+		SELECT ta.id task_id, ta.name task_name, sec.id sec_id, sec.name sec_name, ta.status status
 		FROM task ta
 			INNER JOIN section sec 
 			ON ta.section_id=sec.id 

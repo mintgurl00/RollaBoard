@@ -33,7 +33,12 @@ if(session.getAttribute("id") == null) {
 #comment{width:400px; height:250px; background-color:#FFFFFF; margin-left:50px; margin-top:20px}
 #button{margin-top:20px}
 </style>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="js/taskview.js"></script>
 <script>
+
+
+
 function deleteTask() {
 	var chk = confirm("정말 삭제하시겠습니까?");
 	if(chk){
@@ -59,6 +64,16 @@ function updateTask() {
 	<div id="status">시작날짜: <%=taskVO.getStart_date() %> </div>	
 	<div id="status">마감날짜: <%=taskVO.getDue_date() %> </div>	
 	<div id="status">중요도: <%=taskVO.getPriority() %> </div>
+	
+	<!-- 수민 태스크 위치 추가 -->
+	<form action="showgooglemaps.do">
+		<div id="status">
+		위치: <%=taskVO.getLocation() %>
+		<input type="hidden" id="location" name="location" value="<%=taskVO.getLocation() %>">
+		<input type="submit" value="지도보기">
+		</div> 
+	</form>
+
 	
 	<%
 	if(preTaskVO != null || postTaskVO != null) {
@@ -98,10 +113,15 @@ function updateTask() {
 		<input type = hidden name = "due_date" value = "<%=taskVO.getDue_date() %>">
 		<input type = hidden name = "cre_date" value = "<%=taskVO.getCre_date() %>">
 		<input type = hidden name = "priority" value = "<%=taskVO.getPriority() %>">	
+		<input type = hidden name = "location" value = "<%=taskVO.getLocation() %>">	
 	</form>
 	<form id = "deletetask" action = "deletetask.do">
-		<input type = hidden name = "task_id" value = "<%=taskVO.getId() %>">
+		<input type = hidden id="task_id" name = "task_id" value = "<%=taskVO.getId() %>">
 	</form>
+	
+	<input type="hidden" id="task_status" value="<%=taskVO.getStatus()%>" />
+	<div id="completeArea">
+	</div>
 </div>
 </body>
 </html>
