@@ -188,7 +188,7 @@ body {
    <form action = "createsection.do">
    	<table class="table table-striped">
    	  <tbody>
-   	  	<td><input type = "text" name = "section_name"  class="byteLimit" limitbyte="30" class="byteLimit" limitbyte="30" placeholder = "추가할 Section명을 입력하세요" required></td>
+   	  	<td><input type = "text" name = "section_name"  class=" form-control byteLimit" limitbyte="30" class="byteLimit" limitbyte="30" placeholder = "추가할 Section명을 입력하세요" required></td>
    	  	<td align = right>
         	<input type = submit class = "btn btn-info" value = "추가" >&nbsp;&nbsp;
        	</td>
