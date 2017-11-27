@@ -52,6 +52,27 @@ function deletesectioninboard(cnt) {
 
 </script>
 
+<!-- TASK클릭 시 함수 -->
+<script>
+function clicktask(id) {/* 
+	window.open("./taskview.do?task_id=" + id,
+			"TASK",
+			"resizeable = yes, menubar=no, width = 470, height = 800, left = 10, right = 10"); */
+	$("#taskViewArea").load("taskview.do",{
+		task_id:id
+	});
+	$("#myModal").modal();
+}
+function updatesectioninboard(cnt) {
+	document.getElementById("updatesectioninboard" + cnt).submit();
+}
+
+function deletesectioninboard(cnt) {
+	document.getElementById("deletesectioninboard" + cnt).submit();
+}
+
+</script>
+
 <!-- 결과 나오는 부분 -->
 
 <%

@@ -47,6 +47,7 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <link rel="stylesheet" type="text/css" href="css/board.css" >
 
+
 <style>
 h2 {
     font-size: 24px;
@@ -163,6 +164,7 @@ footer .glyphicon {
 	box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(102, 175, 233, .6) /* focus효과*/
 }
 </style>
+
 
 <script type = "text/javascript" language = "javascript">
 function openPop() {
@@ -297,7 +299,9 @@ function showRefBoard(){
 </head>
 <body id="myPage" data-spy="scroll" data-target=".navbar" data-offset="60">
 
+
 <nav class="navbar navbar-default navbar-fixed-top">
+
 <div class="container">
 	<div class="navbar-header">
 		<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
@@ -335,7 +339,9 @@ function showRefBoard(){
 				<li><a href="logout.do">LOGOUT</a></li>
 		</ul>
 	</div>
+
 </div>
+
 </nav>
 
 <div class="jumbotron text-center">
