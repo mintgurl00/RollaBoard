@@ -65,6 +65,10 @@ function updateTask() {
 	<div id="status">중요도: <%=taskVO.getPriority() %> </div>
 	
 	<!-- 수민 태스크 위치 추가 -->
+	<%
+	if (taskVO.getLocation() != null) {
+	%>
+	
 	<form action="showgooglemaps.do">
 		<div id="status">
 		위치: <%=taskVO.getLocation() %>
@@ -72,6 +76,18 @@ function updateTask() {
 		<input type="submit" value="지도보기">
 		</div> 
 	</form>
+	
+	<!-- 
+	<div id="status">위치: 
+	<jsp:include page="showgooglemaps.jsp" flush="true">
+		<jsp:param name="location" value = "<%=taskVO.getLocation() %>"/>
+	</jsp:include>
+	</div>
+	 -->
+	
+	<%
+	}
+	%>
 
 	
 	<%

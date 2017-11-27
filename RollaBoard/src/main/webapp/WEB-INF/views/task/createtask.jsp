@@ -138,7 +138,7 @@ SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 	
 	<!-- 수민 태스크 위치 추가 -->
 	<div id ="location"> 위치 <br/>
-		<input type="text" id="location" placeholder="위치를 입력해주세요 예)서울시 서초구 잠원동" size="40" name="location" value="서울시"><br/><br/><br/>
+		<input type="text" id="location" placeholder="위치를 입력해주세요 예)서울시 서초구 잠원동" size="40" name="location"><br/><br/><br/>
 	</div>
 	
 <!--<div id ="pre_Task"> 선행TASK  <br/>
