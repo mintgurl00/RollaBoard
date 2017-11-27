@@ -21,15 +21,39 @@ if(session.getAttribute("id") == null) {
 	if(postTaskVO == null)
 		postTaskVO = new RefTaskVO(1); */
 %>
-
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<link href="reset.css">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>태스크보기</title>
 <style>
 #frame{position:absolute; border-radius:10px; width:450px; height:550px; overflow:auto; background-color:#DAD9FF; margin-right: 10px; text-align:center}
 #content{width:400px; height:250px; background-color:#FFFFFF; margin-left:50px}
 #comment{width:400px; height:250px; background-color:#FFFFFF; margin-left:50px; margin-top:20px}
 #button{margin-top:20px}
 </style>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script src="js/taskview.js"></script>
+<script>
 
+
+
+function deleteTask() {
+	var chk = confirm("정말 삭제하시겠습니까?");
+	if(chk){
+		document.getElementById("deletetask").submit();
+	} else {
+		return;
+	}
+}
+function updateTask() {
+	document.getElementById("updatetask").submit();
+}
+
+</script>
+</head>
+<body>
 
 
 <div id = "frame"><h1>TASK 이름 :  <%=taskVO.getName() %> </h1>
@@ -99,3 +123,5 @@ if(session.getAttribute("id") == null) {
 	<div id="completeArea">
 	</div>
 </div>
+</body>
+</html>

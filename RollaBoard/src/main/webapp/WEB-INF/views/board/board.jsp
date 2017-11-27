@@ -38,26 +38,16 @@
 <title>Board Page</title>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<link href="css/reset.css">
+<link rel="stylesheet" type="text/css" href="css/reset.css" >
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet" type="text/css">
 <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet" type="text/css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-<style>
-#ref_board{width:280px; height:50px; background-color:#DAD9FF}
-#filter{float:left; width:1860px; height:50px; background-color:#DAD9FF; text-align:right}
-#content{overflow:scroll; float:none; width:inherit; height:inherit; margin-top:0px;}
-#section{overflow-x:hidden; float:left; width:300px; height:700px; margin-left:10px; margin-top:10px; background-color:#DAD9FF; border-radius:10px; text-align:center}
-#task{width:260px; height:auto; margin-left:20px; margin-top:20px; background-color:#BDBDBF; border-radius:10px; text-align:center}
-  
-body {
-    font: 400 15px Lato, sans-serif;
-    height:inherit;
-    line-height: 1.8;
+<link rel="stylesheet" type="text/css" href="css/board.css" >
 
-}
+<style>
 h2 {
     font-size: 24px;
     text-transform: uppercase;
@@ -172,7 +162,6 @@ footer .glyphicon {
 	-webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(102, 175, 233, .6); 
 	box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(102, 175, 233, .6) /* focus효과*/
 }
-
 </style>
 
 <script type = "text/javascript" language = "javascript">
@@ -185,7 +174,12 @@ function openPop() {
 /*
  * 석원.
  */
+ 
+ 
 window.onload = function(){
+    $("#myBtn").click(function(){
+        $("#myModal").modal();
+    });
 	initRefBoard( "ref_board_select" ) ;
 	initBoard();
 	inputEnterToSearch();
@@ -221,7 +215,7 @@ function initRefBoard( selectName ){
  * 보드 그리기 
  */
 function initBoard() {
-	$('#content').load("searchresult.do", {
+	$('#work_board').load("searchresult.do", {
 		board_id: '<%=boardVO.getId() %>',
 		keyword:''
 	});
@@ -265,7 +259,7 @@ function filterResult( obj ){	// 필터버튼 클릭
 	var filter = getFilter() ;
 	/* alert( '필터스트링 : ' + filter ) ; */
 	// 03 페이지 로드
-	$('#content').load("searchresult.do", {
+	$('#work_board').load("searchresult.do", {
 		board_id: '<%=boardVO.getId() %>',
 		keyword:$('#written_keyword').val(),
 		filter: filter
@@ -327,10 +321,11 @@ function showRefBoard(){
 			}%>
 			<li>
 				<!-- 참조 보드 선택 -->
-				<div>
-					<input type="hidden" id="current_ref_board" value="-1" /> <select
-						id="ref_board_select">
-						<option value="-1">참조 BOARD 선택</option>
+				<div class = "selectBox02">
+				<input type="hidden" id="current_ref_board" value="-1" /> 
+				<span class = "txt">참조 BOARD 선택</span>				
+					<select id="ref_board_select">
+						<option value="-1"></option>
 					</select>
 				</div>
 			</li>
@@ -362,8 +357,45 @@ function showRefBoard(){
   </div>
 </div>
 
+<button type="button" class="btn btn-default btn-lg" id="myBtn">Login</button>
+
+
+<!-- MODAL TASK -->
+
+<div class="modal fade" id="myModal" role="dialog">
+	<div class="modal-dialog" style="margin:55px auto;">
+		<div class="modal-content" id="taskViewArea">
+			<!-- <div class="modal-header" style="padding:35px 50px;">
+			<button type="button" class="close" data-dismiss="modal">&times;</button>
+			<h4><span class="glyphicon glyphicon-lock"></span> Login</h4>
+			</div>
+			<div class="modal-body" style="padding:40px 50px;">
+				<form role="form">
+					<div class="form-group">
+						<label for="usrname"><span class="glyphicon glyphicon-user"></span> Username</label>
+						<input type="text" class="form-control" id="usrname" placeholder="Enter email">
+					</div>
+					<div class="form-group">
+						<label for="psw"><span class="glyphicon glyphicon-eye-open"></span> Password</label>
+						<input type="text" class="form-control" id="psw" placeholder="Enter password">
+					</div>
+					<div class="checkbox">
+						<label><input type="checkbox" value="" checked>Remember me</label>
+					</div>
+				    <button type="submit" class="btn btn-success btn-block"><span class="glyphicon glyphicon-off"></span> Login</button>
+				</form>
+			</div>
+			<div class="modal-footer">
+				<button type="submit" class="btn btn-danger btn-default pull-left" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span> Cancel</button>
+				<p>Not a member?<a href="#">Sign Up</a></p>
+				<p>Forgot <a href="#">Password?</a></p>
+			</div> -->
+		</div> 
+	</div>
+
+</div>
 <!-- 보드 -->
-<div id="content">
+<div id="work_board">
 	
 </div>
 
@@ -395,6 +427,17 @@ function showRefBoard(){
 		</form>
 	</div>
 </div>
+
+
+
+
+
+
+
+
+
+
+
 </body>
 <script>
 $(".selectBox02 select").change(function () {
