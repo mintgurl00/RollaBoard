@@ -26,7 +26,6 @@ if(session.getAttribute("id") == null) {
 <head>
 <link href="reset.css">
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-
 <style>
       /* Always set the map height explicitly to define the size of the div
        * element that contains the map. */
@@ -67,12 +66,13 @@ if(session.getAttribute("id") == null) {
 <script src="js/taskview.js"></script>
 
 <script>
+
 //처음 맵 상태
 function initMap() {
 	
-  document.getElementById('submit').addEventListener('click', function() {
+  /* document.getElementById('submit').addEventListener('click', function() {
     	geocodeAddress(geocoder, map, address); //'검색' 버튼 클릭하면 아래 메소드 호출(geocoder, map 객체 전달)
-  });
+  }); */
 	  	
   var address = document.getElementById('addr1').value; //검색창에 입력한 주소를 address에 저장
   
