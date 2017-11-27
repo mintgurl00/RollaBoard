@@ -62,7 +62,6 @@ if(session.getAttribute("id") == null) {
 
 <title>태스크보기</title>
 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script src="js/taskview.js"></script>
 
 <script>
