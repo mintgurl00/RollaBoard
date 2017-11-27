@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import org.apache.ibatis.annotations.Param;
 public interface BoardMapper {
 	
-	ArrayList<BoardVO> getAllBoards(); //존재하는 모든 보드 명단 가져오기
+	ArrayList<BoardVO> getAllBoards(); //존재하는 모든 보드 명단 가져오기 // VISIBILITY = 'TRUE' 조건 추가함(11.27)
 
 	ArrayList<BoardVO> getRefBoards( int board_id ) ;	// 석원. 참조보드 명단 가져오기
 	
@@ -30,5 +30,7 @@ public interface BoardMapper {
 	public void deleteRefBoard(@Param("ref_id") int ref_id, @Param("board_id") int board_id);
 	
 	public void addRefBoard(@Param("ref_id") int ref_id, @Param("board_id") int board_id);
+
+	public String getVisibility(int board_id);
 	
 }

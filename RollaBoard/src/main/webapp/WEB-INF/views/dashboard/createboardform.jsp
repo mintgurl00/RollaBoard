@@ -40,10 +40,12 @@
 </head>
 
 <body>
-<div class = "page-header">
-	<center><h1>board 만들기  </h1></center>
+<div class="jumbotron" style = "background-color: orange;">
+  <div class="container text-center">
+    <h1><font color="white">Board 만들기</font></h1>  
+    <p><font color="white">새로 만들 Board의 이름을 입력하세요</font></p>       
+  </div>
 </div>
-<H4 align = center>새로 만들 Board의 이름을 입력하세요</H4>
 <form name = "createboard" class = "form-horizental" action = "createboard.do">
 <div class = "form-group">
 	<div class = "row">

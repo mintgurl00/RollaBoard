@@ -17,14 +17,16 @@ if(session.getAttribute("id") == null) {
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-<style>
-mycolor {background-color: #f4511e;}  
-</style>
 </head>
 <body>
 
-<div class = "page-header" >
-	<center><h1>Add Board</h1></center>
+
+<div class="jumbotron" style = "background-color: orange;">
+  <div class="container text-center">
+    <h1><font color="white">Start Board</font></h1>      
+    <p><font color="white">새로운 Board를 만들거나 기존의 Board에 참가해보세요!</font></p>
+    
+  </div>
 </div>
 <br/>
 <div class = "container">

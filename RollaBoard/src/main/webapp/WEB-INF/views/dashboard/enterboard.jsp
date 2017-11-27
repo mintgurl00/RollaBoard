@@ -18,11 +18,12 @@ if(session.getAttribute("id") == null) {
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 </head>
 <body>
-<div class = "page-header">
-	<center><h1>board 입장하기  </h1></center>
+<div class="jumbotron" style = "background-color: orange;">
+  <div class="container text-center">
+    <h1><font color="white">Board 입장하기</font></h1>     
+    <p><font color="white">입장할 Board의 이름을 입력하세요</font></p>    
+  </div>
 </div>
-
-<H4 align = center>입장할 Board의 이름을 입력하세요</H4>
 
 <form class = "form-horizental" action = "joinboard.do">
 <div class = "form-group">
@@ -34,6 +35,7 @@ if(session.getAttribute("id") == null) {
 	<button type = "submit" class = "btn btn-info">입장하기</button>
 	</div>
 </div>
+<br/><br/>
 <div class = "row">
 	<center><div class = "col-xs-12 left">
 	<input type = "button" class = "btn btn-info" value = "취소" onclick = "location.href='newboard.do'">
