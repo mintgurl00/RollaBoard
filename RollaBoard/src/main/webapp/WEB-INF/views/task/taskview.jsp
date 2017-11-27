@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page import="com.spring.rollaboard.task.TaskVO"%>
+<%@ page import="com.spring.rollaboard.task.RefTaskVO"%>
 <%
 // 세션 아이디 체크
 if(session.getAttribute("id") == null) {
@@ -10,6 +11,15 @@ if(session.getAttribute("id") == null) {
 	TaskVO taskVO = (TaskVO) request.getAttribute("taskVO");
 	request.setAttribute("taskVO", taskVO);
 	/* ArrayList<taskVO> taskViewList = (ArrayList<taskVO>)request.getAttribute("taskViewList"); */
+	
+	// 관계 태스크 보여주기 위한 기능
+	RefTaskVO preTaskVO = null, postTaskVO = null ;
+	preTaskVO = (RefTaskVO) request.getAttribute("preTaskVO");
+	postTaskVO = (RefTaskVO) request.getAttribute("postTaskVO");/* 
+	if(preTaskVO == null)
+		preTaskVO = new RefTaskVO(1);
+	if(postTaskVO == null)
+		postTaskVO = new RefTaskVO(1); */
 %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -17,12 +27,17 @@ if(session.getAttribute("id") == null) {
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>태스크보기</title>
 <style>
-#frame{position:absolute; top:30%; left:45%; width:500px; height:700px; overflow:hidden; background-color:#DAD9FF; margin-top:-150px; margin-left:-100px; text-align:center}
+#frame{position:absolute; border-radius:10px; width:450px; height:550px; overflow:auto; background-color:#DAD9FF; margin-right: 10px; text-align:center}
 #content{width:400px; height:250px; background-color:#FFFFFF; margin-left:50px}
 #comment{width:400px; height:250px; background-color:#FFFFFF; margin-left:50px; margin-top:20px}
 #button{margin-top:20px}
 </style>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="js/taskview.js"></script>
 <script>
+
+
+
 function deleteTask() {
 	var chk = confirm("정말 삭제하시겠습니까?");
 	if(chk){
@@ -40,17 +55,41 @@ function updateTask() {
 <body>
 
 
-<div id = ""><h1>TASK 이름 :  <%=taskVO.getName() %> </h1>
+<div id = "frame"><h1>TASK 이름 :  <%=taskVO.getName() %> </h1>
 	<div id="status">내용 :  <%=taskVO.getDescription() %> </div>
 	<div id="status">상태: <%=taskVO.getStatus() %> </div>	
 	<div id="status">댓글 : 해야 됨</div>
 	<div id="status">생성날짜: <%=taskVO.getCre_date() %> </div>	
 	<div id="status">시작날짜: <%=taskVO.getStart_date() %> </div>	
 	<div id="status">마감날짜: <%=taskVO.getDue_date() %> </div>	
-	<div id="status">중요도: <%=taskVO.getPriority() %> </div>	
-	<div id="status">선행TASK: 만들 것 </div>	
-	<div id="status">후행TASK: 만들 것 </div>	
+	<div id="status">중요도: <%=taskVO.getPriority() %> </div>
+	
+	<!-- 수민 태스크 위치 추가 -->
+	<form action="showgooglemaps.do">
+		<div id="status">
+		위치: <%=taskVO.getLocation() %>
+		<input type="hidden" id="location" name="location" value="<%=taskVO.getLocation() %>">
+		<input type="submit" value="지도보기">
+		</div> 
+	</form>
 
+	
+	<%
+	if(preTaskVO != null || postTaskVO != null) {
+		%>
+		<b>관계 있는 태스크입니다.</b>
+		<%
+		if(preTaskVO != null) {
+			%>
+			<div id="status">선행TASK: <%=preTaskVO.getRefTaskName() %> </div>
+			<%
+		}
+		if(postTaskVO != null) {
+			%>	
+			<div id="status">후행TASK: <%=postTaskVO.getRefTaskName() %> </div>	
+			<%
+		}
+	}%>
 	<div id="button">
 
 	<%if (session.getAttribute("board_id") != null) {%>
@@ -73,10 +112,15 @@ function updateTask() {
 		<input type = hidden name = "due_date" value = "<%=taskVO.getDue_date() %>">
 		<input type = hidden name = "cre_date" value = "<%=taskVO.getCre_date() %>">
 		<input type = hidden name = "priority" value = "<%=taskVO.getPriority() %>">	
+		<input type = hidden name = "location" value = "<%=taskVO.getLocation() %>">	
 	</form>
 	<form id = "deletetask" action = "deletetask.do">
-		<input type = hidden name = "task_id" value = "<%=taskVO.getId() %>">
+		<input type = hidden id="task_id" name = "task_id" value = "<%=taskVO.getId() %>">
 	</form>
+	
+	<input type="hidden" id="task_status" value="<%=taskVO.getStatus()%>" />
+	<div id="completeArea">
+	</div>
 </div>
 </body>
 </html>

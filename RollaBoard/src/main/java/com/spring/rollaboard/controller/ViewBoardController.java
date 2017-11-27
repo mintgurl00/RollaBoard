@@ -120,7 +120,9 @@ public class ViewBoardController {
     	result.addObject( "refBoardList" , refBoardList ) ;
     	// 여기까지 석원구역.
     	/* ******************************************************************** */
-    	
+    	// 회원정보수정시 기존 정보를 불러오기 위해 memDAOService.getMemInfoToUpdate를 사용한다(세션에서 ).
+    	MemVO memVO = memDAOService.getMemInfoToUpdate((String)session.getAttribute("id"));
+    	result.addObject("member", memVO);
     	result.addObject( "boardVO" , boardVO ) ;	// 쓸 데가 많을 것 같아서 전달합니다. view에서 request객체를 통해 참조할 수 있습니다.
     	result.setViewName("board/board");
         return result;
@@ -231,6 +233,8 @@ public class ViewBoardController {
     	/* ******************************************************************** */
     	
     	//result.addObject( "rat_hasmap" , ratHashMap ) ;
+    	BoardVO boardVO = boardDAOService.getBoardInfo(board_id);
+    	result.addObject("boardVO", boardVO);
     	result.addObject( "board_id" , board_id + "" ) ;
     	result.addObject( "keyword" , keyword ) ;
     	result.setViewName("board/searchresult");

@@ -13,7 +13,7 @@
 		<result property = "due_date" column = "DUE_DATE"/>
 		<result property = "cre_date" column = "CRE_DATE"/>
 		<result property = "priority" column = "PRIORITY"/>
-		
+		<result property = "location" column = "LOCATION"/> <!-- 수민 태스크 위치 추가 -->
 	</resultMap>
 	
 	<select id = "getTask" resultMap = "TaskResultMap">
@@ -84,10 +84,10 @@
 		SELECT * FROM task 
 	</select>
 	
+	<!-- 수민 태스크 위치 추가 -->
 	<insert id = "createTask" parameterType = "com.spring.rollaboard.task.TaskVO">		
-		INSERT INTO task (id, name, description, section_id, start_date, due_date, cre_date, priority)
-		VALUES (seq_task.NEXTVAL, #{name}, #{description}, #{section_id}, #{start_date}, #{due_date}, #{cre_date}, #{priority})
-		
+		INSERT INTO task (id, name, description, status, section_id, start_date, due_date, cre_date, priority, location)
+		VALUES (seq_task.NEXTVAL, #{name}, #{description}, #{status}, #{section_id}, #{start_date}, #{due_date}, #{cre_date}, #{priority}, #{location})
 	</insert>
 	
 	<insert id = "createTaskWithRole" parameterType = "com.spring.rollaboard.task.TaskVO">
@@ -100,8 +100,8 @@
 	
 	<update id = "updateTask" parameterType = "com.spring.rollaboard.task.TaskVO">
 		UPDATE task SET DESCRIPTION = #{description}, 
-					 NAME = #{name}, 
-					 STATUS = #{status}, 
+					 NAME = #{name}, <!--
+					 STATUS = #{status}, --> 
 					 SECTION_ID = #{section_id}, 
 					 START_DATE = #{start_date}, 
 					 DUE_DATE = #{due_date}, 
@@ -113,107 +113,45 @@
 		INSERT INTO task_role (TASK_ID, ROLE_ID) VALUES (#{task_id}, #{role_id})
 	</insert>
 	
-	
-	
-	
-	
-	
-	
-	<!-- 
-	
-	isHavingPreTask
-	<select id = "isHavingPreTask" resultType="int">
-		SELECT COUNT(*) 
-		FROM task_conn
-		WHERE task_id=#{id}
-			AND ref_level > 0
-	</select>
-	
-	isHavingPostTask
-	<select id = "isHavingPostTask" resultType="int">
-		<![CDATA[
-		SELECT COUNT(*)
-		FROM task_conn tc1, task_conn0 tc2
-		where tc1.root_task_id=tc2.root_task_id
-		    AND tc2.task_id=#{id}
-		    AND tc2.ref_level < tc1.ref_level
-		]]> 
-	</select>
-	
-	isConnectedTask
-	<select id = "isConnectedTask" resultType="int">
-		SELECT COUNT(*) 
-		FROM task_conn
-		WHERE task_id=#{id}
-	</select>
-	
-	addPostTask1of2
-	<update id = "addPostTask1of2" parameterType = "map">
-		UPDATE task_conn
-		SET root_task_id=#{taskId}, ref_level=ref_level+1
-		WHERE root_task_id=#{preTaskId}
+	<!-- turnBlocked -->
+	<update id="turnBlocked" parameterType="map">
+		UPDATE task
+		SET status='BLOCKED'
+		WHERE id=#{task_id} <!-- AND status='NORMAL' -->
 	</update>
-	addPostTask2of2
-	<insert id = "addPostTask2of2" parameterType = "map">
-		INSERT ALL
-		    INTO task_conn(root_task_id, task_id, ref_level)
-		    VALUES( r_t_rid, #{taskId}, r_t_lv-1 )
-		SELECT t.root_task_id r_t_rid, t.task_id r_t_id, t.ref_level r_t_lv
-		FROM task_conn t
-		WHERE task_id=#{postTaskId}
-	</insert>
+	<!-- turnNormal -->
+	<update id="turnNormal" parameterType="map">
+		UPDATE task
+		SET status='NORMAL'
+		WHERE id=#{task_id} <!-- AND status='BLOCKED' -->
+	</update>
+	<!-- turnComplete -->
+	<update id="turnComplete" parameterType="map">
+		UPDATE task
+		SET status='COMPLETE'
+		WHERE id=#{task_id} AND status='NORMAL'
+	</update>
 	
-	addPreTask
-	<insert id = "addPreTask" parameterType = "map">
-		INSERT ALL
-		    INTO task_conn(root_task_id, task_id, ref_level)
-		    VALUES( r_t_rid, #{taskId}, r_t_lv+1 )
-		SELECT t.root_task_id r_t_rid, t.task_id r_t_id, t.ref_level r_t_lv
-		FROM task_conn0 t
-		WHERE task_id=#{preTaskId}
-	</insert>
+	<!-- turnStatusPostTask -->
+	<update id="turnStatusPostTask" parameterType="map">
+		MERGE INTO task ta
+		    USING (
+		        SELECT tc1.task_id task_id
+		        FROM task_conn tc1, task_conn tc2
+		        WHERE tc1.root_task_id=tc2.root_task_id
+		            AND tc2.task_id=#{task_id} 
+		            AND tc1.ref_level=(SELECT ref_level FROM task_conn WHERE task_id=#{task_id})+1
+		    ) p_ta
+		    ON (ta.id=p_ta.task_id)
+		WHEN MATCHED THEN
+		    UPDATE SET status=#{status} 
+	</update>
 	
-	createPreTask
-	<insert id="createPreTask" parameterType="map">
-		INSERT ALL
-		    INTO task_conn(root_task_id, task_id, ref_level) VALUES(#{preTaskId}, #{preTaskId}, 0)
-		    INTO task_conn(root_task_id, task_id, ref_level) VALUES(#{preTaskId}, #{taskId}, 1) 
-		SELECT * FROM DUAL
-	</insert>
-	
-	insertByPreTask1of2
-	<update id = "insertByPreTask1of2" parameterType = "map">
-		<![CDATA[
-		UPDATE task_conn
-		SET ref_level=ref_level+1
-		WHERE ref_level>(SELECT ref_level FROM task_conn0 WHERE task_id=#{preTaskId})
-		]]> 
-	</update>	
-	insertByPreTask2of2
-	<insert id = "insertByPreTask2of2" parameterType = "map">
-		INSERT ALL
-		    INTO task_conn(root_task_id, task_id, ref_level)
-		    VALUES( r_t_rid, #{taskId}, r_t_lv+1 )
-		SELECT t.root_task_id r_t_rid, t.task_id r_t_id, t.ref_level r_t_lv
-		FROM task_conn t
-		WHERE task_id=#{preTaskId}
-	</insert>
-	
-	insertByPostTask1of2
-	<update id = "insertByPostTask1of2" parameterType = "map">
-		<![CDATA[
-		UPDATE task_conn
-		SET ref_level=ref_level+1
-		WHERE ref_level>=(SELECT ref_level FROM task_conn0 WHERE task_id=#{postTaskId})
-		]]> 
-	</update>	
-	insertByPostTask2of2
-	<insert id = "insertByPostTask2of2" parameterType = "map">
-		INSERT ALL
-		    INTO task_conn(root_task_id, task_id, ref_level)
-		    VALUES( r_t_rid, #{taskId}, r_t_lv-1 )
-		SELECT t.root_task_id r_t_rid, t.task_id r_t_id, t.ref_level r_t_lv
-		FROM task_conn t
-		WHERE task_id=#{postTaskId}
-	</insert> -->
+	<!-- checkStatus -->
+	<select id = "checkStatus" resultType="int" parameterType="map">
+		SELECT count(*) 
+		FROM task 
+		WHERE id=#{id} 
+			AND status=#{cond_status}
+	</select>
 </mapper>

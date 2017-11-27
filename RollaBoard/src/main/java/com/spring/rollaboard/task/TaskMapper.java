@@ -40,24 +40,13 @@ public interface TaskMapper {
 	
 	public void taskToRole(@Param("task_id") int task_id, @Param("role_id") int role_id);
 
-	//public ArrayList<RoleAndTaskVO> getRATByBoard( @Param("board_id") int board_id );	//석원
-	/*
-	/////////// 관계
-	public int isHavingPreTask( int id ) ;
-	public int isHavingPostTask( int id ) ;
-	public int isConnectedTask( int id ) ;
-	
-	public void addPostTask1of2(@Param("taskId") int taskId, @Param("postTaskId") int postTaskId) ;
-	public void addPostTask2of2(@Param("taskId") int taskId, @Param("postTaskId") int postTaskId) ;
-	public void addPreTask(@Param("taskId") int taskId, @Param("preTaskId") int preTaskId) ;
-
-	public void createPreTask(@Param("taskId") int taskId, @Param("preTaskId") int preTaskId);
-	// public void createPostTask(@Param("taskId") int taskId, @Param("postTaskId") int postTaskId);
-	
-	public void insertByPreTask1of2(@Param("preTaskId") int preTaskId);
-	public void insertByPreTask2of2(@Param("taskId") int taskId, @Param("preTaskId") int preTaskId);
-	public void insertByPostTask1of2(@Param("postTaskId") int postTaskId);
-	public void insertByPostTask2of2(@Param("taskId") int taskId, @Param("postTaskId") int postTaskId);
-	*/
+	public void turnBlocked(@Param("task_id") int task_id);	// 석원 normal,complete->blocked
+	public void turnNormal(@Param("task_id") int task_id);	// 석원 blocked,complete->normal
+	public void turnComplete(@Param("task_id") int task_id);	// 석원 normal->complete
+	public void turnStatusPostTask(@Param("task_id") int task_id, 
+			@Param("status") String status, @Param("cond_status") String cond_status);	// 석원.
+	public int checkStatus(@Param("task_id") int task_id, @Param("cond_status") String cond_status);	// 석원
+	//public void turnBlockPostTask(@Param("task_id") int task_id);	//
+	//public void cancelComplete(@Param("task_id") int task_id);	// 석원 complete->normal
 	
 }

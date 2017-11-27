@@ -95,7 +95,7 @@ public class HomeController {
     
 	// (개인)회원정보 수정 처리
     @RequestMapping("updatemember.do")
-	public ModelAndView updatemember(MemVO updateMemInfo, HttpServletResponse response) throws Exception {
+	public void updatemember(MemVO updateMemInfo, HttpServletResponse response) throws Exception {
     	ModelAndView result = new ModelAndView();
     	MemVO memPwChk = memDAOService.getMember(updateMemInfo);
 
@@ -103,26 +103,26 @@ public class HomeController {
     		// alert처리단
     		response.setContentType("text/html; charset-utf-8");
     		PrintWriter out = response.getWriter();
-            out.println("<script>alert('비밀번호가 틀립니다.');</script>");
+            out.println("<script>alert('Password incorrect !'); history.go(-1); window.location.reload();</script>");
             out.flush(); 
-            result.addObject("member", updateMemInfo);
-            result.setViewName("main/updatememberform");
-    		return result;
+    		return;
             //developerdon.tistory.com/entry/JAVA-단에서-alert-처리하기-–-
 		}
     	System.out.println(memPwChk.getId() + "의 회원정보 수정");
  	
     	memDAOService.updateMember(updateMemInfo);
+    	String chkVal = "dash";
     	// alert처리단
     	response.setContentType("text/html; charset-utf-8");
 
 		PrintWriter out = response.getWriter();
-    	out.println("<script>alert('회원정보가 수정되었습니다.');");
-    	out.println("window.close();</script>");
-        out.flush();
+    	out.println("<script>history.go(-1);");
+    	out.println("document.getElementById('id01').style.display='none';</script>");
+        out.flush();      
+        result.addObject("chkVal", chkVal);
         result.addObject("id", updateMemInfo.getId());
-    	result.setViewName("dashboard/dashboard");
-		return result;
+        result.setViewName("main/submenu");
+		return;
 	}
     
     //회원정보 수정 창으로 이동

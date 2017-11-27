@@ -1,0 +1,20 @@
+/* Reset CSS */
+* {
+	margin: 0 ;
+	padding: 0 ;
+	background-color: #ff0000;
+	font: #ff0000;
+}
+ol , ul {
+	list-style: none ;
+}
+a {
+	outline: 0 ;
+	text-decoration: none ;
+}
+img {
+	border: 0 ;
+}
+body {
+	font: 12px/1.6 arial ;
+}

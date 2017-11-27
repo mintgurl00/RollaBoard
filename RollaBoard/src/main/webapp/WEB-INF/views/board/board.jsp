@@ -3,6 +3,7 @@
 <%@ page import="com.spring.rollaboard.task.TaskVO"%>
 <%@ page import="com.spring.rollaboard.board.BoardVO"%>
 <%@ page import="com.spring.rollaboard.section.SectionVO"%>
+<%@ page import="com.spring.rollaboard.mem.MemVO"%>
 <%
 	System.out.println("board");
 	// 세션 아이디 체크
@@ -11,8 +12,20 @@
 		out.println("location.href='index.do'");
 		out.println("</script>");
 	}
+	// 회원정보수정시 필요한 정보들
+	MemVO member = (MemVO) request.getAttribute("member");
+	String name = member.getName();
+	String email = member.getEmail();
+	if (name == null) {
+		name = "";
+	}
+	if (email == null) {
+		email = "";
+	}
+	
 	String id = (String) session.getAttribute("id");
-
+	//
+	
 	BoardVO boardVO = (BoardVO) request.getAttribute("boardVO");
 	// 석원.
 	ArrayList<ArrayList<TaskVO>> taskViewList = (ArrayList<ArrayList<TaskVO>>) request.getAttribute( "taskViewList" ) ;
@@ -22,10 +35,12 @@
 <html lang="en">
 <head>
   <!-- Theme Made By www.w3schools.com - No Copyright -->
-  <title>Bootstrap Theme Company Page</title>
+  <title>Board Page</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href="css/reset.css">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
   <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet" type="text/css">
   <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet" type="text/css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
@@ -33,14 +48,15 @@
   <style>
 #ref_board{width:280px; height:50px; background-color:#DAD9FF}
 #filter{float:left; width:1860px; height:50px; background-color:#DAD9FF; text-align:right}
-#content{overflow:scroll; width:1880px; height:960px}
-#section{float:left; width:400px; height:900px; margin-left:40px; margin-top:40px; background-color:#DAD9FF; text-align:center}
-#task{width:350px; height:150px; margin-left:20px; margin-top:20px; background-color:#FFFFFF; text-align:center}
+#content{overflow:scroll; float:none; width:inherit; height:inherit; margin-top:0px;}
+#section{overflow-x:hidden; float:left; width:300px; height:700px; margin-left:10px; margin-top:10px; background-color:#DAD9FF; border-radius:10px; text-align:center}
+#task{width:260px; height:auto; margin-left:20px; margin-top:20px; background-color:#BDBDBF; border-radius:10px; text-align:center}
   
   body {
       font: 400 15px Lato, sans-serif;
+      height:inherit;
       line-height: 1.8;
-      color: #818181;
+
   }
   h2 {
       font-size: 24px;
@@ -59,7 +75,7 @@
   .jumbotron {
       background-color: #F44336;
       color: #fff;
-      padding: 100px 25px;
+      padding: 40px 25px;
       font-family: Montserrat, sans-serif;
   }
   .container-fluid {
@@ -307,7 +323,7 @@ function showRefBoard(){
 	</select>
 	</div>
 		</li>
-        <li><a onClick = "openPop();" style = "cursor:pointer" >회원정보수정</a></li>
+        <li><a onClick = "document.getElementById('updateMember').style.display='block'" style = "cursor:pointer" >회원정보수정</a></li>
         <li><a href="logout.do">LOGOUT</a></li>
       </ul>
     </div>
@@ -315,22 +331,22 @@ function showRefBoard(){
 </nav>
 
 <div class="jumbotron text-center">
-  <h1><%=boardVO.getName() %></h1> 
-  <p>당신의 꿈을 현실로 만들어 드립니다!</p> 
+<br/>
+  <h3><%=boardVO.getName() %></h3>  
   <form>
     <div class="input-group" >
       	<input type="text" name="keyword" id="keyword" class="form-control" size="50" placeholder="검색할 TASK 입력">
       	<input type="hidden" name="written_keyword" id="written_keyword" value=""/>
 		<input type ="hidden" name="board_id" value="<%=boardVO.getId()%>" />
       <div class="input-group-btn">
-        <button type="button" class="btn btn-danger" onclick="javascript:loadSearchResult()">검색</button>
+        <input type="button" class="btn btn-danger" onclick="javascript:loadSearchResult()" value = "검색">
       </div>
     </div> 
   </form>
   <div align = right>
       <input type="checkbox" class="filter" id="chk_duedate" name="due" value="FALSE" onclick="javascript:filterResult(this)"/>
 		마감일순 보기
-    </div>
+  </div>
 </div>
 
 <!-- 보드 -->
@@ -343,13 +359,30 @@ function showRefBoard(){
 	
 </div>
 
-<footer class="container-fluid text-center">
-  <a href="#myPage" title="To Top">
-    <span class="glyphicon glyphicon-chevron-up"></span>
-  </a>
-  <div class="w3-light-grey w3-container w3-padding-32" style="margin-top:75px;padding-right:58px"><p class="w3-right"><b>Rollaboard</b> all rights reserved </p></div>
-</footer>
-
+<!-- Modal창으로 회원정보수정 출력 -->
+<div id="updateMember" class="w3-modal">
+    <div class="w3-modal-content w3-animate-top w3-card-4" style = "max-width:550px">
+      <header class="w3-container w3-teal">
+        <span onclick="javascript:clickcancel()" class="w3-button w3-display-topright">&times;</span>
+        <h3>회원정보 수정</h3>
+      </header>
+	  <form class="w3-container" action="updatemember.do" method = "post">
+	    <div class="w3-section">
+	      <label>ID:</label>
+	        <input class = "w3-input w3-border w3-margin-bottom" type="id" id="id" placeholder="Enter id" name="id" value = "<%=member.getId()%>" readonly>
+	      <label>Password:</label>      
+	        <input class = "w3-input w3-border w3-margin-bottom" type="password" id="password" placeholder="Enter password" name="password">
+	      <label>Name:</label>
+	        <input class = "w3-input w3-border w3-margin-bottom" type="name" id="name" placeholder="Enter name" name="name" value = "<%=name%>">       
+	      <label>Email:</label>
+	         <input class = "w3-input w3-border w3-margin-bottom" type="email"  id="email" placeholder="Enter email" name="email" value = "<%=email%>">
+	        <button type="submit" class="w3-button w3-block w3-green w3-section w3-padding"  style="background-color: green"><b>변경하기</b></button>
+	    	<button onclick="javascript:clickcancel()" type="button" class = "w3-button w3-block w3-red"><b>취소</b></button>
+	    </div>
+	  </form>
+ 	 </div>
+</div>
+</body>
 <script>
 $(document).ready(function(){
   // Add smooth scrolling to all links in navbar + footer link
@@ -385,7 +418,13 @@ $(document).ready(function(){
     });
   });
 })
+
+// 회원정보수정 캔슬클릭시
+function clickcancel() {
+	document.getElementById('id01').style.display='none';
+	window.location.reload();
+}
 </script>
 
-</body>
+
 </html>

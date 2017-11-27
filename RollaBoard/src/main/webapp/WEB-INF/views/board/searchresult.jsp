@@ -14,7 +14,7 @@
 		out.println("</script>");
 	}
 	String id = (String) session.getAttribute("id");
-	
+	BoardVO boardVO = (BoardVO) request.getAttribute("boardVO");
 	ArrayList<ArrayList<TaskVO>> taskViewList = (ArrayList<ArrayList<TaskVO>>) request.getAttribute( "taskViewList" ) ;
 	ArrayList<SectionVO> sectionList = (ArrayList<SectionVO>) request.getAttribute( "sectionList" ) ; 
 	ArrayList<ArrayList<ArrayList<RoleAndTaskVO>>> roleAndTaskList = 
@@ -64,45 +64,78 @@ for( int i = 0 ; i < sectionSize ; i++ ){
   <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
   <script src = "js/rolelist.js"></script>
 
+<!-- TASK클릭 시 함수 -->
+<script>
+function clicktask(id) {
+	window.open("./taskview.do?task_id=" + id,
+			"TASK",
+			"resizeable = yes, menubar=no, width = 470, height = 800, left = 10, right = 10");
 
+}
+function updatesectioninboard(cnt) {
+	document.getElementById("updatesectioninboard" + cnt).submit();
+}
+
+function deletesectioninboard(cnt) {
+	document.getElementById("deletesectioninboard" + cnt).submit();
+}
+
+</script>
 
 <div id="section">
 	<!-- 섹션 표시줄 -->
-	<%=sectionList.get(i).getName() %>
-	<br />
-	<form action="updatesectioninboard.do">
+	<h4><b><%=sectionList.get(i).getName() %></b></h4>
+	<%if ( id.equals(boardVO.getAdmin()) ) {%>
+	<div class = "row">
+	<div class = "col-xs-offset-1 col-xs-5">
+	<form id = "updatesectioninboard<%=sectionList.get(i).getId() %>" action="updatesectioninboard.do">
 		<input type="hidden" name="section_id" 	value="<%=sectionList.get(i).getId() %>" />
-		<input type="text" name="section_name" class="byteLimit" limitbyte="30"	value="<%=sectionList.get(i).getName() %>" placeholder = "SECTION명을 입력하세요." />
-		<input type="submit" value="수정" />
+		<input type="text" name="section_name"  class="byteLimit form-control" limitbyte="30" value="<%=sectionList.get(i).getName() %>" placeholder = "SECTION명을 입력하세요." />		
+	</form>	
+	</div>
+
+	<input type="button" onclick = "javascript:updatesectioninboard(<%=sectionList.get(i).getId() %>)" value="수정" class="btn btn-default" />
+	<input type="button" onclick = "javascript:deletesectioninboard(<%=sectionList.get(i).getId() %>)" value="삭제" class="btn btn-default"/>
+
+	</div>
+	<form id = "deletesectioninboard<%=sectionList.get(i).getId() %>" action="deletesectioninboard.do">
+		<input type="hidden" name="section_id" value="<%=sectionList.get(i).getId() %>" />	
 	</form>
-	<form action="deletesectioninboard.do">
-		<input type="hidden" name="section_id" value="<%=sectionList.get(i).getId() %>" />
-		<input type="submit" value="삭제" />
-	</form>
-	
+	<hr/>
+	<%} %>
 	<!-- 태스크 표시 -->
 	<%
 	for( int j = 0 ; j < taskViewList.get( i ).size() ; j++ ){
 	%>
 
-		<div id="task" method = "post" onclick="location.href='./taskview.do?task_id=<%=taskViewList.get( i ).get( j ).getId() %>';" style="cursor:pointer">
+		<div id="task" method = "post" onclick="javascript:clicktask('<%=taskViewList.get( i ).get( j ).getId() %>')" style="cursor:pointer">
 
-			<h3>TASK명:<%=taskViewList.get( i ).get( j ).getName() %></h3>
-			TASK내용:<%=taskViewList.get( i ).get( j ).getDescription() %><br />
-			TASK_id:<%=taskViewList.get( i ).get( j ).getId() %><br />
-			TASK상태:<%=taskViewList.get( i ).get( j ).getStatus() %><br />
+			<h3><%=taskViewList.get( i ).get( j ).getName() %></h3>
+			내용:<%=taskViewList.get( i ).get( j ).getDescription() %><br />
+			STATUS:<%=taskViewList.get( i ).get( j ).getStatus() %><br />
 			
 			<%
 			if( roleAndTaskList.get( i ).get( j ) != null && roleAndTaskList.get( i ).get( j ).size() > 0 ){ %>
-				<b>롤 정보는</b><br />
+				<b>ROLE</b><br />
 				<%
 				for( int k = 0 ; k < roleAndTaskList.get( i ).get( j ).size() ; k++ ){%>
-					<%=roleAndTaskList.get( i ).get( j ).get( k ).getRoleName() %>
+					<b><%=roleAndTaskList.get( i ).get( j ).get( k ).getRoleName() %> : </b>
 					<%=roleAndTaskList.get( i ).get( j ).get( k ).getMemName() %>
+					<br/>
 				<%
 				}%>
+				
 			<%
 			}%>
+			<div id="id01" class="w3-modal">
+		    <div class="w3-modal-content">
+		      <div class="w3-container">
+		        <span onclick="document.getElementById('id01').style.display='none'" class="w3-button w3-display-topright">&times;</span>
+		        <p>Some text. Some text. Some text.</p>
+		        <p>Some text. Some text. Some text.</p>
+		      </div>
+		    </div>
+		  </div>
 		</div>
 	<%
 	} %>
@@ -114,7 +147,7 @@ for( int i = 0 ; i < sectionSize ; i++ ){
 		<input type="hidden" name="section_id" value = "<%=sectionList.get(i).getId() %>" required></input>
 		<%-- <input type="hidden" name="task_id" value = "<%= %>" required></input> --%>
 		
-		<input type="submit" value="TASK생성"  ></input>	
+		<input type="submit" class = "btn btn-default" value="TASK생성"  ></input>	
 	    
 	</form>
 	
@@ -133,6 +166,9 @@ for( int i = 0 ; i < sectionSize ; i++ ){
 <%
 if( keyword.equals( "" ) ){	// 검색 결과가 *아니*라면
 %>
-	<button type="button" onclick="location.href='createsectioninboard.do';">섹션만들기</button>
+	<div id = "section">
+	<br/>
+	<button type="button" class = "btn btn-info" onclick="location.href='createsectioninboard.do';">추가+</button>
+	</div>
 <% 
 }%>

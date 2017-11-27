@@ -1,5 +1,7 @@
 package com.spring.rollaboard.task;
 
+import com.spring.rollaboard.task.TaskRefDAOService.Case;
+
 /*
  * 석원.
  * 태스크 관계 관련
@@ -17,23 +19,22 @@ public interface TaskRefDAO {
 	public void createPostTask(int taskId, int postTaskId) ;
 	
 	// 추가 또는 연결에 삽입
-/*	public void addPreTask(int taskId, int preTaskId) ;
-	public void addPostTask(int taskId, int postTaskId) ;*/
 	public void insertByPreTask(int taskId, int preTaskId) ;
 	public void insertByPostTask(int taskId, int postTaskId) ;
 
+	////////////////////////////////////////////////
+	
 	// 제거 또는 연결에서 제외
-/*	public void cutPreTask(int taskId, int preTaskId) ;
-	public void cutPostTask(int taskId, int postTaskId) ;*/
 	public void pullFromConnection(int taskId) ;
+	public void breakConnection(int taskId) ;
 
-	// 선/후행 태스크 있는지 확인
-/*	public boolean isHavingPreTask(int taskId) ;
-	public boolean isHavingPostTask(int taskId) ;*/
 	// 관계 태스크인지 확인
 	public boolean isConnectedTask(int taskId) ;
 	
 	//////////////////제대로//////////////////
+	// 사전 조사
+	public int getPreTaskId(int taskId);
+	public int getPostTaskId(int taskId);
 	// 조건 확인
 	// 01 액션
 	public void addPreTask(int taskId, int preTaskId) ;	// 선행T추가
@@ -44,9 +45,21 @@ public interface TaskRefDAO {
 	public boolean isHavingPreTask(int taskId) ;
 	public boolean isHavingPostTask(int taskId) ;
 	
-	// 03 집행
+	// 집행
 	public void linkConnection(int frontTask, int backTask);
 	public void appendTask(int tailId, int taskId);
 	public void appendConnection(int taskId, int headId);
 	public void createConnection(int frontId, int backId);
+	public void divideConnction(int frontId, int backId);
+	public void cutTail(int tailId);
+	public void cutHead(int headId);
+	public void perishConnection(int rootId);
+	
+	//////////////////////////////////////////////////////
+	
+	//////// 관계 태스크 가져오기
+	public RefTaskVO getPreTask(int taskId);
+	public RefTaskVO getPostTask(int taskId);
+	public Case getConnectedTask(int taskId, RefTaskVO preTask, RefTaskVO postTask);
+	
 }

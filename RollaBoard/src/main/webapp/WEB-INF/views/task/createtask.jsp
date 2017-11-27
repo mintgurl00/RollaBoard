@@ -236,6 +236,7 @@ function myAccordion(id) {
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<link rel="stylesheet" href="css/reset.css">
 <title>task 생성</title>
 <style>
 #frame{width:500px; height:90%; background-color:#DAD9FF; margin-top:100px; margin-left:700px}
@@ -272,7 +273,7 @@ function myAccordion(id) {
 	
 	<div id="description">내용(필수X)<br/>
 		<input type="text" maxlength="100" id="description" style="height:180px; width:380px;" class="byteLimit" limitbyte="100" name="description" >
-		
+		<input type="hidden" name="status" value="NORMAL" />
 	</div>
 	
 	<h4>고급설정</h4>
@@ -298,13 +299,18 @@ function myAccordion(id) {
 		<input type="text" id="priority" placeholder="1~5중에 하나를 입력해주세요" size="40" name="priority" value = "3"><br/><br/><br/>
 	</div>
 	
-	<div id ="pre_Task"> 선행TASK  <br/>
-		<input type="text" id="pre_task" placeholder="Task id를 입력하시오" size="40" name="pre_Task"><br/><br/><br/>
+	<!-- 수민 태스크 위치 추가 -->
+	<div id ="location"> 위치 <br/>
+		<input type="text" id="location" placeholder="위치를 입력해주세요 예)서울시 서초구 잠원동" size="40" name="location" value="서울시"><br/><br/><br/>
+	</div>
+	
+<!--<div id ="pre_Task"> 선행TASK  <br/>
+		<input type="text" id="pre_task" name="pre_task" placeholder="Task id를 입력하시오" size="40" value=""><br/><br/><br/>
 	</div>
 	
 	<div id ="postTask"> 후행TASK  <br/>
-		<input type="text" id="post_task" placeholder="Task id를 입력하시오" size="40"><br/><br/><br/>
-	</div>
+		<input type="text" id="post_task" name="post_task" placeholder="Task id를 입력하시오" size="40" value=""><br/><br/><br/>
+	</div> -->
 	
 	<!-- <div id="settings">
 		<input type="button" value="고급설정" onclick="location.href='./detailtask.do';">

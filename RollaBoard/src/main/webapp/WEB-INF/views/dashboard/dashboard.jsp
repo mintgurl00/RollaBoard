@@ -2,6 +2,7 @@
 <%@ page import="java.util.*"%>
 <%@ page import="com.spring.rollaboard.task.TaskVO"%>
 <%@ page import="com.spring.rollaboard.board.BoardVO"%>
+<%@ page import="com.spring.rollaboard.mem.MemVO"%>
 <%
 	// 세션 아이디 체크
 	if(session.getAttribute("id") == null) {
@@ -9,17 +10,28 @@
 		out.println("location.href='index.do'");
 		out.println("</script>");
 	}
-	
+
+
 	request.setCharacterEncoding("utf-8");
 	
 	List<BoardVO> boardList = (ArrayList<BoardVO>)request.getAttribute("boardList");
 	ArrayList<TaskVO> taskList = (ArrayList<TaskVO>) request.getAttribute("taskList");
+	MemVO member = (MemVO) request.getAttribute("member");
+	String name = member.getName();
+	String email = member.getEmail();
+	if (name == null) {
+		name = "";
+	}
+	if (email == null) {
+		email = "";
+	}
 
 %>
 <!DOCTYPE html>
 <html>
 <title>Dashboard</title>
 <meta charset="UTF-8">
+<link href = "reset.css">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins">
@@ -48,7 +60,7 @@ width:700px; /* optional, though better have one */
 <!-- Sidebar/menu -->
 <nav class="w3-sidebar w3-red w3-collapse w3-top w3-large w3-padding mycolor" style="z-index:3;width:300px;font-weight:bold;" id="mySidebar"><br>
   <a href="javascript:void(0)" onclick="w3_close()" class="w3-button w3-hide-large w3-display-topleft" style="width:100%;font-size:19px">Close Menu</a>
-  <p class="w3-display-topleft w3-hide-medium w3-hide-small" style="font-size:15px;cursor:pointer"><a onClick = "openPop();">회원정보수정</a> | <a href="logout.do">logout</a></p>
+  <p class="w3-display-topleft w3-hide-medium w3-hide-small" style="font-size:15px;cursor:pointer"><a onclick="document.getElementById('id01').style.display='block'">회원정보수정</a> | <a href="logout.do">logout</a></p>
   <div class="w3-container">
     <h2 class="w3-padding-64"><b>My<br>Board</b></h2>
   </div>
@@ -62,13 +74,37 @@ width:700px; /* optional, though better have one */
   </div>
 </nav>
 
+<!-- Modal창으로 회원정보수정 출력 -->
+<div id="id01" class="w3-modal">
+    <div class="w3-modal-content w3-animate-top w3-card-4" style = "max-width:550px">
+      <header class="w3-container w3-teal">
+        <span onclick="javascript:clickcancel()" class="w3-button w3-display-topright">&times;</span>
+        <h3>회원정보 수정</h3>
+      </header>
+	  <form class="w3-container" action="updatemember.do" method = "post">
+	    <div class="w3-section">
+	      <label>ID:</label>
+	        <input class = "w3-input w3-border w3-margin-bottom" type="id" id="id" placeholder="Enter id" name="id" value = "<%=member.getId()%>" readonly>
+	      <label>Password:</label>      
+	        <input class = "w3-input w3-border w3-margin-bottom" type="password" id="password" placeholder="Enter password" name="password">
+	      <label>Name:</label>
+	        <input class = "w3-input w3-border w3-margin-bottom" type="name" id="name" placeholder="Enter name" name="name" value = "<%=name%>">       
+	      <label>Email:</label>
+	         <input class = "w3-input w3-border w3-margin-bottom" type="email"  id="email" placeholder="Enter email" name="email" value = "<%=email%>">
+	        <button type="submit" class="w3-button w3-block w3-green w3-section w3-padding"  style="background-color: green"><b>변경하기</b></button>
+	    	<button onclick="javascript:clickcancel()" type="button" class = "w3-button w3-block w3-red"><b>취소</b></button>
+	    </div>
+	  </form>
+ 	 </div>
+</div>
+  
 <!-- Top menu on small screens -->
 <header class="w3-container w3-top w3-hide-large w3-red w3-xlarge w3-padding">
   <a href="javascript:void(0)" class="w3-button w3-red w3-margin-right" onclick="w3_open()">☰</a>
   <p class="w3-display-topleft w3-hide-medium w3-hide-small" style="font-size:15px"><a onClick = "openPop();" class = "w3-button">회원정보수정</a> | <a href="logout.do" class = "w3-button">logout</a></p>
   <span>MY BOARD</span>
   <span class = "w3-display-topright">
-  	<a onClick = "openPop();" style="font-size:12px;cursor:pointer">회원정보수정</a>&nbsp;<a href="logout.do" style="font-size:12px;cursor:pointer">logout</a>
+  	<a onclick="document.getElementById('id01').style.display='block'" style="font-size:12px;cursor:pointer">회원정보수정</a>&nbsp;<a href="logout.do" style="font-size:12px;cursor:pointer">logout</a>
   </span>
 </header>
 
@@ -80,7 +116,7 @@ width:700px; /* optional, though better have one */
 
   <!-- Header -->
   <div class="w3-container" style="margin-top:40px" id="showcase">
-    <h1 class="w3-jumbo"><b>MY TASK</b></h1>
+    <h1 class="w3-jumbo"><b>My Tasks</b></h1>
     <hr style="width:50px;border:5px solid orange" class="w3-round">
   </div>
   
@@ -138,20 +174,16 @@ function onClick(element) {
   captionText.innerHTML = element.alt;
 }
 
-// 회원정보 수정창 오픈
-function openPop() {
-	window.open("./updatememberform.do",
-			"UPDATE",
-			"resizeable = yes, menubar=no, width = 800, height = 500, left = 10, right = 10");
-	
-}
-
 // 태스크 보기
 function viewTask (cnt) {
 	document.getElementById("taskview" + cnt).submit();	
 }
 
-
+// 회원정보수정 캔슬클릭시
+function clickcancel() {
+	document.getElementById('id01').style.display='none';
+	window.location.reload();
+}
 </script>
 
 </body>
