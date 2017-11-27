@@ -34,131 +34,131 @@
 %>
 <html lang="en">
 <head>
-  <!-- Theme Made By www.w3schools.com - No Copyright -->
-  <title>Board Page</title>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link href="reset.css">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-  <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-  <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet" type="text/css">
-  <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet" type="text/css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-  <style>
+<!-- Theme Made By www.w3schools.com - No Copyright -->
+<title>Board Page</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link href="css/reset.css">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet" type="text/css">
+<link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet" type="text/css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<style>
 #ref_board{width:280px; height:50px; background-color:#DAD9FF}
 #filter{float:left; width:1860px; height:50px; background-color:#DAD9FF; text-align:right}
 #content{overflow:scroll; float:none; width:inherit; height:inherit; margin-top:0px;}
 #section{overflow-x:hidden; float:left; width:300px; height:700px; margin-left:10px; margin-top:10px; background-color:#DAD9FF; border-radius:10px; text-align:center}
 #task{width:260px; height:auto; margin-left:20px; margin-top:20px; background-color:#BDBDBF; border-radius:10px; text-align:center}
   
-  body {
-      font: 400 15px Lato, sans-serif;
-      height:inherit;
-      line-height: 1.8;
+body {
+    font: 400 15px Lato, sans-serif;
+    height:inherit;
+    line-height: 1.8;
 
+}
+h2 {
+    font-size: 24px;
+    text-transform: uppercase;
+    color: #303030;
+    font-weight: 600;
+    margin-bottom: 30px;
+}
+h4 {
+    font-size: 19px;
+    line-height: 1.375em;
+    color: #303030;
+    font-weight: 400;
+    margin-bottom: 30px;
+}  
+.jumbotron {
+    background-color: #F44336;
+    color: #fff;
+    padding: 40px 25px;
+    font-family: Montserrat, sans-serif;
+}
+.container-fluid {
+    padding: 60px 50px;
+}
+.logo-small {
+    color: #F44336;
+    font-size: 50px;
+}
+.logo {
+    color: #F44336;
+    font-size: 200px;
+}
+.navbar {
+    margin-bottom: 0;
+    background-color: #F44336;
+    z-index: 9999;
+    border: 0;
+    font-size: 12px !important;
+    line-height: 1.42857143 !important;
+    letter-spacing: 4px;
+    border-radius: 0;
+    font-family: Montserrat, sans-serif;
+}
+.navbar li a, .navbar .navbar-brand {
+    color: #fff !important;
+}
+.navbar-nav li a:hover, .navbar-nav li.active a {
+    color: #F44336 !important;
+    background-color: #fff !important;
+}
+.navbar-default .navbar-toggle {
+    border-color: transparent;
+    color: #fff !important;
+}
+footer .glyphicon {
+    font-size: 20px;
+    margin-bottom: 20px;
+    color: #F44336;
+}
+.slideanim {visibility:hidden;}
+.slide {
+    animation-name: slide;
+    -webkit-animation-name: slide;
+    animation-duration: 1s;
+    -webkit-animation-duration: 1s;
+    visibility: visible;
+}
+@keyframes slide {
+  0% {
+    opacity: 0;
+    transform: translateY(70%);
+  } 
+  100% {
+    opacity: 1;
+    transform: translateY(0%);
   }
-  h2 {
-      font-size: 24px;
-      text-transform: uppercase;
-      color: #303030;
-      font-weight: 600;
-      margin-bottom: 30px;
+}
+@-webkit-keyframes slide {
+  0% {
+    opacity: 0;
+    -webkit-transform: translateY(70%);
+  } 
+  100% {
+    opacity: 1;
+    -webkit-transform: translateY(0%);
   }
-  h4 {
-      font-size: 19px;
-      line-height: 1.375em;
-      color: #303030;
-      font-weight: 400;
-      margin-bottom: 30px;
-  }  
-  .jumbotron {
-      background-color: #F44336;
-      color: #fff;
-      padding: 40px 25px;
-      font-family: Montserrat, sans-serif;
+}
+@media screen and (max-width: 768px) {
+  .col-sm-4 {
+    text-align: center;
+    margin: 25px 0;
   }
-  .container-fluid {
-      padding: 60px 50px;
+  .btn-lg {
+      width: 100%;
+      margin-bottom: 35px;
   }
-  .logo-small {
-      color: #F44336;
-      font-size: 50px;
-  }
+}
+@media screen and (max-width: 480px) {
   .logo {
-      color: #F44336;
-      font-size: 200px;
+      font-size: 150px;
   }
-  .navbar {
-      margin-bottom: 0;
-      background-color: #F44336;
-      z-index: 9999;
-      border: 0;
-      font-size: 12px !important;
-      line-height: 1.42857143 !important;
-      letter-spacing: 4px;
-      border-radius: 0;
-      font-family: Montserrat, sans-serif;
-  }
-  .navbar li a, .navbar .navbar-brand {
-      color: #fff !important;
-  }
-  .navbar-nav li a:hover, .navbar-nav li.active a {
-      color: #F44336 !important;
-      background-color: #fff !important;
-  }
-  .navbar-default .navbar-toggle {
-      border-color: transparent;
-      color: #fff !important;
-  }
-  footer .glyphicon {
-      font-size: 20px;
-      margin-bottom: 20px;
-      color: #F44336;
-  }
-  .slideanim {visibility:hidden;}
-  .slide {
-      animation-name: slide;
-      -webkit-animation-name: slide;
-      animation-duration: 1s;
-      -webkit-animation-duration: 1s;
-      visibility: visible;
-  }
-  @keyframes slide {
-    0% {
-      opacity: 0;
-      transform: translateY(70%);
-    } 
-    100% {
-      opacity: 1;
-      transform: translateY(0%);
-    }
-  }
-  @-webkit-keyframes slide {
-    0% {
-      opacity: 0;
-      -webkit-transform: translateY(70%);
-    } 
-    100% {
-      opacity: 1;
-      -webkit-transform: translateY(0%);
-    }
-  }
-  @media screen and (max-width: 768px) {
-    .col-sm-4 {
-      text-align: center;
-      margin: 25px 0;
-    }
-    .btn-lg {
-        width: 100%;
-        margin-bottom: 35px;
-    }
-  }
-  @media screen and (max-width: 480px) {
-    .logo {
-        font-size: 150px;
-    }
-  }
+}
 .selectBox02 {position:relative;display:inline-block;width:200px;height:50px;background-color:#F44336}
 .selectBox02 .txt {display:block;width:188px;height:48px;padding-left:10px;line-height:50px;border:1px solid #F44336;text-align:center;color:#FFF}
 .selectBox02 select {position:absolute;left:0;top:0;display:block;width:200px;padding-left:10px;height:50px;opacity:0;filter: alpha(opacity=0);z-index:10;
@@ -173,14 +173,13 @@
 	box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(102, 175, 233, .6) /* focus효과*/
 }
 
-  </style>
+</style>
 
 <script type = "text/javascript" language = "javascript">
 function openPop() {
 	window.open("./updatememberform.do",
 			"UPDATE",
 			"resizeable = yes, menubar=no, width = 800, height = 500, left = 10, right = 10");
-	
 }
 
 /*
@@ -305,44 +304,43 @@ function showRefBoard(){
 <body id="myPage" data-spy="scroll" data-target=".navbar" data-offset="60">
 
 <nav class="navbar navbar-default navbar-fixed-top">
-  <div class="container">
-    <div class="navbar-header">
-      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>                        
-      </button>
-      <a class="navbar-brand" href="./dashboard.do">ROLLABOARD</a>
-    </div>
-    <div class="collapse navbar-collapse" id="myNavbar">
-      <ul class="nav navbar-nav navbar-right">
-        <%if ( id.equals(boardVO.getAdmin()) ) {%>
-        <li>
-        <a onClick = "document.getElementById('boardSetting').submit()" style = "cursor:pointer">BOARD 설정</a>
-        <form id = "boardSetting" action = "updateboard.do" method = "post" style = "margin-top:5px;">
-			<input type = "hidden" name = "id" value = "<%=boardVO.getId()%>">
-			<input type = "hidden" name = "name" value = "<%=boardVO.getName()%>">
-			<input type = "hidden" name = "admin" value = "<%=boardVO.getAdmin()%>">
-			<input type = "hidden" name = "visibility" value = "<%=boardVO.getVisibility()%>">
-			<input type = "hidden" name = "chkVal" value = "role">
-		</form>
-		</li>
-		<%} %>
-        <li>
-        <!-- 참조 보드 선택 -->
-		<div class = "selectBox02" >
-		<input type="hidden" id="current_ref_board" value="-1" />
-		<span class = "txt">참조 BOARD 선택</span> 
-		<select id="ref_board_select">
-	    	<option value="-1"></option>
-		</select>
-		</div>
-		</li>
-        <li><a onClick = "document.getElementById('updateMember').style.display='block'" style = "cursor:pointer" >회원정보수정</a></li>
-        <li><a href="logout.do">LOGOUT</a></li>
-      </ul>
-    </div>
-  </div>
+<div class="container">
+	<div class="navbar-header">
+		<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+			<span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span>
+		</button>
+		<a class="navbar-brand" href="./dashboard.do">ROLLABOARD</a>
+	</div>
+	<div class="collapse navbar-collapse" id="myNavbar">
+		<ul class="nav navbar-nav navbar-right"><%
+			if (id.equals(boardVO.getAdmin())) {%>
+				<li>
+					<a onClick="document.getElementById('boardSetting').submit()" style="cursor: pointer">BOARD 설정</a>
+					<form id="boardSetting" action="updateboard.do" method="post" style="margin-top: 5px;">
+						<input type="hidden" name="id" value="<%=boardVO.getId()%>">
+						<input type="hidden" name="name" value="<%=boardVO.getName()%>">
+						<input type="hidden" name="admin" value="<%=boardVO.getAdmin()%>">
+						<input type="hidden" name="visibility" value="<%=boardVO.getVisibility()%>">
+						<input type="hidden" name="chkVal" value="role">
+					</form>
+				</li><%
+			}%>
+			<li>
+				<!-- 참조 보드 선택 -->
+				<div>
+					<input type="hidden" id="current_ref_board" value="-1" /> <select
+						id="ref_board_select">
+						<option value="-1">참조 BOARD 선택</option>
+					</select>
+				</div>
+			</li>
+			<li>
+				<a onClick="document.getElementById('updateMember').style.display='block'" style="cursor: pointer">회원정보수정</a>
+			</li>
+				<li><a href="logout.do">LOGOUT</a></li>
+		</ul>
+	</div>
+</div>
 </nav>
 
 <div class="jumbotron text-center">
@@ -376,26 +374,26 @@ function showRefBoard(){
 
 <!-- Modal창으로 회원정보수정 출력 -->
 <div id="updateMember" class="w3-modal">
-    <div class="w3-modal-content w3-animate-top w3-card-4" style = "max-width:550px">
-      <header class="w3-container w3-teal">
-        <span onclick="javascript:clickcancel()" class="w3-button w3-display-topright">&times;</span>
-        <h3>회원정보 수정</h3>
-      </header>
-	  <form class="w3-container" action="updatemember.do" method = "post">
-	    <div class="w3-section">
-	      <label>ID:</label>
-	        <input class = "w3-input w3-border w3-margin-bottom" type="id" id="id" placeholder="Enter id" name="id" value = "<%=member.getId()%>" readonly>
-	      <label>Password:</label>      
-	        <input class = "w3-input w3-border w3-margin-bottom" type="password" id="password" placeholder="Enter password" name="password">
-	      <label>Name:</label>
-	        <input class = "w3-input w3-border w3-margin-bottom" type="name" id="name" placeholder="Enter name" name="name" value = "<%=name%>">       
-	      <label>Email:</label>
-	         <input class = "w3-input w3-border w3-margin-bottom" type="email"  id="email" placeholder="Enter email" name="email" value = "<%=email%>">
-	        <button type="submit" class="w3-button w3-block w3-green w3-section w3-padding"  style="background-color: green"><b>변경하기</b></button>
-	    	<button onclick="javascript:clickcancel()" type="button" class = "w3-button w3-block w3-red"><b>취소</b></button>
-	    </div>
-	  </form>
- 	 </div>
+	<div class="w3-modal-content w3-animate-top w3-card-4" style = "max-width:550px">
+		<header class="w3-container w3-teal">
+			<span onclick="javascript:clickcancel()" class="w3-button w3-display-topright">&times;</span>
+			<h3>회원정보 수정</h3>
+		</header>
+		<form class="w3-container" action="updatemember.do" method = "post">
+			<div class="w3-section">
+				<label>ID:</label>
+				<input class = "w3-input w3-border w3-margin-bottom" type="id" id="id" placeholder="Enter id" name="id" value = "<%=member.getId()%>" readonly>
+				<label>Password:</label>      
+				<input class = "w3-input w3-border w3-margin-bottom" type="password" id="password" placeholder="Enter password" name="password">
+				<label>Name:</label>
+				<input class = "w3-input w3-border w3-margin-bottom" type="name" id="name" placeholder="Enter name" name="name" value = "<%=name%>">       
+				<label>Email:</label>
+				<input class = "w3-input w3-border w3-margin-bottom" type="email"  id="email" placeholder="Enter email" name="email" value = "<%=email%>">
+				<button type="submit" class="w3-button w3-block w3-green w3-section w3-padding"  style="background-color: green"><b>변경하기</b></button>
+				<button onclick="javascript:clickcancel()" type="button" class = "w3-button w3-block w3-red"><b>취소</b></button>
+			</div>
+		</form>
+	</div>
 </div>
 </body>
 <script>
