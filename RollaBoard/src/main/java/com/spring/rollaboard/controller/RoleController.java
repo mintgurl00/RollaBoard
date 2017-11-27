@@ -92,7 +92,7 @@ public class RoleController {
     	roleDAOService.createRole(updateRoleInfo);
     	String chkVal = "rolelist";
     	result.addObject("chkVal", chkVal);
-    	result.setViewName("redirect:updateboard.do");
+    	result.setViewName("main/subMenu");
 		return result;
 	}
     
@@ -119,7 +119,6 @@ public class RoleController {
     			PrintWriter out = response.getWriter();
     	        out.println("<script>alert('ROLE이름이 중복됩니다! 변경할 수 없습니다.');</script>");
     	        out.flush(); 
-    	        result.setViewName("redirect:updateboard.do");
     			result.addObject("chkVal", "role");
     			result.setViewName("main/subMenu");
     			return result;
@@ -129,7 +128,7 @@ public class RoleController {
 
         String chkVal = "role";
         result.addObject("chkVal", chkVal);
-        result.setViewName("redirect:updateboard.do");
+        result.setViewName("main/subMenu");
 		return result;
 	}
     
@@ -231,7 +230,7 @@ public class RoleController {
     	// 현재 페이지에 머물 수 있는 앵커값 : chkVal
     	String chkVal = "allocation";
     	result.addObject("chkVal", chkVal);
-    	result.setViewName("redirect:updateboard.do");
+    	result.setViewName("main/subMenu");
     	return result;
 	}
     

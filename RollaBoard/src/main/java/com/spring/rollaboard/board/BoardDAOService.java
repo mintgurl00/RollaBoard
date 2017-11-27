@@ -13,7 +13,7 @@ public class BoardDAOService implements BoardDAO {
 	@Autowired
 	private SqlSession sqlSession; // Mybatis(ibatis)라이브러리가 제공하는 클래스
 	
-	@Override //존재하는 모든 보드 명단 가져오기
+	@Override //존재하는 모든 보드 명단 가져오기// VISIBILITY = 'TRUE' 조건 추가함(11.27)
 	public ArrayList<BoardVO> getAllBoards() {
 		BoardMapper boardMapper = sqlSession.getMapper(BoardMapper.class);
 		return boardMapper.getAllBoards();
@@ -97,6 +97,12 @@ public class BoardDAOService implements BoardDAO {
 	public void addRefBoard(int ref_id, int board_id) {
 		BoardMapper boardMapper = sqlSession.getMapper(BoardMapper.class);
 		boardMapper.addRefBoard(ref_id, board_id);
+	}
+	
+	@Override
+	public String getVisibility(int board_id) {
+		BoardMapper boardMapper = sqlSession.getMapper(BoardMapper.class);
+		return boardMapper.getVisibility(board_id);
 	}
 	
 }

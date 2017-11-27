@@ -165,10 +165,10 @@ function deletesectioninboard(cnt) {
 
 <%
 if( keyword.equals( "" ) ){	// 검색 결과가 *아니*라면
-%>
+	if ( id.equals(boardVO.getAdmin()) ) {%>
 	<div id = "section">
 	<br/>
 	<button type="button" class = "btn btn-info" onclick="location.href='createsectioninboard.do';">추가+</button>
 	</div>
-<% 
+<%	} 
 }%>

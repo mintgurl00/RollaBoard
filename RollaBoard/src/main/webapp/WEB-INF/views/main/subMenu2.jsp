@@ -17,7 +17,7 @@
 <body>
 <% System.out.println("서브메뉴chkVal : " + chkVal); %>
 <script type="text/javascript">
-	location.href='updateboard.do?chkVal=<%=chkVal%>';
+	location.href='dashboard.do';
 </script>
 </body>
 </html>
