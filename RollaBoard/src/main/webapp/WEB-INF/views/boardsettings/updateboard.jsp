@@ -29,6 +29,7 @@
 	ArrayList<MemVO> boardWaitingList = (ArrayList<MemVO>) request.getAttribute("boardWaitingList");
 	ArrayList<SectionVO> sectionList = (ArrayList<SectionVO>) request.getAttribute("sectionList");
 	ArrayList<BoardVO> refBoardList = (ArrayList<BoardVO>) request.getAttribute("refBoardList");
+	String visible = (String) request.getAttribute("visible");
 %>
 <!DOCTYPE html>
 <html lang="en">
@@ -65,6 +66,7 @@ function sectionPage() {
 function ETCPage() {
 	$('#resultBlock').load("etcform.do");
 }
+
 function updating() {
 	document.getElementById("updating").submit();
 }
@@ -122,6 +124,7 @@ function updating() {
 	<%}else if (chkVal.equals("etc")) { %>
 	<jsp:include page = "etcform.jsp" flush = "false" >
 			<jsp:param name="refBoardList" value="<%=refBoardList %>" />
+			<jsp:param name="visible" value="<%=visible %>" />
 	</jsp:include>
 	<%}else { %>
 	<jsp:include page = "rolelist.jsp" flush = "false" >

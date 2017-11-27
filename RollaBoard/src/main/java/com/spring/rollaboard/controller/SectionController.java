@@ -82,7 +82,7 @@ public class SectionController {
     	String chkVal = "section";
     	result.addObject("chkVal", chkVal);
     	result.addObject("board_id", board_id);
-    	result.setViewName("redirect:updateboard.do");
+    	result.setViewName("main/subMenu");
     	return result;
     }
     
@@ -119,7 +119,7 @@ public class SectionController {
     	// 현재 페이지에 머물 수 있는 앵커값 : chkVal
     	String chkVal = "section";
     	result.addObject("chkVal", chkVal);
-    	result.setViewName("redirect:updateboard.do");
+    	result.setViewName("main/subMenu");
     	return result;
     	
     }
@@ -145,7 +145,7 @@ public class SectionController {
     	// 현재 페이지에 머물 수 있는 앵커값 : chkVal
     	String chkVal = "section";
     	result.addObject("chkVal", chkVal);
-    	result.setViewName("redirect:updateboard.do");
+    	result.setViewName("main/subMenu");
     	return result;
     }
     

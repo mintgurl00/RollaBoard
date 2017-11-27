@@ -9,6 +9,7 @@ if(session.getAttribute("id") == null) {
 	out.println("</script>");
 }
 ArrayList<BoardVO> refBoardList = (ArrayList<BoardVO>)request.getAttribute("refBoardList");
+String visible = (String) request.getAttribute("visible");
 %>
 <!DOCTYPE html>
 <html lang="en">
@@ -43,8 +44,16 @@ function radio_chk() {
   <form id = "visibility" action = "visibility.do">
   <div class = "row">
   	<div class = "col-xs-4">공개여부</div>
+  	<%if (visible.equals("TRUE")) {%>
+  	<div class = "col-xs-3"><input type = "radio" name = "visibility" value = "TRUE" checked>공개</div>
+  	<div class = "col-xs-3"><input type = "radio" name = "visibility" value = "FALSE">비공개</div>
+  	<%} else if (visible.equals("FALSE")) {%>
+  	<div class = "col-xs-3"><input type = "radio" name = "visibility" value = "TRUE" >공개</div>
+  	<div class = "col-xs-3"><input type = "radio" name = "visibility" value = "FALSE" checked>비공개</div>
+  	<%} else { %>
   	<div class = "col-xs-3"><input type = "radio" name = "visibility" value = "TRUE" >공개</div>
   	<div class = "col-xs-3"><input type = "radio" name = "visibility" value = "FALSE">비공개</div>
+  	<%} %>
   	<div class = "col-xs-2"><input type = "submit" class = "btn btn-info" value = "저장" onclick="javascript:radio_chk()"></div>
   </div>
   </form>

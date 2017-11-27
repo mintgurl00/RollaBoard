@@ -12,7 +12,7 @@
 	
 	<!-- getAllBoards -->
 	<select id = "getAllBoards" resultMap="BoardResultMap">
-		SELECT * FROM board
+		SELECT * FROM board WHERE VISIBILITY = 'TRUE'
 	</select>
 	
 	<!-- getRefBoards -->
@@ -81,6 +81,10 @@
 		VALUES (#{board_id}, #{ref_id})
 	</insert>
 	
+	<!-- 공개여부 가져오기 -->
+	<select id ="getVisibility" resultType = "String">
+		SELECT VISIBILITY FROM board WHERE ID = #{board_id}
+	</select>
 
 	
 </mapper>
