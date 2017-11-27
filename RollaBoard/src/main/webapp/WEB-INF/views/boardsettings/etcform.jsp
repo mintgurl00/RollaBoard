@@ -134,7 +134,7 @@ body {
    }
  }
 </style>
-<script type = "text/javascript">
+<script type = "text/javascript" language = "javascript">
 function radio_chk() {
 	//라디오 버튼 name 가져오기
 	var radio = document.getElementsByName("visibility");
@@ -150,7 +150,7 @@ function radio_chk() {
 }
 </script>
 </head>
-<body data-spy="scroll" data-target=".navbar" data-offset="60">
+<body>
 <div class="container">
   <h2>참조 승인 여부</h2>
   <p>공개를 통해 다른BOARD에서 당신의 BOARD를 참조할 수 있게 할 수 있습니다. </p>  

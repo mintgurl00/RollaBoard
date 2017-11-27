@@ -198,52 +198,55 @@ body {
 </head>
 <body>
 <div class="container">
-  <h2>ROLE 관리</h2>
-  <p>당신의 BOARD에서 업무수행을 지시할 ROLE을 관리해주세요</p>
-  <div class = "page-header">
-      <div class = "row" >
-        <div class = "col-xs-3" ><h3>ROLE 이름</h3></div>
-        <div class = "col-xs-3"><h3>DESCRIPTION</h3></div>
-        <div class = "col-xs-3"></div>
-   	 </div>
+	<div class = "page-header">
+		<h2>ROLE 관리</h2>
+		<p>당신의 BOARD에서 업무수행을 지시할 ROLE을 관리해주세요</p>
+	</div>
+	<div class = "row" >
+		<div class = "col-xs-3" ><h3>ROLE 이름</h3></div>
+		<div class = "col-xs-3"><h3>DESCRIPTION</h3></div>
+		<div class = "col-xs-3"></div>
+	</div>
     <%for(int i = 0; i < roleList.size(); i++) {
     	RoleVO roleVO = roleList.get(i);
     %>
     <form id = "none"></form>
       <div class = "row">
-      	<form id = "updateRole<%=roleVO.getId() %>" action = "updaterole.do">
-        <div class = "col-xs-3"  >
-        <div class= "origin<%=roleVO.getId() %> " style = "display:block; cursor:pointer" onclick = "javascript:flip(<%=roleVO.getId() %>)">
-        	<%=roleVO.getName() %>
-        </div>
-        	<input type = "text" id = "focus<%=roleVO.getId() %>" class = "byteLimit nameview<%=roleVO.getId() %>" 
-        	 limitbyte="20" name = "name" placeholder = "수정할 정보 입력(이름)" value = "<%=roleVO.getName() %>" style = "display:none" >
-        </div>
-        <div class = "col-xs-3">
-        <div class= "origin<%=roleVO.getId() %>" style = "display:block">
-        	<%=roleVO.getDescription() %>
-       	</div>
-        	<input type = "text" id = "desc<%=roleVO.getId() %>" class = "byteLimit nameview nameview<%=roleVO.getId() %>" 
-        	limitbyte="100" name = "description" placeholder = "수정할 정보 입력(설명)" value = "<%=roleVO.getDescription() %>" style = "display:none" >
+      	<div class = "col-xs-9">
+	      	<form id = "updateRole<%=roleVO.getId() %>" action = "updaterole.do">
+		        <div class = "col-xs-3"  >
+		        <div class= "origin<%=roleVO.getId() %> " style = "display:block; cursor:pointer" onclick = "javascript:flip(<%=roleVO.getId() %>)">
+		        	<%=roleVO.getName() %>
+		        </div>
+		        	<input type = "text" id = "focus<%=roleVO.getId() %>" class = "byteLimit nameview<%=roleVO.getId() %>" 
+		        	 limitbyte="20" name = "name" placeholder = "수정할 정보 입력(이름)" value = "<%=roleVO.getName() %>" style = "display:none" required />
+		        </div>
+		        <div class = "col-xs-4">
+		        <div class= "origin<%=roleVO.getId() %>" style = "display:block">
+		        	<%=roleVO.getDescription() %>
+		       	</div>
+		        	<input type = "text" id = "desc<%=roleVO.getId() %>" class = "byteLimit nameview nameview<%=roleVO.getId() %>" 
+		        	limitbyte="100" name = "description" placeholder = "수정할 정보 입력(설명)" value = "<%=roleVO.getDescription() %>" style = "display:none" />
+		        </div>
+		        
+		        <div class = "col-xs-1 nameview<%=roleVO.getId() %>" align = right style = "display:none">
+		        
+		        	<input type = "text" name = "id" value = "<%=roleVO.getId() %>" hidden>
+		        	<button type = "button" class = "btn btn-info" onclick = "javascript:updateRoleForm(<%=roleVO.getId() %>)" >수정</button>
+				</div>
+				<div class = "nameview<%=roleVO.getId() %> col-xs-1" style = "display:none">
+	        		<input type = "button" class = "btn btn-default"  value = "취소" onclick = "javascript:fadeout('<%=roleVO.getId() %>')" >
+	        	</div>
+	        </form>
         </div>
         
-        <div class = "col-xs-2 nameview<%=roleVO.getId() %>" align = right style = "display:none">
-        
-        	<input type = "text" name = "id" value = "<%=roleVO.getId() %>" hidden>
-        	<button type = button class = "btn btn-info" onclick = "javascript:updateRoleForm(<%=roleVO.getId() %>)" >수정</button>
-		</div>
-        </form>
-        <div class = "nameview<%=roleVO.getId() %> col-xs-2" style = "display:none">
-        	<input type = "button" class = "btn btn-default"  value = "취소" onclick = "javascript:fadeout('<%=roleVO.getId() %>')" >
-        </div>
         <form id = "deleteRole<%=roleVO.getId() %>" action = "deleteRole.do">
         <div class = "col-xs-1">
         	<input type = "text" name = "id" value = "<%=roleVO.getId() %>" hidden>
        		<input type = button class = "btn btn-default"  value = "삭제" onclick="javascript:chkBox(<%=roleVO.getId() %>)">
        	</div>
        	</form> 
-      	</div>
-      	<br/>
+     </div>
    <%} %>
    <%if (roleList.size() == 0) {%>
    <center><h1>데이터가 없습니다.</h1></center>
@@ -268,8 +271,6 @@ body {
     </div>
   	<center><input type = submit class = "btn btn-default" value = "추가"></center>
   </form>
-
-  </div>
 </div>
 </body>
 </html>

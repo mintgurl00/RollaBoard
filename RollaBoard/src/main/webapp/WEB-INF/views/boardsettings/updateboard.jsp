@@ -151,6 +151,17 @@ body {
         font-size: 150px;
     }
   }
+  .boxing {
+	  width: 300px;
+	  height: 50px;
+	  font-size: 10pt;
+	  float: left;
+	  color: #63717f;
+	  padding-top: 12px;
+	  -webkit-border-radius: 5px;
+	  -moz-border-radius: 5px;
+	  border-radius: 10px;
+  }
 </style>
 
 <script>
@@ -198,8 +209,8 @@ function updating() {
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>                        
       </button>
-    <form id = "updating" action = "updateboardname.do">
-		<input type = "text" class = "byteLimit" limitbyte="50" name = "board_name" value = "<%=boardVO.getName() %>" placeholder = "Board명을 입력하세요" required>
+    <form id = "updating" action = "updateboardname.do" class = "boxing">
+		<input type = "text" class = "byteLimit form-control" limitbyte="50" name = "board_name" value = "<%=boardVO.getName() %>" placeholder = "Board명을 입력하세요" required>
 	</form>
     </div>
     <div class="collapse navbar-collapse" id="myNavbar2">
@@ -232,8 +243,8 @@ function updating() {
     </div>
   </div>
 </nav>
-<br/><br/>
-<div id=resultBlock class="wrapper">
+
+<div id=resultBlock class="wrapper" style = "padding-top:60px">
 	<%if (chkVal == null) {%>
 	<jsp:include page = "rolelist.jsp" flush = "false" >
 			<jsp:param name="roleList" value="<%=roleList %>" />
