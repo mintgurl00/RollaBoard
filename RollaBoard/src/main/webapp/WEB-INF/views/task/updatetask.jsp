@@ -2,7 +2,9 @@
 <%@ page import="java.util.*"%>
 <%@ page import = "java.text.SimpleDateFormat"%>
 <%@ page import="com.spring.rollaboard.task.TaskVO"%>
+<%@ page import="com.spring.rollaboard.task.TaskVOLite"%>
 <%@ page import="com.spring.rollaboard.role.RoleVO"%>
+<%@ page import="com.spring.rollaboard.task.RefTaskVO"%>
 <%
 // 세션 아이디 체크
 if(session.getAttribute("id") == null) {
@@ -13,11 +15,27 @@ if(session.getAttribute("id") == null) {
 
 TaskVO taskVO = (TaskVO) request.getAttribute("taskVO");
 ArrayList<RoleVO> roleList = (ArrayList<RoleVO>) request.getAttribute("roleList");
-String postTaskId = request.getAttribute("postTaskId").toString() ;
-String preTaskId = request.getAttribute("preTaskId").toString() ;
 ArrayList<RoleVO> allocatedRole = (ArrayList<RoleVO>) request.getAttribute("allocatedRole");
+ArrayList<TaskVOLite> taskIdList = (ArrayList<TaskVOLite>) request.getAttribute("taskIdList");
+
+
+
+// 관계 태스크 보여주기 위한 기능
+RefTaskVO preTaskVO = null, postTaskVO = null ;
+preTaskVO = (RefTaskVO) request.getAttribute("preTaskVO");
+postTaskVO = (RefTaskVO) request.getAttribute("postTaskVO");
+
+String preTaskName = "", postTaskName = "" ;
+if( preTaskVO != null )
+	preTaskName = preTaskVO.getRefTaskName();
+if( postTaskVO != null )
+	postTaskName = postTaskVO.getRefTaskName();
+
+
+
+
 %>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE html>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -147,14 +165,35 @@ ArrayList<RoleVO> allocatedRole = (ArrayList<RoleVO>) request.getAttribute("allo
 		<input type="text" id="priority" placeholder="1~5중에 하나를 입력해주세요" size="40" name="priority" value = "<%=taskVO.getPriority()%>"><br/><br/><br/>
 	</div>
 	
+	
+	<datalist id="taskNameList">
+		<%
+		for(int i = 0; i < taskIdList.size(); i++) {
+			TaskVOLite taskVOLite = taskIdList.get(i);
+			String labelContents = "";
+			if(taskVOLite.getStatus().equals("COMPLETE"))
+				labelContents += "(완료)" ;
+			labelContents += taskVOLite.getSectionName();
+		%>
+			<option value = "<%=taskVOLite.getName()%>" label="<%=labelContents%>">
+		<%
+		} %>
+	</datalist>
+	
+	
 	<div id ="pre_Task" class="checkDiff"> 선행TASK  <br/>
-		<input type="hidden" name="hidden_pre_task" value="<%=preTaskId %>" />
-		<input type="text" id="pre_task" name="pre_task" value="<%=preTaskId %>" placeholder="Task id를 입력하시오" size="40"><br/><br/><br/>
+		<input type="text" name="pre_task_name" value="<%=preTaskName %>" list="taskNameList"/>
+		<input type="hidden" name="hidden_pre_task_name" value="<%=preTaskName %>" />
+		<!-- <input type="number" id="pre_task" name="pre_task" value="" placeholder="Task id를 입력하시오" size="40"><br/><br/><br/> -->
 	</div>
 	
 	<div id ="post_Task" class="checkDiff"> 후행TASK  <br/>
-		<input type="hidden" name="hidden_post_task" value="<%=postTaskId %>" />
-		<input type="text" id="post_task" name="post_task" value="<%=postTaskId %>" placeholder="Task id를 입력하시오" size="40"><br/><br/><br/>
+		<input type="text" name="post_task_name" value="<%=postTaskName %>" list="taskNameList"/>
+		<input type="hidden" name="hidden_post_task_name" value="<%=postTaskName %>" />
+		<!-- <input type="number" id="post_task" name="post_task" value="" placeholder="Task id를 입력하시오" size="40">
+		 -->
+		
+		<br/><br/><br/>
 	</div>
     
     

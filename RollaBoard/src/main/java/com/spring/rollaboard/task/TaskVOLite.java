@@ -7,6 +7,8 @@ public class TaskVOLite {
 	
 	private int id;
 	private String name;
+	private String sectionName;
+	private String status;
 	
 	public int getId() {
 		return id;
@@ -26,6 +28,11 @@ public class TaskVOLite {
 	public void setSectionName(String sectionName) {
 		this.sectionName = sectionName;
 	}
-	private String sectionName;
+	public String getStatus() {
+		return status;
+	}
+	public void setStatus(String status) {
+		this.status = status;
+	}
 	
 }

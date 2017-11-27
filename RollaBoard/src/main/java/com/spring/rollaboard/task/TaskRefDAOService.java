@@ -387,13 +387,13 @@ public class TaskRefDAOService implements TaskRefDAO {
 	public void breakConnection(int taskId) {	// 해당 Task를 없애고 연결을 분리시킴
 		TaskRefMapper taskRefMapper = sqlSession.getMapper( TaskRefMapper.class ) ;
 		
-		if(isHavingPostTask(taskId)){
+		/*if(isHavingPostTask(taskId)){
 			int postTaskId = getPostTaskId(taskId);
 			taskRefMapper.divideConnction(postTaskId);
 			turnNormal(postTaskId);
 		}
 		turnNormal(taskId);
-		taskRefMapper.deleteTask(taskId);
+		taskRefMapper.deleteTask(taskId);*/
 		
 		////////////////////////
 		if(getConnLength(taskId) < 3){	// 해당 연결 총 길이가 2 이하인 경우
@@ -403,8 +403,15 @@ public class TaskRefDAOService implements TaskRefDAO {
 			Case taskCase = checkTaskConn(taskId);
 			switch (taskCase) {
 			case BOTHCONN :
-				taskRefMapper.divideConnction(getPostTaskId(taskId));
+				int postTaskId = getPostTaskId(taskId);
+				int preTaskId = getPreTaskId(taskId);
+				taskRefMapper.divideConnction(postTaskId);
 				cutTail(taskId);
+				if( getConnLength(postTaskId) == 1 )
+					cutTail(postTaskId);
+				if( getConnLength(preTaskId) == 1 )
+					cutTail(preTaskId);
+				
 				break;
 			case PRECONN :
 				cutHead(taskId);

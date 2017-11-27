@@ -16,6 +16,13 @@
 		<result property = "location" column = "LOCATION"/> <!-- 수민 태스크 위치 추가 -->
 	</resultMap>
 	
+	<resultMap type = "TaskVOLite" id = "TaskResultMap2">
+		<result property="id" column="ID" />
+		<result property="name" column="NAME" />
+		<result property="sectionName" column="SEC_NAME" />
+		<result property="status" column="STATUS" />
+	</resultMap>
+	
 	<select id = "getTask" resultMap = "TaskResultMap">
 		SELECT * FROM task WHERE id = #{id}
 	</select>
@@ -79,6 +86,27 @@
     	ORDER BY
     		${sortQuery}
 	</select>
+	
+	<!-- getTaskIdList (그냥 태스크 간단한 정보)-->
+	<select id="getTaskIdList" parameterType="map" resultMap="TaskResultMap2">
+		SELECT ta.id id, ta.name name, se.name sec_name, ta.status status
+		FROM task ta
+			INNER JOIN section se
+			ON ta.section_id=se.id
+		WHERE se.board_id=#{board_id}
+		<if test="task_name != null">
+			AND ta.name=#{task_name}
+		</if>
+	</select>
+	
+	<!-- getTaskId
+	<select id="getTaskIdList" parameterType="map" resultMap="TaskResultMap2">
+		SELECT ta.id id
+		FROM task ta
+			INNER JOIN section se
+			ON ta.section_id=se.id
+		WHERE se.board_id=#{board_id} AND ta.name=#{task_name}
+	</select> -->
 	
 	<select id="getTasks" resultMap="TaskResultMap">	
 		SELECT * FROM task 

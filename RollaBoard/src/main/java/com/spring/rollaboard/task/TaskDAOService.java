@@ -28,7 +28,18 @@ public class TaskDAOService implements TaskDAO {
 	@Override
 	public ArrayList<TaskVOLite> getTaskIdList(int board_id) {
 		TaskMapper taskMapper = sqlSession.getMapper(TaskMapper.class);	
-		return taskMapper.getTaskIdList(board_id);
+		return taskMapper.getTaskIdList(board_id, null);
+	}
+	
+	@Override
+	public int getTaskId(String task_name, int board_id) {
+		TaskMapper taskMapper = sqlSession.getMapper(TaskMapper.class);
+		ArrayList<TaskVOLite> tempList = taskMapper.getTaskIdList(board_id, task_name) ;
+		System.out.println(task_name + "라는 이름을 갖는 태스크는 접속한 보드에서 " + tempList.size() + "개");
+		if( tempList.size() > 0 )
+			return tempList.get(0).getId();
+		else
+			return 0;
 	}
 	
 	public ArrayList<TaskVO> getTasks() {
@@ -256,7 +267,7 @@ public class TaskDAOService implements TaskDAO {
 		else
 			return false ;
 	}
-	
+
 	
 	
 }

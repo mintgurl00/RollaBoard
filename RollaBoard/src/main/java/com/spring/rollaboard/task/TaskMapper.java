@@ -20,8 +20,9 @@ public interface TaskMapper {
 	public void updateTask(TaskVO TaskVO);
 	
 	public void deleteTask(int id);
-	
-	public ArrayList<TaskVOLite> getTaskIdList( @Param("board_id") int board_id ) ;
+
+	public ArrayList<TaskVOLite> getTaskIdList( @Param("board_id") int board_id, @Param("task_name") String task_name ) ;
+	//public TaskVOLite getTaskId( @Param("task_name") String task_name, @Param("board_id") int board_id ) ;
 	public ArrayList<TaskVO> getTasksByBoard( @Param("board_id") int board_id ) ;	// 석원.
 
 	public ArrayList<TaskVO> getTasksByBoard2(

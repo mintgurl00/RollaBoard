@@ -30,21 +30,21 @@
 
 시작!!!
  
-<!-- <script type="text/javascript">
+<script type="text/javascript">
 
 	//location.href='./test.do' ; 
 	location.href='./';
-</script> -->
+</script>
 
 
 
 
-<!-- <div class="container"> -->
+<!-- <div class="container">
 
-	<!-- Trigger the modal with a button -->
+	Trigger the modal with a button
 	<button type="button" class="btn btn-default btn-lg" id="myBtn">Login</button>
 	
-	<!-- Modal -->
+	Modal
 	<div class="modal fade" id="myModal" role="dialog">
 		<div class="modal-dialog">
 	    	Modal content
@@ -78,7 +78,7 @@
 	    
 		</div>
 	</div> 
-<!-- </div> -->
+</div> -->
  
 <script>
 $(document).ready(function(){

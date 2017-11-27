@@ -22,6 +22,7 @@ import com.spring.rollaboard.task.RefTaskVO;
 import com.spring.rollaboard.task.TaskDAOService;
 import com.spring.rollaboard.task.TaskRefDAOService;
 import com.spring.rollaboard.task.TaskVO;
+import com.spring.rollaboard.task.TaskVOLite;
 
 //깃 테스트
 @Controller
@@ -87,25 +88,28 @@ public class TaskController {
 		System.out.println("board_id : " + board_id);
 		ArrayList<RoleVO> roleList = roleDAOService.getRoles(board_id);
 		
+		
+		
 		// 석원.관계를 전달하는 중이다.
 		int taskId = taskVO.getId() ;
-		int preTaskId = -1, postTaskId = -1 ;
-		if(taskRefDAOService.isConnectedTask(taskId)){
-			if(taskRefDAOService.isHavingPostTask(taskId))
-				postTaskId = taskRefDAOService.getPostTaskId(taskId);
-			if(taskRefDAOService.isHavingPreTask(taskId))
-				preTaskId = taskRefDAOService.getPreTaskId(taskId);
-		}
-		if( preTaskId > -1)
-			result.addObject("preTaskId", preTaskId);
-		else
-			result.addObject("preTaskId", "");
-		if( postTaskId > -1)
-			result.addObject("postTaskId", postTaskId);
-		else
-			result.addObject("postTaskId", "");
+		// 관계 있는지 확인하고 관계 TASK 정보 가져오기
+    	RefTaskVO preTaskVO = null, postTaskVO = null ;
+    	if( taskRefDAOService.isConnectedTask(taskId)){
+    		preTaskVO = new RefTaskVO(1);
+    		postTaskVO = new RefTaskVO(1);
+        	result.addObject("isConnected", "TRUE");
+    		taskRefDAOService.getConnectedTask(taskId, preTaskVO, postTaskVO);
+    		if(preTaskVO.getRefTaskId() > 0)
+    			result.addObject("preTaskVO", preTaskVO);
+    		if(postTaskVO.getRefTaskId() > 0)
+    			result.addObject("postTaskVO", postTaskVO);
+    	}
+		
+		// 관계 입력 때문에 태스크 정보도 좀 가져와야 한다.
+		ArrayList<TaskVOLite> taskIdList = taskDAOService.getTaskIdList(board_id);
 		
 		// 배정된 롤 리스트도 보여준다.
+		result.addObject("taskIdList", taskIdList);
 		ArrayList<RoleVO> allocatedRole = roleDAOService.getRolesByTask(taskVO.getId());
 		result.addObject("allocatedRole", allocatedRole);
 		result.addObject("roleList", roleList);
@@ -124,21 +128,31 @@ public class TaskController {
     	/*
     	 *  태스크 관계 처리하는 부분
     	 * */
-    	if(!request.getParameter("pre_task").equals(request.getParameter("hidden_pre_task"))){
-			String oldPreTask = request.getParameter("hidden_pre_task");
-			String newPreTask = request.getParameter("pre_task");
-			if(!oldPreTask.equals(""))
-				taskRefDAOService.cutPreTask(taskVO.getId(), Integer.parseInt(oldPreTask));	// 일단 기존 것은 지우고
-			if(!newPreTask.equals(""))
-				taskRefDAOService.addPreTask(taskVO.getId(), Integer.parseInt(newPreTask));	// 추가
+    	String oldPreTaskName = "", newPreTaskName = "", oldPostTaskName = "", newPostTaskName = "" ;
+    	int board_id = Integer.parseInt((String)session.getAttribute("board_id"));
+    	oldPreTaskName += request.getParameter("hidden_pre_task_name");
+    	newPreTaskName += request.getParameter("pre_task_name");
+    	oldPostTaskName += request.getParameter("hidden_post_task_name");
+    	newPostTaskName += request.getParameter("post_task_name");
+    	if(!oldPreTaskName.equals(newPreTaskName)){
+    		if(oldPreTaskName.equals(""))oldPreTaskName = "0";
+    		if(newPreTaskName.equals(""))newPreTaskName = "0";
+			int oldPreTaskId = taskDAOService.getTaskId(oldPreTaskName, board_id) ;	// 비어있을 때 어떻게 하지 ㅠㅠ
+			int newPreTaskId = taskDAOService.getTaskId(newPreTaskName, board_id) ;
+			if( oldPreTaskId > 0 )
+				taskRefDAOService.cutPreTask(taskVO.getId(), oldPreTaskId);	// 일단 기존 것은 지우고
+			if( newPreTaskId > 0 )
+				taskRefDAOService.addPreTask(taskVO.getId(), newPreTaskId);	// 추가
 		}
-    	if(!request.getParameter("post_task").equals(request.getParameter("hidden_post_task"))){
-			String oldPostTask = request.getParameter("hidden_post_task");
-			String newPostTask = request.getParameter("post_task");
-			if(!oldPostTask.equals(""))
-				taskRefDAOService.cutPostTask(taskVO.getId(), Integer.parseInt(oldPostTask));	// 일단 기존 것은 지우고
-			if(!newPostTask.equals(""))
-				taskRefDAOService.addPostTask(taskVO.getId(), Integer.parseInt(newPostTask));	// 추가
+    	if(!oldPostTaskName.equals(newPostTaskName)){
+    		if(oldPostTaskName.equals(""))oldPostTaskName = "0";
+    		if(newPostTaskName.equals(""))newPostTaskName = "0";
+    		int oldPostTaskId = taskDAOService.getTaskId(oldPostTaskName, board_id) ;	// 비어있을 때 어떻게 하지 ㅠㅠ
+			int newPostTaskId = taskDAOService.getTaskId(newPostTaskName, board_id) ;
+			if( oldPostTaskId > 0 )
+				taskRefDAOService.cutPreTask(taskVO.getId(), oldPostTaskId);	// 일단 기존 것은 지우고
+			if( newPostTaskId > 0 )
+				taskRefDAOService.addPostTask(taskVO.getId(), newPostTaskId);	// 추가
 		}
 		/////////////////////////////////////////
     	System.out.println("스테이터스 :" + taskVO.getStatus());	
