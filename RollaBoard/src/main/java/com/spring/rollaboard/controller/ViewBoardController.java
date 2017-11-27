@@ -87,7 +87,7 @@ public class ViewBoardController {
 		}
     	String board_id2 = "" + board_id;
     	session.setAttribute("board_id", board_id2);
-    	
+    	System.out.println("id=="+session.getAttribute( "id" ).toString());
     	String id = session.getAttribute( "id" ).toString() ;
     	  	
     	// 보드에 승인이 안되어 있으면 들어갈 수 없다.
