@@ -360,24 +360,24 @@ function showRefBoard(){
 <!-- Modal창으로 회원정보수정 출력 -->
 <div id="updateMember" class="w3-modal">
 	<div class="w3-modal-content w3-animate-top w3-card-4" style = "max-width:550px">
-	<header class="w3-container w3-teal">
-	  <span onclick="javascript:clickcancel()" class="w3-button w3-display-topright">&times;</span>
-	     <h3>회원정보 수정</h3>
-	   </header>
-	<form class="w3-container" action="updatemember.do" method = "post">
-	  <div class="w3-section">
-	    <label>ID:</label>
-	      <input class = "w3-input w3-border w3-margin-bottom" type="id" id="id" placeholder="Enter id" name="id" value = "<%=member.getId()%>" readonly>
-	<label>Password:</label>      
-	  <input class = "w3-input w3-border w3-margin-bottom" type="password" id="password" placeholder="Enter password" name="password">
-	<label>Name:</label>
-	  <input class = "w3-input w3-border w3-margin-bottom" type="name" id="name" placeholder="Enter name" name="name" value = "<%=name%>">       
-	<label>Email:</label>
-	   <input class = "w3-input w3-border w3-margin-bottom" type="email"  id="email" placeholder="Enter email" name="email" value = "<%=email%>">
-	<button type="submit" class="w3-button w3-block w3-green w3-section w3-padding"  style="background-color: green"><b>변경하기</b></button>
-	<button onclick="javascript:clickcancel()" type="button" class = "w3-button w3-block w3-red"><b>취소</b></button>
-	  </div>
-	</form>
+		<header class="w3-container w3-teal">
+			<span onclick="javascript:clickcancel()" class="w3-button w3-display-topright">&times;</span>
+			<h3>회원정보 수정</h3>
+		</header>
+		<form class="w3-container" action="updatemember.do" method = "post">
+			<div class="w3-section">
+				<label>ID:</label>
+				<input class = "w3-input w3-border w3-margin-bottom" type="id" id="id" placeholder="Enter id" name="id" value = "<%=member.getId()%>" readonly>
+				<label>Password:</label>      
+				<input class = "w3-input w3-border w3-margin-bottom" type="password" id="password" placeholder="Enter password" name="password">
+				<label>Name:</label>
+				<input class = "w3-input w3-border w3-margin-bottom" type="name" id="name" placeholder="Enter name" name="name" value = "<%=name%>">       
+				<label>Email:</label>
+				<input class = "w3-input w3-border w3-margin-bottom" type="email"  id="email" placeholder="Enter email" name="email" value = "<%=email%>">
+				<button type="submit" class="w3-button w3-block w3-green w3-section w3-padding"  style="background-color: green"><b>변경하기</b></button>
+				<button onclick="javascript:clickcancel()" type="button" class = "w3-button w3-block w3-red"><b>취소</b></button>
+			</div>
+		</form>
 	</div>
 </div>
 </body>
