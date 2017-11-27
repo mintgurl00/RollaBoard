@@ -215,22 +215,21 @@ body {
       	<div class = "col-xs-9">
 	      	<form id = "updateRole<%=roleVO.getId() %>" action = "updaterole.do">
 		        <div class = "col-xs-3"  >
-		        <div class= "origin<%=roleVO.getId() %> " style = "display:block; cursor:pointer" onclick = "javascript:flip(<%=roleVO.getId() %>)">
+		        <div class= "origin<%=roleVO.getId() %>" style = "display:block; cursor:pointer" onclick = "javascript:flip(<%=roleVO.getId() %>)">
 		        	<%=roleVO.getName() %>
 		        </div>
-		        	<input type = "text" id = "focus<%=roleVO.getId() %>" class = "byteLimit nameview<%=roleVO.getId() %>" 
+		        	<input type = "text" id = "focus<%=roleVO.getId() %>" class = "byteLimit nameview<%=roleVO.getId() %> form-control" 
 		        	 limitbyte="20" name = "name" placeholder = "수정할 정보 입력(이름)" value = "<%=roleVO.getName() %>" style = "display:none" required />
 		        </div>
 		        <div class = "col-xs-4">
 		        <div class= "origin<%=roleVO.getId() %>" style = "display:block">
 		        	<%=roleVO.getDescription() %>
 		       	</div>
-		        	<input type = "text" id = "desc<%=roleVO.getId() %>" class = "byteLimit nameview nameview<%=roleVO.getId() %>" 
+		        	<input type = "text" id = "desc<%=roleVO.getId() %>" class = "byteLimit nameview nameview<%=roleVO.getId() %> form-control" 
 		        	limitbyte="100" name = "description" placeholder = "수정할 정보 입력(설명)" value = "<%=roleVO.getDescription() %>" style = "display:none" />
 		        </div>
 		        
 		        <div class = "col-xs-1 nameview<%=roleVO.getId() %>" align = right style = "display:none">
-		        
 		        	<input type = "text" name = "id" value = "<%=roleVO.getId() %>" hidden>
 		        	<button type = "button" class = "btn btn-info" onclick = "javascript:updateRoleForm(<%=roleVO.getId() %>)" >수정</button>
 				</div>

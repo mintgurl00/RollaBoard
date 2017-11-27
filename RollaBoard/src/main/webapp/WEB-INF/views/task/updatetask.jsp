@@ -99,6 +99,18 @@ ArrayList<RoleVO> allocatedRole = (ArrayList<RoleVO>) request.getAttribute("allo
 
 
 <div id="frame">
+	<div id = "allocated">배정된 ROLE<br/>
+    	<%for(int h = 0; h < allocatedRole.size(); h++) {
+    		RoleVO allocRole = allocatedRole.get(h);
+    	%>
+    	<form id = "deleteAllocation" action = "deallocatetask.do">
+    	<input class = "form-control" type = "text" name = "role_name" value = "<%=allocRole.getName() %>" readonly>
+    	<input type = "hidden" name = "role_id" value = "<%=allocRole.getId() %>">
+    	<input type = "hidden" name = "task_id" value = "<%=taskVO.getId() %>">
+    	<input type = "submit" value = "배정취소">
+    	</form>
+    	<%} %>
+    </div>
 	<form action = "updatetask.do">
 	<div id="id">
 		<input type="hidden" id="id" name="id" value = <%=taskVO.getId() %> size="40">
@@ -145,10 +157,7 @@ ArrayList<RoleVO> allocatedRole = (ArrayList<RoleVO>) request.getAttribute("allo
 		<input type="text" id="post_task" name="post_task" value="<%=postTaskId %>" placeholder="Task id를 입력하시오" size="40"><br/><br/><br/>
 	</div>
     
-    <div id="button">
-        <input type="submit" value="확인">
-        <input type="button" value="취소" onclick='history.go(-1)'>
-    </div>
+    
     <div id="role">Role 배정(필수X)<br/>
 		<input list="roleList" name="taskToRole" >
 		<datalist id = "roleList">
@@ -159,20 +168,15 @@ ArrayList<RoleVO> allocatedRole = (ArrayList<RoleVO>) request.getAttribute("allo
 		<%} %>
 		</datalist>
 	</div>
-	</form>
-	<div id = "allocated">배정된 ROLE<br/>
-    	<%for(int h = 0; h < allocatedRole.size(); h++) {
-    		RoleVO allocRole = allocatedRole.get(h);
-    	%>
-    	<form id = "deleteAllocation" action = "deallocatetask.do">
-    	<input type = "text" name = "role_name" value = "<%=allocRole.getName() %>" readonly>
-    	<input type = "hidden" name = "role_id" value = "<%=allocRole.getId() %>">
-    	<input type = "hidden" name = "task_id" value = "<%=taskVO.getId() %>">
-    	<input type = "submit" value = "배정취소">
-    	</form>
-    	<%} %>
+	<div id="button">
+        <input type="submit" value="확인">
+        <input type="button" value="취소" onclick='history.go(-1)'>
     </div>
+	</form>
+	
+    
 </div>
+<br/>
 
 	
 
