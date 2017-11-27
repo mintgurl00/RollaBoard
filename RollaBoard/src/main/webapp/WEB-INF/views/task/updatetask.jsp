@@ -96,9 +96,10 @@ ArrayList<RoleVO> allocatedRole = (ArrayList<RoleVO>) request.getAttribute("allo
 </head>
 <body>
 
-<form action = "updatetask.do">
+
 
 <div id="frame">
+	<form action = "updatetask.do">
 	<div id="id">
 		<input type="hidden" id="id" name="id" value = <%=taskVO.getId() %> size="40">
 	</div>
@@ -112,29 +113,7 @@ ArrayList<RoleVO> allocatedRole = (ArrayList<RoleVO>) request.getAttribute("allo
     <div id="content">내용(필수X)<br/>
         <input type="textarea" id="content" name="description" style="height:180px; width:380px;" class="byteLimit" limitbyte="100"   value = "<%=taskVO.getDescription()%>">
     </div>
-    <div id = "allocated">배정된 ROLE<br/>
-    	<%for(int h = 0; h < allocatedRole.size(); h++) {
-    		RoleVO allocRole = allocatedRole.get(h);
-    	%>
-    	<form id = "deleteAllocation" action = "deallocatetask.do">
-    	<input type = "text" name = "role_name" value = "<%=allocRole.getName() %>" readonly>
-    	<input type = "hidden" name = "role_id" value = "<%=allocRole.getId() %>">
-    	<input type = "hidden" name = task_id" value = "<%=taskVO.getId() %>">
-    	<input type = "submit" value = "배정취소">
-    	</form>
-    	<%} %>
-    </div>
-    <div id="role">Role 배정(필수X)<br/>
-		<input list="roleList" name="taskToRole" >
-		<datalist id = "roleList">
-		<%for(int i = 0; i < roleList.size(); i++) {
-			RoleVO roleVO = roleList.get(i);
-		%>
-			<option value = "<%=roleVO.getName()%>">
-		<%} %>
-		</datalist>
-
-	</div>
+    
     <h4>고급설정</h4>
 	<div id ="start_date"> 시작날짜  <br/>
 		<input type="date" id="start_date" name="start_date" placeholder="yyyy-mm-dd" size="40" name ="start_date" value = "<%=taskVO.getStart_date()%>"><br/><br/><br/>
@@ -170,8 +149,32 @@ ArrayList<RoleVO> allocatedRole = (ArrayList<RoleVO>) request.getAttribute("allo
         <input type="submit" value="확인">
         <input type="button" value="취소" onclick='history.go(-1)'>
     </div>
-
+    <div id="role">Role 배정(필수X)<br/>
+		<input list="roleList" name="taskToRole" >
+		<datalist id = "roleList">
+		<%for(int i = 0; i < roleList.size(); i++) {
+			RoleVO roleVO = roleList.get(i);
+		%>
+			<option value = "<%=roleVO.getName()%>">
+		<%} %>
+		</datalist>
+	</div>
+	</form>
+	<div id = "allocated">배정된 ROLE<br/>
+    	<%for(int h = 0; h < allocatedRole.size(); h++) {
+    		RoleVO allocRole = allocatedRole.get(h);
+    	%>
+    	<form id = "deleteAllocation" action = "deallocatetask.do">
+    	<input type = "text" name = "role_name" value = "<%=allocRole.getName() %>" readonly>
+    	<input type = "hidden" name = "role_id" value = "<%=allocRole.getId() %>">
+    	<input type = "hidden" name = "task_id" value = "<%=taskVO.getId() %>">
+    	<input type = "submit" value = "배정취소">
+    	</form>
+    	<%} %>
+    </div>
 </div>
-</form>
+
+	
+
 </body>
 </html>
