@@ -7,6 +7,7 @@ public interface TaskDAO {
 	public ArrayList<TaskVO> getMyTasks(String mem_id);
 	
 	public ArrayList<TaskVO> getTasksByBoard( int board_id ) ;	// 석원.
+	public ArrayList<TaskVOLite> getTaskIdList( int board_id) ;
 
 	public TaskVO getTask(int id);
 	

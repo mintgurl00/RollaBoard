@@ -24,6 +24,12 @@ public class TaskDAOService implements TaskDAO {
 		TaskMapper taskMapper = sqlSession.getMapper(TaskMapper.class);	
 		return taskMapper.getMyTasks(mem_id);
 	}
+
+	@Override
+	public ArrayList<TaskVOLite> getTaskIdList(int board_id) {
+		TaskMapper taskMapper = sqlSession.getMapper(TaskMapper.class);	
+		return taskMapper.getTaskIdList(board_id);
+	}
 	
 	public ArrayList<TaskVO> getTasks() {
 		TaskMapper taskMapper = sqlSession.getMapper(TaskMapper.class);	
