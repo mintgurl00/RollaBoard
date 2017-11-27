@@ -145,10 +145,7 @@ ArrayList<RoleVO> allocatedRole = (ArrayList<RoleVO>) request.getAttribute("allo
 		<input type="text" id="post_task" name="post_task" value="<%=postTaskId %>" placeholder="Task id를 입력하시오" size="40"><br/><br/><br/>
 	</div>
     
-    <div id="button">
-        <input type="submit" value="확인">
-        <input type="button" value="취소" onclick='history.go(-1)'>
-    </div>
+    
     <div id="role">Role 배정(필수X)<br/>
 		<input list="roleList" name="taskToRole" >
 		<datalist id = "roleList">
@@ -172,7 +169,12 @@ ArrayList<RoleVO> allocatedRole = (ArrayList<RoleVO>) request.getAttribute("allo
     	</form>
     	<%} %>
     </div>
+    <div id="button">
+        <input type="submit" value="확인">
+        <input type="button" value="취소" onclick='history.go(-1)'>
+    </div>
 </div>
+<br/>
 
 	
 

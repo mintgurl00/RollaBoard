@@ -103,17 +103,33 @@ int sectionSize = sectionList.size() ;
 <%
 for( int i = 0 ; i < sectionSize ; i++ ){
 %>
+<script>
+function flip(cnt) {
+	if( $('.nameview' + cnt).css("display") == "none") {
+		$('.nameview' + cnt).css("display", "block");
+		
+	} 
+	if( $('.origin' + cnt).css("display") == "none") {
+		$('.origin' + cnt).css("display", "block");
+	} else {
+		$('.origin' + cnt).css("display", "none" );
+	}
+	
+}
 
+</script>
 
 <div id="section">
 	<!-- 섹션 표시줄 -->
-	<h4><b><%=sectionList.get(i).getName() %></b></h4>
+	<div class = "row origin<%=sectionList.get(i).getId() %>" style = "display:block; cursor:pointer" onclick = "javascript:flip(<%=sectionList.get(i).getId() %>)">
+		<h4><b><%=sectionList.get(i).getName() %></b></h4>
+	</div>
 	<%if ( id.equals(boardVO.getAdmin()) ) {%>
-	<div class = "row">
+	<div class = "row nameview<%=sectionList.get(i).getId() %>" style = "display:none">
 	<div class = "col-xs-offset-1 col-xs-5">
 	<form id = "updatesectioninboard<%=sectionList.get(i).getId() %>" action="updatesectioninboard.do">
 		<input type="hidden" name="section_id" 	value="<%=sectionList.get(i).getId() %>" />
-		<input type="text" name="section_name"  class="byteLimit form-control" limitbyte="30" value="<%=sectionList.get(i).getName() %>" placeholder = "SECTION명을 입력하세요." />		
+		<input type="text" name="section_name"  class="byteLimit form-control" limitbyte="30" value="<%=sectionList.get(i).getName() %>" placeholder = "SECTION명을 입력하세요." required/>		
 	</form>	
 	</div>
 
