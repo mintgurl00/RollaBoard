@@ -159,8 +159,22 @@
         font-size: 150px;
     }
   }
+.selectBox02 {position:relative;display:inline-block;width:200px;height:50px;background-color:#F44336}
+.selectBox02 .txt {display:block;width:188px;height:48px;padding-left:10px;line-height:50px;border:1px solid #F44336;text-align:center;color:#FFF}
+.selectBox02 select {position:absolute;left:0;top:0;display:block;width:200px;padding-left:10px;height:50px;opacity:0;filter: alpha(opacity=0);z-index:10;
+	appearance:none; /* 기본 스타일 없애기 */
+	-webkit-appearance:none;
+	-moz-appearance:none;
+	-o-appearance:none
+}
+ 
+.selectBox02.focus {border: 1px solid #66afe9;
+	-webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(102, 175, 233, .6); 
+	box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(102, 175, 233, .6) /* focus효과*/
+}
+
   </style>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
 <script type = "text/javascript" language = "javascript">
 function openPop() {
 	window.open("./updatememberform.do",
@@ -316,12 +330,13 @@ function showRefBoard(){
 		<%} %>
         <li>
         <!-- 참조 보드 선택 -->
-	<div >
-	<input type="hidden" id="current_ref_board" value="-1" />
-	<select id="ref_board_select">
-    	<option value="-1">참조 BOARD 선택</option>
-	</select>
-	</div>
+		<div class = "selectBox02" >
+		<input type="hidden" id="current_ref_board" value="-1" />
+		<span class = "txt">참조 BOARD 선택</span> 
+		<select id="ref_board_select">
+	    	<option value="-1"></option>
+		</select>
+		</div>
 		</li>
         <li><a onClick = "document.getElementById('updateMember').style.display='block'" style = "cursor:pointer" >회원정보수정</a></li>
         <li><a href="logout.do">LOGOUT</a></li>
@@ -384,39 +399,19 @@ function showRefBoard(){
 </div>
 </body>
 <script>
+$(".selectBox02 select").change(function () {
+	var changeTxt = $(this).find("option:selected").text();
+	$(this).parent().find(".txt").text(changeTxt);
+ });
+$(".selectBox02 select").focus(function () {
+	$(this).parent().addClass("focus");
+});
+$(".selectBox02 select").blur(function () {
+	$(this).parent().removeClass("focus");
+});
+
 $(document).ready(function(){
-  // Add smooth scrolling to all links in navbar + footer link
-  $(".navbar a, footer a[href='#myPage']").on('click', function(event) {
-    // Make sure this.hash has a value before overriding default behavior
-    if (this.hash !== "") {
-      // Prevent default anchor click behavior
-      event.preventDefault();
-
-      // Store hash
-      var hash = this.hash;
-
-      // Using jQuery's animate() method to add smooth page scroll
-      // The optional number (900) specifies the number of milliseconds it takes to scroll to the specified area
-      $('html, body').animate({
-        scrollTop: $(hash).offset().top
-      }, 900, function(){
-   
-        // Add hash (#) to URL when done scrolling (default click behavior)
-        window.location.hash = hash;
-      });
-    } // End if
-  });
   
-  $(window).scroll(function() {
-    $(".slideanim").each(function(){
-      var pos = $(this).offset().top;
-
-      var winTop = $(window).scrollTop();
-        if (pos < winTop + 600) {
-          $(this).addClass("slide");
-        }
-    });
-  });
 })
 
 // 회원정보수정 캔슬클릭시
