@@ -345,22 +345,21 @@ function showRefBoard(){
 </nav>
 
 <div class="jumbotron text-center">
-<br/>
-  <h3><%=boardVO.getName() %></h3>  
-  <form>
-    <div class="input-group" >
-      	<input type="text" name="keyword" id="keyword" class="form-control" size="50" placeholder="검색할 TASK 입력">
-      	<input type="hidden" name="written_keyword" id="written_keyword" value=""/>
-		<input type ="hidden" name="board_id" value="<%=boardVO.getId()%>" />
-      <div class="input-group-btn">
-        <input type="button" class="btn btn-danger" onclick="javascript:loadSearchResult()" value = "검색">
-      </div>
-    </div> 
-  </form>
-  <div align = right>
-      <input type="checkbox" class="filter" id="chk_duedate" name="due" value="FALSE" onclick="javascript:filterResult(this)"/>
+	<h3><%=boardVO.getName() %></h3>  
+	<form>
+		<div class="input-group" >
+			<input type="text" name="keyword" id="keyword" class="form-control" size="50" placeholder="검색할 TASK 입력">
+			<input type="hidden" name="written_keyword" id="written_keyword" value=""/>
+			<input type ="hidden" name="board_id" value="<%=boardVO.getId()%>" />
+			<div class="input-group-btn">
+				<input type="button" class="btn btn-danger" onclick="javascript:loadSearchResult()" value = "검색">
+			</div>
+		</div> 
+	</form>
+	<div align = right>
+		<input type="checkbox" class="filter" id="chk_duedate" name="due" value="FALSE" onclick="javascript:filterResult(this)"/>
 		마감일순 보기
-  </div>
+	</div>
 </div>
 
 <!-- MODAL TASK -->

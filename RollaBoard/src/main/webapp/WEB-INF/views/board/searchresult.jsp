@@ -93,7 +93,6 @@ function flip(cnt) {
 	} else {
 		$('.origin' + cnt).css("display", "none" );
 	}
-	
 }
 
 </script>
@@ -104,22 +103,21 @@ function flip(cnt) {
 		<h4><b><%=sectionList.get(i).getName() %></b></h4>
 	</div>
 	<%if ( id.equals(boardVO.getAdmin()) ) {%>
-	<div class = "row nameview<%=sectionList.get(i).getId() %>" style = "display:none">
-	<div class = "col-xs-offset-1 col-xs-5">
-	<form id = "updatesectioninboard<%=sectionList.get(i).getId() %>" action="updatesectioninboard.do">
-		<input type="hidden" name="section_id" 	value="<%=sectionList.get(i).getId() %>" />
-		<input type="text" name="section_name"  class="byteLimit form-control" limitbyte="30" value="<%=sectionList.get(i).getName() %>" placeholder = "SECTION명을 입력하세요." required/>		
-	</form>	
-	</div>
-
-	<input type="button" onclick = "javascript:updatesectioninboard(<%=sectionList.get(i).getId() %>)" value="수정" class="btn btn-default" />
-	<input type="button" onclick = "javascript:deletesectioninboard(<%=sectionList.get(i).getId() %>)" value="삭제" class="btn btn-default"/>
-
-	</div>
-	<form id = "deletesectioninboard<%=sectionList.get(i).getId() %>" action="deletesectioninboard.do">
-		<input type="hidden" name="section_id" value="<%=sectionList.get(i).getId() %>" />	
-	</form>
-	<hr/>
+		<div class = "row nameview<%=sectionList.get(i).getId() %>" style = "display:none">
+			<div class = "col-xs-offset-1 col-xs-5">
+				<form id = "updatesectioninboard<%=sectionList.get(i).getId() %>" action="updatesectioninboard.do">
+					<input type="hidden" name="section_id" 	value="<%=sectionList.get(i).getId() %>" />
+					<input type="text" name="section_name"  class="byteLimit form-control" limitbyte="30" value="<%=sectionList.get(i).getName() %>" placeholder = "SECTION명을 입력하세요." required/>		
+				</form>	
+			</div>
+	
+			<input type="button" onclick = "javascript:updatesectioninboard(<%=sectionList.get(i).getId() %>)" value="수정" class="btn btn-default" />
+			<input type="button" onclick = "javascript:deletesectioninboard(<%=sectionList.get(i).getId() %>)" value="삭제" class="btn btn-default"/>
+	
+		</div>
+		<form id = "deletesectioninboard<%=sectionList.get(i).getId() %>" action="deletesectioninboard.do">
+			<input type="hidden" name="section_id" value="<%=sectionList.get(i).getId() %>" />	
+		</form>
 	<%} %>
 	<!-- 태스크 표시 -->
 	<%
@@ -186,12 +184,6 @@ function flip(cnt) {
 		<input type="submit" class = "btn btn-default" value="TASK생성"  ></input>	
 	    
 	</form>
-	
-	<%-- <form action="taskview.do">
-		<input type="text" name="task_id" value="<%=taskViewList.get(i).getId() %>" />
-		<input type="text" name="task_name" value="<%=taskViewList.get(i).getName() %>" placeholder = "SECTION명을 입력하세요." />
-		<input type="submit" value="수정" />
-	</form> --%>
 
 </div>
 
