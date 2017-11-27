@@ -252,21 +252,20 @@ body {
    <center><h1>데이터가 없습니다.</h1></center>
    <%} else { %>
    
-   <%} %>
-   <br/>
-   <br/>
-
+   <%} %> 
+  <hr/>
+  <br/>
   <form id = "createRole" action = "createrole.do">
-  	<div class="form-group" >
-      <label class="control-label col-sm-2" for="text">이름 </label>
-      <div class="col-sm-4">
-        <input type="text" class = "byteLimit" limitbyte="20" name = "name" placeholder = "추가할 ROLE의 이름 입력" required>
+  	<div class="form-group">
+      <label class="control-label col-xs-2 col-sm-2" for="text">이름 </label>
+      <div class="col-xs-10 col-sm-4">
+        <input type="text" class = "byteLimit form-control" limitbyte="20" name = "name" placeholder = "추가할 ROLE의 이름 입력" required>
       </div>
     </div>
-    <div class="form-group" >
-      <label class="control-label col-sm-2" for="text">설명 </label>
-      <div class="col-sm-4">
-        <input type="text" class = "byteLimit" limitbyte="100" name = "description" placeholder = "추가할 ROLE의 설명 입력">
+    <div class="form-group">
+      <label class="control-label col-xs-2 col-sm-2" for="text">설명 </label>
+      <div class="col-xs-10 col-sm-4">
+        <input type="text" class = "byteLimit form-control" limitbyte="100" name = "description" placeholder = "추가할 ROLE의 설명 입력">
       </div>
     </div>
   	<center><input type = submit class = "btn btn-default" value = "추가"></center>
