@@ -1,0 +1,74 @@
+/* task.css */
+/* 
+#task {
+	width:260px; 
+	height:auto; 
+	margin-left:20px; 
+	margin-top:20px;
+	background-color:#BDBDBF;
+	border-radius:10px;
+	text-align:center
+} */
+@import url(//fonts.googleapis.com/earlyaccess/nanumgothic.css);
+@import url(//fonts.googleapis.com/earlyaccess/jejugothic.css);
+
+* {
+/* 	font-family: 'Jeju Gothic', sans-serif; */
+}
+
+/* 기본 태스크 */
+.task {
+	width:280px; 
+	height:auto; 
+	margin: 0 auto ;
+	margin-bottom: 15px;
+	padding: 5px 10px;
+	
+	background-color:#FFFFFF;
+	border-radius:10px;
+	text-align:center;
+	
+	font-family: 'Nanum Gothic', sans-serif;
+	
+	box-shadow: 1px 2px 4px rgba(0,0,0,.26), 0 2px 10px rgba(0,0,0,.12);
+	cursor:pointer;
+}
+
+
+.task_title {
+	font-size:20px;
+}
+
+.BLOCKED {
+	background-color:#EEEEEE;
+	color: #444444;
+	box-shadow: 0px 0px 0px rgba(0,0,0,0);
+}
+
+.COMPLETE {
+	background-color:#EEEEEE;
+	color: #444444;
+	box-shadow: 0px 0px 0px rgba(0,0,0,0);
+}
+
+.task_status_blocked {
+	font-family: 'Jeju Gothic', sans-serif;
+	display:inline-block;
+	width:130px;
+	height:20px;
+	background-color:#ffffff;
+	border-radius:25px;
+	line-height:25px;
+	color: #bbbbbb;
+}
+
+.task_status_complete {
+	font-family: 'Jeju Gothic', sans-serif;
+	display:inline-block;
+	width:130px;
+	height:20px;
+	background-color:#ffffff;
+	border-radius:25px;
+	line-height:25px;
+	color: #11aa22;
+}

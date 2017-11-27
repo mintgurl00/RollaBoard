@@ -51,6 +51,8 @@ function deletesectioninboard(cnt) {
 }
 
 </script>
+<link href="css/task.css" rel="stylesheet" type="text/css" >
+<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
 
 <!-- 결과 나오는 부분 -->
 
@@ -106,13 +108,33 @@ for( int i = 0 ; i < sectionSize ; i++ ){
 	<!-- 태스크 표시 -->
 	<%
 	for( int j = 0 ; j < taskViewList.get( i ).size() ; j++ ){
+		String status = taskViewList.get( i ).get( j ).getStatus();	// 태스크 상태
 	%>
 
-		<div id="task" method = "post" onclick="javascript:clicktask('<%=taskViewList.get( i ).get( j ).getId() %>')" style="cursor:pointer">
+		<div method ="post" 
+		class="task <%=status %>" 
+		onclick="javascript:clicktask('<%=taskViewList.get( i ).get( j ).getId() %>')">
 
-			<h3><%=taskViewList.get( i ).get( j ).getName() %></h3>
-			내용:<%=taskViewList.get( i ).get( j ).getDescription() %><br />
-			STATUS:<%=taskViewList.get( i ).get( j ).getStatus() %><br />
+			<div class="task_title">
+				<%=taskViewList.get( i ).get( j ).getName() %>
+			</div>
+			<%-- 
+			내용:<%=taskViewList.get( i ).get( j ).getDescription() %><br /> --%>
+			<%
+			
+			if( status.equals("BLOCKED")){%>
+				<div class="task_status_blocked">
+					BLOCKED <i class="fa fa-lock" aria-hidden="true"></i>
+				</div>				
+				<%
+			}else if( status.equals("COMPLETE") ){%>
+				<div class="task_status_complete">
+					COMPLETE <i class="fa fa-check" aria-hidden="true"></i>
+				</div>
+				<%
+			}
+			%>
+			
 			
 			<%
 			if( roleAndTaskList.get( i ).get( j ) != null && roleAndTaskList.get( i ).get( j ).size() > 0 ){ %>

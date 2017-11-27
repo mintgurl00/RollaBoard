@@ -239,9 +239,6 @@ function showRefBoard(){
   </div>
 </div>
 
-<button type="button" class="btn btn-default btn-lg" id="myBtn">Login</button>
-
-
 <!-- MODAL TASK -->
 
 <div class="modal fade" id="myModal" role="dialog">
