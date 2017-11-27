@@ -26,18 +26,88 @@ if(session.getAttribute("id") == null) {
 <head>
 <link href="reset.css">
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>태스크보기</title>
 <style>
-#frame{position:absolute; border-radius:10px; width:450px; height:550px; overflow:auto; background-color:#DAD9FF; margin-right: 10px; text-align:center}
-#content{width:400px; height:250px; background-color:#FFFFFF; margin-left:50px}
-#comment{width:400px; height:250px; background-color:#FFFFFF; margin-left:50px; margin-top:20px}
-#button{margin-top:20px}
+      /* Always set the map height explicitly to define the size of the div
+       * element that contains the map. */
+      #map {
+      	left: 20%;
+        height: 35%;
+        width: 60%;
+      }
+      /* Optional: Makes the sample page fill the window. */
+      html, body {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+      }
+      #floating-panel {
+        position: absolute;
+        top: 10px;
+        left: 25%;
+        z-index: 5;
+        background-color: #fff;
+        padding: 5px;
+        border: 1px solid #999;
+        text-align: center;
+        font-family: 'Roboto','sans-serif';
+        line-height: 30px;
+        padding-left: 10px;
+      }
+      
+      #frame{position:absolute; border-radius:10px; width:450px; height:550px; overflow:auto; background-color:#DAD9FF; margin-right: 10px; text-align:center}
+	  #content{width:400px; height:250px; background-color:#FFFFFF; margin-left:50px}
+	  #comment{width:400px; height:250px; background-color:#FFFFFF; margin-left:50px; margin-top:20px}
+	  #button{margin-top:20px}
 </style>
+
+<title>태스크보기</title>
+
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script src="js/taskview.js"></script>
+
 <script>
 
+//처음 맵 상태
+function initMap() {
+	
+  document.getElementById('submit').addEventListener('click', function() {
+    	geocodeAddress(geocoder, map, address); //'검색' 버튼 클릭하면 아래 메소드 호출(geocoder, map 객체 전달)
+  });
+	  	
+  var address = document.getElementById('addr1').value; //검색창에 입력한 주소를 address에 저장
+  
+  var map = new google.maps.Map(document.getElementById('map'), { //구글맵을 불러와 map에 저장
+    zoom: 15
+    //center: {lat: -34.397, lng: 150.644} //이 때 지도 가운데에 위치할 위도, 경도값
+  });
 
+  
+ var geocoder = new google.maps.Geocoder(); //지오코더 불러옴
+  
+ geocodeAddress(geocoder, map, address);
+  
+  //var s =  document.getElementById('submit');
+
+  
+}
+
+//주소 검색 시
+function geocodeAddress(geocoder, resultsMap, address) {
+  //alert("address:" + address);
+  //var address = document.getElementById('addr1').value; //검색창에 입력한 주소를 address에 저장
+  
+  geocoder.geocode({'address': address}, function(results, status) { //지오코더의 geocode메소드를 이용해 address를 위도, 경도 정보로 변환
+    if (status === 'OK') {
+      resultsMap.setCenter(results[0].geometry.location); //resultsMap은 위에서 불러온 구글맵. 괄호 안의 위치를 지도 가운데로
+      var marker = new google.maps.Marker({
+        map: resultsMap,
+        position: results[0].geometry.location //마커 포지션은 위에서 가져온 위치
+      });
+    } else {
+      alert('Geocode was not successful for the following reason: ' + status);
+    }
+  });
+}
 
 function deleteTask() {
 	var chk = confirm("정말 삭제하시겠습니까?");
@@ -51,8 +121,13 @@ function updateTask() {
 	document.getElementById("updatetask").submit();
 }
 
+
+
+
+
 </script>
 </head>
+
 <body>
 
 
@@ -70,21 +145,19 @@ function updateTask() {
 	if (taskVO.getLocation() != null) {
 	%>
 	
-	<form action="showgooglemaps.do">
 		<div id="status">
-		위치: <%=taskVO.getLocation() %>
-		<input type="hidden" id="location" name="location" value="<%=taskVO.getLocation() %>">
-		<input type="submit" value="지도보기">
-		</div> 
-	</form>
-	
-	<!-- 
-	<div id="status">위치: 
-	<jsp:include page="showgooglemaps.jsp" flush="true">
-		<jsp:param name="location" value = "<%=taskVO.getLocation() %>"/>
-	</jsp:include>
-	</div>
-	 -->
+			위치: <%=taskVO.getLocation() %>
+		</div>
+		
+		<div><input type="button" value="지도보기" onclick= "initMap()" hidden/></div>
+		
+		 
+		<div id="floating-panel" hidden>
+      		<input id="addr1" type="text" value="<%=taskVO.getLocation() %>">
+      		<input id="submit" type="button" value="search">
+    	</div>
+    	 
+		<div id="map"></div>
 	
 	<%
 	}
@@ -139,5 +212,6 @@ function updateTask() {
 	<div id="completeArea">
 	</div>
 </div>
+<script defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAusOrhQtlhsJhJl1UD0Es_b1As0thorrM&callback=initMap"></script>
 </body>
 </html>
