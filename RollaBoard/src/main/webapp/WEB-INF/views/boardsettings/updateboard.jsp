@@ -199,8 +199,9 @@ function updating() {
   <script src = "js/rolelist.js"></script>
 
 </head>
-<body id="myPageUpdate" data-spy="scroll" data-target=".navbar" data-offset="60">
-
+<body>
+<div class="whole_wrapper">
+<div class="upper_wrapper">
 <nav class="navbar navbar-default navbar-fixed-top">
   <div class="container">
     <div class="navbar-header">
@@ -243,8 +244,9 @@ function updating() {
     </div>
   </div>
 </nav>
+</div>
 
-<div id=resultBlock class="wrapper" style = "padding-top:60px">
+<div id=resultBlock class="wrapper" style = "padding-top:100px">
 	<%if (chkVal == null) {%>
 	<jsp:include page = "rolelist.jsp" flush = "false" >
 			<jsp:param name="roleList" value="<%=roleList %>" />
@@ -283,6 +285,7 @@ function updating() {
 	<input type = "button" class = "btn btn-info" value = "돌아가기" onclick = "location.href='board.do?board_id=<%=boardVO.getId()%>'">
 </footer>
 <br/>
+</div>
 </body>
 <script>
 // 회원정보수정 캔슬클릭시
