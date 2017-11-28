@@ -141,7 +141,7 @@ for( int i = 0 ; i < sectionSize ; i++ ){
 		onclick="javascript:clicktask('<%=taskViewList.get( i ).get( j ).getId() %>')">
 
 			<div class="task_title">
-				<%=taskViewList.get( i ).get( j ).getName() %>
+				<span style = "font-family: Montserrat, sans-serif;"><%=taskViewList.get( i ).get( j ).getName() %></span>
 			</div>
 			
 			
@@ -149,7 +149,8 @@ for( int i = 0 ; i < sectionSize ; i++ ){
 			<%
 			if( roleAndTaskList.get( i ).get( j ) != null && roleAndTaskList.get( i ).get( j ).size() > 0 ){ %>
 				<div class="allocated_area">
-				배정됨
+				<hr/>
+				<div align = "right">
 				<%
 				for( int k = 0 ; k < roleAndTaskList.get( i ).get( j ).size() ; k++ ){%>
 					<span class="badge role_badge">
@@ -157,8 +158,10 @@ for( int i = 0 ; i < sectionSize ; i++ ){
 						<%=roleAndTaskList.get( i ).get( j ).get( k ).getMemName() %>
 						<br/>
 					</span>
+					<br/>
 				<%
 				}%>
+				</div>
 				</div>
 			<%
 			}%>
@@ -167,11 +170,13 @@ for( int i = 0 ; i < sectionSize ; i++ ){
 			<%
 			
 			if( status.equals("BLOCKED")){%>
+			<hr/>
 				<div class="task_status_blocked">
 					BLOCKED <i class="fa fa-lock" aria-hidden="true"></i>
 				</div>				
 				<%
 			}else if( status.equals("COMPLETE") ){%>
+			<hr/>
 				<div class="task_status_complete">
 					COMPLETE <i class="fa fa-check" aria-hidden="true"></i>
 				</div>

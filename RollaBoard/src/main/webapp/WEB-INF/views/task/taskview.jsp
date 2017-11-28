@@ -54,9 +54,8 @@ if(session.getAttribute("id") == null) {
         padding-left: 10px;
       }
       
-      #frame{position:absolute; border-radius:10px; width:500px; height:500px; overflow:auto; background-color:#DAD9FF; margin-right: 10px; text-align:center}
-	  #content{width:400px; height:250px; background-color:#FFFFFF; margin-left:50px}
-	  #comment{width:400px; height:250px; background-color:#FFFFFF; margin-left:50px; margin-top:20px}
+      #frame{position:absolute; padding:10px; border-radius:4px; width:500px;height:750px; overflow:auto; background-color:#A2B1DA; margin-right: 10px; text-align:center}
+	  #content{border-radius:4px; width:400px; height:250px; background-color:#FFFFFF; margin-left:50px;text-align:left}
 	  #button{margin-top:20px}
 </style>
 
@@ -131,37 +130,34 @@ function updateTask() {
 <body>
 
 
-<div id = "frame">
+<div id = "frame" align = "center">
 	
-	<span align = "center"><h2><%=taskVO.getName() %></h2></span>
+	<h2><b><%=taskVO.getName() %></b></h2>
+	<hr/>
+	<div id = "content" style = "font-family: Montserrat, sans-serif;">
+		<font family = "Montserrat, sans-serif;"><b><%=taskVO.getDescription() %></b></font> 
+	</div>
+	<br/>
 	<table class="table" style = "font-family: Montserrat, sans-serif;">
 	<tbody>
 		<tr>
-			<td>TASK명 :</td>
-			<td><%=taskVO.getName() %></td>
-		</tr>
-		<tr>
-			<td>내용 :</td>
-			<td><%=taskVO.getDescription() %> </td>
-		</tr>
-		<tr>
-			<td>상태 :</td>
+			<td><b>상태 :</b></td>
 			<td><%=taskVO.getStatus() %> </td>
 		</tr>
 		<tr>
-			<td>생성일 :</td>
+			<td><b>생성일 :</b></td>
 			<td><%=taskVO.getCre_date() %> </td>
 		</tr>
 		<tr>
-			<td>시작일 :</td>
+			<td><b>시작일 :</b></td>
 			<td><%=taskVO.getStart_date() %> </td>
 		</tr>
 		<tr>
-			<td>마감일 :</td>
+			<td><b>마감일 :</b></td>
 			<td><%=taskVO.getDue_date() %> </td>
 		</tr>
 		<tr>
-			<td>중요도 :</td>
+			<td><b>중요도 :</b></td>
 			<td><%=taskVO.getPriority() %> </td>
 		</tr>
 		</tbody>		
@@ -211,12 +207,12 @@ function updateTask() {
 
 	<%if (session.getAttribute("board_id") != null) {%>
 
-		<input type=button value="확인" onclick = "location.href='./board.do';">
-		<input type=button value="수정" id="goUpdateBtn">
+		<input type=button class = "btn btn-default" value="확인" onclick = "location.href='./board.do';">
+		<input type=button class = "btn btn-default" value="수정" id="goUpdateBtn">
 <!-- 	<input type=button value="수정" onclick = "javascript:updateTask()"> -->
-		<input type=button value="삭제" onclick = "javascript:deleteTask()">
+		<input type=button class = "btn btn-default" value="삭제" onclick = "javascript:deleteTask()">
 	<%} else { %>
-		<input type=button value="확인" onclick = "location.href='./dashboard.do'">
+		<input type=button class = "btn btn-default" value="확인" onclick = "location.href='./dashboard.do'">
 	<%} %>
 
 	</div>
