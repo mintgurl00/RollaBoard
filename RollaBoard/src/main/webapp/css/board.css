@@ -253,11 +253,10 @@ footer .glyphicon {
 }
 
 #work_board {
-	width: 100%;
+	width: 2000px;
 	height: 100%;
 	overflow: auto;
     white-space: nowrap;
-	
 }
 #section{
 	overflow-x:hidden; 

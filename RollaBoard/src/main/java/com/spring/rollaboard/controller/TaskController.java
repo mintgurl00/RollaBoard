@@ -80,8 +80,11 @@ public class TaskController {
     
       
     @RequestMapping("updatetaskform.do")
-    public  ModelAndView updatetaskform(TaskVO taskVO, HttpSession session) {
+    public  ModelAndView updatetaskform(/*TaskVO taskVO, */HttpSession session, HttpServletRequest request) {
     	ModelAndView result = new ModelAndView();
+    	int task_id = Integer.parseInt((String) request.getParameter("task_id"));
+    	TaskVO taskVO = taskDAOService.getTask(task_id);
+    	
     	System.out.println("updatetaskform.do... taskVO.getId : " + taskVO.getId());
     	// 배정할 롤 리스트를 같이 첨부해서 전송한다.
 		int board_id = Integer.parseInt((String)session.getAttribute("board_id"));
