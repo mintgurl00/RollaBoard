@@ -145,7 +145,7 @@ for( int i = 0 ; i < sectionSize ; i++ ){
 				배정됨
 				<%
 				for( int k = 0 ; k < roleAndTaskList.get( i ).get( j ).size() ; k++ ){%>
-					<span class="badge">
+					<span class="badge role_badge">
 						<b><%=roleAndTaskList.get( i ).get( j ).get( k ).getRoleName() %> : </b>
 						<%=roleAndTaskList.get( i ).get( j ).get( k ).getMemName() %>
 						<br/>

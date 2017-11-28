@@ -74,6 +74,12 @@
 }
 
 .allocated_area{
-	width: 270px;
-	background-color: #ff0000;
+	width: 260px;/* 
+	background-color: #ff0000; */
+	position:relative;
+	margin: 0 auto;
+}
+
+.role_badge{
+	position:relative;
 }
