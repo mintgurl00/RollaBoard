@@ -102,6 +102,9 @@ public class ViewBoardController {
         	List<BoardVO> boardList = boardDAOService.getBoards(id); // 보드리스트 받아옴
         	session.removeAttribute("board_id"); // 대쉬보드로 이동시 board_id 세션을 없앤다.
         	ArrayList<TaskVO> taskList = taskDAOService.getMyTasks(id);
+        	// 회원정보수정시 기존 정보를 불러오기 위해 memDAOService.getMemInfoToUpdate를 사용한다(세션에서 ).
+        	MemVO memVO = memDAOService.getMemInfoToUpdate((String)session.getAttribute("id"));
+        	result.addObject("member", memVO);
         	result.addObject("taskList", taskList);
         	result.addObject("boardList", boardList);
             result.setViewName("dashboard/dashboard");
