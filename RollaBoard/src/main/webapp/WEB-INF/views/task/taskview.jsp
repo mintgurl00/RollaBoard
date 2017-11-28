@@ -54,7 +54,7 @@ if(session.getAttribute("id") == null) {
         padding-left: 10px;
       }
       
-      #frame{position:absolute; border-radius:10px; width:450px; height:550px; overflow:auto; background-color:#DAD9FF; margin-right: 10px; text-align:center}
+      #frame{position:absolute; border-radius:10px; width:500px; height:500px; overflow:auto; background-color:#DAD9FF; margin-right: 10px; text-align:center}
 	  #content{width:400px; height:250px; background-color:#FFFFFF; margin-left:50px}
 	  #comment{width:400px; height:250px; background-color:#FFFFFF; margin-left:50px; margin-top:20px}
 	  #button{margin-top:20px}
@@ -131,14 +131,41 @@ function updateTask() {
 <body>
 
 
-<div id = "frame"><h1>TASK 이름 :  <%=taskVO.getName() %> </h1>
-	<div id="status">내용 :  <%=taskVO.getDescription() %> </div>
-	<div id="status">상태: <%=taskVO.getStatus() %> </div>	
-	<div id="status">댓글 : 해야 됨</div>
-	<div id="status">생성날짜: <%=taskVO.getCre_date() %> </div>	
-	<div id="status">시작날짜: <%=taskVO.getStart_date() %> </div>	
-	<div id="status">마감날짜: <%=taskVO.getDue_date() %> </div>	
-	<div id="status">중요도: <%=taskVO.getPriority() %> </div>
+<div id = "frame">
+	
+	<span align = "center"><h2><%=taskVO.getName() %></h2></span>
+	<table class="table" style = "font-family: Montserrat, sans-serif;">
+	<tbody>
+		<tr>
+			<td>TASK명 :</td>
+			<td><%=taskVO.getName() %></td>
+		</tr>
+		<tr>
+			<td>내용 :</td>
+			<td><%=taskVO.getDescription() %> </td>
+		</tr>
+		<tr>
+			<td>상태 :</td>
+			<td><%=taskVO.getStatus() %> </td>
+		</tr>
+		<tr>
+			<td>생성일 :</td>
+			<td><%=taskVO.getCre_date() %> </td>
+		</tr>
+		<tr>
+			<td>시작일 :</td>
+			<td><%=taskVO.getStart_date() %> </td>
+		</tr>
+		<tr>
+			<td>마감일 :</td>
+			<td><%=taskVO.getDue_date() %> </td>
+		</tr>
+		<tr>
+			<td>중요도 :</td>
+			<td><%=taskVO.getPriority() %> </td>
+		</tr>
+		</tbody>		
+	</table>
 	
 	<!-- 수민 태스크 위치 추가 -->
 	<%

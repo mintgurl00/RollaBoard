@@ -222,13 +222,13 @@ function showRefBoard(){
 			</ul>
 		</div>
 		<div class = "row"> 
-			<div class = "col-sm-offset-7 col-sm-2">
+			<div class = "col-xs-5 col-sm-offset-7 col-sm-2">
 			    <div class = "navbar" id = "filtering" align = "right">
 					<input type="checkbox" class="filter" id="chk_duedate" name="due" value="FALSE" onclick="javascript:filterResult(this)"/>
 					<font>마감일순 보기</font>
 				</div>
 			</div>
-			<div class = " col-sm-3">
+			<div class = "col-xs-7 col-sm-3">
 				<form>
 					<div class="input-group" >		
 						<input type="text" name="keyword" id="keyword" class="form-control" placeholder="검색할 TASK 입력">
