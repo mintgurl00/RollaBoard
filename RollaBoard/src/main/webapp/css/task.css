@@ -72,3 +72,8 @@
 	line-height:25px;
 	color: #11aa22;
 }
+
+.allocated_area{
+	width: 270px;
+	background-color: #ff0000;
+}

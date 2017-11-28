@@ -253,12 +253,11 @@ footer .glyphicon {
 }
 
 #work_board {
-	width: 100%;
+	width: 2000px;
 	height: 100%;
 	overflow: auto;
     white-space: nowrap;
     padding-top:5px;
-	
 }
 #section{
 	overflow-x:hidden; 
@@ -292,7 +291,6 @@ footer .glyphicon {
 	margin:0px 0px 0px 0px;
 	padding: 0px 0px 0px 0px;
 }
-
 
 .boards{
 	width: 100%;

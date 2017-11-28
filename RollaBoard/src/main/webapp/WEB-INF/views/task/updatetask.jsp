@@ -35,13 +35,9 @@ if( postTaskVO != null )
 
 
 %>
-<!DOCTYPE html>
-<html>
-<head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>task 생성</title>
 <style>
-#frame{width:500px; height:700px; background-color:#DAD9FF ; margin-top:100px; margin-left:700px}
+#frame{width:500px; height:700px; background-color:#DAD9FF}
 #taskname{margin-top:20px; margin-left:10px}
 #content{margin-top:30px; margin-left:30px}
 #role{margin-top:30px; margin-left:30px}
@@ -50,7 +46,6 @@ if( postTaskVO != null )
 </style>
 
 <!-- 테스크 제목, 설명 입력 바이트 수 제한 --> 
- <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
   <script>
     $(document).ready( function() {
         //글자 byte 수 제한
@@ -111,13 +106,10 @@ if( postTaskVO != null )
 
 
 
-</head>
-<body>
-
 
 
 <div id="frame">
-	<div id = "allocated">배정된 ROLE<br/>
+	<div id = "allocated">배정된 ROLE
     	<%for(int h = 0; h < allocatedRole.size(); h++) {
     		RoleVO allocRole = allocatedRole.get(h);
     	%>
@@ -140,28 +132,28 @@ if( postTaskVO != null )
         <input type="text" id="taskname" name="name" placeholder="TASK 이름을 입력하시오." size="40" class="byteLimit" limitbyte="30" value = "<%=taskVO.getName()%>">
     </div>
     
-    <div id="content">내용(필수X)<br/>
+    <div id="content">내용(필수X)
         <input type="textarea" id="content" name="description" style="height:180px; width:380px;" class="byteLimit" limitbyte="100"   value = "<%=taskVO.getDescription()%>">
     </div>
     
     <h4>고급설정</h4>
-	<div id ="start_date"> 시작날짜  <br/>
+	<div id ="start_date"> 시작날짜
 		<input type="date" id="start_date" name="start_date" placeholder="yyyy-mm-dd" size="40" name ="start_date" value = "<%=taskVO.getStart_date()%>"><br/><br/><br/>
 	</div>
 	
-	<div id ="due_date"> 마감날짜  <br/>
+	<div id ="due_date"> 마감날짜
 
 		<input type="date" id="due_date" placeholder="yyyy-mm-dd" size="40" name = "due_date" value = "<%=taskVO.getDue_date()%>"><br/><br/><br/>
 
 	</div>
 	
-	<div id ="cre_date"> 생성날짜  <br/>
+	<div id ="cre_date"> 생성날짜
 
 		<input type="date" id="cre_date" placeholder="yyyy-mm-dd" size="40" name = "cre_date" value = "<%=taskVO.getCre_date()%>" readonly><br/><br/><br/>
 
 	</div>
 	
-	<div id ="priority"> 중요도  <br/>
+	<div id ="priority"> 중요도
 		<input type="text" id="priority" placeholder="1~5중에 하나를 입력해주세요" size="40" name="priority" value = "<%=taskVO.getPriority()%>"><br/><br/><br/>
 	</div>
 	
@@ -169,35 +161,37 @@ if( postTaskVO != null )
 	<datalist id="taskNameList">
 		<%
 		for(int i = 0; i < taskIdList.size(); i++) {
+			
+			if(taskIdList.get(i).getName().equals(taskVO.getName()))
+				continue;
+			/* 
 			TaskVOLite taskVOLite = taskIdList.get(i);
 			String labelContents = "";
 			if(taskVOLite.getStatus().equals("COMPLETE"))
 				labelContents += "(완료)" ;
-			labelContents += taskVOLite.getSectionName();
+			labelContents += taskVOLite.getSectionName(); */
 		%>
-			<option value = "<%=taskVOLite.getName()%>" label="<%=labelContents%>">
+			<option value="<%=taskIdList.get(i).getName()%>" <%-- label="<%=labelContents%>" --%>>
 		<%
 		} %>
 	</datalist>
 	
 	
-	<div id ="pre_Task" class="checkDiff"> 선행TASK  <br/>
+	<div id ="pre_Task" class="checkDiff"> 선행TASK
 		<input type="text" name="pre_task_name" value="<%=preTaskName %>" list="taskNameList"/>
 		<input type="hidden" name="hidden_pre_task_name" value="<%=preTaskName %>" />
 		<!-- <input type="number" id="pre_task" name="pre_task" value="" placeholder="Task id를 입력하시오" size="40"><br/><br/><br/> -->
 	</div>
 	
-	<div id ="post_Task" class="checkDiff"> 후행TASK  <br/>
+	<div id ="post_Task" class="checkDiff"> 후행TASK
 		<input type="text" name="post_task_name" value="<%=postTaskName %>" list="taskNameList"/>
 		<input type="hidden" name="hidden_post_task_name" value="<%=postTaskName %>" />
 		<!-- <input type="number" id="post_task" name="post_task" value="" placeholder="Task id를 입력하시오" size="40">
 		 -->
-		
-		<br/><br/><br/>
 	</div>
     
     
-    <div id="role">Role 배정(필수X)<br/>
+    <div id="role">Role 배정(필수X)
 		<input list="roleList" name="taskToRole" >
 		<datalist id = "roleList">
 		<%for(int i = 0; i < roleList.size(); i++) {
@@ -212,12 +206,4 @@ if( postTaskVO != null )
         <input type="button" value="취소" onclick='history.go(-1)'>
     </div>
 	</form>
-	
-    
 </div>
-<br/>
-
-	
-
-</body>
-</html>

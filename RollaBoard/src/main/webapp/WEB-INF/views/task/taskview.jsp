@@ -116,11 +116,11 @@ function deleteTask() {
 	} else {
 		return;
 	}
-}
+}/* 
 function updateTask() {
-	document.getElementById("updatetask").submit();
+	//document.getElementById("updatetask").submit();
 }
-
+ */
 
 
 
@@ -185,7 +185,8 @@ function updateTask() {
 	<%if (session.getAttribute("board_id") != null) {%>
 
 		<input type=button value="확인" onclick = "location.href='./board.do';">
-		<input type=button value="수정" onclick = "javascript:updateTask()">
+		<input type=button value="수정" id="goUpdateBtn">
+<!-- 	<input type=button value="수정" onclick = "javascript:updateTask()"> -->
 		<input type=button value="삭제" onclick = "javascript:deleteTask()">
 	<%} else { %>
 		<input type=button value="확인" onclick = "location.href='./dashboard.do'">
@@ -193,16 +194,16 @@ function updateTask() {
 
 	</div>
 	<form id = "updatetask" action = "updatetaskform.do" method="post">
-		<input type = hidden name = "id" value = "<%=taskVO.getId() %>">
-		<input type = hidden name = "name" value = "<%=taskVO.getName() %>">
-		<input type = hidden name = "description" value = "<%=taskVO.getDescription() %>">
-		<input type = hidden name = "status" value = "<%=taskVO.getStatus() %>">
-		<input type = hidden name = "section_id" value = "<%=taskVO.getSection_id() %>">
-		<input type = hidden name = "start_date" value = "<%=taskVO.getStart_date() %>">
-		<input type = hidden name = "due_date" value = "<%=taskVO.getDue_date() %>">
-		<input type = hidden name = "cre_date" value = "<%=taskVO.getCre_date() %>">
-		<input type = hidden name = "priority" value = "<%=taskVO.getPriority() %>">	
-		<input type = hidden name = "location" value = "<%=taskVO.getLocation() %>">	
+		<input type = hidden id="h_id" name = "id" value = "<%=taskVO.getId() %>"><%-- 
+		<input type = hidden id="h_name" name = "name" value = "<%=taskVO.getName() %>">
+		<input type = hidden id="h_description" name = "description" value = "<%=taskVO.getDescription() %>">
+		<input type = hidden id="h_status" name = "status" value = "<%=taskVO.getStatus() %>">
+		<input type = hidden id="h_section_id" name = "section_id" value = "<%=taskVO.getSection_id() %>">
+		<input type = hidden id="h_start_date" name = "start_date" value = "<%=taskVO.getStart_date() %>">
+		<input type = hidden id="h_due_date" name = "due_date" value = "<%=taskVO.getDue_date() %>">
+		<input type = hidden id="h_cre_date" name = "cre_date" value = "<%=taskVO.getCre_date() %>">
+		<input type = hidden id="h_priority" name = "priority" value = "<%=taskVO.getPriority() %>">	
+		<input type = hidden id="h_location" name = "location" value = "<%=taskVO.getLocation() %>">	 --%>
 	</form>
 	<form id = "deletetask" action = "deletetask.do">
 		<input type = hidden id="task_id" name = "task_id" value = "<%=taskVO.getId() %>">
@@ -211,7 +212,34 @@ function updateTask() {
 	<input type="hidden" id="task_status" value="<%=taskVO.getStatus()%>" />
 	<div id="completeArea">
 	</div>
+	
+	
 </div>
 <script defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAusOrhQtlhsJhJl1UD0Es_b1As0thorrM&callback=initMap"></script>
+<script type="text/javascript">
+
+function updateTask2() {
+	//document.getElementById("updatetask").submit();
+	
+}
+
+
+$(document).ready( function() {
+	/*var task_status = $("#task_status").val() ;
+	var task_id = $("#task_id").val() ;
+	alert(task_status);
+	alert(task_id);*/
+	$('#completeArea').load("setCompleteArea.do", {
+		/*task_id: task_id,*/
+		status: $("#task_status").val()
+	});
+});
+
+$("#goUpdateBtn").click(function(){
+	$('#taskViewArea').load("updatetaskform.do", {
+		task_id:$("#h_id").val()
+	});
+});
+</script>
 </body>
 </html>
