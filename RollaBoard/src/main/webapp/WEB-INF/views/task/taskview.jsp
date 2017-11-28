@@ -74,9 +74,10 @@ function initMap() {
   }); */
 	  	
   var address = document.getElementById('addr1').value; //검색창에 입력한 주소를 address에 저장
+  alert('위치:' + address);
   
   var map = new google.maps.Map(document.getElementById('map'), { //구글맵을 불러와 map에 저장
-    zoom: 15
+    zoom: 13
     //center: {lat: -34.397, lng: 150.644} //이 때 지도 가운데에 위치할 위도, 경도값
   });
 
