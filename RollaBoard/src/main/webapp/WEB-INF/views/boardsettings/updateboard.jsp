@@ -186,7 +186,7 @@ function sectionPage() {
 }
 
 function ETCPage() {
-	$('#resultBlock').load("etcform.do");
+	$('#resultBlock').load("etcform.do", {board_id: "<%=boardVO.getId() %>"});
 }
 
 function updating() {

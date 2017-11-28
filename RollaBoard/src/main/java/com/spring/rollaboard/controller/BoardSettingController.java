@@ -120,7 +120,7 @@ public class BoardSettingController {
     @RequestMapping("etcform.do")
     public ModelAndView etcform(HttpSession session) {
     	ModelAndView result = new ModelAndView();
-    	
+    	System.out.println("참조보드로 이동");
     	int board_id = Integer.parseInt((String) session.getAttribute("board_id"));
     	ArrayList<BoardVO> refBoardList = boardDAOService.getRefBoards(board_id);
     	// 공개, 비공개의 현재값 가져오기
