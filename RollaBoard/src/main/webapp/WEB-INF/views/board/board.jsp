@@ -180,7 +180,7 @@ function showRefBoard(){
 
 </script>
 </head>
-<body id="myPage" data-spy="scroll" data-target=".navbar" data-offset="60">
+<body>
 <div class="whole_wrapper">
 
 <div class="upper_wrapper">
@@ -188,12 +188,9 @@ function showRefBoard(){
 	
 	<div class="container">
 		<div class="navbar-header">
-			<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
-				<span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span>
-			</button>
-			<a class="navbar-brand" href="./dashboard.do">ROLLABOARD</a>
+			<a class="navbar-brand" href="./dashboard.do" >ROLLABOARD</a>
 		</div>
-		<div class="collapse navbar-collapse" id="myNavbar">
+		<div>
 			<ul class="nav navbar-nav navbar-right"><%
 				if (id.equals(boardVO.getAdmin())) {%>
 					<li>
@@ -226,35 +223,33 @@ function showRefBoard(){
 	</div>	
 	
 	</nav>
-	
-	<div class="jumbotron text-center search_bar">
+</div>	
+
+<div class="container search_bar">
 	<div class = "row">
-		<div class = "col-sm-6"><h4><%=boardVO.getName() %></h4></div> 
-	</div> 
-	<div class = "row">
-		<div id = "filtering" >
-			<input type="checkbox" class="filter" id="chk_duedate" name="due" value="FALSE" onclick="javascript:filterResult(this)"/>
-			<font>마감일순 보기</font>
+		<div class = "col-xs-offset-1 col-xs-5 col-sm-offset-1 col-sm-2" align = "right"><h4><font color = "white"><%=boardVO.getName() %></font></h4></div> 
+		<div class = "col-sm-offset-4 col-sm-4">			
+			<form>
+				<div class="input-group" >		
+					<input type="text" name="keyword" id="keyword" class="form-control" placeholder="검색할 TASK 입력">
+					<input type="hidden" name="written_keyword" id="written_keyword" value=""/>
+					<input type ="hidden" name="board_id" value="<%=boardVO.getId()%>" />
+					<div class="input-group-btn">
+						<input type="button" class="btn btn-danger" onclick="javascript:loadSearchResult()" value = "검색">
+					</div>
+				</div> 
+			</form>
+			<div id = "filtering" align = "right">
+				<input type="checkbox" class="filter" id="chk_duedate" name="due" value="FALSE" onclick="javascript:filterResult(this)"/>
+				<font>마감일순 보기</font>
+			</div>
 		</div>
-	
-		<form>
-			<div class="input-group" >		
-				<input type="text" name="keyword" id="keyword" class="form-control" size="50" placeholder="검색할 TASK 입력">
-				<input type="hidden" name="written_keyword" id="written_keyword" value=""/>
-				<input type ="hidden" name="board_id" value="<%=boardVO.getId()%>" />
-				<div class="input-group-btn">
-					<input type="button" class="btn btn-danger" onclick="javascript:loadSearchResult()" value = "검색">
-				</div>
-			</div> 
-		</form>
 	</div>
 		
-		<div align = right>
-			
-		</div>
-	</div>
-	
+	<div align = right></div>
 </div>
+	
+
 <!-- MODAL TASK -->
 <div class="modal fade" id="myModal" role="dialog">
 	<div class="modal-dialog" style="margin:55px auto;">
