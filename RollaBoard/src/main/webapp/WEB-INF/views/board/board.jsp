@@ -109,12 +109,14 @@ function initBoard() {
  * 검색 결과
  */
 function loadSearchResult() {
+	//alert($('#keyword').val());
 	var filter = getFilter() ;
-	$('#content').load("searchresult.do", {
+	$('#work_board').load("searchresult.do", {
 		board_id: '<%=boardVO.getId() %>',
 		keyword:$('#keyword').val(),
 		filter: filter
 	});
+	//alert();
 	
 	$('#written_keyword').attr('value', $('#keyword').val() ) ;
 	return false ;
@@ -124,6 +126,7 @@ function inputEnterToSearch(){
 	$('#keyword').keypress( function(e){
 		if( e.keyCode == 13 ){
 			loadSearchResult();
+			return false;
 		}
 	});
 }
