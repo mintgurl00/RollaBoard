@@ -162,13 +162,17 @@ if( postTaskVO != null )
 	<datalist id="taskNameList">
 		<%
 		for(int i = 0; i < taskIdList.size(); i++) {
+			
+			if(taskIdList.get(i).getName().equals(taskVO.getName()))
+				continue;
+			/* 
 			TaskVOLite taskVOLite = taskIdList.get(i);
 			String labelContents = "";
 			if(taskVOLite.getStatus().equals("COMPLETE"))
 				labelContents += "(완료)" ;
-			labelContents += taskVOLite.getSectionName();
+			labelContents += taskVOLite.getSectionName(); */
 		%>
-			<option value = "<%=taskVOLite.getName()%>" label="<%=labelContents%>">
+			<option value="<%=taskIdList.get(i).getName()%>" <%-- label="<%=labelContents%>" --%>>
 		<%
 		} %>
 	</datalist>
