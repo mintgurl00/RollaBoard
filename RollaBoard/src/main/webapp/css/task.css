@@ -72,3 +72,14 @@
 	line-height:25px;
 	color: #11aa22;
 }
+
+.allocated_area{
+	width: 260px;/* 
+	background-color: #ff0000; */
+	position:relative;
+	margin: 0 auto;
+}
+
+.role_badge{
+	position:relative;
+}

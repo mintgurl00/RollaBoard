@@ -136,8 +136,27 @@ for( int i = 0 ; i < sectionSize ; i++ ){
 			<div class="task_title">
 				<%=taskViewList.get( i ).get( j ).getName() %>
 			</div>
-			<%-- 
-			내용:<%=taskViewList.get( i ).get( j ).getDescription() %><br /> --%>
+			
+			
+			<!-- 롤 표시 -->
+			<%
+			if( roleAndTaskList.get( i ).get( j ) != null && roleAndTaskList.get( i ).get( j ).size() > 0 ){ %>
+				<div class="allocated_area">
+				배정됨
+				<%
+				for( int k = 0 ; k < roleAndTaskList.get( i ).get( j ).size() ; k++ ){%>
+					<span class="badge role_badge">
+						<b><%=roleAndTaskList.get( i ).get( j ).get( k ).getRoleName() %> : </b>
+						<%=roleAndTaskList.get( i ).get( j ).get( k ).getMemName() %>
+						<br/>
+					</span>
+				<%
+				}%>
+				</div>
+			<%
+			}%>
+			
+			<!-- 상태 표시 -->
 			<%
 			
 			if( status.equals("BLOCKED")){%>
@@ -152,20 +171,6 @@ for( int i = 0 ; i < sectionSize ; i++ ){
 				<%
 			}
 			%>
-			
-			<%
-			if( roleAndTaskList.get( i ).get( j ) != null && roleAndTaskList.get( i ).get( j ).size() > 0 ){ %>
-				<b>ROLE</b><br />
-				<%
-				for( int k = 0 ; k < roleAndTaskList.get( i ).get( j ).size() ; k++ ){%>
-					<b><%=roleAndTaskList.get( i ).get( j ).get( k ).getRoleName() %> : </b>
-					<%=roleAndTaskList.get( i ).get( j ).get( k ).getMemName() %>
-					<br/>
-				<%
-				}%>
-				
-			<%
-			}%>
 			<div id="id01" class="w3-modal">
 		    <div class="w3-modal-content">
 		      <div class="w3-container">
