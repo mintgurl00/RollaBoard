@@ -46,7 +46,6 @@ if( postTaskVO != null )
 </style>
 
 <!-- 테스크 제목, 설명 입력 바이트 수 제한 --> 
- <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
   <script>
     $(document).ready( function() {
         //글자 byte 수 제한
