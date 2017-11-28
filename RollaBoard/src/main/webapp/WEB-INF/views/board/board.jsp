@@ -223,17 +223,22 @@ function showRefBoard(){
 					<li><a href="logout.do">LOGOUT</a></li>
 			</ul>
 		</div>
-	
-	</div>
+	</div>	
 	
 	</nav>
 	
 	<div class="jumbotron text-center search_bar">
-		<h3><%=boardVO.getName() %></h3>  
+	<div class = "row">
+		<div class = "col-sm-6"><h4><%=boardVO.getName() %></h4></div> 
+	</div> 
+	<div class = "row">
+		<div id = "filtering" >
+			<input type="checkbox" class="filter" id="chk_duedate" name="due" value="FALSE" onclick="javascript:filterResult(this)"/>
+			<font>마감일순 보기</font>
+		</div>
+	
 		<form>
-			<div class="input-group" >
-				<input type="checkbox" class="filter" id="chk_duedate" name="due" value="FALSE" onclick="javascript:filterResult(this)"/>
-				마감일순 보기
+			<div class="input-group" >		
 				<input type="text" name="keyword" id="keyword" class="form-control" size="50" placeholder="검색할 TASK 입력">
 				<input type="hidden" name="written_keyword" id="written_keyword" value=""/>
 				<input type ="hidden" name="board_id" value="<%=boardVO.getId()%>" />
@@ -242,10 +247,13 @@ function showRefBoard(){
 				</div>
 			</div> 
 		</form>
+	</div>
+		
 		<div align = right>
 			
 		</div>
 	</div>
+	
 </div>
 <!-- MODAL TASK -->
 <div class="modal fade" id="myModal" role="dialog">

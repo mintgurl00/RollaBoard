@@ -51,6 +51,21 @@ function deletesectioninboard(cnt) {
 }
 
 </script>
+
+<script>
+function flip(cnt) {
+	if( $('.nameview' + cnt).css("display") == "none") {
+		$('.nameview' + cnt).css("display", "block");
+		
+	} 
+	if( $('.origin' + cnt).css("display") == "none") {
+		$('.origin' + cnt).css("display", "block");
+	} else {
+		$('.origin' + cnt).css("display", "none" );
+	}
+}
+
+</script>
 <link href="css/task.css" rel="stylesheet" type="text/css" >
 <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
 
@@ -82,21 +97,8 @@ int sectionSize = sectionList.size() ;
 <%
 for( int i = 0 ; i < sectionSize ; i++ ){
 %>
-<script>
-function flip(cnt) {
-	if( $('.nameview' + cnt).css("display") == "none") {
-		$('.nameview' + cnt).css("display", "block");
-		
-	} 
-	if( $('.origin' + cnt).css("display") == "none") {
-		$('.origin' + cnt).css("display", "block");
-	} else {
-		$('.origin' + cnt).css("display", "none" );
-	}
-}
 
-</script>
-
+<div class="section_wrapper">
 <div id="section">
 	<!-- 섹션 표시줄 -->
 	<div class = "row origin<%=sectionList.get(i).getId() %>" style = "display:block; cursor:pointer" onclick = "javascript:flip(<%=sectionList.get(i).getId() %>)">
@@ -115,10 +117,13 @@ function flip(cnt) {
 			<input type="button" onclick = "javascript:deletesectioninboard(<%=sectionList.get(i).getId() %>)" value="삭제" class="btn btn-default"/>
 	
 		</div>
+		<div style = "display:none">
 		<form id = "deletesectioninboard<%=sectionList.get(i).getId() %>" action="deletesectioninboard.do">
 			<input type="hidden" name="section_id" value="<%=sectionList.get(i).getId() %>" />	
 		</form>
+		</div>
 	<%} %>
+	<hr/>
 	<!-- 태스크 표시 -->
 	<%
 	for( int j = 0 ; j < taskViewList.get( i ).size() ; j++ ){
@@ -169,13 +174,13 @@ function flip(cnt) {
 		        <p>Some text. Some text. Some text.</p>
 		      </div>
 		    </div>
-		  </div>
+		  	</div>
 		</div>
 	<%
 	} %>
 	
 	<!-- 새 태스크 추가 -->
-	<br /><br />
+	<br />
 	<form action ="createtask.do" method = "post" >
 
 		<input type="hidden" name="section_id" value = "<%=sectionList.get(i).getId() %>" required></input>
@@ -186,6 +191,7 @@ function flip(cnt) {
 	</form>
 
 </div>
+</div>
 
 <%
 }
@@ -194,9 +200,10 @@ function flip(cnt) {
 <%
 if( keyword.equals( "" ) ){	// 검색 결과가 *아니*라면
 	if ( id.equals(boardVO.getAdmin()) ) {%>
-	<div id = "section">
-	<br/>
-	<button type="button" class = "btn btn-info" onclick="location.href='createsectioninboard.do';">추가+</button>
+	<div class="section_wrapper">
+		<div id="section">
+			<button type="button" class = "btn btn-info" onclick="location.href='createsectioninboard.do';">추가+</button>
+		</div>
 	</div>
 <%	} 
 }%>
