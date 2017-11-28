@@ -10,5 +10,6 @@ $("#completeCancelBtn").click(function(){
 	$('#completeArea').load("completecancel.go.do", {
 		task_id: $("#task_id").val()
 	});
+	location.reload();
 });
 </script>
