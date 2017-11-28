@@ -64,8 +64,15 @@ function flip(cnt) {
 		$('.origin' + cnt).css("display", "none" );
 	}
 }
-
+function createtask(cnt) {
+	document.getElementById("createtask" + cnt).submit();
+}
 </script>
+<style>
+.glyphicon.glyphicon-plus-sign {
+    font-size: 50px;
+}
+</style>
 <link href="css/task.css" rel="stylesheet" type="text/css" >
 <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
 
@@ -186,12 +193,12 @@ for( int i = 0 ; i < sectionSize ; i++ ){
 	
 	<!-- 새 태스크 추가 -->
 	<br />
-	<form action ="createtask.do" method = "post" >
+	<form id = "createtask<%=sectionList.get(i).getId() %>" action ="createtask.do" method = "post" >
 
 		<input type="hidden" name="section_id" value = "<%=sectionList.get(i).getId() %>" required></input>
 		<%-- <input type="hidden" name="task_id" value = "<%= %>" required></input> --%>
 		
-		<input type="submit" class = "btn btn-default" value="TASK생성"  ></input>	
+		<a href="javascript:createtask(<%=sectionList.get(i).getId()%>)"><span class="glyphicon glyphicon-plus-sign"></span></a>	
 	    
 	</form>
 
