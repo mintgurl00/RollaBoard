@@ -69,7 +69,7 @@ function createtask(cnt) {
 }
 </script>
 <style>
-.glyphicon {
+.glyphicon.glyphicon-plus-sign {
     font-size: 50px;
 }
 </style>
