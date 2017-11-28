@@ -151,8 +151,10 @@ function chkBox2(cnt) {
 </head>
 <body>
 <div class="container">
-  <h2>MEMBER 승인</h2>
-  <p>당신의 BOARD에 가입을 원하는 MEMBER입니다.</p>            
+	<div class = "page-header">
+		<h2>MEMBER 승인</h2>
+		<p>당신의 BOARD에 가입을 원하는 MEMBER입니다.</p>  
+	</div>            
   <table class="table table-striped">
     <thead>
       <tr>

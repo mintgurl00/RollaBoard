@@ -152,8 +152,10 @@ function radio_chk() {
 </head>
 <body>
 <div class="container">
+<div class = "page-header">
   <h2>참조 승인 여부</h2>
   <p>공개를 통해 다른BOARD에서 당신의 BOARD를 참조할 수 있게 할 수 있습니다. </p>  
+</div>
   <br/><br/>
   <form id = "visibility" action = "visibility.do">
   <div class = "row">

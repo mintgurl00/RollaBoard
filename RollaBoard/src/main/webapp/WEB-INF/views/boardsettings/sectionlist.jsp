@@ -153,8 +153,10 @@ body {
 </head>
 <body>
 <div class="container">
-  <h2>SECTION 관리</h2>
-  <p>당신의 BOARD에 있는 SECTION 리스트입니다</p>       
+	<div class = "page-header">
+		<h2>SECTION 관리</h2>
+		<p>당신의 BOARD에 있는 SECTION 리스트입니다</p>  
+ 	</div>     
   <table class="table table-striped">
     <thead>
       <tr>

@@ -141,7 +141,10 @@ body {
 </head>
 <body>
 <div class="container">
-  <h2>ROLE 배정</h2>
+	<div class = "page-header">
+		<h2>ROLE 배정</h2>
+		<p>ROLE에 MEMBER를 배정하세요.</p>
+	</div>
   <p>ROLE에 MEMBER를 배정하세요.</p>            
   <table class="table table-striped">
     <thead>
