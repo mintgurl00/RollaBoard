@@ -203,7 +203,7 @@ if( postTaskVO != null )
 	</div>
 	<div id="button">
         <input type="submit" value="확인">
-        <input type="button" value="취소" onclick='history.go(-1)'>
+        <input type="button" data-dismiss="modal" value="취소" >
     </div>
 	</form>
 </div>

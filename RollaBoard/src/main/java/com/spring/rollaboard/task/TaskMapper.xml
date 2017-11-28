@@ -179,7 +179,7 @@
 	<select id = "checkStatus" resultType="int" parameterType="map">
 		SELECT count(*) 
 		FROM task 
-		WHERE id=#{id} 
+		WHERE id=#{task_id} 
 			AND status=#{cond_status}
 	</select>
 </mapper>
