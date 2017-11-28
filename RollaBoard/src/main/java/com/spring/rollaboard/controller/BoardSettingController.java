@@ -170,7 +170,7 @@ public class BoardSettingController {
     		PrintWriter out = response.getWriter();
             out.println("<script>alert('존재하지 않는 BOARD입니다. BOARD명을 다시 입력해주세요.');</script>");
             out.flush(); 
-		} else if (refBoard.getVisibility() != "TRUE") {
+		} else if (!refBoard.getVisibility().equals("TRUE")) {
     		// 비공개 BOARD명을 입력한 경우
     		response.setContentType("text/html; charset-utf-8");
     		PrintWriter out = response.getWriter();
