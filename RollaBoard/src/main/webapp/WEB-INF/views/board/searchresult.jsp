@@ -117,10 +117,13 @@ for( int i = 0 ; i < sectionSize ; i++ ){
 			<input type="button" onclick = "javascript:deletesectioninboard(<%=sectionList.get(i).getId() %>)" value="삭제" class="btn btn-default"/>
 	
 		</div>
+		<div style = "display:none">
 		<form id = "deletesectioninboard<%=sectionList.get(i).getId() %>" action="deletesectioninboard.do">
 			<input type="hidden" name="section_id" value="<%=sectionList.get(i).getId() %>" />	
 		</form>
+		</div>
 	<%} %>
+	<hr/>
 	<!-- 태스크 표시 -->
 	<%
 	for( int j = 0 ; j < taskViewList.get( i ).size() ; j++ ){
@@ -171,13 +174,13 @@ for( int i = 0 ; i < sectionSize ; i++ ){
 		        <p>Some text. Some text. Some text.</p>
 		      </div>
 		    </div>
-		  </div>
+		  	</div>
 		</div>
 	<%
 	} %>
 	
 	<!-- 새 태스크 추가 -->
-	<br /><br />
+	<br />
 	<form action ="createtask.do" method = "post" >
 
 		<input type="hidden" name="section_id" value = "<%=sectionList.get(i).getId() %>" required></input>
@@ -197,9 +200,10 @@ for( int i = 0 ; i < sectionSize ; i++ ){
 <%
 if( keyword.equals( "" ) ){	// 검색 결과가 *아니*라면
 	if ( id.equals(boardVO.getAdmin()) ) {%>
-	<div id = "section">
-	<br/>
-	<button type="button" class = "btn btn-info" onclick="location.href='createsectioninboard.do';">추가+</button>
+	<div class="section_wrapper">
+		<div id="section">
+			<button type="button" class = "btn btn-info" onclick="location.href='createsectioninboard.do';">추가+</button>
+		</div>
 	</div>
 <%	} 
 }%>
