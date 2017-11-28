@@ -101,7 +101,7 @@ for( int i = 0 ; i < sectionSize ; i++ ){
 <div class="section_wrapper">
 <div id="section">
 	<!-- 섹션 표시줄 -->
-	<div class = "row origin<%=sectionList.get(i).getId() %>" style = "display:block; cursor:pointer" onclick = "javascript:flip(<%=sectionList.get(i).getId() %>)">
+	<div class = "row origin<%=sectionList.get(i).getId() %>" style = "display:block; cursor:pointer" <%if ( id.equals(boardVO.getAdmin()) ) {%> onclick = "javascript:flip(<%=sectionList.get(i).getId() %>)" <%} %>>
 		<h4><b><%=sectionList.get(i).getName() %></b></h4>
 	</div>
 	<%if ( id.equals(boardVO.getAdmin()) ) {%>
