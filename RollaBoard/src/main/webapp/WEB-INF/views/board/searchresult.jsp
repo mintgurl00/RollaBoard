@@ -51,6 +51,21 @@ function deletesectioninboard(cnt) {
 }
 
 </script>
+
+<script>
+function flip(cnt) {
+	if( $('.nameview' + cnt).css("display") == "none") {
+		$('.nameview' + cnt).css("display", "block");
+		
+	} 
+	if( $('.origin' + cnt).css("display") == "none") {
+		$('.origin' + cnt).css("display", "block");
+	} else {
+		$('.origin' + cnt).css("display", "none" );
+	}
+}
+
+</script>
 <link href="css/task.css" rel="stylesheet" type="text/css" >
 <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
 
@@ -82,21 +97,8 @@ int sectionSize = sectionList.size() ;
 <%
 for( int i = 0 ; i < sectionSize ; i++ ){
 %>
-<script>
-function flip(cnt) {
-	if( $('.nameview' + cnt).css("display") == "none") {
-		$('.nameview' + cnt).css("display", "block");
-		
-	} 
-	if( $('.origin' + cnt).css("display") == "none") {
-		$('.origin' + cnt).css("display", "block");
-	} else {
-		$('.origin' + cnt).css("display", "none" );
-	}
-}
 
-</script>
-
+<div class="section_wrapper">
 <div id="section">
 	<!-- 섹션 표시줄 -->
 	<div class = "row origin<%=sectionList.get(i).getId() %>" style = "display:block; cursor:pointer" onclick = "javascript:flip(<%=sectionList.get(i).getId() %>)">
@@ -185,6 +187,7 @@ function flip(cnt) {
 	    
 	</form>
 
+</div>
 </div>
 
 <%
