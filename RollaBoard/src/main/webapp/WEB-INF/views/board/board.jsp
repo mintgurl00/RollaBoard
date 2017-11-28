@@ -181,20 +181,17 @@ function showRefBoard(){
 </script>
 </head>
 <body>
-<div class="whole_wrapper">
-
-<div class="upper_wrapper">
-	<nav class="navbar navbar-default navbar-fixed-top navbar_please">
-	
-	<div class="container">
-		<div class="navbar-header">
-			<a class="navbar-brand" href="./dashboard.do" >ROLLABOARD</a>
+	<nav class="navbar navbar-default" style = "background-color:#F44336; color: #fff !important; font-family: Montserrat, sans-serif;">
+	<div class="container-fluid">
+		<div class = "navbar-header">
+			<a style = "color: #fff" class="navbar-brand" href="./dashboard.do" >ROLLABOARD</a>&nbsp;&nbsp;&nbsp;
+			<font size = "6px" color = "white"><%=boardVO.getName() %></font>
 		</div>
 		<div>
 			<ul class="nav navbar-nav navbar-right"><%
 				if (id.equals(boardVO.getAdmin())) {%>
 					<li>
-						<a onClick="document.getElementById('boardSetting').submit()" style="cursor: pointer">BOARD 설정</a>
+						<a style = "color: #fff; cursor:pointer" onClick="document.getElementById('boardSetting').submit()" style="cursor: pointer">BOARD 설정</a>
 						<form id="boardSetting" action="updateboard.do" method="post" style="margin-top: 5px;">
 							<input type="hidden" name="id" value="<%=boardVO.getId()%>">
 							<input type="hidden" name="name" value="<%=boardVO.getName()%>">
@@ -208,47 +205,43 @@ function showRefBoard(){
 					<!-- 참조 보드 선택 -->
 					<div class = "selectBox02">
 					<input type="hidden" id="current_ref_board" value="-1" /> 
-					<span class = "txt">참조 BOARD 선택</span>				
+					<span style = "color: #fff; cursor:pointer" class = "txt">참조 BOARD 선택</span>				
 						<select id="ref_board_select">
 							<option value="-1"></option>
 						</select>
 					</div>
 				</li>
 				<li>
-					<a onClick="document.getElementById('updateMember').style.display='block'" style="cursor: pointer">회원정보수정</a>
+					<a style = "color: #fff; cursor:pointer" onClick="document.getElementById('updateMember').style.display='block'" style="cursor: pointer">회원정보수정</a>
 				</li>
-					<li><a href="logout.do">LOGOUT</a></li>
+					<li><a style = "color: #fff; cursor:pointer" href="logout.do">LOGOUT</a></li>
 			</ul>
+		</div>
+		<div class = "row"> 
+			<div class = "col-sm-offset-8 col-sm-4">
+				<form>
+					<div class="input-group" >		
+						<input type="text" name="keyword" id="keyword" class="form-control" placeholder="검색할 TASK 입력">
+						<input type="hidden" name="written_keyword" id="written_keyword" value=""/>
+						<input type ="hidden" name="board_id" value="<%=boardVO.getId()%>" />
+						<div class="input-group-btn">
+				          <button class="btn btn-default" type="button" onclick="javascript:loadSearchResult()">
+				            <i class="glyphicon glyphicon-search"></i>
+				          </button>
+				        </div>
+					</div> 
+				</form>
+			    <div class = "navbar" id = "filtering" align = "right">
+					<input type="checkbox" class="filter" id="chk_duedate" name="due" value="FALSE" onclick="javascript:filterResult(this)"/>
+					<font>마감일순 보기</font>
+				</div>
+			</div>
 		</div>
 	</div>	
 	
 	</nav>
-</div>	
 
-<div class="container search_bar">
-	<div class = "row">
-		<div class = "col-xs-offset-1 col-xs-5 col-sm-offset-1 col-sm-2" align = "right"><h4><font color = "white"><%=boardVO.getName() %></font></h4></div> 
-		<div class = "col-sm-offset-4 col-sm-4">			
-			<form>
-				<div class="input-group" >		
-					<input type="text" name="keyword" id="keyword" class="form-control" placeholder="검색할 TASK 입력">
-					<input type="hidden" name="written_keyword" id="written_keyword" value=""/>
-					<input type ="hidden" name="board_id" value="<%=boardVO.getId()%>" />
-					<div class="input-group-btn">
-						<input type="button" class="btn btn-danger" onclick="javascript:loadSearchResult()" value = "검색">
-					</div>
-				</div> 
-			</form>
-			<div id = "filtering" align = "right">
-				<input type="checkbox" class="filter" id="chk_duedate" name="due" value="FALSE" onclick="javascript:filterResult(this)"/>
-				<font>마감일순 보기</font>
-			</div>
-		</div>
-	</div>
-		
-	<div align = right></div>
-</div>
-	
+
 
 <!-- MODAL TASK -->
 <div class="modal fade" id="myModal" role="dialog">
@@ -300,7 +293,7 @@ function showRefBoard(){
 
 
 
-</div>
+
 </body>
 <script>
 $(".selectBox02 select").change(function () {
