@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 
-<button id="completeCancelBtn">
-완료 취소 버튼
+<button id = "completeCancelBtn" class="Btn completeCancelBtn">
+완료 취소
 </button>
 
 <script>

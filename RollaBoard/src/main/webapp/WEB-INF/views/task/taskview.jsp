@@ -53,8 +53,35 @@ if(session.getAttribute("id") == null) {
         line-height: 30px;
         padding-left: 10px;
       }
-      
-
+      .Btn {
+        background-color: #DEDEDE;
+		border-radius: 4px;
+		padding: 5px 8px;
+		text-align: center;
+		text-decoration: none;
+		display: inline-block;
+		font-size: 16px;
+		-webkit-transition-duration: 0.2s; /* Safari */
+		transition-duration: 0.2s;
+		cursor: pointer;
+		font-family: 'Roboto', sans-serif;      
+      }
+      .completeBtn {
+		border: 2px solid #4CAF50;
+		color: black;
+      }
+      .completeCancelBtn {
+		border: 2px solid orange;
+		color: black;
+      }
+      .blockedBtn {
+      	background-color: #BBB;
+      	border: 2px solid black;
+		color: black;
+      }
+      .completeBtn:hover {background-color:#4CAF50;color:white;border-radius: 12px;}
+      .completeCancelBtn:hover {background-color:orange;color:white;border-radius: 12px;}
+      .blockedBtn:hover {background-color:black;color:white;border-radius: 12px;}
       #frame{position:absolute; padding:10px; border-radius:4px; width:600px;height:600px; overflow:auto; background-color:#A2B1DA; margin-right: 10px; text-align:center}
 	  #content{border-radius:4px; width:500px; height:120px; background-color:#FFFFFF; margin-left:50px;text-align:left}
 	  #button{margin-top:20px}
@@ -138,10 +165,12 @@ function locationview() {
 
 <div id = "frame">
 	
-	<h2><b><%=taskVO.getName() %></b></h2>
+	<h2><%=taskVO.getName() %></h2>
+	<div id="completeArea" align = "right"></div>
 	<hr/>
-	<div id = "content" style = "font-family: Montserrat, sans-serif;">
-		<font family = "Montserrat, sans-serif;"><b><%=taskVO.getDescription() %></b></font> 
+	<div style = "font-family: Montserrat, sans-serif;">
+		<b><textarea id="content" style = "font-family:Montserrat, sans-serif;resize:none;" readonly><%=taskVO.getDescription() %></textarea>
+	</b>
 	</div>
 	<br/>
 	<table class="table" style = "font-family: Montserrat, sans-serif; font-size:14px;">
@@ -218,7 +247,7 @@ function locationview() {
 	<%} else { %>
 		<input type=button class = "btn btn-default" value="확인" onclick = "location.href='./dashboard.do'">
 	<%} %>
-		<div id="completeArea"></div>
+		
 	</div>
 	<form id = "updatetask" action = "updatetaskform.do" method="post">
 		<input type = hidden id="h_id" name = "id" value = "<%=taskVO.getId() %>"><%-- 
