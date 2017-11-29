@@ -54,8 +54,9 @@ if(session.getAttribute("id") == null) {
         padding-left: 10px;
       }
       
-      #frame{position:absolute; padding:10px; border-radius:4px; width:500px;height:750px; overflow:auto; background-color:#A2B1DA; margin-right: 10px; text-align:center}
-	  #content{border-radius:4px; width:400px; height:250px; background-color:#FFFFFF; margin-left:50px;text-align:left}
+
+      #frame{position:absolute; padding:10px; border-radius:4px; width:600px;height:600px; overflow:auto; background-color:#A2B1DA; margin-right: 10px; text-align:center}
+	  #content{border-radius:4px; width:500px; height:120px; background-color:#FFFFFF; margin-left:50px;text-align:left}
 	  #button{margin-top:20px}
 </style>
 
@@ -121,7 +122,12 @@ function updateTask() {
 }
  */
 
-
+// 지도보기 버튼
+function locationview() {
+	 $('#taskLocation').css("display", "block");
+	 $('#taskLocationButton').css("display", "none");
+	 initMap();
+}
 
 
 </script>
@@ -130,7 +136,7 @@ function updateTask() {
 <body>
 
 
-<div id = "frame" align = "center">
+<div id = "frame">
 	
 	<h2><b><%=taskVO.getName() %></b></h2>
 	<hr/>
@@ -138,7 +144,7 @@ function updateTask() {
 		<font family = "Montserrat, sans-serif;"><b><%=taskVO.getDescription() %></b></font> 
 	</div>
 	<br/>
-	<table class="table" style = "font-family: Montserrat, sans-serif;">
+	<table class="table" style = "font-family: Montserrat, sans-serif; font-size:14px;">
 	<tbody>
 		<tr>
 			<td><b>상태 :</b></td>
@@ -160,61 +166,59 @@ function updateTask() {
 			<td><b>중요도 :</b></td>
 			<td><%=taskVO.getPriority() %> </td>
 		</tr>
+		
+		
+	<% if(preTaskVO != null || postTaskVO != null) { %>			
+		<% if(preTaskVO != null) { %>
+			<tr>
+				<td><b>선행TASK:</b></td>
+				<td><%=preTaskVO.getRefTaskName() %></td>
+			</tr>
+		<% } %>		
+		<% if(postTaskVO != null) { %>	
+			<tr>
+				<td><b>후행TASK:</b></td>
+				<td><%=postTaskVO.getRefTaskName() %></td>	
+			</tr>
+		<% } 
+	} %>
 		</tbody>		
 	</table>
-	
 	<!-- 수민 태스크 위치 추가 -->
 	<%
 	if (taskVO.getLocation() != null) {
 	%>
-	
+	<a id = "taskLocationButton" href="javascript:locationview()" style = "display:block">
+      <span class="glyphicon glyphicon-map-marker" style = "font-size:20px">지도보기</span>
+    </a>
+	<div id = "taskLocation" style = "display:none">
 		<div id="status">
 			위치: <%=taskVO.getLocation() %>
 		</div>
-		
-		<div><input type="button" value="지도보기" onclick= "initMap()" hidden/></div>
-		
-		 
+	 
 		<div id="floating-panel" hidden>
       		<input id="addr1" type="text" value="<%=taskVO.getLocation() %>">
       		<input id="submit" type="button" value="search">
     	</div>
     	 
 		<div id="map"></div>
-	
+	</div>
 	<%
 	}
 	%>
-
-	
-	<%
-	if(preTaskVO != null || postTaskVO != null) {
-		%>
-		<b>관계 있는 태스크입니다.</b>
-		<%
-		if(preTaskVO != null) {
-			%>
-			<div id="status">선행TASK: <%=preTaskVO.getRefTaskName() %> </div>
-			<%
-		}
-		if(postTaskVO != null) {
-			%>	
-			<div id="status">후행TASK: <%=postTaskVO.getRefTaskName() %> </div>	
-			<%
-		}
-	}%>
 	<div id="button">
 
 	<%if (session.getAttribute("board_id") != null) {%>
-
-		<input type=button class = "btn btn-default" value="확인" onclick = "location.href='./board.do';">
-		<input type=button class = "btn btn-default" value="수정" id="goUpdateBtn">
+		<input type=button class = "btn btn-default" value="확인" onclick = "location.href='./board.do';">&nbsp;&nbsp;&nbsp;
+		<% if (!taskVO.getStatus().equals("COMPLETE")) {%>
+			<input type=button class = "btn btn-default" value="수정" id="goUpdateBtn">&nbsp;&nbsp;&nbsp;
+		<%} %>
 <!-- 	<input type=button value="수정" onclick = "javascript:updateTask()"> -->
 		<input type=button class = "btn btn-default" value="삭제" onclick = "javascript:deleteTask()">
 	<%} else { %>
 		<input type=button class = "btn btn-default" value="확인" onclick = "location.href='./dashboard.do'">
 	<%} %>
-
+		<div id="completeArea"></div>
 	</div>
 	<form id = "updatetask" action = "updatetaskform.do" method="post">
 		<input type = hidden id="h_id" name = "id" value = "<%=taskVO.getId() %>"><%-- 
@@ -233,12 +237,11 @@ function updateTask() {
 	</form>
 	
 	<input type="hidden" id="task_status" value="<%=taskVO.getStatus()%>" />
-	<div id="completeArea">
-	</div>
+	
 	
 	
 </div>
-<script defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAusOrhQtlhsJhJl1UD0Es_b1As0thorrM&callback=initMap"></script>
+<script defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAusOrhQtlhsJhJl1UD0Es_b1As0thorrM&"></script>
 <script type="text/javascript">
 
 function updateTask2() {
