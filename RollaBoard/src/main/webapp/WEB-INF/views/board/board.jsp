@@ -188,58 +188,59 @@ function showRefBoard(){
 	<div class="container-fluid">
 		<div class = "navbar-header">
 			<a style = "color: #fff" class="navbar-brand" href="./dashboard.do" >ROLLABOARD</a>&nbsp;&nbsp;&nbsp;
+
 			<font size = "6px" color = "white"><%=boardVO.getName() %></font>
+			<% if (id.equals(boardVO.getAdmin())) {%>
+			<a style = "color: #fff; cursor:pointer" onClick="document.getElementById('boardSetting').submit()" style="cursor: pointer"><span class="glyphicon glyphicon-cog"></span></a>
+			<form id="boardSetting" action="updateboard.do" method="post" style="margin-top: 5px;" hidden>
+				<input type="hidden" name="id" value="<%=boardVO.getId()%>">
+				<input type="hidden" name="name" value="<%=boardVO.getName()%>">
+				<input type="hidden" name="admin" value="<%=boardVO.getAdmin()%>">
+				<input type="hidden" name="visibility" value="<%=boardVO.getVisibility()%>">
+				<input type="hidden" name="chkVal" value="role">
+			</form>
+			<% } %>
+
+
 		</div>
 		<div>
-			<ul class="nav navbar-nav navbar-right"><%
-				if (id.equals(boardVO.getAdmin())) {%>
-					<li>
-						<a style = "color: #fff; cursor:pointer" onClick="document.getElementById('boardSetting').submit()" style="cursor: pointer">BOARD 설정</a>
-						<form id="boardSetting" action="updateboard.do" method="post" style="margin-top: 5px;">
-							<input type="hidden" name="id" value="<%=boardVO.getId()%>">
-							<input type="hidden" name="name" value="<%=boardVO.getName()%>">
-							<input type="hidden" name="admin" value="<%=boardVO.getAdmin()%>">
-							<input type="hidden" name="visibility" value="<%=boardVO.getVisibility()%>">
-							<input type="hidden" name="chkVal" value="role">
-						</form>
-					</li><%
-				}%>
+			<ul class="nav navbar-nav navbar-right" style = "padding-right:10px">			
 				<li>
 					<!-- 참조 보드 선택 -->
 					<div class = "selectBox02">
 					<input type="hidden" id="current_ref_board" value="-1" /> 
-					<span style = "color: #fff; cursor:pointer" class = "txt">참조 BOARD 선택</span>				
+					<span style = "color: #fff; cursor:pointer" class = "glyphicon glyphicon-folder-open"></span>				
 						<select id="ref_board_select">
 							<option value="-1"></option>
 						</select>
 					</div>
 				</li>
 				<li>
-					<a style = "color: #fff; cursor:pointer" onClick="document.getElementById('updateMember').style.display='block'" style="cursor: pointer">회원정보수정</a>
+					<a style = "color: #fff; cursor:pointer" onClick="document.getElementById('updateMember').style.display='block'" style="cursor: pointer"><span class="glyphicon glyphicon-user"></a>
 				</li>
-					<li><a style = "color: #fff; cursor:pointer" href="logout.do">LOGOUT</a></li>
+					<li><a style = "color: #fff; cursor:pointer" href="logout.do"><span class="glyphicon glyphicon-log-out"></span></a></li>
 			</ul>
 		</div>
+	</div>
+	<div class="container-fluid">
 		<div class = "row"> 
-			<div class = "col-sm-offset-7 col-sm-2">
-			    <div class = "navbar" id = "filtering" align = "right">
+			<div class = "col-xs-5 col-sm-offset-7 col-sm-2" style = " font-family: Montserrat, sans-serif;">
+			    <div class = "navbar" id = "filtering">
 					<input type="checkbox" class="filter" id="chk_duedate" name="due" value="FALSE" onclick="javascript:filterResult(this)"/>
-					<font>마감일순 보기</font>
+					<span>마감일순 보기</span>
 				</div>
 			</div>
-			<div class = " col-sm-3">
-				<form>
-					<div class="input-group" >		
-						<input type="text" name="keyword" id="keyword" class="form-control" placeholder="검색할 TASK 입력">
-						<input type="hidden" name="written_keyword" id="written_keyword" value=""/>
-						<input type ="hidden" name="board_id" value="<%=boardVO.getId()%>" />
-						<div class="input-group-btn">
-				          <button class="btn btn-default" type="button" onclick="javascript:loadSearchResult()">
-				            <i class="glyphicon glyphicon-search"></i>
-				          </button>
-				        </div>
-					</div> 
-				</form>
+			<div class = "col-xs-7 col-sm-3">
+				<div class="input-group form" >		
+					<input type="text" name="keyword" id="keyword" class="form-control" placeholder="검색할 TASK 입력">
+					<input type="hidden" name="written_keyword" id="written_keyword" value=""/>
+					<input type ="hidden" name="board_id" value="<%=boardVO.getId()%>" />
+					<div class="input-group-btn">
+			          <button class="btn btn-default" type="button" onclick="javascript:loadSearchResult()">
+			            <i class="glyphicon glyphicon-search" style = "font-size:20px"></i>
+			          </button>
+			        </div>
+				</div> 	
 			</div>		
 		</div>
 	</div>	

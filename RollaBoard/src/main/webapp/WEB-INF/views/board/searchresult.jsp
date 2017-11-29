@@ -64,8 +64,15 @@ function flip(cnt) {
 		$('.origin' + cnt).css("display", "none" );
 	}
 }
-
+function createtask(cnt) {
+	document.getElementById("createtask" + cnt).submit();
+}
 </script>
+<style>
+.glyphicon.glyphicon-plus-sign {
+    font-size: 50px;
+}
+</style>
 <link href="css/task.css" rel="stylesheet" type="text/css" >
 <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
 
@@ -134,7 +141,7 @@ for( int i = 0 ; i < sectionSize ; i++ ){
 		onclick="javascript:clicktask('<%=taskViewList.get( i ).get( j ).getId() %>')">
 
 			<div class="task_title">
-				<%=taskViewList.get( i ).get( j ).getName() %>
+				<span style = "font-family: Montserrat, sans-serif;"><%=taskViewList.get( i ).get( j ).getName() %></span>
 			</div>
 			
 			
@@ -142,7 +149,8 @@ for( int i = 0 ; i < sectionSize ; i++ ){
 			<%
 			if( roleAndTaskList.get( i ).get( j ) != null && roleAndTaskList.get( i ).get( j ).size() > 0 ){ %>
 				<div class="allocated_area">
-				배정됨
+				<hr/>
+				<div align = "right">
 				<%
 				for( int k = 0 ; k < roleAndTaskList.get( i ).get( j ).size() ; k++ ){%>
 					<span class="badge role_badge">
@@ -150,8 +158,10 @@ for( int i = 0 ; i < sectionSize ; i++ ){
 						<%=roleAndTaskList.get( i ).get( j ).get( k ).getMemName() %>
 						<br/>
 					</span>
+					<br/>
 				<%
 				}%>
+				</div>
 				</div>
 			<%
 			}%>
@@ -160,11 +170,13 @@ for( int i = 0 ; i < sectionSize ; i++ ){
 			<%
 			
 			if( status.equals("BLOCKED")){%>
+			<hr/>
 				<div class="task_status_blocked">
 					BLOCKED <i class="fa fa-lock" aria-hidden="true"></i>
 				</div>				
 				<%
 			}else if( status.equals("COMPLETE") ){%>
+			<hr/>
 				<div class="task_status_complete">
 					COMPLETE <i class="fa fa-check" aria-hidden="true"></i>
 				</div>
@@ -186,12 +198,12 @@ for( int i = 0 ; i < sectionSize ; i++ ){
 	
 	<!-- 새 태스크 추가 -->
 	<br />
-	<form action ="createtask.do" method = "post" >
+	<form id = "createtask<%=sectionList.get(i).getId() %>" action ="createtask.do" method = "post" >
 
 		<input type="hidden" name="section_id" value = "<%=sectionList.get(i).getId() %>" required></input>
 		<%-- <input type="hidden" name="task_id" value = "<%= %>" required></input> --%>
 		
-		<input type="submit" class = "btn btn-default" value="TASK생성"  ></input>	
+		<a href="javascript:createtask(<%=sectionList.get(i).getId()%>)"><span class="glyphicon glyphicon-plus-sign"></span></a>	
 	    
 	</form>
 
