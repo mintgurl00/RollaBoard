@@ -77,9 +77,9 @@ width:700px; /* optional, though better have one */
 <body>
 
 <!-- Sidebar/menu -->
-<nav class="w3-sidebar w3-#1294AB w3-collapse w3-top w3-large w3-padding mycolor" style="z-index:3;width:270px;font-weight:bold; background-color: #1294AB; color:white;" id="mySidebar"><br>
+<nav class="w3-sidebar w3-collapse w3-top w3-large w3-padding mycolor" style="z-index:3;width:270px;font-weight:bold; background-color: #1294AB; color:white;" id="mySidebar"><br>
   <a href="javascript:void(0)" onclick="w3_close()" class="w3-button w3-hide-large w3-display-topleft" style="width:100%;font-size:19px">Close Menu</a>
-  <p class="w3-display-topleft w3-hide-medium w3-hide-small" style="font-size:15px;cursor:pointer"><a onclick="document.getElementById('id01').style.display='block'">&nbsp;&nbsp;&nbsp;<i class="fa fa-user"></i></a>&nbsp;&nbsp;&nbsp;<a href="logout.do" style="text-decoration:none">logout</i></a></p>
+  <p class="w3-display-topleft w3-hide-medium w3-hide-small" style="font-size:15px;cursor:pointer"><a onclick="document.getElementById('id01').style.display='block'">&nbsp;&nbsp;&nbsp;<i class="fa fa-user"></i></a>&nbsp;&nbsp;&nbsp;<a href="logout.do" style="text-decoration:none">logout</a></p>
   <div class="w3-container">
     <h2 class="w3-padding-64"><b>My<br>Board</b></h2>
   </div>
@@ -126,12 +126,12 @@ width:700px; /* optional, though better have one */
 </div>
   
 <!-- Top menu on small screens -->
-<header class="w3-container w3-top w3-hide-large w3-red w3-xlarge w3-padding">
-  <a href="javascript:void(0)" class="w3-button w3-red w3-margin-right" onclick="w3_open()">☰</a>
-  <p class="w3-display-topleft w3-hide-medium w3-hide-small" style="font-size:15px"><a onClick = "openPop();" class = "w3-button"><i class="fa fa-user"></i></a>&nbsp;&nbsp;&nbsp;<a href="logout.do" class = "w3-button"><i class="fa fa-sign-out"></i></a></p>
+<header class="w3-container w3-top w3-hide-large w3-xlarge w3-padding" style = "background-color: #1294AB; color:white;">
+  <a href="javascript:void(0)" class="w3-button w3-margin-right" onclick="w3_open()">☰</a>
+  <p class="w3-display-topleft w3-hide-medium w3-hide-small" style="font-size:15px"><a onClick = "openPop();" class = "w3-button"><i class="fa fa-user"></i></a>&nbsp;&nbsp;&nbsp;<a href="logout.do" class = "w3-button">logout</a></p>
   <span>MY BOARD</span>
   <span class = "w3-display-topright">
-  	<a onclick="document.getElementById('id01').style.display='block'" style="font-size:12px;cursor:pointer"><i class="fa fa-user"></i></a>&nbsp;<a href="logout.do" style="font-size:12px;cursor:pointer"><i class="fa fa-sign-out"></i></a>
+  	<a onclick="document.getElementById('id01').style.display='block'" style="cursor:pointer;padding-right:10px; padding-top:10px;"><i class="fa fa-user"></i></a>&nbsp;<a href="logout.do" style="cursor:pointer;text-decoration:none; padding-right:10px; padding-top:10px">logout</a>
   </span>
 </header>
 

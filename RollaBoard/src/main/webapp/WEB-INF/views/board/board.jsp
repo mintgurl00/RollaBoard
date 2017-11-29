@@ -190,7 +190,7 @@ function showRefBoard(){
 	<nav style = "background-color:#1294AB; color: #fff !important; font-family: Montserrat, sans-serif; height:10px;">
 	<div class="container-fluid" style = "background-color:#1294AB; background-color:rgba{0,0,0,0.5};"> 
 		<div class = "navbar-header" style="padding-top:10px; height:20px">
-			<a style = "color: #fff; padding-top:5px" class="navbar-brand" href="./dashboard.do" >ROLLABOARD</a>&nbsp;&nbsp;&nbsp;
+			<a style = "color: #fff; padding-top:5px" class="navbar-brand" href="./dashboard.do" >ROLLA<br>BOARD</a>&nbsp;&nbsp;&nbsp;
 
 			<font size = "5px" color = "white"><%=boardVO.getName() %></font>
 			<% if (id.equals(boardVO.getAdmin())) {%>
@@ -209,6 +209,7 @@ function showRefBoard(){
 		<div>
 			<ul class="nav navbar-nav navbar-right" style="background-color:#1294AB">			
 				<li>
+					<a style = "color:#fff; cursor:pointer">
 					<!-- 참조 보드 선택 -->
 					<div class = "selectBox02" style="background-color:#1294AB">
 					<input type="hidden" id="current_ref_board" value="-1" /> 
@@ -217,11 +218,14 @@ function showRefBoard(){
 							<option value="-1"></option>
 						</select>
 					</div>
+					</a>
 				</li>
 				<li>
-					<a style = "color: #fff; cursor:pointer" onClick="document.getElementById('updateMember').style.display='block'" style="cursor: pointer"><span class="glyphicon glyphicon-user"></a>
+					<a style = "color: #fff; cursor:pointer" onClick="document.getElementById('updateMember').style.display='block'"><span class="glyphicon glyphicon-user"></span></a>
 				</li>
-					<li><a style = "color: #fff; cursor:pointer" href="logout.do"><span class="glyphicon glyphicon-log-out"></span></a></li>
+				<li>
+					<a style = "color: #fff; cursor:pointer" href="logout.do"><span class="glyphicon glyphicon-log-out"></span></a>
+				</li>
 			</ul>
 		</div>
 	</div>
@@ -229,13 +233,13 @@ function showRefBoard(){
 	
 	<div class="container-fluid" style="background-color:#1294AB">
 		<div class = "row" style="padding-top:10px"> 
-			<div class = "col-xs-4 col-sm-offset-2 col-sm-8" style = " font-family: Montserrat, sans-serif;" align=right>
+			<div class = "col-xs-4 col-sm-offset-2 col-sm-7" style = " font-family: Montserrat, sans-serif;" align=right>
 			    <div class = "navbar" id = "filtering">
 					<input type="checkbox" class="filter" id="chk_duedate" name="due" value="FALSE" onclick="javascript:filterResult(this)"/>
 					<span>마감일순 보기</span>
 				</div>
 			</div>
-			<div class = "col-xs-2 col-sm-1">
+			<div class = "col-xs-2 col-sm-2">
 				<div class="input-group form" >		
 					<input type="text" name="keyword" id="keyword" class="form-control" placeholder="검색할 TASK 입력" style="width:200px">
 					<input type="hidden" name="written_keyword" id="written_keyword" value=""/>
@@ -246,7 +250,8 @@ function showRefBoard(){
 			          </button>
 			        </div>
 				</div> 	
-			</div>		
+			</div>
+			<div class = "col-sm-1"></div>	
 		</div>
 	</div>
 	</nav>
