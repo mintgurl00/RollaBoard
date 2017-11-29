@@ -33,7 +33,8 @@
 <script type="text/javascript">
 
 	//location.href='./test.do' ; 
-	location.href='./';
+	//location.href='./';
+	location.href='./chattest.do';
 </script>
 
 
