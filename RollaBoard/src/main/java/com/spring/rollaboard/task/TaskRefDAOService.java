@@ -101,6 +101,10 @@ public class TaskRefDAOService implements TaskRefDAO {
 
 	@Override
 	public void addPreTask(int taskId, int preTaskId) {
+		if(checkSameConn(taskId, preTaskId)){
+			System.out.println("관계의 순환이 발생하였다. 작업을 중지하겠다.");
+			return;
+		}
 		Case preTaskCase, taskCase ;
 		preTaskCase = checkTaskConn(preTaskId);
 		taskCase = checkTaskConn(taskId);
@@ -146,6 +150,10 @@ public class TaskRefDAOService implements TaskRefDAO {
 
 	@Override
 	public void addPostTask(int taskId, int postTaskId) {
+		if(checkSameConn(taskId, postTaskId)){
+			System.out.println("관계의 순환이 발생하였다. 작업을 중지하겠다.");
+			return;
+		}
 		Case postTaskCase, taskCase ;
 		postTaskCase = checkTaskConn(postTaskId);
 		taskCase = checkTaskConn(taskId);
@@ -381,6 +389,14 @@ public class TaskRefDAOService implements TaskRefDAO {
 	private int getConnLength(int taskId) {
 		TaskRefMapper taskRefMapper = sqlSession.getMapper( TaskRefMapper.class ) ;
 		return taskRefMapper.getConnLength(taskId);
+	}
+	@Override
+	public boolean checkSameConn(int taskId1, int taskId2) {
+		TaskRefMapper taskRefMapper = sqlSession.getMapper( TaskRefMapper.class ) ;
+		if(taskRefMapper.checkSameConn(taskId1, taskId2) > 0)
+			return true; 
+		else
+			return false;
 	}
 
 	@Override
