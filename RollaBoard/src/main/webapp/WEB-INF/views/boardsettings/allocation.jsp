@@ -69,7 +69,7 @@ body {
   }
   .navbar {
       margin-bottom: 0;
-      background-color: #F44336;
+      background-color: #1294AB;
       z-index: 9999;
       border: 0;
       font-size: 12px !important;
