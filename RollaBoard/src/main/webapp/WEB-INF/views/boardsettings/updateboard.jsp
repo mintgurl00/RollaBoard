@@ -67,7 +67,7 @@ body {
   .jumbotron {
 
       background-color: #1294AB;
-      color: #fff;
+      color: #1294AB;
       padding: 40px 25px;
       font-family: Montserrat, sans-serif;
   }
@@ -94,15 +94,15 @@ body {
       font-family: Montserrat, sans-serif;
   }
   .navbar li a, .navbar .navbar-brand {
-      color: #fff !important;
+      color: #1294AB !important;
   }
   .navbar-nav li a:hover, .navbar-nav li.active a {
       color: #1294AB !important;
-      background-color: #fff !important;
+      background-color: #1294AB !important;
   }
   .navbar-default .navbar-toggle {
-      border-color: transparent;
-      color: #fff !important;
+      border-color: #1294AB;
+      color: #1294AB !important;
   }
   footer .glyphicon {
       font-size: 20px;
@@ -203,7 +203,7 @@ function updating() {
 <body>
 <div class="whole_wrapper">
 <div class="upper_wrapper">
-<nav class="navbar navbar-default navbar-fixed-top">
+<nav class="navbar navbar-fixed-top">
   <div class="container">
     <div class="navbar-header">
       <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar2">
