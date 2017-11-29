@@ -174,7 +174,7 @@ function locationview() {
 	<div id="completeArea" align = "right"></div>
 	<hr/>
 	<div style = "font-family: Montserrat, sans-serif;">
-		<b><textarea id="content" style = "font-family:Montserrat, sans-serif;resize:none;" readonly><%=taskVO.getDescription() %></textarea>
+		<b><textarea id="content" style = "font-family:Montserrat, sans-serif;resize:none; margin-left:10px" readonly><%=taskVO.getDescription() %></textarea>
 	</b>
 	</div>
 	<br/>
@@ -202,28 +202,37 @@ function locationview() {
 		</tr>
 		
 		
+		
 	<% if(preTaskVO != null || postTaskVO != null) { %>			
 		<% if(preTaskVO != null) { %>
 			<tr>
-				<td><b><span class="glyphicon glyphicon-arrow-left"> 선행TASK:</b></td>
+				<td><b><span class="glyphicon glyphicon-arrow-left"> 선행TASK :</b></td>
 				<td><%=preTaskVO.getRefTaskName() %></td>
 			</tr>
 		<% } %>		
 		<% if(postTaskVO != null) { %>	
 			<tr>
-				<td><b><span class="glyphicon glyphicon-arrow-right"> 후행TASK:</b></td>
+				<td><b><span class="glyphicon glyphicon-arrow-right"> 후행TASK :</b></td>
 				<td><%=postTaskVO.getRefTaskName() %></td>	
 			</tr>
 		<% } 
 	} %>
+	
+		<% if (taskVO.getLocation() != null) { %>
+			<tr>
+				<td><b><span class="glyphicon glyphicon-map-marker"> 위치 :</b></td>
+				<td><%=taskVO.getLocation() %> </td>
+			</tr>
+		<% } %>	
 		</tbody>		
 	</table>
+	
 	<!-- 수민 태스크 위치 추가 -->
 	<%
 	if (taskVO.getLocation() != null) {
 	%>
 	<a id = "taskLocationButton" href="javascript:locationview()" style = "display:block">
-      <span class="glyphicon glyphicon-map-marker" style = "font-size:20px">지도보기</span>
+      <span class="glyphicon glyphicon-map-marker" style = "font-size:15px">지도보기</span>
     </a>
 	<div id = "taskLocation" style = "display:none">
 		<div id="status">
