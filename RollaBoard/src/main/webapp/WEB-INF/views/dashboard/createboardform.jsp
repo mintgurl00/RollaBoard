@@ -11,7 +11,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <title>createboard</title>
+  <title>CreateWorkBoard</title>
   <meta charset="utf-8" Encoding = "UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
@@ -42,15 +42,15 @@
 <body>
 <div class="jumbotron" style = "background-color: orange;">
   <div class="container text-center">
-    <h1><font color="white">Board 만들기</font></h1>  
-    <p><font color="white">새로 만들 Board의 이름을 입력하세요</font></p>       
+    <h1><font color="white">Workboard 생성</font></h1>  
+    <p><font color="white">새로운 Workboard의 이름을 입력하세요</font></p>       
   </div>
 </div>
 <form name = "createboard" class = "form-horizental" action = "createboard.do">
 <div class = "form-group">
 	<div class = "row">
 		<div class = "col-xs-1"></div>
-		<div class = "col-xs-10"><input type = "text" class = "form-control byteLimit" limitbyte="50" id = "board_name" name = "name" placeholder = "Board명을 입력하세요" required></div>
+		<div class = "col-xs-10"><input type = "text" class = "form-control byteLimit" limitbyte="50" id = "board_name" name = "name" placeholder = "Workboard명을 입력하세요" required></div>
 	</div>
 </div>
 
