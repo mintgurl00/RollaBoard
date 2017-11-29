@@ -33,8 +33,9 @@
 <script type="text/javascript">
 
 	//location.href='./test.do' ; 
-	//location.href='./';
-	location.href='./chattest.do';
+	//location.href='./index.do';
+	//location.href='./chattest.do';
+	location.href='./';
 </script>
 
 
