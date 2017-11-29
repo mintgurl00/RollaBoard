@@ -25,6 +25,12 @@ if(session.getAttribute("id") == null) {
 <head>
 <link href="reset.css">
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+
 <style>
       /* Always set the map height explicitly to define the size of the div
        * element that contains the map. */
@@ -81,7 +87,7 @@ if(session.getAttribute("id") == null) {
       .completeBtn:hover {background-color:#4CAF50;color:white;border-radius: 12px;}
       .completeCancelBtn:hover {background-color:orange;color:white;border-radius: 12px;}
       .blockedBtn:hover {background-color:black;color:white;border-radius: 12px;}
-      #frame{position:absolute; padding:10px; border-radius:4px; width:600px;height:600px; overflow:auto; background-color:#A2B1DA; margin-right: 10px; text-align:center}
+      #frame{position:absolute; padding:10px; border-radius:4px; width:600px;height:600px; overflow:auto; background-color:whitesmoke; margin-right: 10px; text-align:center; box-shadow: 1px 1px 5px #000; }
 	  #content{border-radius:4px; width:500px; height:120px; background-color:#FFFFFF; margin-left:50px;text-align:left}
 	  #button{margin-top:20px}
 </style>
@@ -175,23 +181,23 @@ function locationview() {
 	<table class="table" style = "font-family: Montserrat, sans-serif; font-size:14px;">
 	<tbody>
 		<tr>
-			<td><b>상태 :</b></td>
+			<td><b><span class="glyphicon glyphicon-equalizer"> 상태 :  </b></td>
 			<td><%=taskVO.getStatus() %> </td>
 		</tr>
 		<tr>
-			<td><b>생성일 :</b></td>
+			<td><b><span class="glyphicon glyphicon-calendar"> 생성일 :</b></td>
 			<td><%=taskVO.getCre_date() %> </td>
 		</tr>
 		<tr>
-			<td><b>시작일 :</b></td>
+			<td><b><span class="glyphicon glyphicon-calendar"> 시작일 :</b></td>
 			<td><%=taskVO.getStart_date() %> </td>
 		</tr>
 		<tr>
-			<td><b>마감일 :</b></td>
+			<td><b><span class="glyphicon glyphicon-time"> 마감일 :</b></td>
 			<td><%=taskVO.getDue_date() %> </td>
 		</tr>
 		<tr>
-			<td><b>중요도 :</b></td>
+			<td><b><span class="glyphicon glyphicon-exclamation-sign"> 중요도 :</b></td>
 			<td><%=taskVO.getPriority() %> </td>
 		</tr>
 		
@@ -199,13 +205,13 @@ function locationview() {
 	<% if(preTaskVO != null || postTaskVO != null) { %>			
 		<% if(preTaskVO != null) { %>
 			<tr>
-				<td><b>선행TASK:</b></td>
+				<td><b><span class="glyphicon glyphicon-arrow-left"> 선행TASK:</b></td>
 				<td><%=preTaskVO.getRefTaskName() %></td>
 			</tr>
 		<% } %>		
 		<% if(postTaskVO != null) { %>	
 			<tr>
-				<td><b>후행TASK:</b></td>
+				<td><b><span class="glyphicon glyphicon-arrow-right"> 후행TASK:</b></td>
 				<td><%=postTaskVO.getRefTaskName() %></td>	
 			</tr>
 		<% } 

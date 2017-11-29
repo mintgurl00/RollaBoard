@@ -9,6 +9,7 @@ public interface TaskRefMapper {
 	public int isHavingPostTask( int id ) ;
 	public int isConnectedTask( int id ) ;
 	public int getConnLength( int id ) ;
+	public int checkSameConn(@Param("taskId1") int taskId1, @Param("taskId2") int taskId2) ;
 	
 	public void addPostTask1of2(@Param("taskId") int taskId, @Param("postTaskId") int postTaskId) ;
 	public void addPostTask2of2(@Param("taskId") int taskId, @Param("postTaskId") int postTaskId) ;
