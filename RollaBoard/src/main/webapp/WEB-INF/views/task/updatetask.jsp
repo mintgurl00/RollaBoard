@@ -37,7 +37,7 @@ if( postTaskVO != null )
 %>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <style>
-#frame{position:absolute; padding:10px; border-radius:4px; width:550px;height:500px; overflow:auto; background-color:#A2B1DA; margin-right: 10px; text-align:center} 
+#frame{position:absolute; padding:10px; border-radius:4px; width:600px;height:695px; overflow:auto; background-color:#A2B1DA; margin-right: 10px; text-align:center} 
 #content{border-radius:4px; width:500px; height:120px; background-color:#FFFFFF;text-align:left}
 #button{margin-top:20px}
 </style>
@@ -111,7 +111,7 @@ function updating() {
 <form id = "updateTask" action = "updatetask.do">
 	<input type="hidden" id="id" name="id" value = <%=taskVO.getId() %> >
 	<input type="hidden" id="section_id" name="section_id" value = <%=taskVO.getSection_id() %> >
-	<h2>TASK 수정</h2>
+	<h2><b>TASK 수정</b></h2>
 	<table class="table" style = "font-family: Montserrat, sans-serif; font-size:14px;">
 	<tr>
 		<th><font style = "font-family:Montserrat, sans-serif;">제목</font></th>
@@ -238,7 +238,7 @@ function updating() {
 	</table>
 </form>	
 <div id = "allocated">
-	배정된 ROLE
+	<span style = "font-family: Montserrat, sans-serif;"><b>배정된 ROLE</b></span>
    	<%for(int h = 0; h < allocatedRole.size(); h++) {
    		RoleVO allocRole = allocatedRole.get(h);
    	%>
