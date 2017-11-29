@@ -190,7 +190,7 @@ function showRefBoard(){
 	<nav style = "background-color:#1294AB; color: #fff !important; font-family: Montserrat, sans-serif; height:10px;">
 	<div class="container-fluid" style = "background-color:#1294AB; background-color:rgba{0,0,0,0.5};"> 
 		<div class = "navbar-header" style="padding-top:10px; height:20px">
-			<a style = "color: #fff; padding-top:5px" class="navbar-brand" href="./dashboard.do" >ROLLABOARD</a>&nbsp;&nbsp;&nbsp;
+			<a style = "color: #fff; padding-top:5px" class="navbar-brand" href="./dashboard.do" >ROLLA<br>BOARD</a>&nbsp;&nbsp;&nbsp;
 
 			<font size = "5px" color = "white"><%=boardVO.getName() %></font>
 			<% if (id.equals(boardVO.getAdmin())) {%>
