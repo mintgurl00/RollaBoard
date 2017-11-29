@@ -33,9 +33,12 @@
 <meta charset="UTF-8">
 <link href = "reset.css">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="https://use.fontawesome.com/e39dcf78fa.js"></script> <!-- Font Awesome 사용. 수민 -->
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins">
 <link href="reset.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <style>
 mycolor {background-color: #f4511e;}
 body,h1,h2,h3,h4,h5 {font-family: "Poppins", sans-serif}
@@ -55,13 +58,15 @@ width:700px; /* optional, though better have one */
 }
 #task{float:left; width:250px; height:250px; margin-left:40px; margin-top:40px; background-color:#BDBDBF; text-align:center; cursor:pointer}
 
+.fa{font-size:30px;}
+
 </style>
 <body>
 
 <!-- Sidebar/menu -->
 <nav class="w3-sidebar w3-red w3-collapse w3-top w3-large w3-padding mycolor" style="z-index:3;width:300px;font-weight:bold;" id="mySidebar"><br>
   <a href="javascript:void(0)" onclick="w3_close()" class="w3-button w3-hide-large w3-display-topleft" style="width:100%;font-size:19px">Close Menu</a>
-  <p class="w3-display-topleft w3-hide-medium w3-hide-small" style="font-size:15px;cursor:pointer"><a onclick="document.getElementById('id01').style.display='block'">회원정보수정</a> | <a href="logout.do">logout</a></p>
+  <p class="w3-display-topleft w3-hide-medium w3-hide-small" style="font-size:15px;cursor:pointer"><a onclick="document.getElementById('id01').style.display='block'">&nbsp;&nbsp;&nbsp;<i class="fa fa-user"></i></a>&nbsp;&nbsp;&nbsp;<a href="logout.do"><i class="fa fa-sign-out"></i></a></p>
   <div class="w3-container">
     <h2 class="w3-padding-64"><b>My<br>Board</b></h2>
   </div>
@@ -71,16 +76,24 @@ width:700px; /* optional, though better have one */
 	<a onclick = "location.href='./board.do?board_id=<%=board.getId()%>'" class="w3-bar-item w3-button w3-hover-white"><%=board.getName()%></a>
     <% }%>
     <br/>
-	<p align="center"><a href = "newboard.do" class="w3-bar-item w3-center w3-button w3-hover-white">추가</a></p>
+	<p align="center"><a href = "newboard.do" class="w3-bar-item w3-center w3-button w3-hover-white"><i class="fa fa-plus-circle"></i></a></p>
   </div>
 </nav>
+
+<!-- MODAL TASK -->
+<div class="w3-modal" id="myModal2" role="dialog">
+	<div class="w3-modal-content w3-animate-opacity w3-card-4" style="max-width:550px;">
+		<div class="modal-content" id="taskViewArea2">
+		</div> 
+	</div>
+</div>
 
 <!-- Modal창으로 회원정보수정 출력 -->
 <div id="id01" class="w3-modal">
     <div class="w3-modal-content w3-animate-top w3-card-4" style = "max-width:550px">
       <header class="w3-container w3-teal">
         <span onclick="javascript:clickcancel()" class="w3-button w3-display-topright">&times;</span>
-        <h3>회원정보 수정</h3>
+        <h3><i class="fa fa-user"></i>&nbsp;&nbsp;회원정보 수정</h3>
       </header>
 	  <form class="w3-container" action="updatemember.do" method = "post">
 	    <div class="w3-section">
@@ -102,10 +115,10 @@ width:700px; /* optional, though better have one */
 <!-- Top menu on small screens -->
 <header class="w3-container w3-top w3-hide-large w3-red w3-xlarge w3-padding">
   <a href="javascript:void(0)" class="w3-button w3-red w3-margin-right" onclick="w3_open()">☰</a>
-  <p class="w3-display-topleft w3-hide-medium w3-hide-small" style="font-size:15px"><a onClick = "openPop();" class = "w3-button">회원정보수정</a> | <a href="logout.do" class = "w3-button">logout</a></p>
+  <p class="w3-display-topleft w3-hide-medium w3-hide-small" style="font-size:15px"><a onClick = "openPop();" class = "w3-button"><i class="fa fa-user"></i></a>&nbsp;&nbsp;&nbsp;<a href="logout.do" class = "w3-button"><i class="fa fa-sign-out"></i></a></p>
   <span>MY BOARD</span>
   <span class = "w3-display-topright">
-  	<a onclick="document.getElementById('id01').style.display='block'" style="font-size:12px;cursor:pointer">회원정보수정</a>&nbsp;<a href="logout.do" style="font-size:12px;cursor:pointer">logout</a>
+  	<a onclick="document.getElementById('id01').style.display='block'" style="font-size:12px;cursor:pointer"><i class="fa fa-user"></i></a>&nbsp;<a href="logout.do" style="font-size:12px;cursor:pointer"><i class="fa fa-sign-out"></i></a>
   </span>
 </header>
 
@@ -130,7 +143,22 @@ width:700px; /* optional, though better have one */
 	<% for (int k = 0; k < taskList.size(); k++) {
 		TaskVO taskVO = taskList.get(k);
 	%>
-    <div id="task" onclick="javascript:viewTask(<%=taskVO.getId() %>)"><br/><h3><%=taskVO.getName()%></h3><br/>in <%=taskVO.getDescription() %></div>
+    <div id="task" onclick="javascript:clicktask('<%=taskVO.getId() %>')">
+    	<br/><h3><%=taskVO.getName()%></h3>
+    	<br/>in <%=taskVO.getDescription() %>
+    	<br/>
+    <% if( taskVO.getStatus().equals("BLOCKED")){%>
+		<hr/>
+		<div class="task_status_blocked">
+			BLOCKED <i class="fa fa-lock" aria-hidden="true"></i>
+		</div>				
+	<% } else if ( taskVO.getStatus().equals("COMPLETE")) {%>
+	<hr/>
+		<div class="task_status_complete">
+			COMPLETE <i class="fa fa-check" aria-hidden="true"></i>
+		</div> 
+	<% } %>
+    </div>
     <form id = "taskview<%=taskVO.getId() %>" action = "taskview.do" hidden>
 		<input type = hidden name = "task_id" value = "<%=taskVO.getId() %>">
 		<input type = hidden name = "board_name" value = "<%=taskVO.getDescription()%>">
@@ -186,6 +214,25 @@ function clickcancel() {
 	window.location.reload();
 }
 </script>
+<!-- TASK클릭 시 함수 -->
+<script>
+function clicktask(id) {/* 
+	window.open("./taskview.do?task_id=" + id,
+			"TASK",
+			"resizeable = yes, menubar=no, width = 470, height = 800, left = 10, right = 10"); */
+	$("#taskViewArea2").load("taskview.do",{
+		task_id:id
+	});
+	$("#myModal2").modal();
+}
+function updatesectioninboard(cnt) {
+	document.getElementById("updatesectioninboard" + cnt).submit();
+}
 
+function deletesectioninboard(cnt) {
+	document.getElementById("deletesectioninboard" + cnt).submit();
+}
+
+</script>
 </body>
 </html>

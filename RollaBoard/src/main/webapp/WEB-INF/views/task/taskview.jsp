@@ -54,9 +54,8 @@ if(session.getAttribute("id") == null) {
         padding-left: 10px;
       }
       
-      #frame{position:absolute; border-radius:10px; width:450px; height:550px; overflow:auto; background-color:#DAD9FF; margin-right: 10px; text-align:center}
-	  #content{width:400px; height:250px; background-color:#FFFFFF; margin-left:50px}
-	  #comment{width:400px; height:250px; background-color:#FFFFFF; margin-left:50px; margin-top:20px}
+      #frame{position:absolute; padding:10px; border-radius:4px; width:500px;height:750px; overflow:auto; background-color:#A2B1DA; margin-right: 10px; text-align:center}
+	  #content{border-radius:4px; width:400px; height:150px; background-color:#FFFFFF; margin-left:50px;text-align:left}
 	  #button{margin-top:20px}
 </style>
 
@@ -131,14 +130,38 @@ function updateTask() {
 <body>
 
 
-<div id = "frame"><h1>TASK 이름 :  <%=taskVO.getName() %> </h1>
-	<div id="status">내용 :  <%=taskVO.getDescription() %> </div>
-	<div id="status">상태: <%=taskVO.getStatus() %> </div>	
-	<div id="status">댓글 : 해야 됨</div>
-	<div id="status">생성날짜: <%=taskVO.getCre_date() %> </div>	
-	<div id="status">시작날짜: <%=taskVO.getStart_date() %> </div>	
-	<div id="status">마감날짜: <%=taskVO.getDue_date() %> </div>	
-	<div id="status">중요도: <%=taskVO.getPriority() %> </div>
+<div id = "frame" align = "center">
+	
+	<h2><b><%=taskVO.getName() %></b></h2>
+	<hr/>
+	<div id = "content" style = "font-family: Montserrat, sans-serif;">
+		<font family = "Montserrat, sans-serif;"><b><%=taskVO.getDescription() %></b></font> 
+	</div>
+	<br/>
+	<table class="table" style = "font-family: Montserrat, sans-serif;">
+	<tbody>
+		<tr>
+			<td><b>상태 :</b></td>
+			<td><%=taskVO.getStatus() %> </td>
+		</tr>
+		<tr>
+			<td><b>생성일 :</b></td>
+			<td><%=taskVO.getCre_date() %> </td>
+		</tr>
+		<tr>
+			<td><b>시작일 :</b></td>
+			<td><%=taskVO.getStart_date() %> </td>
+		</tr>
+		<tr>
+			<td><b>마감일 :</b></td>
+			<td><%=taskVO.getDue_date() %> </td>
+		</tr>
+		<tr>
+			<td><b>중요도 :</b></td>
+			<td><%=taskVO.getPriority() %> </td>
+		</tr>
+		</tbody>		
+	</table>
 	
 	<!-- 수민 태스크 위치 추가 -->
 	<%
@@ -184,12 +207,12 @@ function updateTask() {
 
 	<%if (session.getAttribute("board_id") != null) {%>
 
-		<input type=button value="확인" onclick = "location.href='./board.do';">
-		<input type=button value="수정" id="goUpdateBtn">
+		<input type=button class = "btn btn-default" value="확인" onclick = "location.href='./board.do';">
+		<input type=button class = "btn btn-default" value="수정" id="goUpdateBtn">
 <!-- 	<input type=button value="수정" onclick = "javascript:updateTask()"> -->
-		<input type=button value="삭제" onclick = "javascript:deleteTask()">
+		<input type=button class = "btn btn-default" value="삭제" onclick = "javascript:deleteTask()">
 	<%} else { %>
-		<input type=button value="확인" onclick = "location.href='./dashboard.do'">
+		<input type=button class = "btn btn-default" value="확인" onclick = "location.href='./dashboard.do'">
 	<%} %>
 
 	</div>

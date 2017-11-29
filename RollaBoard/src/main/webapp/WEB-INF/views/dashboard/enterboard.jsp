@@ -10,7 +10,7 @@ if(session.getAttribute("id") == null) {
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <title>enterboard</title>
+  <title>EnterWorkoard</title>
   <meta charset="utf-8" Encoding = "UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
@@ -20,16 +20,16 @@ if(session.getAttribute("id") == null) {
 <body>
 <div class="jumbotron" style = "background-color: orange;">
   <div class="container text-center">
-    <h1><font color="white">Board 입장하기</font></h1>     
-    <p><font color="white">입장할 Board의 이름을 입력하세요</font></p>    
+    <h1><font color="white">WorkBoard 입장</font></h1>     
+    <p><font color="white">입장할 WorkBoard의 이름을 입력하세요</font></p>    
   </div>
 </div>
 
 <form class = "form-horizental" action = "joinboard.do">
 <div class = "form-group">
-	<label for = "board_name" class = "control-label col-xs-2">BOARD 이름</label>
+	<div class = "col-xs-1"></div>
 	<div class = "col-xs-8">
-	<input type = "text" class = "form-control" id = "board_name" name = "name" placeholder="Board 이름을 정확히 입력하세요" required>
+	<input type = "text" class = "form-control" id = "board_name" name = "name" placeholder="Workboard 이름을 정확히 입력하세요" required>
 	</div>
 	<div class = "col-xs-2">
 	<button type = "submit" class = "btn btn-info">입장하기</button>
