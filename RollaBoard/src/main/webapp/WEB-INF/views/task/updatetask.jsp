@@ -37,173 +37,231 @@ if( postTaskVO != null )
 %>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <style>
-#frame{width:500px; height:700px; background-color:#DAD9FF}
-#taskname{margin-top:20px; margin-left:10px}
-#content{margin-top:30px; margin-left:30px}
-#role{margin-top:30px; margin-left:30px}
-#settings{margin-top:5px; margin-left:380px}
-#button{margin-top:20px; margin-left:200px}
+#frame{position:absolute; padding:10px; border-radius:4px; width:600px;height:695px; overflow:auto; background-color:#A2B1DA; margin-right: 10px; text-align:center} 
+#content{border-radius:4px; width:500px; height:120px; background-color:#FFFFFF;text-align:left}
+#button{margin-top:20px}
 </style>
 
 <!-- 테스크 제목, 설명 입력 바이트 수 제한 --> 
-  <script>
-    $(document).ready( function() {
-        //글자 byte 수 제한
-        $('.byteLimit').blur(function(){
-                          
-            var thisObject = $(this);
-              
-            var limit = thisObject.attr("limitbyte"); //제한byte를 가져온다.
-            var str = thisObject.val();
-            var strLength = 0;
-            var strTitle = "";
-            var strPiece = "";
-            var check = false;
-                      
-            for (i = 0; i < str.length; i++){
-                var code = str.charCodeAt(i);
-                var ch = str.substr(i,1).toUpperCase();
-                //체크 하는 문자를 저장
-                strPiece = str.substr(i,1)
-                  
-                code = parseInt(code);
-                  
-                if ((ch < "0" || ch > "9") && (ch < "A" || ch > "Z") && ((code > 255) || (code < 0)) ){
-                    strLength = strLength + 3; //UTF-8 3byte 로 계산
-                }else{
-                    strLength = strLength + 1;
-                }
-                  
-                if(strLength>limit){ //제한 길이 확인
-                    check = true;
-                    break;
-                }else{
-                    strTitle = strTitle+strPiece; //제한길이 보다 작으면 자른 문자를 붙여준다.
-                }
-                  
-            }
-              
-            if(check){
-                alert(limit+"byte 초과된 문자는 잘려서 입력 됩니다.");
-            }
-              
-            thisObject.val(strTitle);
-              
-        });
-        
-        $(".checkDiff > input").blur(function(){
-        	var oldVal = $(this).parent().children("input[type='hidden']").val() ;
-        	var newVal = $(this).parent().children("input[type='text']").val() ;
-        	if(oldVal!=newVal){
-        		$(this).css("background-color", "#ff0000");
-        	}else{
-        		$(this).css("background-color", "#ffffff");
-        	}
-        });
-    });
-      
-  </script>
-
-
-
-
+ <script>
+   $(document).ready( function() {
+       //글자 byte 수 제한
+       $('.byteLimit').blur(function(){
+                         
+           var thisObject = $(this);
+             
+           var limit = thisObject.attr("limitbyte"); //제한byte를 가져온다.
+           var str = thisObject.val();
+           var strLength = 0;
+           var strTitle = "";
+           var strPiece = "";
+           var check = false;
+                     
+           for (i = 0; i < str.length; i++){
+               var code = str.charCodeAt(i);
+               var ch = str.substr(i,1).toUpperCase();
+               //체크 하는 문자를 저장
+               strPiece = str.substr(i,1)
+                 
+               code = parseInt(code);
+                 
+               if ((ch < "0" || ch > "9") && (ch < "A" || ch > "Z") && ((code > 255) || (code < 0)) ){
+                   strLength = strLength + 3; //UTF-8 3byte 로 계산
+               }else{
+                   strLength = strLength + 1;
+               }
+                 
+               if(strLength>limit){ //제한 길이 확인
+                   check = true;
+                   break;
+               }else{
+                   strTitle = strTitle+strPiece; //제한길이 보다 작으면 자른 문자를 붙여준다.
+               }
+                 
+           }
+             
+           if(check){
+               alert(limit+"byte 초과된 문자는 잘려서 입력 됩니다.");
+           }
+             
+           thisObject.val(strTitle);
+             
+       });
+       
+       $(".checkDiff > input").blur(function(){
+       	var oldVal = $(this).parent().children("input[type='hidden']").val() ;
+       	var newVal = $(this).parent().children("input[type='text']").val() ;
+       	if(oldVal!=newVal){
+       		$(this).css("background-color", "#ff0000");
+       	}else{
+       		$(this).css("background-color", "#ffffff");
+       	}
+       });
+   });
+     
+ </script>
+<script>
+// 수정 확인 버튼 클릭
+function updating() {
+	document.getElementById("updateTask").submit();
+}
+</script>
 
 <div id="frame">
-	<div id = "allocated">배정된 ROLE
-    	<%for(int h = 0; h < allocatedRole.size(); h++) {
-    		RoleVO allocRole = allocatedRole.get(h);
-    	%>
-    	<form id = "deleteAllocation" action = "deallocatetask.do">
-    	<input class = "form-control" type = "text" name = "role_name" value = "<%=allocRole.getName() %>" readonly>
-    	<input type = "hidden" name = "role_id" value = "<%=allocRole.getId() %>">
-    	<input type = "hidden" name = "task_id" value = "<%=taskVO.getId() %>">
-    	<input type = "submit" value = "배정취소">
-    	</form>
-    	<%} %>
-    </div>
-	<form action = "updatetask.do">
-	<div id="id">
-		<input type="hidden" id="id" name="id" value = <%=taskVO.getId() %> size="40">
+<form id = "updateTask" action = "updatetask.do">
+	<input type="hidden" id="id" name="id" value = <%=taskVO.getId() %> >
+	<input type="hidden" id="section_id" name="section_id" value = <%=taskVO.getSection_id() %> >
+	<h2><b>TASK 수정</b></h2>
+	<table class="table" style = "font-family: Montserrat, sans-serif; font-size:14px;">
+	<tr>
+		<th><font style = "font-family:Montserrat, sans-serif;">제목</font></th>
+		<th>
+			<input type = "text" id="taskname" name="name" placeholder="TASK 이름을 입력하세요" class="byteLimit" limitbyte="30" value = "<%=taskVO.getName()%>">
+		</th>
+	</tr>
+	</table>
+	<hr/>
+	<div style = "font-family: Montserrat, sans-serif;" align = "center">
+		<font style = "font-family:Montserrat, sans-serif;">
+			<textarea id="content" name="description" class="byteLimit" limitbyte="100" placeholder = "내용 입력" style = "resize:none;margin-left:20px;"><%=taskVO.getDescription()%></textarea>
+		</font> 
 	</div>
-	<div id="section_id">
-		<input type="hidden" id="section_id" name="section_id" value = <%=taskVO.getSection_id() %> size="40">
-	</div>
-    <div id="taskname">
-        <input type="text" id="taskname" name="name" placeholder="TASK 이름을 입력하시오." size="40" class="byteLimit" limitbyte="30" value = "<%=taskVO.getName()%>">
-    </div>
-    
-    <div id="content">내용(필수X)
-        <input type="textarea" id="content" name="description" style="height:180px; width:380px;" class="byteLimit" limitbyte="100"   value = "<%=taskVO.getDescription()%>">
-    </div>
-    
-    <h4>고급설정</h4>
-	<div id ="start_date"> 시작날짜
-		<input type="date" id="start_date" name="start_date" placeholder="yyyy-mm-dd" size="40" name ="start_date" value = "<%=taskVO.getStart_date()%>"><br/><br/><br/>
-	</div>
-	
-	<div id ="due_date"> 마감날짜
-
-		<input type="date" id="due_date" placeholder="yyyy-mm-dd" size="40" name = "due_date" value = "<%=taskVO.getDue_date()%>"><br/><br/><br/>
-
-	</div>
-	
-	<div id ="cre_date"> 생성날짜
-
-		<input type="date" id="cre_date" placeholder="yyyy-mm-dd" size="40" name = "cre_date" value = "<%=taskVO.getCre_date()%>" readonly><br/><br/><br/>
-
-	</div>
-	
-	<div id ="priority"> 중요도
-		<input type="text" id="priority" placeholder="1~5중에 하나를 입력해주세요" size="40" name="priority" value = "<%=taskVO.getPriority()%>"><br/><br/><br/>
-	</div>
-	
-	
-	<datalist id="taskNameList">
-		<%
-		for(int i = 0; i < taskIdList.size(); i++) {
-			
-			if(taskIdList.get(i).getName().equals(taskVO.getName()))
-				continue;
-			/* 
-			TaskVOLite taskVOLite = taskIdList.get(i);
-			String labelContents = "";
-			if(taskVOLite.getStatus().equals("COMPLETE"))
-				labelContents += "(완료)" ;
-			labelContents += taskVOLite.getSectionName(); */
-		%>
-			<option value="<%=taskIdList.get(i).getName()%>" <%-- label="<%=labelContents%>" --%>>
-		<%
-		} %>
-	</datalist>
-	
-	
-	<div id ="pre_Task" class="checkDiff"> 선행TASK
-		<input type="text" name="pre_task_name" value="<%=preTaskName %>" list="taskNameList"/>
-		<input type="hidden" name="hidden_pre_task_name" value="<%=preTaskName %>" />
-		<!-- <input type="number" id="pre_task" name="pre_task" value="" placeholder="Task id를 입력하시오" size="40"><br/><br/><br/> -->
-	</div>
-	
-	<div id ="post_Task" class="checkDiff"> 후행TASK
-		<input type="text" name="post_task_name" value="<%=postTaskName %>" list="taskNameList"/>
-		<input type="hidden" name="hidden_post_task_name" value="<%=postTaskName %>" />
-		<!-- <input type="number" id="post_task" name="post_task" value="" placeholder="Task id를 입력하시오" size="40">
-		 -->
-	</div>
-    
-    
-    <div id="role">Role 배정(필수X)
-		<input list="roleList" name="taskToRole" >
-		<datalist id = "roleList">
-		<%for(int i = 0; i < roleList.size(); i++) {
-			RoleVO roleVO = roleList.get(i);
-		%>
-			<option value = "<%=roleVO.getName()%>">
-		<%} %>
+	<br/>
+	<table class="table" style = "font-family: Montserrat, sans-serif; font-size:14px;">
+	<tbody>
+		<tr>
+			<td><b>시작일 :</b></td>
+			<td><input type="date" id="start_date" name="start_date" placeholder="yyyy-mm-dd" name ="start_date" value = "<%=taskVO.getStart_date()%>"></td>
+		</tr>
+		<tr>
+			<td><b>마감일 :</b>
+			<td><input type="date" id="due_date" placeholder="yyyy-mm-dd" name = "due_date" value = "<%=taskVO.getDue_date()%>"></td>
+		<tr>
+			<td><b>생성일: </b>
+			<td><input type="date" id="cre_date" placeholder="yyyy-mm-dd" name = "cre_date" value = "<%=taskVO.getCre_date()%>" readonly></td>
+		</tr>
+		<tr>
+			<td><b>중요도:</b>
+			<%if (taskVO.getPriority() == 5) {%>
+			<td>
+				<input type="radio"  name="priority" value = "1">1
+				<input type="radio"  name="priority" value = "2">2
+				<input type="radio"  name="priority" value = "3">3
+				<input type="radio"  name="priority" value = "4">4
+				<input type="radio"  name="priority" value = "5" checked>5
+			</td>
+			<%}else if (taskVO.getPriority() == 4) {%>
+			<td>
+				<input type="radio"  name="priority" value = "1">1
+				<input type="radio"  name="priority" value = "2">2
+				<input type="radio"  name="priority" value = "3">3
+				<input type="radio"  name="priority" value = "4" checked>4
+				<input type="radio"  name="priority" value = "5">5
+			</td>
+			<%}else if (taskVO.getPriority() == 2) {%>
+			<td>
+				<input type="radio"  name="priority" value = "1">1
+				<input type="radio"  name="priority" value = "2" checked>2
+				<input type="radio"  name="priority" value = "3">3
+				<input type="radio"  name="priority" value = "4">4
+				<input type="radio"  name="priority" value = "5">5
+			</td>
+			<%}else if (taskVO.getPriority() == 1) {%>
+			<td>
+				<input type="radio"  name="priority" value = "1" checked>1
+				<input type="radio"  name="priority" value = "2">2
+				<input type="radio"  name="priority" value = "3">3
+				<input type="radio"  name="priority" value = "4">4
+				<input type="radio"  name="priority" value = "5">5
+			</td>
+			<%}else {%>
+			<td>
+				<input type="radio"  name="priority" value = "1">1
+				<input type="radio"  name="priority" value = "2">2
+				<input type="radio"  name="priority" value = "3" checked>3
+				<input type="radio"  name="priority" value = "4">4
+				<input type="radio"  name="priority" value = "5">5
+			</td>
+			<%} %>
+		</tr>
+		
+		<datalist id="taskNameList">
+			<%
+			for(int i = 0; i < taskIdList.size(); i++) {
+				
+				if(taskIdList.get(i).getName().equals(taskVO.getName()))
+					continue;
+				/* 
+				TaskVOLite taskVOLite = taskIdList.get(i);
+				String labelContents = "";
+				if(taskVOLite.getStatus().equals("COMPLETE"))
+					labelContents += "(완료)" ;
+				labelContents += taskVOLite.getSectionName(); */
+			%>
+				<option value="<%=taskIdList.get(i).getName()%>" <%-- label="<%=labelContents%>" --%>>
+			<%
+			} %>
 		</datalist>
+		
+		<tr>
+			<td><b>선행TASK</b></td>
+			<td>
+				<input type="text" name="pre_task_name" value="<%=preTaskName %>" list="taskNameList"/>
+				<input type="hidden" name="hidden_pre_task_name" value="<%=preTaskName %>" />
+				<span style = "opacity:0.5">(삭제 : 공백지정) </span>
+			</td>
+		</tr>
+		<tr>
+			<td><b>후행TASK</b></td>
+			<td>
+				<input type="text" name="post_task_name" value="<%=postTaskName %>" list="taskNameList"/>
+				<input type="hidden" name="hidden_post_task_name" value="<%=postTaskName %>" />
+				<span style = "opacity:0.5">(삭제 : 공백지정) </span>
+			</td>
+		</tr>
+		<tr>
+			<td><b>ROLE배정</b></td>
+			<td>
+				<div id="role">
+					<input list="roleList" name="taskToRole" >
+					<datalist id = "roleList">
+					<%for(int i = 0; i < roleList.size(); i++) {
+						RoleVO roleVO = roleList.get(i);
+					%>
+						<option value = "<%=roleVO.getName()%>">
+					<%} %>
+					</datalist>
+				</div>
+			</td>
+		</tr>
+	</tbody>
+	</table>
+</form>	
+<div id = "allocated">
+	<span style = "font-family: Montserrat, sans-serif;"><b>배정된 ROLE</b></span>
+   	<%for(int h = 0; h < allocatedRole.size(); h++) {
+   		RoleVO allocRole = allocatedRole.get(h);
+   	%>
+   	
+   	<form id = "deleteAllocation" action = "deallocatetask.do">  
+   	<div class = "row">
+   	<div class = "col-xs-8">
+	   	<input class = "form-control" type = "text" name = "role_name" value = "<%=allocRole.getName() %>" readonly>
+	   	<input type = "hidden" name = "role_id" value = "<%=allocRole.getId() %>">
+	   	<input type = "hidden" name = "task_id" value = "<%=taskVO.getId() %>">
 	</div>
-	<div id="button">
-        <input type="submit" value="확인">
-        <input type="button" data-dismiss="modal" value="취소" >
-    </div>
-	</form>
+	<div class = "col-xs-4">
+	   	<input type = "submit" class = "btn btn-default" value = "배정취소" onclick = "javascript:">
+   	</div>
+   	</div>
+   	</form>   	
+   	<%} %>
 </div>
+<br/>
+<div id = "button-group">
+	<input type="button" class = "btn btn-default" value="확인" onclick = "javascript:updating()">&nbsp;&nbsp;
+	<input type="button" class = "btn btn-default" data-dismiss="modal" value="취소" >
+</div>
+</div>
+
+

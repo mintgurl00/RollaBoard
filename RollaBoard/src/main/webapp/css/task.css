@@ -18,20 +18,20 @@
 
 /* 기본 태스크 */
 .task {
-	width:280px; 
-	height:auto; 
-	margin: 0 auto ;
-	margin-bottom: 15px;
-	padding: 5px 10px;
-	
-	background-color:#FFFFFF;
-	border-radius:10px;
-	text-align:center;
-	
-	font-family: 'Nanum Gothic', sans-serif;
-	
-	box-shadow: 2px 2px 4px rgba(0,0,0,.26), 0 2px 10px rgba(0,0,0,.12);
-	cursor:pointer;
+    width:280px; 
+    height:auto; 
+    margin: 0 auto ;
+    margin-bottom: 15px;
+    padding: 5px 10px;
+    
+    background-color:#FFFFFF ;
+    border-radius:5px;
+    text-align:center;
+    
+    
+    font-family: 'Nanum Gothic', sans-serif;
+    
+    cursor:pointer;
 }
 
 
@@ -40,13 +40,13 @@
 }
 
 .BLOCKED {
-	background-color:#EEEEEE;
+	background-color:#E1E1E1;
 	color: #444444;
 	box-shadow: 0px 0px 0px rgba(0,0,0,0);
 }
 
 .COMPLETE {
-	background-color:#EEEEEE;
+	background-color:#E1E1E1;
 	color: #444444;
 	box-shadow: 0px 0px 0px rgba(0,0,0,0);
 }

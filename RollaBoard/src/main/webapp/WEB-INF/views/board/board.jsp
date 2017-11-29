@@ -49,7 +49,10 @@
 
 
 <style>
-
+.glyphicon.glyphicon-cog {
+	font-size:20px;
+	margin-left:10px;
+}
 </style>
 <script src="js/board.js"></script>
 
@@ -184,12 +187,12 @@ function showRefBoard(){
 </script>
 </head>
 <body>
-	<nav class="navbar navbar-default" style = "background-color:#F44336; color: #fff !important; font-family: Montserrat, sans-serif;">
-	<div class="container-fluid">
-		<div class = "navbar-header">
-			<a style = "color: #fff" class="navbar-brand" href="./dashboard.do" >ROLLABOARD</a>&nbsp;&nbsp;&nbsp;
+	<nav style = "background-color:#1294AB; color: #fff !important; font-family: Montserrat, sans-serif; height:10px;">
+	<div class="container-fluid" style = "background-color:#1294AB; background-color:rgba{0,0,0,0.5};"> 
+		<div class = "navbar-header" style="padding-top:10px; height:20px">
+			<a style = "color: #fff; padding-top:5px" class="navbar-brand" href="./dashboard.do" >ROLLABOARD</a>&nbsp;&nbsp;&nbsp;
 
-			<font size = "6px" color = "white"><%=boardVO.getName() %></font>
+			<font size = "5px" color = "white"><%=boardVO.getName() %></font>
 			<% if (id.equals(boardVO.getAdmin())) {%>
 			<a style = "color: #fff; cursor:pointer" onClick="document.getElementById('boardSetting').submit()" style="cursor: pointer"><span class="glyphicon glyphicon-cog"></span></a>
 			<form id="boardSetting" action="updateboard.do" method="post" style="margin-top: 5px;" hidden>
@@ -204,10 +207,10 @@ function showRefBoard(){
 
 		</div>
 		<div>
-			<ul class="nav navbar-nav navbar-right" style = "padding-right:10px">			
+			<ul class="nav navbar-nav navbar-right" style="background-color:#1294AB">			
 				<li>
 					<!-- 참조 보드 선택 -->
-					<div class = "selectBox02">
+					<div class = "selectBox02" style="background-color:#1294AB">
 					<input type="hidden" id="current_ref_board" value="-1" /> 
 					<span style = "color: #fff; cursor:pointer" class = "glyphicon glyphicon-folder-open"></span>				
 						<select id="ref_board_select">
@@ -222,17 +225,19 @@ function showRefBoard(){
 			</ul>
 		</div>
 	</div>
-	<div class="container-fluid">
-		<div class = "row"> 
-			<div class = "col-xs-5 col-sm-offset-7 col-sm-2" style = " font-family: Montserrat, sans-serif;">
+	
+	
+	<div class="container-fluid" style="background-color:#1294AB">
+		<div class = "row" style="padding-top:10px"> 
+			<div class = "col-xs-4 col-sm-offset-2 col-sm-8" style = " font-family: Montserrat, sans-serif;" align=right>
 			    <div class = "navbar" id = "filtering">
 					<input type="checkbox" class="filter" id="chk_duedate" name="due" value="FALSE" onclick="javascript:filterResult(this)"/>
 					<span>마감일순 보기</span>
 				</div>
 			</div>
-			<div class = "col-xs-7 col-sm-3">
+			<div class = "col-xs-2 col-sm-1">
 				<div class="input-group form" >		
-					<input type="text" name="keyword" id="keyword" class="form-control" placeholder="검색할 TASK 입력">
+					<input type="text" name="keyword" id="keyword" class="form-control" placeholder="검색할 TASK 입력" style="width:200px">
 					<input type="hidden" name="written_keyword" id="written_keyword" value=""/>
 					<input type ="hidden" name="board_id" value="<%=boardVO.getId()%>" />
 					<div class="input-group-btn">
@@ -243,8 +248,7 @@ function showRefBoard(){
 				</div> 	
 			</div>		
 		</div>
-	</div>	
-	
+	</div>
 	</nav>
 
 
@@ -259,7 +263,7 @@ function showRefBoard(){
 
 <div class="boards">
 	<!-- 보드 -->
-	<div id="work_board">		
+	<div id="work_board" style="background-color:#1294AB">		
 	</div>
 	
 	<!-- 참조 보드 -->
