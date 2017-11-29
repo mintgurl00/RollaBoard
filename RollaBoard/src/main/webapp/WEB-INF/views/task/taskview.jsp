@@ -87,7 +87,7 @@ if(session.getAttribute("id") == null) {
       .completeBtn:hover {background-color:#4CAF50;color:white;border-radius: 12px;}
       .completeCancelBtn:hover {background-color:orange;color:white;border-radius: 12px;}
       .blockedBtn:hover {background-color:black;color:white;border-radius: 12px;}
-      #frame{position:absolute; padding:10px; border-radius:4px; width:600px;height:600px; overflow:auto; background-color:whitesmoke; margin-right: 10px; text-align:center; box-shadow: 1px 1px 5px #000; }
+      #frame{position:absolute; padding:10px; border-radius:6px; width:600px;height:600px; overflow:auto; background-color:whitesmoke; margin-right: 10px; text-align:center; box-shadow: 1px 1px 5px #000; }
 	  #content{border-radius:4px; width:500px; height:120px; background-color:#FFFFFF; margin-left:50px;text-align:left}
 	  #button{margin-top:20px}
 </style>
@@ -174,7 +174,7 @@ function locationview() {
 	<div id="completeArea" align = "right"></div>
 	<hr/>
 	<div style = "font-family: Montserrat, sans-serif;">
-		<b><textarea id="content" style = "font-family:Montserrat, sans-serif;resize:none; margin-left:10px" readonly><%=taskVO.getDescription() %></textarea>
+		<b><textarea id="content" style = "font-family:Montserrat, sans-serif;resize:none; margin-left:10px;border:0" readonly><%=taskVO.getDescription() %></textarea>
 	</b>
 	</div>
 	<br/>
@@ -249,7 +249,7 @@ function locationview() {
 	<%
 	}
 	%>
-	<div id="button">
+	<div id="button" style="margin-top:70px">
 
 	<%if (session.getAttribute("board_id") != null) {%>
 		<input type=button class = "btn btn-default" value="확인" onclick = "location.href='./board.do';">&nbsp;&nbsp;&nbsp;
