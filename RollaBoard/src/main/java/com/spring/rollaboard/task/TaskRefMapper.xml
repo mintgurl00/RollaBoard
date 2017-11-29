@@ -44,6 +44,14 @@
 		where tc1.root_task_id=tc2.root_task_id
 		    AND tc2.task_id=#{id}
 	</select>
+	<!-- checkSameConn -->
+	<select id = "checkSameConn" resultType="int" parameterType="map">
+		SELECT COUNT(*)
+		FROM task_conn tc1, task_conn tc2
+		WHERE tc1.root_task_id=tc2.root_task_id
+		    AND tc2.task_id=#{taskId1}
+		    AND tc1.task_id=#{taskId2}
+	</select>
 	
 	<!-- addPostTask1of2 -->
 	<update id = "addPostTask1of2" parameterType = "map">

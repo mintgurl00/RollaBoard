@@ -35,6 +35,7 @@ public interface TaskRefDAO {
 	// 사전 조사
 	public int getPreTaskId(int taskId);
 	public int getPostTaskId(int taskId);
+	public boolean checkSameConn(int taskId1, int taskId2);
 	// 조건 확인
 	// 01 액션
 	public void addPreTask(int taskId, int preTaskId) ;	// 선행T추가
