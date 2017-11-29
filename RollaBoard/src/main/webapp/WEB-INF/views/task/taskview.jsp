@@ -15,11 +15,10 @@ if(session.getAttribute("id") == null) {
 	// 관계 태스크 보여주기 위한 기능
 	RefTaskVO preTaskVO = null, postTaskVO = null ;
 	preTaskVO = (RefTaskVO) request.getAttribute("preTaskVO");
-	postTaskVO = (RefTaskVO) request.getAttribute("postTaskVO");/* 
-	if(preTaskVO == null)
-		preTaskVO = new RefTaskVO(1);
-	if(postTaskVO == null)
-		postTaskVO = new RefTaskVO(1); */
+	postTaskVO = (RefTaskVO) request.getAttribute("postTaskVO");
+	if (taskVO.getDescription() == null) {
+		taskVO.setDescription("");
+	}
 %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>

@@ -133,7 +133,8 @@
 					 SECTION_ID = #{section_id}, 
 					 START_DATE = #{start_date}, 
 					 DUE_DATE = #{due_date}, 
-					 PRIORITY = #{priority} 
+					 PRIORITY = #{priority},
+					 LOCATION = #{location}
 					 WHERE ID = #{id}
 	</update>
 	
