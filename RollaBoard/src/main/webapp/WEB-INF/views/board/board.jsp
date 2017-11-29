@@ -49,7 +49,9 @@
 
 
 <style>
-.navbar .navbar-default {
+.glyphicon.glyphicon-cog {
+	font-size:20px;
+	margin-left:10px;
 }
 </style>
 <script src="js/board.js"></script>
@@ -186,7 +188,7 @@ function showRefBoard(){
 </head>
 <body>
 	<nav style = "background-color:#1294AB; color: #fff !important; font-family: Montserrat, sans-serif; height:10px;">
-	<div class="container-fluid" style = "background-color:#1294AB;">
+	<div class="container-fluid" style = "background-color:#1294AB; background-color:rgba{0,0,0,0.5};"> 
 		<div class = "navbar-header" style="padding-top:10px; height:20px">
 			<a style = "color: #fff; padding-top:5px" class="navbar-brand" href="./dashboard.do" >ROLLABOARD</a>&nbsp;&nbsp;&nbsp;
 
@@ -226,8 +228,8 @@ function showRefBoard(){
 	
 	
 	<div class="container-fluid" style="background-color:#1294AB">
-		<div class = "row"> 
-			<div class = "col-xs-4 col-sm-offset-2 col-sm-7" style = " font-family: Montserrat, sans-serif;" align=right>
+		<div class = "row" style="padding-top:10px"> 
+			<div class = "col-xs-4 col-sm-offset-2 col-sm-8" style = " font-family: Montserrat, sans-serif;" align=right>
 			    <div class = "navbar" id = "filtering">
 					<input type="checkbox" class="filter" id="chk_duedate" name="due" value="FALSE" onclick="javascript:filterResult(this)"/>
 					<span>마감일순 보기</span>

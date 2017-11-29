@@ -121,9 +121,9 @@ function updating() {
 	</tr>
 	</table>
 	<hr/>
-	<div id = "content" style = "font-family: Montserrat, sans-serif;" align = "center">
+	<div style = "font-family: Montserrat, sans-serif;" align = "center">
 		<font style = "font-family:Montserrat, sans-serif;">
-			<textarea id="content" name="description" class="byteLimit" limitbyte="100" placeholder = "내용 입력" style = "resize:none;"><%=taskVO.getDescription()%></textarea>
+			<textarea id="content" name="description" class="byteLimit" limitbyte="100" placeholder = "내용 입력" style = "resize:none;margin-left:20px;"><%=taskVO.getDescription()%></textarea>
 		</font> 
 	</div>
 	<br/>

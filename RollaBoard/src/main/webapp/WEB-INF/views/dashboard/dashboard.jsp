@@ -36,11 +36,11 @@
 <script src="https://use.fontawesome.com/e39dcf78fa.js"></script> <!-- Font Awesome 사용. 수민 -->
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins">
+<link href="css/task.css" rel="stylesheet" type="text/css" >
 <link href="reset.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <style>
-mycolor {background-color: #f4511e;}
 body,h1,h2,h3,h4,h5 {font-family: "Poppins", sans-serif}
 body {font-size:16px;}
 .w3-half img{margin-bottom:-6px;margin-top:16px;opacity:0.8;cursor:pointer}
@@ -56,17 +56,30 @@ top:20px; /* in conjunction with left property, decides the text position */
 left:25px;
 width:700px; /* optional, though better have one */
 }
-#task{float:left; width:250px; height:250px; margin-left:40px; margin-top:40px; background-color:#BDBDBF; text-align:center; cursor:pointer}
 
-.fa{font-size:30px;}
+#task{
+	float:left;
+	width:250px;
+	height:250px;
+	margin-left:40px;
+	margin-top:40px;
+	padding-left:30px;
+	background-color:#E1E1E1;
+	cursor:pointer;
+	border-radius:10px;
+}
+
+.fa.fa-plus-circle {
+	font-size:30px;
+}
 
 </style>
 <body>
 
 <!-- Sidebar/menu -->
-<nav class="w3-sidebar w3-red w3-collapse w3-top w3-large w3-padding mycolor" style="z-index:3;width:300px;font-weight:bold;" id="mySidebar"><br>
+<nav class="w3-sidebar w3-#1294AB w3-collapse w3-top w3-large w3-padding mycolor" style="z-index:3;width:270px;font-weight:bold; background-color: #1294AB; color:white;" id="mySidebar"><br>
   <a href="javascript:void(0)" onclick="w3_close()" class="w3-button w3-hide-large w3-display-topleft" style="width:100%;font-size:19px">Close Menu</a>
-  <p class="w3-display-topleft w3-hide-medium w3-hide-small" style="font-size:15px;cursor:pointer"><a onclick="document.getElementById('id01').style.display='block'">&nbsp;&nbsp;&nbsp;<i class="fa fa-user"></i></a>&nbsp;&nbsp;&nbsp;<a href="logout.do"><i class="fa fa-sign-out"></i></a></p>
+  <p class="w3-display-topleft w3-hide-medium w3-hide-small" style="font-size:15px;cursor:pointer"><a onclick="document.getElementById('id01').style.display='block'">&nbsp;&nbsp;&nbsp;<i class="fa fa-user"></i></a>&nbsp;&nbsp;&nbsp;<a href="logout.do" style="text-decoration:none">logout</i></a></p>
   <div class="w3-container">
     <h2 class="w3-padding-64"><b>My<br>Board</b></h2>
   </div>
@@ -130,7 +143,7 @@ width:700px; /* optional, though better have one */
 
   <!-- Header -->
   <div class="w3-container" style="margin-top:40px" id="showcase">
-    <h1 class="w3-jumbo"><b>My Tasks</b></h1>
+    <h1><b>My Tasks</b></h1>
     <hr style="width:50px;border:5px solid orange" class="w3-round">
   </div>
   
@@ -143,22 +156,22 @@ width:700px; /* optional, though better have one */
 	<% for (int k = 0; k < taskList.size(); k++) {
 		TaskVO taskVO = taskList.get(k);
 	%>
+	
     <div id="task" onclick="javascript:clicktask('<%=taskVO.getId() %>')">
-    	<br/><h3><%=taskVO.getName()%></h3>
-    	<br/>in <%=taskVO.getDescription() %>
+    	<br/><h5><b><%=taskVO.getName()%></b></h5>
+    	in <%=taskVO.getDescription() %>
     	<br/>
     <% if( taskVO.getStatus().equals("BLOCKED")){%>
-		<hr/>
-		<div class="task_status_blocked">
+		<div class="task_status_blocked" style="margin-top:60px; margin-left:30px" align=center>
 			BLOCKED <i class="fa fa-lock" aria-hidden="true"></i>
 		</div>				
 	<% } else if ( taskVO.getStatus().equals("COMPLETE")) {%>
-	<hr/>
-		<div class="task_status_complete">
+		<div class="task_status_complete" style="margin-top:60px;; margin-left:30px" align=center>
 			COMPLETE <i class="fa fa-check" aria-hidden="true"></i>
 		</div> 
 	<% } %>
     </div>
+    
     <form id = "taskview<%=taskVO.getId() %>" action = "taskview.do" hidden>
 		<input type = hidden name = "task_id" value = "<%=taskVO.getId() %>">
 		<input type = hidden name = "board_name" value = "<%=taskVO.getDescription()%>">
@@ -181,7 +194,7 @@ width:700px; /* optional, though better have one */
 </div>
 
 <!-- Rollaboard Container -->
-<div class="w3-light-grey w3-container w3-padding-32" style="margin-top:75px;padding-right:58px"><p class="w3-right"><b>Rollaboard</b> all rights reserved </p></div>
+<div style="margin-top:430px;padding-right:40px"><p class="w3-right"><b>Rollaboard</b> all rights reserved </p></div>
 
 <script>
 // Script to open and close sidebar
