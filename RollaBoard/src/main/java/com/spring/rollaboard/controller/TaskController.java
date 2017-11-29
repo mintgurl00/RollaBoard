@@ -237,10 +237,9 @@ public class TaskController {
 	public ModelAndView deallocatetask(int role_id, int task_id) {
 		ModelAndView result = new ModelAndView();
 		System.out.println("deallocatetask.do... task_id : " + task_id);
-		TaskVO taskVO = taskDAOService.getTask(task_id);
 		roleDAOService.deallocateTask(role_id, task_id);
 		System.out.println("TASK_ROLE 삭제완료");
-		result.addObject("taskVO", taskVO);
+		result.addObject("task_id", task_id);
 		result.setViewName("redirect:updatetaskform.do");
 		return result;
 	}
