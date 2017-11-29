@@ -37,6 +37,8 @@
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins">
 <link href="reset.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <style>
 mycolor {background-color: #f4511e;}
 body,h1,h2,h3,h4,h5 {font-family: "Poppins", sans-serif}
@@ -77,6 +79,14 @@ width:700px; /* optional, though better have one */
 	<p align="center"><a href = "newboard.do" class="w3-bar-item w3-center w3-button w3-hover-white"><i class="fa fa-plus-circle"></i></a></p>
   </div>
 </nav>
+
+<!-- MODAL TASK -->
+<div class="w3-modal" id="myModal2" role="dialog">
+	<div class="w3-modal-content w3-animate-opacity w3-card-4" style="max-width:550px;">
+		<div class="modal-content" id="taskViewArea2">
+		</div> 
+	</div>
+</div>
 
 <!-- Modal창으로 회원정보수정 출력 -->
 <div id="id01" class="w3-modal">
@@ -133,7 +143,22 @@ width:700px; /* optional, though better have one */
 	<% for (int k = 0; k < taskList.size(); k++) {
 		TaskVO taskVO = taskList.get(k);
 	%>
-    <div id="task" onclick="javascript:viewTask(<%=taskVO.getId() %>)"><br/><h3><%=taskVO.getName()%></h3><br/>in <%=taskVO.getDescription() %></div>
+    <div id="task" onclick="javascript:clicktask('<%=taskVO.getId() %>')">
+    	<br/><h3><%=taskVO.getName()%></h3>
+    	<br/>in <%=taskVO.getDescription() %>
+    	<br/>
+    <% if( taskVO.getStatus().equals("BLOCKED")){%>
+		<hr/>
+		<div class="task_status_blocked">
+			BLOCKED <i class="fa fa-lock" aria-hidden="true"></i>
+		</div>				
+	<% } else if ( taskVO.getStatus().equals("COMPLETE")) {%>
+	<hr/>
+		<div class="task_status_complete">
+			COMPLETE <i class="fa fa-check" aria-hidden="true"></i>
+		</div> 
+	<% } %>
+    </div>
     <form id = "taskview<%=taskVO.getId() %>" action = "taskview.do" hidden>
 		<input type = hidden name = "task_id" value = "<%=taskVO.getId() %>">
 		<input type = hidden name = "board_name" value = "<%=taskVO.getDescription()%>">
@@ -189,6 +214,25 @@ function clickcancel() {
 	window.location.reload();
 }
 </script>
+<!-- TASK클릭 시 함수 -->
+<script>
+function clicktask(id) {/* 
+	window.open("./taskview.do?task_id=" + id,
+			"TASK",
+			"resizeable = yes, menubar=no, width = 470, height = 800, left = 10, right = 10"); */
+	$("#taskViewArea2").load("taskview.do",{
+		task_id:id
+	});
+	$("#myModal2").modal();
+}
+function updatesectioninboard(cnt) {
+	document.getElementById("updatesectioninboard" + cnt).submit();
+}
 
+function deletesectioninboard(cnt) {
+	document.getElementById("deletesectioninboard" + cnt).submit();
+}
+
+</script>
 </body>
 </html>
