@@ -231,8 +231,8 @@ function showRefBoard(){
 	</div>
 	
 	
-	<div class="container-fluid" style="background-color:#1294AB">
-		<div class = "row" style="padding-top:10px"> 
+	<div class="container-fluid " style="background-color:#1294AB; position:fixed;">
+		<div class = "row" style="padding-top:30px"> 
 			<div class = "col-xs-4 col-sm-offset-2 col-sm-7" style = " font-family: Montserrat, sans-serif;" align=right>
 			    <div class = "navbar" id = "filtering">
 					<input type="checkbox" class="filter" id="chk_duedate" name="due" value="FALSE" onclick="javascript:filterResult(this)"/>
@@ -241,7 +241,7 @@ function showRefBoard(){
 			</div>
 			<div class = "col-xs-2 col-sm-2">
 				<div class="input-group form" >		
-					<input type="text" name="keyword" id="keyword" class="form-control" placeholder="검색할 TASK 입력" style="width:200px">
+					<input type="text" name="keyword" id="keyword" class="form-control" placeholder="검색할 TASK 입력" style="width:170px">
 					<input type="hidden" name="written_keyword" id="written_keyword" value=""/>
 					<input type ="hidden" name="board_id" value="<%=boardVO.getId()%>" />
 					<div class="input-group-btn">
