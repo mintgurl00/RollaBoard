@@ -55,7 +55,7 @@ if(session.getAttribute("id") == null) {
       }
       
       #frame{position:absolute; padding:10px; border-radius:4px; width:500px;height:750px; overflow:auto; background-color:#A2B1DA; margin-right: 10px; text-align:center}
-	  #content{border-radius:4px; width:400px; height:150px; background-color:#FFFFFF; margin-left:50px;text-align:left}
+	  #content{border-radius:4px; width:400px; height:250px; background-color:#FFFFFF; margin-left:50px;text-align:left}
 	  #button{margin-top:20px}
 </style>
 
