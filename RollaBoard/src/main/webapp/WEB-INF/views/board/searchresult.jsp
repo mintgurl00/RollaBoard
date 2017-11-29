@@ -69,9 +69,12 @@ function createtask(cnt) {
 }
 </script>
 <style>
-.glyphicon.glyphicon-plus-sign {
-    font-size: 50px;
+.fa.fa-plus-circle {
+	font-size: 30px;
+	color: #ABABAB;
+	padding:20px;
 }
+
 </style>
 <link href="css/task.css" rel="stylesheet" type="text/css" >
 <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
@@ -106,10 +109,12 @@ for( int i = 0 ; i < sectionSize ; i++ ){
 %>
 
 <div class="section_wrapper">
-<div id="section">
+<div id="section" style="text-align:left">
 	<!-- 섹션 표시줄 -->
 	<div class = "row origin<%=sectionList.get(i).getId() %>" style = "display:block; cursor:pointer" <%if ( id.equals(boardVO.getAdmin()) ) {%> onclick = "javascript:flip(<%=sectionList.get(i).getId() %>)" <%} %>>
-		<h4><b><%=sectionList.get(i).getName() %></b></h4>
+		<div style="padding-top:10px; padding-left:30px; padding-bottom:15px">
+			<h5><b><%=sectionList.get(i).getName() %></b></h5>
+		</div>
 	</div>
 	<%if ( id.equals(boardVO.getAdmin()) ) {%>
 		<div class = "row nameview<%=sectionList.get(i).getId() %>" style = "display:none">
@@ -130,7 +135,6 @@ for( int i = 0 ; i < sectionSize ; i++ ){
 		</form>
 		</div>
 	<%} %>
-	<hr/>
 	<!-- 태스크 표시 -->
 	<%
 	for( int j = 0 ; j < taskViewList.get( i ).size() ; j++ ){
@@ -140,8 +144,8 @@ for( int i = 0 ; i < sectionSize ; i++ ){
 		class="task <%=status %>" 
 		onclick="javascript:clicktask('<%=taskViewList.get( i ).get( j ).getId() %>')">
 
-			<div class="task_title">
-				<span style = "font-family: Montserrat, sans-serif;"><%=taskViewList.get( i ).get( j ).getName() %></span>
+			<div class="task_title" style="text-align:left;padding-bottom:10px">
+				<span style = "font-family: Montserrat, sans-serif; font-size:15"><b><%=taskViewList.get( i ).get( j ).getName() %></b></span>
 			</div>
 			
 			
@@ -149,8 +153,7 @@ for( int i = 0 ; i < sectionSize ; i++ ){
 			<%
 			if( roleAndTaskList.get( i ).get( j ) != null && roleAndTaskList.get( i ).get( j ).size() > 0 ){ %>
 				<div class="allocated_area">
-				<hr/>
-				<div align = "right">
+				<div align = "left">
 				<%
 				for( int k = 0 ; k < roleAndTaskList.get( i ).get( j ).size() ; k++ ){%>
 					<span class="badge role_badge">
@@ -203,7 +206,10 @@ for( int i = 0 ; i < sectionSize ; i++ ){
 		<input type="hidden" name="section_id" value = "<%=sectionList.get(i).getId() %>" required></input>
 		<%-- <input type="hidden" name="task_id" value = "<%= %>" required></input> --%>
 		
-		<a href="javascript:createtask(<%=sectionList.get(i).getId()%>)"><span class="glyphicon glyphicon-plus-sign"></span></a>	
+		<div style="text-align:center">
+			<a href="javascript:createtask(<%=sectionList.get(i).getId()%>)"><i class="fa fa-plus-circle" aria-hidden="true"></i></a>	
+		</div>
+		
 	    
 	</form>
 
@@ -219,7 +225,8 @@ if( keyword.equals( "" ) ){	// 검색 결과가 *아니*라면
 	if ( id.equals(boardVO.getAdmin()) ) {%>
 	<div class="section_wrapper">
 		<div id="section">
-			<button type="button" class = "btn btn-info" onclick="location.href='createsectioninboard.do';">추가+</button>
+			
+			<a href="createsectioninboard.do"><i class="fa fa-plus-circle" aria-hidden="true"></i></a>
 		</div>
 	</div>
 <%	} 
