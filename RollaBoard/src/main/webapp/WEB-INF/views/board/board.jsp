@@ -268,6 +268,7 @@ function showRefBoard(){
 	<div id="content_ref">
 	</div>
 </div>
+
 <!-- Modal창으로 회원정보수정 출력 -->
 <div id="updateMember" class="w3-modal">
 	<div class="w3-modal-content w3-animate-top w3-card-4" style = "max-width:550px">

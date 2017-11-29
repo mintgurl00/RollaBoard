@@ -10,7 +10,7 @@ if(session.getAttribute("id") == null) {
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <title>newboard</title>
+  <title>NewWorkboard</title>
   <meta charset="utf-8" Encoding = "UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
@@ -23,8 +23,8 @@ if(session.getAttribute("id") == null) {
 
 <div class="jumbotron" style = "background-color: orange;">
   <div class="container text-center">
-    <h1><font color="white">Start Board</font></h1>      
-    <p><font color="white">새로운 Board를 만들거나 기존의 Board에 참가해보세요!</font></p>
+    <h1><font color="white">Workboard</font></h1>      
+    <p><font color="white">새로운 Workboard를 만들거나 기존의 Workboard에 참가해보세요!</font></p>
     
   </div>
 </div>
@@ -35,7 +35,7 @@ if(session.getAttribute("id") == null) {
 		<div class = "thumbnail">
 			<a href ="createboardform.do"> <!-- 수민 -->
 			<img src = "image/light.jpg">
-			<center><h2>새 board 생성</h2></center>
+			<center><h2>Workboard 생성</h2></center>
 
 			</a>
 		</div>
@@ -45,7 +45,7 @@ if(session.getAttribute("id") == null) {
 		<div class = "thumbnail">	
 			<a href ="enterboard.do">
 			<img src = "image/people.jpg" alt = "ENTER BOARD" height = 700>
-			<center><h2> BOARD 입장</h2></center>
+			<center><h2>Workboard 입장</h2></center>
 			</a>
 		</div>
 	</div>
