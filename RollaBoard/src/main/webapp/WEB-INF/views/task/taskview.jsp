@@ -83,7 +83,7 @@ if(session.getAttribute("id") == null) {
       .completeCancelBtn:hover {background-color:orange;color:white;border-radius: 12px;}
       .blockedBtn:hover {background-color:black;color:white;border-radius: 12px;}
       #frame{position:absolute; padding:10px; border-radius:4px; width:600px;height:600px; overflow:auto; background-color:#A2B1DA; margin-right: 10px; text-align:center}
-	  #content{border-radius:4px; width:500px; height:120px; background-color:#FFFFFF;margin-left:50px;text-align:left}
+	  #content{border-radius:4px; width:500px; height:120px; background-color:#FFFFFF; margin-left:50px;text-align:left}
 	  #button{margin-top:20px}
 </style>
 
