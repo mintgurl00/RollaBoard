@@ -53,6 +53,11 @@
 	font-size:20px;
 	margin-left:10px;
 }
+
+.glyphicon.glyphicon-cog:hover {
+	color:black;
+}
+
 </style>
 <script src="js/board.js"></script>
 

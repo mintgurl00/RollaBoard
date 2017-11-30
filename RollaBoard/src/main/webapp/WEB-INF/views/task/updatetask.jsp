@@ -41,7 +41,7 @@ if (taskVO.getLocation() == null) {
 %>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <style>
-#frame{position:absolute; padding:10px; border-radius:4px; width:600px;height:695px; overflow:auto; background-color:#A2B1DA; margin-right: 10px; text-align:center} 
+#frame{position:absolute; padding:10px; border-radius:4px; width:600px;height:695px; overflow:auto; background-color:whitesmoke; margin-right: 10px; text-align:center} 
 #content{border-radius:4px; width:500px; height:120px; background-color:#FFFFFF;text-align:left}
 #button{margin-top:20px}
 </style>

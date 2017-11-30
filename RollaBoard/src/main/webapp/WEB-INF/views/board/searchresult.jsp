@@ -75,12 +75,19 @@ function clickModalcancel(cnt) {
 	// window.location.reload();
 }
 </script>
+
 <style>
 .fa.fa-plus-circle {
 	font-size: 30px;
 	color: #ABABAB;
 	padding:20px;
 }
+
+.fa.fa-plus-circle:hover {
+	color: black;
+}
+
+
 
 </style>
 <link href="css/task.css" rel="stylesheet" type="text/css" >
@@ -125,7 +132,7 @@ for( int i = 0 ; i < sectionSize ; i++ ){
 <div id="section" style="text-align:left">
 	<!-- 섹션 표시줄 -->
 	<div class = "row origin<%=sectionList.get(i).getId() %>" style = "display:block; cursor:pointer" <%if ( id.equals(boardVO.getAdmin()) ) {%> onclick = "javascript:flip(<%=sectionList.get(i).getId() %>)" <%} %>>
-		<div style="padding-top:10px; padding-left:30px; padding-bottom:15px">
+		<div style="padding-top:10px; padding-left:30px; padding-bottom:15px" onMouseover="this.style.color='#1294AB';" onMouseout="this.style.color='black';">
 			<h5><b><%=sectionList.get(i).getName() %></b></h5>
 		</div>
 	</div>
