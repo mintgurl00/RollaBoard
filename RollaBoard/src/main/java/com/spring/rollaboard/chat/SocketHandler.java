@@ -44,7 +44,7 @@ public class SocketHandler extends TextWebSocketHandler {
 		sessionSet.add( session ) ;
 		this.logger.info( "Add Session! : " + session.getAttributes() ) ;
 		/*
-		// 테스트
+		// 테스트2
 		// 메시지 배포
 		for( WebSocketSession client_session : this.sessionSet ) {
 			if( client_session.isOpen() ){
