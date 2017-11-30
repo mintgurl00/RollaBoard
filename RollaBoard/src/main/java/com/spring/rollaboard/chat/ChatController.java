@@ -85,11 +85,11 @@ public class ChatController {
     	ModelAndView result = new ModelAndView();
     	
     	// 01 chId를 보고 현재 접속한 방을 업데이트한다.
-    	session.setAttribute("chId", chId);
+    	//session.setAttribute("chId", chId);
     	
     	
     	
-    	
+    	result.addObject("chId", chId);
     	result.setViewName("chat/chatroom");
         return result;
     }
