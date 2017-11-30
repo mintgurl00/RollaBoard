@@ -15,7 +15,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.spring.rollaboard.board.BoardDAOService;
 import com.spring.rollaboard.chat.list.ChatListDAOService;
-import com.spring.rollaboard.chat.list.ChatListVO;
+import com.spring.rollaboard.chat.list.ChatListVO2;
 import com.spring.rollaboard.chat.mem.ChatMemDAOService;
 import com.spring.rollaboard.chat.mem.ChatMemVOEx;
 import com.spring.rollaboard.chat.msg.MessageDAOService;
@@ -79,7 +79,7 @@ public class ChatController {
     	int boardId = Integer.parseInt((String) session.getAttribute("board_id"));
     	System.out.println("memId:" + memId + ", boardId:" + boardId/* + ", chId:" + chId*/);
     	// 03 채팅룸 리스트를 불러와(내게 맞는)
-    	ArrayList<ChatListVO> chatList = chatListDAOService.getChatList(memId, boardId);
+    	ArrayList<ChatListVO2> chatList = chatListDAOService.getChatList2(memId, boardId);
     	
     	// 04 채팅룸 리스트를 전달
     	result.addObject("chatList", chatList);
@@ -100,11 +100,11 @@ public class ChatController {
     	ArrayList<MessageVO> oldMessageList = messageDAOService.getMessageList(chId);
     	
     	// 03 사용자 맵핑 자료.
-    	//ArrayList<ChatMemVOEx> ChatMemListEx = chatMemDAOService
-    	
+    	ArrayList<ChatMemVOEx> chatMemListEx = chatMemDAOService.getChatMemExList(chId);
     	
     	// ...를 전달
     	result.addObject("oldMessageList", oldMessageList);
+    	result.addObject("chatMemListEx", chatMemListEx);
     	result.addObject("chId", chId);
     	result.setViewName("chat/chatroom");
         return result;

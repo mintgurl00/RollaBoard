@@ -1,13 +1,16 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-
+<%@ page import="java.util.*"%>
+<%@ page import="com.spring.rollaboard.chat.msg.MessageVO"%>
+<%@ page import="com.spring.rollaboard.chat.mem.ChatMemVOEx"%>
 <%
-/* int chId = Integer.parseInt(request.getParameter("chId").toString()); */
+ArrayList<MessageVO> oldMessageList = (ArrayList<MessageVO>) request.getAttribute("oldMessageList");
+ArrayList<ChatMemVOEx> chatMemListEx = (ArrayList<ChatMemVOEx>) request.getAttribute("chatMemListEx");
 %>
 <h3>${chId}</h3>
 채팅의 방
-<input type="text" id="input" /> <button id="send">전송</button>
+<input type="text" id="input" /> <button id="sendBtn">전송</button>
 
 <script>
 //sw = new WebSocket( "ws://localhost:8080/rollaboard/broadcasting" ) ;
@@ -23,6 +26,10 @@ $(document).ready(function(){
 			return false;
 		}
 	});
+	//전송버튼
+	$("#sendBtn").on("click",function(){
+		send($("#input").val());
+	})
 });
 
 function send(text){

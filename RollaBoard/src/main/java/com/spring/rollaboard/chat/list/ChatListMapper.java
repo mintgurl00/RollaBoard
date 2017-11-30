@@ -7,6 +7,7 @@ import org.apache.ibatis.annotations.Param;
 public interface ChatListMapper {
 
 	public ArrayList<ChatListVO> getChatList(@Param("memId") String memId, @Param("boardId") int boardId);
+	public ArrayList<ChatListVO2> getChatList2(@Param("memId") String memId, @Param("boardId") int boardId);
 
 	public void createChatList(ChatListVO chatListVO);
 	public void updateChatList(ChatListVO chatListVO);

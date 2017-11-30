@@ -24,7 +24,7 @@ w.onerror = function( e ) {
 }
 
 window.onload = function() {
-	document.getElementById("send_button").onclick = function(){
+/*	document.getElementById("send_button").onclick = function(){
 		if( document.getElementById( "nickname" ).value == "" ){
 			alert( "별명을 입력하세요" ) ;
 		} else {
@@ -33,7 +33,7 @@ window.onload = function() {
 			//w.send( nickname + "> " + input ) ;
 			w.send( nickname + ", " + input ) ;	//☆★메시지를 전송하는 부분☆★
 		}
-	}
+	}*/
 }
 
 /////////////////////////////////////////////////////////////////////////// 연결부 끝
