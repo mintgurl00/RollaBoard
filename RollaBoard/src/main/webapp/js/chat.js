@@ -1,13 +1,8 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<!DOCTYPE html>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+/*
+ * 웹 소켓 연결 
+ * */
 
-<html>
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>웹 소켓</title>
 
-<script type="text/javascript">
 
 var log =function(s) {	// 메시지를 받았을 때 받은 메시지로 뭘 할지
 	document.getElementById( "output" ).textContent += ( s + "\n" ) ;
@@ -41,19 +36,4 @@ window.onload = function() {
 	}
 }
 
-</script>
-
-</head>
-<body>
-<h3>${sessionScope.id}</h3>
-<input type="text" id="input" placeholder="input message..." size="55" />
-
-<button id="send_button">Send</button>
-대화명<input type="text" id="nickname" placeholder="대화명 입력" size="10">
-<p />
-<textarea id="output" readonly rows="30" cols="80"></textarea>
-
-
-
-</body>
-</html>
+///////////////////////////////////////////////////////////////////////////

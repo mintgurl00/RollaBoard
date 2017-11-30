@@ -10,6 +10,7 @@ public class ChatRoomVO {
 	private String description;
 	private int boardId;
 	private String visibility;
+	private String type;
 	private String creMemId;
 	public int getId() {
 		return id;
@@ -46,6 +47,12 @@ public class ChatRoomVO {
 	}
 	public void setCreMemId(String creMemId) {
 		this.creMemId = creMemId;
+	}
+	public String getType() {
+		return type;
+	}
+	public void setType(String type) {
+		this.type = type;
 	}
 	
 	

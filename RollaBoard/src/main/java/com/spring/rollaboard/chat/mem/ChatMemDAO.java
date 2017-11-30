@@ -3,13 +3,6 @@ package com.spring.rollaboard.chat.mem;
 import com.spring.rollaboard.chat.list.ChatListVO;
 
 public interface ChatMemDAO {
-	//public ArrayList<SectionVO> getSections(int board_id);
-
-	//public SectionVO getSection(int id);
-	
-	//public String getMaxSeqNum(int board_id);
-
-	//public void createSection(SectionVO sectionVO);
 	
 	// 사용자 조작
 	public void addChatMem(int chId, String memId);	// 채팅 멤버 초대(사람id)

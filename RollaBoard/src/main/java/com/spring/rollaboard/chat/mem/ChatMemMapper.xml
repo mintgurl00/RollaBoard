@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.spring.rollaboard.chat.mem.ChatMemMapper">
+
+<!-- 	<resultMap type="ChatMemVO" id="ChatMemResultMap">
+	</resultMap> -->
+	
+	<!-- createChatMem -->
+	<insert id="createChatMem" parameterType="map">
+		INSERT INTO chat_mem0(ch_id, mem_id, role_id)
+		<if test="memId != null">
+			VALUES(#{chId}, #{memId}, 0)
+		</if>
+		<if test="roleId != 0">
+			VALUES(#{chId}, 0 ,#{roleId})
+		</if>
+	</insert>
+	
+	<!-- deleteChatMem -->
+	<delete id="deleteChatMem" parameterType="map">
+		DELETE FROM chat_mem0 
+		WHERE ID=#{id} 
+		<if test="memId != null">
+			AND memId=#{memId}
+		</if>
+		<if test="roleId != 0">
+			AND roleId=#{roleId}
+		</if>
+	</delete>
+	
+</mapper>
