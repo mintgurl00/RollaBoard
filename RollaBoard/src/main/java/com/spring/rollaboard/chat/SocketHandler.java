@@ -61,15 +61,6 @@ public class SocketHandler extends TextWebSocketHandler {
 			}
 		}*/
 	}
-
-/*
-	@Override
-	protected void handleTextMessage(WebSocketSession session, TextMessage message) throws Exception {
-		log("핸들텍스트메시지"+message.getPayload());
-		Map<String,Object> map = session.getAttributes();
-		String userId = (String) map.get("id");
-		System.out.println("로그인 한 아이디 : " + userId);
-	}*/
 	// 클라이언트에서 send를 이용해서 메시지 발송을 한 경우 이벤트 핸들링
 	// 메시지를 받았다고 그러니까
 	@Override
@@ -78,12 +69,12 @@ public class SocketHandler extends TextWebSocketHandler {
 		// 그 메시지로 뭘 할까?
 		Map<String,Object> map = session.getAttributes();
 		String userId = (String) map.get("id");	// 일단 아이디를 추출했어.
-		int chId = Integer.parseInt((String)map.get("chId"));		
+		int chId = Integer.parseInt(map.get("chId").toString());
 		
 		// 예쁘게 분해. 진짜 메시지와 채팅방번호
 		//this.logger.info("메시지" + message.getPayload().toString() );
 		log("메시지 받음. : " + message.getPayload().toString());
-		log("세션에 있는건가 이거? : " + userId );
+		log("userId:" + userId + ", chId:" + chId);
 		
 		// 메시지 배포
 		for( WebSocketSession client_session : this.sessionSet ) {

@@ -9,6 +9,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -79,10 +80,17 @@ public class ChatController {
     }
 	
 	// 본격적인 채팅 룸
-	@RequestMapping("chatroom.so")
-    public ModelAndView chatRoom(HttpServletRequest request) {
+	@RequestMapping("/chat/{chId}")
+    public ModelAndView chatRoom(@PathVariable("chId") int chId, HttpServletRequest request, HttpSession session) {
     	ModelAndView result = new ModelAndView();
-    	result.setViewName("chat/client_chat");
+    	
+    	// 01 chId를 보고 현재 접속한 방을 업데이트한다.
+    	session.setAttribute("chId", chId);
+    	
+    	
+    	
+    	
+    	result.setViewName("chat/chatroom");
         return result;
     }
 }
