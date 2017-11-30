@@ -42,7 +42,19 @@ public class SocketHandler extends TextWebSocketHandler {
 		super.afterConnectionEstablished(session);
 		
 		sessionSet.add( session ) ;
-		this.logger.info( "Add Session!" ) ;
+		this.logger.info( "Add Session! : " + session.getAttributes() ) ;
+		/*
+		
+		// 메시지 배포
+		for( WebSocketSession client_session : this.sessionSet ) {
+			if( client_session.isOpen() ){
+				try {
+					client_session.sendMessage("ㄴㄴㄴ");	// 전송
+				} catch ( Exception ignored ) {
+					this.logger.info( "Fail to send message!" , ignored );
+				}
+			}
+		}*/
 	}
 
 	// 클라이언트에서 send를 이용해서 메시지 발송을 한 경우 이벤트 핸들링
@@ -52,7 +64,7 @@ public class SocketHandler extends TextWebSocketHandler {
 		super.handleMessage(session, message);
 		// 그 메시지로 뭘 할까?
 		// 예쁘게 분해. 진짜 메시지와 채팅방번호
-		
+		this.logger.info("메시지" + message.getPayload().toString() );
 		// 메시지 배포
 		for( WebSocketSession client_session : this.sessionSet ) {
 			if( client_session.isOpen() ){
@@ -78,9 +90,6 @@ public class SocketHandler extends TextWebSocketHandler {
 	public boolean supportsPartialMessages() {
 		this.logger.info( "Call method!" ) ;
 		return false ;
-	}
-	
-	
-	
+	}	
 
 }
