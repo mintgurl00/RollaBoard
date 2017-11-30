@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class ChatListVO {
 
-	private String memId;
+	private String memId;	//PRIMARY KEY(mem_id, ch_id, board_id)
 	private int chId, board_id;
 	private String status;
 	private Date recentDate;
