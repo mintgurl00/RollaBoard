@@ -215,7 +215,7 @@ body {
       	<div class = "col-xs-9">
 	      	<form id = "updateRole<%=roleVO.getId() %>" action = "updaterole.do">
 		        <div class = "col-xs-3"  >
-		        <div class= "origin<%=roleVO.getId() %>" style = "display:block; cursor:pointer" onclick = "javascript:flip(<%=roleVO.getId() %>)">
+		        <div class= "origin<%=roleVO.getId() %>" style = "display:block; cursor:pointer" onMouseover="this.style.color='#1294AB';" onMouseout="this.style.color='black';" onclick = "javascript:flip(<%=roleVO.getId() %>)">
 		        	<%=roleVO.getName() %>
 		        </div>
 		        	<input type = "text" id = "focus<%=roleVO.getId() %>" class = "byteLimit nameview<%=roleVO.getId() %> form-control" 
@@ -256,18 +256,18 @@ body {
   <br/>
   <form id = "createRole" action = "createrole.do">
   	<div class="form-group">
-      <label class="control-label col-xs-2 col-sm-2" for="text">이름 </label>
-      <div class="col-xs-10 col-sm-4">
-        <input type="text" class = "byteLimit form-control" limitbyte="20" name = "name" placeholder = "추가할 ROLE의 이름 입력" required>
+      <label class="control-label col-xs-1 col-sm-1" for="text">이름 </label>
+      <div class="col-xs-7 col-sm-3">
+        <input type="text" class = "byteLimit form-control" limitbyte="20" name = "name" placeholder = "추가할 ROLE의 이름 입력" style="width:150px" required>
       </div>
     </div>
     <div class="form-group">
-      <label class="control-label col-xs-2 col-sm-2" for="text">설명 </label>
-      <div class="col-xs-10 col-sm-4">
+      <label class="control-label col-xs-1 col-sm-1" for="text">설명 </label>
+      <div class="col-xs-8 col-sm-3">
         <input type="text" class = "byteLimit form-control" limitbyte="100" name = "description" placeholder = "추가할 ROLE의 설명 입력">
       </div>
     </div>
-  	<center><input type = submit class = "btn btn-default" value = "추가"></center>
+  	<input type = submit class = "btn btn-default" value = "추가" style="margin-left:110px">
   </form>
 </div>
 </body>

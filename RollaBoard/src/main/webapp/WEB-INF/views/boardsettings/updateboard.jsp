@@ -163,6 +163,10 @@ body {
 	  -moz-border-radius: 5px;
 	  border-radius: 10px;
   }
+  
+  .btn.btn-info {
+  	background-color:#1294AB;
+  }
 </style>
 
 <script>

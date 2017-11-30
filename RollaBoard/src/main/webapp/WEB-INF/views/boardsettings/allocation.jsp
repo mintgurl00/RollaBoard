@@ -144,8 +144,7 @@ body {
 	<div class = "page-header">
 		<h2>ROLE 배정</h2>
 		<p>ROLE에 MEMBER를 배정하세요.</p>
-	</div>
-  <p>ROLE에 MEMBER를 배정하세요.</p>            
+	</div>        
   <table class="table table-striped">
     <thead>
       <tr>
@@ -162,7 +161,7 @@ body {
         <td>
         	<form id = "insertMemToRole" action = "insertmemtorole.do">
         		<input type = "hidden" name = "role_id" value = "<%=roleVO.getId() %>" >
-	        	<input type = "text" class = "form-control" name = "mem_id" placeholder = "맴버아이디 입력" required>
+	        	<input type = "text" class = "form-control" name = "mem_id" placeholder = "맴버아이디 입력" style="width:300px" required>
 	       		<input type = submit class = "btn btn-info" value = "배정" >
        		</form>
         </td>
