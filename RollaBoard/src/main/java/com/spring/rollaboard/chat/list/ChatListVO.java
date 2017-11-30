@@ -9,7 +9,7 @@ public class ChatListVO {
 
 	private String memId;	//PRIMARY KEY(mem_id, ch_id, board_id)
 	private int chId, board_id;
-	private String status;
+	private String visibility, status;
 	private Date recentDate;
 	
 	public String getMemId() {
@@ -42,4 +42,11 @@ public class ChatListVO {
 	public void setRecentDate(Date recentDate) {
 		this.recentDate = recentDate;
 	}
+	public String getVisibility() {
+		return visibility;
+	}
+	public void setVisibility(String visibility) {
+		this.visibility = visibility;
+	}
+	
 }

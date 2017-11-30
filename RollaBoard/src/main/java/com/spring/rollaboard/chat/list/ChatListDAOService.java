@@ -19,15 +19,34 @@ public class ChatListDAOService implements ChatListDAO {
 	}
 
 	@Override
-	public void removeChatList(ChatListVO chatListVO) {
+	public void removeChatList(int chId, String memId) {
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
-	public void updateChatList(ChatListVO chatListVO) {
+	public void hideChatList(int chId, String memId) {
 		// TODO Auto-generated method stub
 		
 	}
+
+	@Override
+	public void revealChatList(int chId, String memId) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void outChatList(int chId, String memId) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void inChatList(int chId, String memId) {
+		// TODO Auto-generated method stub
+		
+	}
+
 
 }
