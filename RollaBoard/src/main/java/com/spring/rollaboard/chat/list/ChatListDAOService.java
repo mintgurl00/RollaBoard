@@ -48,5 +48,11 @@ public class ChatListDAOService implements ChatListDAO {
 		
 	}
 
+	@Override
+	public void readChatList(int chId, String memID) {
+		// TODO Auto-generated method stub
+		
+	}
+
 
 }

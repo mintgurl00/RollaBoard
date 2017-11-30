@@ -17,8 +17,10 @@ public interface ChatListDAO {
 	public void revealChatList(int chId, String memId);	// 채팅룸 숨김 해제 
 	
 	// 내부 접근
-	public void outChatList(int chId, String memId);	// 추방(?) 처리
-	public void inChatList(int chId, String memId);	// (다시)초대 처리
+	public void outChatList(int chId, String memId);	// 추방됨(?) 처리
+	public void inChatList(int chId, String memId);	// (다시)초대됨 처리
+	
+	public void readChatList(int chId, String memID);	// 읽기. 마지막으로 읽은 시간 갱신
 	//public void updateChatRoom(ChatRoomVO chatRoomVO);
 	
 }

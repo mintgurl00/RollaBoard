@@ -3,7 +3,7 @@ package com.spring.rollaboard.chat.mem;
 import org.springframework.stereotype.Component;
 
 @Component
-public class ChatMemberVO {
+public class ChatMemVO {
 	
 	private int chId, roleId;
 	private String memId;
