@@ -7,10 +7,16 @@ import org.springframework.stereotype.Component;
 @Component
 public class ChatListVO {
 
-	private String memId;	//PRIMARY KEY(mem_id, ch_id, board_id)
+	private String memId;	//PRIMARY KEY(mem_id, ch_id)
 	private int chId, board_id;
 	private String visibility, status;
 	private Date recentDate;
+	
+	public ChatListVO(){}
+	public ChatListVO(String memId, int chId){
+		this.memId = memId;
+		this.chId = chId;
+	}
 	
 	public String getMemId() {
 		return memId;
@@ -47,6 +53,11 @@ public class ChatListVO {
 	}
 	public void setVisibility(String visibility) {
 		this.visibility = visibility;
+	}
+	public ChatListVO setKey(String memId, int chId){
+		this.memId = memId;
+		this.chId = chId;
+		return this;
 	}
 	
 }

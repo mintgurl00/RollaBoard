@@ -9,13 +9,14 @@
 		<result property="description" column="DESCRIPTION"/>
 		<result property="boardId" column="BOARD_ID"/>
 		<result property="visibility" column="VISIBILITY"/>
+		<result property="type" column="TYPE"/>
 		<result property="creMemId" column="CRE_MEM_ID"/>
 	</resultMap>
 	
 	<!-- createChatRoom -->
 	<insert id="createChatRoom" parameterType="com.spring.rollaboard.chat.room.ChatRoomVO">
-		INSERT INTO chatroom0 (id, name, description, board_id, visibility, cre_mem_id) 
-		VALUES (SEQ_CH.NEXTVAL, #{name}, #{description}, #{boardId}, #{visibility}, #{creMemId})
+		INSERT INTO chatroom0 (id, name, description, board_id, visibility, type, cre_mem_id) 
+		VALUES (SEQ_CH.NEXTVAL, #{name}, #{description}, #{boardId}, #{visibility}, #{type}, #{creMemId})
 	</insert>
 	
 	<!-- deleteChatRoom -->
@@ -26,7 +27,7 @@
 	<!-- updateChatRoom -->
 	<update id="updateChatRoom" parameterType="com.spring.rollaboard.chat.room.ChatRoomVO">
 		UPDATE chatroom0 
-		SET name=#{name}, description=#{description}, board_id=#{boardId}, visibility=#{visibility} 
+		SET name=#{name}, description=#{description}, board_id=#{boardId}, visibility=#{visibility}, type=#{type} 
 		WHERE id=#{id}
 	</update>
 	

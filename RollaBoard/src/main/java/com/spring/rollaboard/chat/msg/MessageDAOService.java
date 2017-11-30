@@ -6,6 +6,9 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.spring.rollaboard.chat.mem.ChatMemMapper;
+import com.spring.rollaboard.section.SectionVO;
+
 @Service
 public class MessageDAOService implements MessageDAO {
 	
@@ -14,13 +17,15 @@ public class MessageDAOService implements MessageDAO {
 
 	@Override
 	public ArrayList<MessageVO> getMessageList(int chId) {
-		// TODO Auto-generated method stub
-		return null;
+		ArrayList<MessageVO> messageList = new ArrayList<MessageVO>() ;
+		MessageMapper messageMapper = sqlSession.getMapper( MessageMapper.class ) ;
+		messageList = messageMapper.getMessageList(chId);
+		return messageList;
 	}
 
 	@Override
 	public void insertMessage(MessageVO messageVO) {
-		// TODO Auto-generated method stub
-		
+		MessageMapper messageMapper = sqlSession.getMapper( MessageMapper.class ) ;
+		messageMapper.insertMessage(messageVO);
 	}
 }
