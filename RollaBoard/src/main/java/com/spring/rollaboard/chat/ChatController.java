@@ -16,6 +16,10 @@ import org.springframework.web.servlet.ModelAndView;
 import com.spring.rollaboard.board.BoardDAOService;
 import com.spring.rollaboard.chat.list.ChatListDAOService;
 import com.spring.rollaboard.chat.list.ChatListVO;
+import com.spring.rollaboard.chat.mem.ChatMemDAOService;
+import com.spring.rollaboard.chat.mem.ChatMemVOEx;
+import com.spring.rollaboard.chat.msg.MessageDAOService;
+import com.spring.rollaboard.chat.msg.MessageVO;
 import com.spring.rollaboard.cmt.CmtDAOService;
 import com.spring.rollaboard.mem.MemDAOService;
 import com.spring.rollaboard.role.RoleDAOService;
@@ -37,9 +41,13 @@ public class ChatController {
 	private TaskDAOService taskDAOService;
 	@Autowired
 	private BoardDAOService boardDAOService;
-	
+
 	@Autowired
 	private ChatListDAOService chatListDAOService;
+	@Autowired
+	private MessageDAOService messageDAOService;
+	@Autowired
+	private ChatMemDAOService chatMemDAOService;
 	
 	private static final Logger logger = LoggerFactory.getLogger(ChatController.class);
 	
@@ -84,11 +92,19 @@ public class ChatController {
     public ModelAndView chatRoom(@PathVariable("chId") int chId, HttpServletRequest request, HttpSession session) {
     	ModelAndView result = new ModelAndView();
     	
-    	// 01 chId를 보고 현재 접속한 방을 업데이트한다.
+    	// 00 세션체크...해야할지도
+    	// 01 chId를 보고 현재 접속한 방을 업데이트한다.(세션이나 쿠키에 올리는 거 나중에)
     	//session.setAttribute("chId", chId);
     	
+    	// 02 이제까지의 대화내용 불러오기
+    	ArrayList<MessageVO> oldMessageList = messageDAOService.getMessageList(chId);
+    	
+    	// 03 사용자 맵핑 자료.
+    	//ArrayList<ChatMemVOEx> ChatMemListEx = chatMemDAOService
     	
     	
+    	// ...를 전달
+    	result.addObject("oldMessageList", oldMessageList);
     	result.addObject("chId", chId);
     	result.setViewName("chat/chatroom");
         return result;

@@ -6,8 +6,6 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.spring.rollaboard.chat.room.ChatRoomMapper;
-
 @Service
 public class ChatMemDAOService implements ChatMemDAO {
 	
@@ -43,6 +41,14 @@ public class ChatMemDAOService implements ChatMemDAO {
 	public void removeAllChatMem(int chId) {
 		ChatMemMapper chatMemMapper = sqlSession.getMapper( ChatMemMapper.class ) ;
 		chatMemMapper.deleteChatMem(chId, null, 0);
+	}
+
+	@Override
+	public ArrayList<ChatMemVOEx> getChatMemExList(int chId) {
+		ChatMemMapper chatMemMapper = sqlSession.getMapper( ChatMemMapper.class ) ;
+		ArrayList<ChatMemVOEx> chatMemVOExList = new ArrayList<ChatMemVOEx>();
+		chatMemVOExList = chatMemMapper.getChatMemEx(chId);
+		return chatMemVOExList;
 	}
 
 }
