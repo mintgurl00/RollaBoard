@@ -167,7 +167,9 @@ CREATE TABLE chatroom0 (
     description VARCHAR2(500),
     board_id NUMBER, -- REFERENCES board(id) ON DELETE CASCADE
     visibility varchar2(10) default 'PUBLIC' not null 
-        CONSTRAINT chk_public CHECK ( visibility in ('PUBLIC', 'PRIVATE')),
+        CONSTRAINT chk_ch_visib CHECK ( visibility in ('PUBLIC', 'PRIVATE', 'PROTECTED')),
+    type varchar2(15) default 'MEM_CHN' not null 
+        CONSTRAINT chk_ch_type CHECK ( type in ('MEM_CHN', 'ROLE_CHN', 'MESSAGE')),
     cre_mem_id VARCHAR2(20)
 );
 SELECT * FROM chatroom0 ;
@@ -212,11 +214,13 @@ DROP TABLE chat_list0 ;
 CREATE TABLE chat_list0 (
     mem_id VARCHAR2(20), -- REFERENCES mem(id) ON DELETE CASCADE
     ch_id NUMBER, -- REFERENCES chatroom(id) ON DELETE CASCADE
-    board_id NUMBER, -- REFERENCES board(id) ON DELETE CASCADE
-    status VARCHAR2(15) default 'PUBLIC' not null 
-        CONSTRAINT chk_chlist CHECK ( status in ('VISIBLE', 'HIDDEN', 'OUT_VISIBLE', 'OUT_HIDDEN')),
-    recent_date DATE -- SYSTIMESTAMP
-);
+    visibility VARCHAR2(10) default 'VISIBLE'
+        CONSTRAINT chk_chlist_visib CHECK ( visibility in ('VISIBLE', 'HIDDEN') ),
+    status VARCHAR2(5) default 'IN'
+        CONSTRAINT chk_chlist_stat CHECK ( status in ('IN', 'OUT') ),
+    recent_date DATE, -- SYSTIMESTAMP
+    PRIMARY KEY(mem_id, ch_id)
+) ;
 SELECT * FROM chat_list0;
     
 -----------------------------------------------------------------------------------------------------------------------
