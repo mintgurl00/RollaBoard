@@ -187,10 +187,10 @@ function showRefBoard(){
 </script>
 </head>
 <body>
-	<nav style = "background-color:#1294AB; color: #fff !important; font-family: Montserrat, sans-serif; height:10px;">
+	<nav style = "background-color:#1294AB; color: #fff !important; font-family: Montserrat, sans-serif; position:fixed; padding-top:0px; z-index:10">
 	<div class="container-fluid" style = "background-color:#1294AB; background-color:rgba{0,0,0,0.5};"> 
-		<div class = "navbar-header" style="padding-top:10px; height:20px">
-			<a style = "color: #fff; padding-top:5px" class="navbar-brand" href="./dashboard.do" >ROLLA<br>BOARD</a>&nbsp;&nbsp;&nbsp;
+		<div class = "navbar-header" style="padding-top:5px; height:25px">
+			<a style = "color: #fff; padding-top:1px" class="navbar-brand" href="./dashboard.do" >ROLLA<br>BOARD</a>&nbsp;&nbsp;&nbsp;
 
 			<font size = "5px" color = "white"><%=boardVO.getName() %></font>
 			<% if (id.equals(boardVO.getAdmin())) {%>
@@ -231,17 +231,12 @@ function showRefBoard(){
 	</div>
 	
 	
-	<div class="container-fluid" style="background-color:#1294AB">
-		<div class = "row" style="padding-top:10px"> 
-			<div class = "col-xs-4 col-sm-offset-2 col-sm-7" style = " font-family: Montserrat, sans-serif;" align=right>
-			    <div class = "navbar" id = "filtering">
-					<input type="checkbox" class="filter" id="chk_duedate" name="due" value="FALSE" onclick="javascript:filterResult(this)"/>
-					<span>마감일순 보기</span>
-				</div>
-			</div>
-			<div class = "col-xs-2 col-sm-2">
-				<div class="input-group form" >		
-					<input type="text" name="keyword" id="keyword" class="form-control" placeholder="검색할 TASK 입력" style="width:200px">
+	<div style="background-color:#1294AB; height:65px;">
+		<div class = "row" style="padding-top:1px"> 
+	
+			<div style = "padding-right:30px;">
+				<div class="input-group form" style = " font-family: Montserrat, sans-serif;" align=right>		
+					<input type="text" name="keyword" id="keyword" class="form-control" placeholder="검색할 TASK 입력" style="width:170px">
 					<input type="hidden" name="written_keyword" id="written_keyword" value=""/>
 					<input type ="hidden" name="board_id" value="<%=boardVO.getId()%>" />
 					<div class="input-group-btn">
@@ -249,9 +244,12 @@ function showRefBoard(){
 			            <i class="glyphicon glyphicon-search" style = "font-size:20px"></i>
 			          </button>
 			        </div>
-				</div> 	
+				</div> 
+				<div id = "filtering" align = "right">
+					<input type="checkbox" class="filter" id="chk_duedate" name="due" value="FALSE" onclick="javascript:filterResult(this)"/>
+					<span>마감일순 보기</span>
+				</div>	
 			</div>
-			<div class = "col-sm-1"></div>	
 		</div>
 	</div>
 	</nav>

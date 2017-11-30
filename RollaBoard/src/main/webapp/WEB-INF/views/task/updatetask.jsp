@@ -31,8 +31,12 @@ if( preTaskVO != null )
 if( postTaskVO != null )
 	postTaskName = postTaskVO.getRefTaskName();
 
-
-
+if (taskVO.getDescription() == null) {
+	taskVO.setDescription("");
+}
+if (taskVO.getLocation() == null) {
+	taskVO.setLocation("");
+}
 
 %>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -184,7 +188,10 @@ function updating() {
 			</td>
 			<%} %>
 		</tr>
-		
+		<tr>
+			<td><b>위치정보:</b>
+			<td>
+				<input type = "text" id="location" name="location" placeholder="ex)서울시 강북구 월계로" class="byteLimit" limitbyte="30" value = "<%=taskVO.getLocation()%>">
 		<datalist id="taskNameList">
 			<%
 			for(int i = 0; i < taskIdList.size(); i++) {

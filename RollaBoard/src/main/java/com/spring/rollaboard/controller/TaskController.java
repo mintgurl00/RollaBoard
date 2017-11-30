@@ -127,7 +127,7 @@ public class TaskController {
     	ModelAndView result = new ModelAndView();
     	System.out.println("태스크에 배정할 롤 이름! : " + taskToRole);
     	System.out.println("업데이트할 task_id : " + taskVO.getId());
-    	
+    	System.out.println("로케이션 : " + taskVO.getLocation());
     	/*
     	 *  태스크 관계 처리하는 부분
     	 * */
@@ -214,7 +214,6 @@ public class TaskController {
 	@RequestMapping("inserttask.do")
 	public ModelAndView insertTask(String taskToRole, HttpSession session, TaskVO taskVO, HttpServletRequest request) {
 		System.out.println("만들 태스크의 이름 : " + taskVO.getName());
-
 		taskVO.setStatus("NORMAL");
 		// 태스크를 생성한다.
 		taskDAOService.createTask(taskVO);    	

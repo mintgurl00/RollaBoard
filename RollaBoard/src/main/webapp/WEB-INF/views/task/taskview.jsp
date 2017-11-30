@@ -15,11 +15,10 @@ if(session.getAttribute("id") == null) {
 	// 관계 태스크 보여주기 위한 기능
 	RefTaskVO preTaskVO = null, postTaskVO = null ;
 	preTaskVO = (RefTaskVO) request.getAttribute("preTaskVO");
-	postTaskVO = (RefTaskVO) request.getAttribute("postTaskVO");/* 
-	if(preTaskVO == null)
-		preTaskVO = new RefTaskVO(1);
-	if(postTaskVO == null)
-		postTaskVO = new RefTaskVO(1); */
+	postTaskVO = (RefTaskVO) request.getAttribute("postTaskVO");
+	if (taskVO.getDescription() == null) {
+		taskVO.setDescription("");
+	}
 %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -88,7 +87,7 @@ if(session.getAttribute("id") == null) {
       .completeBtn:hover {background-color:#4CAF50;color:white;border-radius: 12px;}
       .completeCancelBtn:hover {background-color:orange;color:white;border-radius: 12px;}
       .blockedBtn:hover {background-color:black;color:white;border-radius: 12px;}
-      #frame{position:absolute; padding:10px; border-radius:4px; width:600px;height:600px; overflow:auto; background-color:whitesmoke; margin-right: 10px; text-align:center; box-shadow: 1px 1px 5px #000; }
+      #frame{position:absolute; padding:10px; border-radius:6px; width:600px;height:600px; overflow:auto; background-color:whitesmoke; margin-right: 10px; text-align:center; box-shadow: 1px 1px 5px #000; }
 	  #content{border-radius:4px; width:500px; height:120px; background-color:#FFFFFF; margin-left:50px;text-align:left}
 	  #button{margin-top:20px}
 </style>
@@ -175,7 +174,7 @@ function locationview() {
 	<div id="completeArea" align = "right"></div>
 	<hr/>
 	<div style = "font-family: Montserrat, sans-serif;">
-		<b><textarea id="content" style = "font-family:Montserrat, sans-serif;resize:none;" readonly><%=taskVO.getDescription() %></textarea>
+		<b><textarea id="content" style = "font-family:Montserrat, sans-serif;resize:none; margin-left:10px;border:0" readonly><%=taskVO.getDescription() %></textarea>
 	</b>
 	</div>
 	<br/>
@@ -203,28 +202,37 @@ function locationview() {
 		</tr>
 		
 		
+		
 	<% if(preTaskVO != null || postTaskVO != null) { %>			
 		<% if(preTaskVO != null) { %>
 			<tr>
-				<td><b><span class="glyphicon glyphicon-arrow-left"> 선행TASK:</b></td>
+				<td><b><span class="glyphicon glyphicon-arrow-left"> 선행TASK :</b></td>
 				<td><%=preTaskVO.getRefTaskName() %></td>
 			</tr>
 		<% } %>		
 		<% if(postTaskVO != null) { %>	
 			<tr>
-				<td><b><span class="glyphicon glyphicon-arrow-right"> 후행TASK:</b></td>
+				<td><b><span class="glyphicon glyphicon-arrow-right"> 후행TASK :</b></td>
 				<td><%=postTaskVO.getRefTaskName() %></td>	
 			</tr>
 		<% } 
 	} %>
+	
+		<% if (taskVO.getLocation() != null) { %>
+			<tr>
+				<td><b><span class="glyphicon glyphicon-map-marker"> 위치 :</b></td>
+				<td><%=taskVO.getLocation() %> </td>
+			</tr>
+		<% } %>	
 		</tbody>		
 	</table>
+	
 	<!-- 수민 태스크 위치 추가 -->
 	<%
 	if (taskVO.getLocation() != null) {
 	%>
 	<a id = "taskLocationButton" href="javascript:locationview()" style = "display:block">
-      <span class="glyphicon glyphicon-map-marker" style = "font-size:20px">지도보기</span>
+      <span class="glyphicon glyphicon-map-marker" style = "font-size:15px">지도보기</span>
     </a>
 	<div id = "taskLocation" style = "display:none">
 		<div id="status">
@@ -241,7 +249,7 @@ function locationview() {
 	<%
 	}
 	%>
-	<div id="button">
+	<div id="button" style="margin-top:70px">
 
 	<%if (session.getAttribute("board_id") != null) {%>
 		<input type=button class = "btn btn-default" value="확인" onclick = "location.href='./board.do';">&nbsp;&nbsp;&nbsp;

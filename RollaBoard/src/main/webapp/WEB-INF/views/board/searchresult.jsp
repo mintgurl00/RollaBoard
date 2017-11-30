@@ -5,7 +5,7 @@
 <%@ page import="com.spring.rollaboard.section.SectionVO"%>
 <%@ page import="com.spring.rollaboard.role.RoleVO"%>
 <%@ page import="com.spring.rollaboard.role.RoleAndTaskVO"%>
-
+<%@ page import = "java.text.SimpleDateFormat"%>
 <%
 	// 세션 아이디 체크
 	if(session.getAttribute("id") == null) {
@@ -23,6 +23,8 @@
 <%
 	String board_id = (String) request.getAttribute( "board_id" ) ;
 	String keyword = (String) request.getAttribute( "keyword" ) ;
+	Date dt = new Date();
+	SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd"); 
 %>
 
 <!-- 
@@ -64,8 +66,13 @@ function flip(cnt) {
 		$('.origin' + cnt).css("display", "none" );
 	}
 }
-function createtask(cnt) {
-	document.getElementById("createtask" + cnt).submit();
+function createTask(cnt) {
+	document.getElementById('modalCreate' + cnt).style.display='block';
+}
+// TASK생성 캔슬클릭시
+function clickModalcancel(cnt) {
+	document.getElementById('modalCreate' + cnt).style.display='none';
+	// window.location.reload();
 }
 </script>
 <style>
@@ -78,7 +85,13 @@ function createtask(cnt) {
 </style>
 <link href="css/task.css" rel="stylesheet" type="text/css" >
 <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
-
+<link rel="stylesheet" type="text/css" href="css/reset.css" >
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet" type="text/css">
+<link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet" type="text/css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <!-- 결과 나오는 부분 -->
 
 <%
@@ -199,17 +212,44 @@ for( int i = 0 ; i < sectionSize ; i++ ){
 	
 	<!-- 새 태스크 추가 -->
 	<br />
-	<form id = "createtask<%=sectionList.get(i).getId() %>" action ="createtask.do" method = "post" >
+	<div id = "letsMakeTask" >
 
 		<input type="hidden" name="section_id" value = "<%=sectionList.get(i).getId() %>" required></input>
 		<%-- <input type="hidden" name="task_id" value = "<%= %>" required></input> --%>
 		
 		<div style="text-align:center">
-			<a href="javascript:createtask(<%=sectionList.get(i).getId()%>)"><i class="fa fa-plus-circle" aria-hidden="true"></i></a>	
+			<a href="javascript:createTask(<%=sectionList.get(i).getId()%>)"><i class="fa fa-plus-circle" aria-hidden="true"></i></a>	
 		</div>
 		
 	    
-	</form>
+	</div>
+	<!-- Modal창으로 새로운 TASK생성 -->
+	<div id="modalCreate<%=sectionList.get(i).getId()%>" class="w3-modal">
+		<div class="w3-modal-content w3-animate-top w3-card-4" style = "max-width:550px">
+			<header class="w3-container w3-teal">
+				<span onclick="javascript:clickModalcancel('<%=sectionList.get(i).getId()%>')" class="w3-button w3-display-topright">&times;</span>
+				<h3>TASK in <%=sectionList.get(i).getName() %></h3>
+				<p>TASK 생성 후에 수정을 통해 필요한 작업들을 추가로 진행하세요!</p>
+			</header>
+			<form class="w3-container" action="inserttask.do" method = "post">
+				<div class="w3-section">
+					<input type="hidden" id="section_id" name="section_id" value = <%=sectionList.get(i).getId() %> size="40">
+					<input type="hidden" name="status" value="NORMAL" />
+					<label>TASK 제목:</label>
+					<input type="text" id="name" placeholder="TASK 제목을 입력하시오." class = "w3-input w3-border w3-margin-bottom byteLimit" limitbyte="30"  name="name" required>
+					<input type="hidden" maxlength="100" id="description" class="byteLimit" limitbyte="100" name="description" >								     
+					<input type="date" id="start_date" placeholder="yyyy-mm-dd" class = "w3-input w3-border w3-margin-bottom" name ="start_date" value = "<%=sdf.format(dt).toString()%>" style = "display:none">       
+					<input type="date" id="due_date" placeholder="yyyy-mm-dd" class = "w3-input w3-border w3-margin-bottom" name = "due_date" value = "<%=sdf.format(dt).toString()%>" style = "display:none">
+					<input type="date" id="cre_date" placeholder="yyyy-mm-dd" class = "w3-input w3-border w3-margin-bottom" name = "cre_date" value = "<%=sdf.format(dt).toString()%>" style = "display:none">
+					<input type="hidden" id="priority" placeholder="1~5중에 하나를 입력해주세요" class = "w3-input w3-border w3-margin-bottom" name="priority" value = "3">
+					<label>위치정보:</label>
+					<input type="text" id="location" placeholder="ex)서울시 서초구 잠원동" class = "w3-input w3-border w3-margin-bottom" name="location">
+					<button type="submit" class="w3-button w3-block w3-green w3-section w3-padding"  style="background-color: green"><b>생성하기</b></button>
+					<button onclick="javascript:clickModalcancel('<%=sectionList.get(i).getId()%>')" type="button" class = "w3-button w3-block w3-red"><b>취소</b></button>
+				</div>
+			</form>
+		</div>
+	</div>
 
 </div>
 </div>
