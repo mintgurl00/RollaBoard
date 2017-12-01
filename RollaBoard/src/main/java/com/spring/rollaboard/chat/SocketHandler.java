@@ -51,12 +51,20 @@ public class SocketHandler extends TextWebSocketHandler {
 	public void afterConnectionClosed( WebSocketSession session , CloseStatus status ) throws Exception {
 		super.afterConnectionClosed(session, status);
 		
-		sessionSet.remove( session ) ;
-		String targetMemId sessionIdList.get(clientSession.getId());
-		
+		sessionSet.remove(session) ;
+		String targetMemId = sessionIdList.get(session.getId());
+		boolean isDuplicated = false ;
 		// 같은 멤버아이디가 있는 웹소켓세션이 하나도 없어야 정의로움에서 제거할 수 있다.
 		for(WebSocketSession clientSession : this.sessionSet){
-			sessionIdList.get(clientSession.getId()).equals()
+			if(sessionIdList.get(clientSession.getId()).equals(targetMemId)){
+				isDuplicated = true ; 
+				break ;
+			}
+		}
+		if(!isDuplicated){	// 중복이 아닌 경우
+			chatRoomList.remove(targetMemId);
+			currentChatRoomList.remove(targetMemId);
+			sessionIdList.remove(targetMemId);
 		}
 		
 		//this.logger.info( "Remove Session!" ) ;

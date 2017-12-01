@@ -6,6 +6,7 @@
 
 var log =function(s) {	// 메시지를 받았을 때 받은 메시지로 뭘 할지
 	document.getElementById( "output" ).textContent += ( s + "\n" ) ;
+	
 }
 
 w = new WebSocket( "ws://localhost:8080/rollaboard/broadcasting" ) ;
@@ -14,6 +15,18 @@ w.onopen = function() {
 }
 w.onmessage = function(e) {	// 메시지를 받았을 때
 	//받은 메시지를 예쁘게 바꿔야 한다.
+	// 01 메시지 분해
+	var txtData = e.data.toString().split("|&|");
+	// 02 처리
+	if(txtData.length == 3){	// 보통 메시지일 때
+		$("#chatTextArea").appen
+		
+	}else if(txtData.length == 2){	// 특수 메시지일 때
+		if(txtData[1] == "BADGE"){
+			
+		}
+	}
+	
 	log( e.data.toString() ) ;	// log함수에 받은 메시지를 전달
 }
 w.onclose = function(e) {
