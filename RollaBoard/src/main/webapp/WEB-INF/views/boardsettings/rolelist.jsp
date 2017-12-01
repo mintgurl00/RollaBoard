@@ -81,49 +81,14 @@ function descfadeout(cnt) {
 		$('.origin' + cnt).css("display", "block");
 	}
 }
+
+
 </script>
   
 <!-- 글자수제한 스크립트 -->
   <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
   <script src = "js/rolelist.js"></script>
   <style>
-body {
-      font: 400 15px Lato, sans-serif;
-      height:inherit;
-      line-height: 1.8;
-
-  }
-  h2 {
-      font-size: 24px;
-      text-transform: uppercase;
-      color: #303030;
-      font-weight: 600;
-      margin-bottom: 30px;
-  }
-  h4 {
-      font-size: 19px;
-      line-height: 1.375em;
-      color: #303030;
-      font-weight: 400;
-      margin-bottom: 30px;
-  }  
-  .jumbotron {
-      background-color: #F44336;
-      color: #fff;
-      padding: 40px 25px;
-      font-family: Montserrat, sans-serif;
-  }
-  .container-fluid {
-      padding: 60px 50px;
-  }
-  .logo-small {
-      color: #F44336;
-      font-size: 50px;
-  }
-  .logo {
-      color: #F44336;
-      font-size: 200px;
-  }
   .navbar {
       margin-bottom: 0;
       background-color: #1294AB;
@@ -139,7 +104,7 @@ body {
       color: #fff !important;
   }
   .navbar-nav li a:hover, .navbar-nav li.active a {
-      color: #F44336 !important;
+      color: #1294AB !important;
       background-color: #fff !important;
   }
   .navbar-default .navbar-toggle {
@@ -151,7 +116,7 @@ body {
       margin-bottom: 20px;
       color: #F44336;
   }
-  .slideanim {visibility:hidden;}
+  .slideanim {visibility:visible;}
   .slide {
       animation-name: slide;
       -webkit-animation-name: slide;
@@ -189,11 +154,7 @@ body {
         margin-bottom: 35px;
     }
   }
-  @media screen and (max-width: 480px) {
-    .logo {
-        font-size: 150px;
-    }
-  }
+
 </style>
 </head>
 <body>
