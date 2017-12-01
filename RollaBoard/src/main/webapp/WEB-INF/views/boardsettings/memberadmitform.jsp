@@ -73,7 +73,7 @@ body {
       color: #fff !important;
   }
   .navbar-nav li a:hover, .navbar-nav li.active a {
-      color: #F44336 !important;
+      color: #1294AB !important;
       background-color: #fff !important;
   }
   .navbar-default .navbar-toggle {
@@ -123,11 +123,7 @@ body {
         margin-bottom: 35px;
     }
   }
-  @media screen and (max-width: 480px) {
-    .logo {
-        font-size: 150px;
-    }
-  }
+
 </style>
 <script type = "text/javascript" language = "javascript">
 function chkBox1(cnt) {

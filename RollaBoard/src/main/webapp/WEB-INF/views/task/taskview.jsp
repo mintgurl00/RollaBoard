@@ -267,14 +267,14 @@ document.getElementById('completeArea').addEventListener('mouseover', onMouseove
 	<div id="button" style="margin-top:70px">
 
 	<%if (session.getAttribute("board_id") != null) {%>
-		<input type=button class = "btn btn-default" value="확인" onclick = "location.href='./board.do';">
+		<input type="button" class = "btn btn-default" data-dismiss="modal" value="확인" >&nbsp;
 		<% if (!taskVO.getStatus().equals("COMPLETE")) {%>
-			<input type=button class = "btn btn-default" value="수정" id="goUpdateBtn">&nbsp;&nbsp;&nbsp;
+			<input type=button class = "btn btn-default" value="수정" id="goUpdateBtn">&nbsp;
 		<%} %>
 <!-- 	<input type=button value="수정" onclick = "javascript:updateTask()"> -->
 		<input type=button class = "btn btn-default" value="삭제" onclick = "javascript:deleteTask()">
 	<%} else { %>
-		<input type=button class = "btn btn-default" value="확인" onclick = "location.href='./dashboard.do'">
+		<input type="button" class = "btn btn-default" data-dismiss="modal" value="확인" >
 	<%} %>
 		
 	</div>

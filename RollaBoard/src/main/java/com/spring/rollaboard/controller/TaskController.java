@@ -158,18 +158,44 @@ public class TaskController {
 				taskRefDAOService.addPostTask(taskVO.getId(), newPostTaskId);	// 추가
 		}
 		/////////////////////////////////////////
-    	System.out.println("스테이터스 :" + taskVO.getStatus());	
+    	
+    	taskDAOService.updateTask(taskVO);
     	// 롤 이름이 없으면 수행 안한다.
-    	if (taskToRole == null || (taskToRole == "")) {
-    		taskDAOService.updateTask(taskVO);
+    	if (taskToRole == null || (taskToRole == "")) {  		
         	result.setViewName("redirect:board.do");
         	return result;
     		
-    	} else{
+    	} else {
 	    	// 태스크 수정사항 업데이트
 	    	System.out.println("널이아니야!!(롤배정을 설정했어)");
+	    	ArrayList<RoleVO> roleList = roleDAOService.getRoles(board_id);
+	    	int chk = 0;
+	    	for (int i = 0; i < roleList.size(); i++) {
+				String name = roleList.get(i).getName();
+				if (taskToRole.equals(name)) {
+					chk++;
+				}
+				if (chk != 0) {
+					break;
+				}
+			}
+	    	if (chk == 0) {
+	    		result.setViewName("redirect:board.do");
+	        	return result;
+			}
+	    	// 이미 배정되어 있으면 하지 않는다.
+	    	ArrayList<RoleVO> havingList = roleDAOService.getRolesByTask(taskVO.getId());
+	    	for (int i = 0; i < havingList.size(); i++) {
+				String name = havingList.get(i).getName();
+				if (taskToRole.equals(name)) {
+					result.setViewName("redirect:board.do");
+		        	return result;
+				}			
+			}
 	    	// updatetask에서 가져온 롤 이름으로 롤 아이디 찾는다.
 			int role_id = roleDAOService.getRoleIdByName(taskToRole, Integer.parseInt((String)session.getAttribute("board_id")));
+			// 롤 아이디값이 없으면 배정할 수 없다.
+		
 			// 태스크에 롤을 배정한다.
 			taskDAOService.taskToRole(taskVO.getId(), role_id);	
 			result.setViewName("redirect:board.do");
