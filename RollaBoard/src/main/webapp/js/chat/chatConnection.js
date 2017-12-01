@@ -19,11 +19,13 @@ w.onmessage = function(e) {	// 메시지를 받았을 때
 	var txtData = e.data.toString().split("|&|");
 	// 02 처리
 	if(txtData.length == 3){	// 보통 메시지일 때
-		$("#chatTextArea").appen
+		// 채팅 구역에 표시
+		var msgLine1 = $("<b></b>").text(txtData[0]);
+		var msgLine2 = txtData[2];
+		$("#chatTextArea").append(msgLine1, msgLine2);
 		
 	}else if(txtData.length == 2){	// 특수 메시지일 때
 		if(txtData[1] == "BADGE"){
-			
 		}
 	}
 	
