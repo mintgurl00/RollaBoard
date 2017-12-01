@@ -31,7 +31,7 @@ ArrayList<ChatListVO2> chatList = (ArrayList<ChatListVO2>) request.getAttribute(
 			notReadCount:${chatroom.notReadCount }<br/>
 		</div>
 	</c:forEach>
-	<button id="createChatListBtn">새 채팅방 추가..?</button>
+	<button id="createChatListBtn">새 채팅방 추가 테스트</button>
 </div>
 <button class="testBtn">테스트버튼</button>
 

@@ -15,9 +15,9 @@ public interface ChatRoomMapper {
 	public String getMaxSeqNum(@Param("board_id") int board_id);
 	
 	public void updateSection(@Param("section_id") int section_id, @Param("section_name") String section_name);*/
-	public void createChatRoom(ChatRoomVO chatRoomVO);
+	public int createChatRoom(ChatRoomVO chatRoomVO);
 	public void deleteChatRoom(int chId);
 	public void updateChatRoom(ChatRoomVO chatRoomVO);
-	public int getCurrentChId();
+	//public int getCurrentChId();
 
 }

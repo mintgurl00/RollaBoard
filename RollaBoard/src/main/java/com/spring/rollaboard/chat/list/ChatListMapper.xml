@@ -75,4 +75,12 @@
 		WHERE mem_id=#{memId} AND ch_id=#{chId}
 	</update>
 	
+	<!-- updatePublicChLi -->
+	<update id="updatePublicChLi" parameterType="map">
+		INSERT INTO chat_list0
+		SELECT bome.mem_id mem_id, #{chId} ch_id, 'VISIBLE' visibility, 'IN' status, SYSTIMESTAMP recent_date
+		FROM board_mem bome
+		WHERE board_id=(SELECT board_id FROM chatroom0 WHERE id=#{chId})
+	</update>
+	
 </mapper>
