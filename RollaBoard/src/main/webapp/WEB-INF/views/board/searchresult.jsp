@@ -23,7 +23,7 @@
 	String board_id = (String) request.getAttribute( "board_id" ) ;
 	String keyword = (String) request.getAttribute( "keyword" ) ;
 	Date dt = new Date();
-	SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd"); 
+	SimpleDateFormat sdf = new SimpleDateFormat("M/dd"); 
 %>
 
 <!-- 
@@ -127,7 +127,7 @@ int sectionSize = sectionList.size() ;
 for( int i = 0 ; i < sectionSize ; i++ ){
 %>
 
-<div class="section_wrapper">
+<div class="w3-animate-left">
 <div id="section" style="text-align:left">
 	<!-- 섹션 표시줄 -->
 	<div class = "row origin<%=sectionList.get(i).getId() %>" style = "display:block; cursor:pointer" <%if ( id.equals(boardVO.getAdmin()) ) {%> onclick = "javascript:flip(<%=sectionList.get(i).getId() %>)" <%} %>>
@@ -163,10 +163,12 @@ for( int i = 0 ; i < sectionSize ; i++ ){
 		class="task <%=status %>" 
 		onclick="javascript:clicktaskinBoard('<%=taskViewList.get( i ).get( j ).getId() %>')">
 
-			<div class="task_title" style="text-align:left;padding-bottom:10px">
-				<span style = "font-family: Montserrat, sans-serif; font-size:15"><b><%=taskViewList.get( i ).get( j ).getName() %></b></span>
+			<div class="task_title" style="text-align:left;">
+				<span style = "font-family: Montserrat, sans-serif; font-size:15">
+					<b><%=taskViewList.get( i ).get( j ).getName() %></b>&nbsp;
+					<small style="text-align:right"><%=sdf.format(taskViewList.get( i ).get( j ).getDue_date()) %></small>
+				</span>
 			</div>
-			
 			
 			<!-- 롤 표시 -->
 			<%
@@ -263,15 +265,11 @@ for( int i = 0 ; i < sectionSize ; i++ ){
 <%
 }
 %>
-
 <%
 if( keyword.equals( "" ) ){	// 검색 결과가 *아니*라면
 	if ( id.equals(boardVO.getAdmin()) ) {%>
-	<div class="section_wrapper">
-		<div id="section">
-			
+		<div id="newsection">			
 			<a href="createsectioninboard.do"><i class="fa fa-plus-circle" aria-hidden="true"></i></a>
 		</div>
-	</div>
 <%	} 
 }%>
