@@ -26,6 +26,7 @@ w.onmessage = function(e) {	// 메시지를 받았을 때
 		
 	}else if(txtData.length == 2){	// 특수 메시지일 때
 		if(txtData[1] == "BADGE"){
+			
 		}
 	}
 	

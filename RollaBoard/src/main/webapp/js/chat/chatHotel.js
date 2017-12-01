@@ -7,6 +7,14 @@ window.onload = function(){
 		);
 	})
 	$(".testBtn").on("click", function(event){
-		w.send("버튼 누름");
+		//w.send("버튼 누름");
+	})
+	
+	$("#createChatListBtn").on("click", function(event){
+		$("#none").load("createChatList.so",{
+			description:"기본",
+			type:"PUBLIC",
+			visibility:"MEM_CHN"
+		})
 	})
 }

@@ -20,6 +20,8 @@ import com.spring.rollaboard.chat.mem.ChatMemDAOService;
 import com.spring.rollaboard.chat.mem.ChatMemVOEx;
 import com.spring.rollaboard.chat.msg.MessageDAOService;
 import com.spring.rollaboard.chat.msg.MessageVO;
+import com.spring.rollaboard.chat.room.ChatRoomDAOService;
+import com.spring.rollaboard.chat.room.ChatRoomVO;
 import com.spring.rollaboard.cmt.CmtDAOService;
 import com.spring.rollaboard.mem.MemDAOService;
 import com.spring.rollaboard.role.RoleDAOService;
@@ -48,6 +50,8 @@ public class ChatController {
 	private MessageDAOService messageDAOService;
 	@Autowired
 	private ChatMemDAOService chatMemDAOService;
+	@Autowired
+	private ChatRoomDAOService chatRoomDAOService;
 	
 	private static final Logger logger = LoggerFactory.getLogger(ChatController.class);
 	
@@ -109,4 +113,20 @@ public class ChatController {
     	result.setViewName("chat/chatroom");
         return result;
     }
+	
+	// 채팅 룸 생성
+	@RequestMapping("createChatList.so")
+	public ModelAndView createChatList(HttpServletRequest request, HttpSession session){
+		ModelAndView result = new ModelAndView();
+		ChatRoomVO crvo = new ChatRoomVO();
+		crvo.setBoardId(Integer.parseInt(session.getAttribute("board_id").toString()));
+		crvo.setCreMemId(session.getAttribute("id").toString());
+		crvo.setDescription(request.getParameter("description"));
+		crvo.setType(request.getParameter("type"));
+		crvo.setVisibility(request.getParameter("visibility"));
+		chatRoomDAOService.createChatRoom(crvo);
+		System.out.print("채팅 룸 생성");
+		
+		return result;
+	}
 }
