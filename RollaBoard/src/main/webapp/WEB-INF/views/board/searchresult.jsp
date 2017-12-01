@@ -127,7 +127,7 @@ int sectionSize = sectionList.size() ;
 for( int i = 0 ; i < sectionSize ; i++ ){
 %>
 
-<div class="section_wrapper">
+<div class="section_wrapper w3-animate-left">
 <div id="section" style="text-align:left">
 	<!-- 섹션 표시줄 -->
 	<div class = "row origin<%=sectionList.get(i).getId() %>" style = "display:block; cursor:pointer" <%if ( id.equals(boardVO.getAdmin()) ) {%> onclick = "javascript:flip(<%=sectionList.get(i).getId() %>)" <%} %>>
@@ -267,11 +267,11 @@ for( int i = 0 ; i < sectionSize ; i++ ){
 <%
 if( keyword.equals( "" ) ){	// 검색 결과가 *아니*라면
 	if ( id.equals(boardVO.getAdmin()) ) {%>
-	<div class="section_wrapper">
+
 		<div id="section">
 			
 			<a href="createsectioninboard.do"><i class="fa fa-plus-circle" aria-hidden="true"></i></a>
 		</div>
-	</div>
+
 <%	} 
 }%>
