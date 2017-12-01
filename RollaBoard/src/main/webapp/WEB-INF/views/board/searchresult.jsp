@@ -239,8 +239,8 @@ for( int i = 0 ; i < sectionSize ; i++ ){
 				<h3>TASK in <%=sectionList.get(i).getName() %></h3>
 				<p>TASK 생성 후에 수정을 통해 필요한 작업들을 추가로 진행하세요!</p>
 			</header>
-			<form class="w3-container" action="inserttask.do" method = "post">
-				<div class="w3-section">
+			<div class="w3-section">
+			<form class="w3-container" action="inserttask.do" method = "post">			
 					<input type="hidden" id="section_id" name="section_id" value = <%=sectionList.get(i).getId() %> size="40">
 					<input type="hidden" name="status" value="NORMAL" />
 					<label>TASK 제목:</label>
@@ -253,9 +253,9 @@ for( int i = 0 ; i < sectionSize ; i++ ){
 					<label>위치정보:</label>
 					<input type="text" id="location" placeholder="ex)서울시 서초구 잠원동" class = "w3-input w3-border w3-margin-bottom" name="location">
 					<button type="submit" class="w3-button w3-block w3-green w3-section w3-padding"  style="background-color: green"><b>생성하기</b></button>
-					<button onclick="javascript:clickModalcancel('<%=sectionList.get(i).getId()%>')" type="button" class = "w3-button w3-block w3-red"><b>취소</b></button>
-				</div>
+					<button onclick="javascript:clickModalcancel('<%=sectionList.get(i).getId()%>')" type="button" class = "w3-button w3-block w3-red"><b>취소</b></button>			
 			</form>
+			</div>
 		</div>
 	</div>
 
