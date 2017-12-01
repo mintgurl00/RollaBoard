@@ -21,19 +21,24 @@ ArrayList<ChatListVO2> chatList = (ArrayList<ChatListVO2>) request.getAttribute(
 여기는 채팅 리스트가 쫙 나와야 하는 곳
 <a class="chRoomBtn" href="./chat/111">채팅룸1</a>
 
-<c:forEach items="${chatList }" var="chatroom">
-	<div class="chatroomTest">
-		chName:${chatroom.chName }<br/>
-		chId:${chatroom.chId }<br/>
-		visibility:${chatroom.visibility }<br/>
-		status:${chatroom.status }<br/>
-		notReadCount:${chatroom.notReadCount }<br/>
-	</div>
-</c:forEach>
-
+<div id="chatListArea">
+	<c:forEach items="${chatList }" var="chatroom">
+		<div class="chatroomTest">
+			chName:${chatroom.chName }<br/>
+			chId:${chatroom.chId }<br/>
+			visibility:${chatroom.visibility }<br/>
+			status:${chatroom.status }<br/>
+			notReadCount:${chatroom.notReadCount }<br/>
+		</div>
+	</c:forEach>
+	<button id="createChatListBtn">새 채팅방 추가..?</button>
+</div>
 <button class="testBtn">테스트버튼</button>
 
 <div id="chattingRoom">채팅방이 채워지는 곳</div>
+
+<div id="none"></div>
+
 </body>
 </html>
 

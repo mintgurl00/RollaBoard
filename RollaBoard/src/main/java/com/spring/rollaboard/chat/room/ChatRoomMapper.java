@@ -18,5 +18,6 @@ public interface ChatRoomMapper {
 	public void createChatRoom(ChatRoomVO chatRoomVO);
 	public void deleteChatRoom(int chId);
 	public void updateChatRoom(ChatRoomVO chatRoomVO);
+	public int getCurrentChId();
 
 }
