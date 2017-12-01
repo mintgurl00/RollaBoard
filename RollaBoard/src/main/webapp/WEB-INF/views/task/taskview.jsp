@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page import="com.spring.rollaboard.task.TaskVO"%>
 <%@ page import="com.spring.rollaboard.task.RefTaskVO"%>
+<%@ page import = "java.text.SimpleDateFormat"%>
 <%
 // 세션 아이디 체크
 if(session.getAttribute("id") == null) {
@@ -19,6 +20,7 @@ if(session.getAttribute("id") == null) {
 	if (taskVO.getDescription() == null) {
 		taskVO.setDescription("");
 	}
+	SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd"); 
 %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -87,9 +89,18 @@ if(session.getAttribute("id") == null) {
       .completeBtn:hover {background-color:#4CAF50;color:white;border-radius: 12px;}
       .completeCancelBtn:hover {background-color:orange;color:white;border-radius: 12px;}
       .blockedBtn:hover {background-color:black;color:white;border-radius: 12px;}
-      #frame{position:absolute; padding:10px; border-radius:6px; width:600px;height:600px; overflow:auto; background-color:whitesmoke; margin-right: 10px; text-align:center; box-shadow: 1px 1px 5px #000; }
-	  #content{border-radius:4px; width:500px; height:120px; background-color:#FFFFFF; margin-left:50px;text-align:left}
-	  #button{margin-top:20px}
+  @media (min-width:768px) {
+  	#frame{position:absolute; padding:10px; border-radius:6px; width:600px;height:600px; overflow:auto; background-color:whitesmoke; margin-right: 10px; text-align:center; box-shadow: 1px 1px 5px #000; }
+  	#content{border-radius:4px; width:500px; height:120px; background-color:#FFFFFF; margin-left:50px;text-align:left}
+  	#completeArea{margin-left:450px;}
+  }
+  @media (max-width:768px) {
+  	#frame{position:absolute; padding:10px; border-radius:6px; width:300px;height:600px; overflow:auto; background-color:whitesmoke; margin-left: 9px; text-align:center; box-shadow: 1px 1px 5px #000; }
+  	#content{border-radius:4px; width:250px; height:120px; background-color:#FFFFFF; margin-left:50px;text-align:left}
+  	#completeArea{margin-left:185px;}
+  }
+	
+	#button{margin-top:20px}
 </style>
 
 <title>태스크보기</title>
@@ -184,7 +195,7 @@ document.getElementById('completeArea').addEventListener('mouseover', onMouseove
 <div id = "frame">
 	
 	<h2><%=taskVO.getName() %></h2>
-	<div id="completeArea" align = "right" style="margin-left:450px"></div>
+	<div id="completeArea" align = "right" ></div>
 	<hr/>
 	
 	<div style = "font-family: Montserrat, sans-serif;">
@@ -195,24 +206,24 @@ document.getElementById('completeArea').addEventListener('mouseover', onMouseove
 	<table class="table" style = "font-family: Montserrat, sans-serif; font-size:14px;">
 	<tbody>
 		<tr>
-			<td><b><span class="glyphicon glyphicon-equalizer"> 상태 :  </b></td>
+			<td><b><span class="glyphicon glyphicon-equalizer"></span> 상태 :  </b></td>
 			<td><%=taskVO.getStatus() %> </td>
 			<input type="hidden" id="task_status" value=<%=taskVO.getStatus() %>>
 		</tr>
 		<tr>
-			<td><b><span class="glyphicon glyphicon-calendar"> 생성일 :</b></td>
-			<td><%=taskVO.getCre_date() %> </td>
+			<td><b><span class="glyphicon glyphicon-calendar"></span> 생성일 :</b></td>
+			<td><%=sdf.format(taskVO.getCre_date()) %> </td>
 		</tr>
 		<tr>
-			<td><b><span class="glyphicon glyphicon-calendar"> 시작일 :</b></td>
-			<td><%=taskVO.getStart_date() %> </td>
+			<td><b><span class="glyphicon glyphicon-calendar"></span> 시작일 :</b></td>
+			<td><%=sdf.format(taskVO.getStart_date()) %> </td>
 		</tr>
 		<tr>
-			<td><b><span class="glyphicon glyphicon-time"> 마감일 :</b></td>
-			<td><%=taskVO.getDue_date() %> </td>
+			<td><b><span class="glyphicon glyphicon-time"></span> 마감일 :</b></td>
+			<td><%=sdf.format(taskVO.getDue_date()) %> </td>
 		</tr>
 		<tr>
-			<td><b><span class="glyphicon glyphicon-exclamation-sign"> 중요도 :</b></td>
+			<td><b><span class="glyphicon glyphicon-exclamation-sign"></span> 중요도 :</b></td>
 			<td><%=taskVO.getPriority() %> </td>
 		</tr>
 		
@@ -221,13 +232,13 @@ document.getElementById('completeArea').addEventListener('mouseover', onMouseove
 	<% if(preTaskVO != null || postTaskVO != null) { %>			
 		<% if(preTaskVO != null) { %>
 			<tr>
-				<td><b><span class="glyphicon glyphicon-arrow-left"> 선행TASK :</b></td>
+				<td><b><span class="glyphicon glyphicon-arrow-left"></span> 선행TASK :</b></td>
 				<td id="blink"><%=preTaskVO.getRefTaskName() %></td>
 			</tr>
 		<% } %>		
 		<% if(postTaskVO != null) { %>	
 			<tr>
-				<td><b><span class="glyphicon glyphicon-arrow-right"> 후행TASK :</b></td>
+				<td><b><span class="glyphicon glyphicon-arrow-right"></span> 후행TASK :</b></td>
 				<td><%=postTaskVO.getRefTaskName() %></td>	
 			</tr>
 		<% } 
@@ -235,7 +246,7 @@ document.getElementById('completeArea').addEventListener('mouseover', onMouseove
 	
 		<% if (taskVO.getLocation() != null) { %>
 			<tr>
-				<td><b><span class="glyphicon glyphicon-map-marker"> 위치 :</b></td>
+				<td><b><span class="glyphicon glyphicon-map-marker"></span> 위치 :</b></td>
 				<td><%=taskVO.getLocation() %> </td>
 			</tr>
 		<% } %>	
