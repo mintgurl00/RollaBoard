@@ -163,6 +163,25 @@ body {
   	background-color:#1294AB;
   }
   
+  input[type="text"], input[type="password"], input[type="email"],
+   input[type="search"], input[type="image"],input[type="tel"], 
+   textarea {-webkit-appearance:none;
+   -webkit-border-radius:0;
+   border:0;
+   -webkit-box-shadow: 0 0 0 1000px #00000000 inset;
+   } 
+	#boardNameInput{
+		background-color: #00000000;
+		border: 0px solid #00000000;
+		color: #ffffff;
+		font-size: 25px;
+	}
+	.swInputClicked{
+		background-color: #ffffff !important;
+		border: 2px solid #ffffff !important;
+		color: #222222 !important;
+	}
+
 </style>
 
 <script>
@@ -194,7 +213,14 @@ function updating() {
 	document.getElementById("updating").submit();
 }
 
-
+$(document).ready(function(){
+	$("#boardNameInput").on("focus",function(){
+		$("#boardNameInput").addClass("swInputClicked");
+	});
+	$("#boardNameInput").on("blur",function(){
+		$("#boardNameInput").removeClass("swInputClicked");
+	});
+});
 </script>
 
 <!-- 글자수제한 스크립트 -->
@@ -215,7 +241,7 @@ function updating() {
         </font>                      
       </button>
     <form id = "updating" action = "updateboardname.do" class = "boxing">
-		<input type = "text" class = "byteLimit form-control" limitbyte="50" name = "board_name" value = "<%=boardVO.getName() %>" placeholder = "Board명을 입력하세요" required>
+		<input id="boardNameInput" type = "text" class = "byteLimit form-control swInputN" limitbyte="50" name = "board_name" value = "<%=boardVO.getName() %>" placeholder = "Board명을 입력하세요" required>
 	</form>
     </div>
     <div class="collapse navbar-collapse" id="myNavbar2">

@@ -20,6 +20,7 @@ public class ChatRoomDAOService implements ChatRoomDAO {
 		int chId = chatRoomMapper.createChatRoom(chatRoomVO);
 		// 생성 후에는 그 접근권한이 PUBLIC이라면 보드 멤버 모두에게 채팅 리스트 데이터를 추가해야한다.
 		//int chId = chatRoomMapper.getCurrentChId();
+		System.out.println("만들어진 방 번호 : "+ chId);
 		if(chatRoomVO.getVisibility().equals("PUBLIC")){
 			chatListDAOService.updatePublicChLi(chId);
 		}
