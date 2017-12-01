@@ -78,11 +78,6 @@ window.onload = function(){
 	inputEnterToSearch();
 }
 
-function showRefBoard1() {
-	var ref_board_id = $("#ref_board_select option:selected").val();
-	alert('선택한 참조보드 아이디' + ref_board_id);
-}
-
 /*
  * 참조보드 select태그에 넣기 
  */
@@ -184,8 +179,6 @@ function getFilter(){
 $(document).ready(function() {
 	 $('#ref_board_select').change(function() {
 		 var ref_board_id = $(this).val();
-		 
-		 alert(ref_board_id);
 		 
 		 $("#content_ref").load("referenceboard.do", {
 				board_id: '<%=boardVO.getId() %>',

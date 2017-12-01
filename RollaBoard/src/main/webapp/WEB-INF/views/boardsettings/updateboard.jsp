@@ -208,6 +208,7 @@ function updating() {
 <div class="whole_wrapper">
 <div class="upper_wrapper">
 <nav class="navbar navbar-fixed-top">
+<a style = "color: #fff;margin-top:5px;margin-left:5px" class="navbar-brand" href="./dashboard.do" >ROLLA<br>BOARD</a>&nbsp;&nbsp;&nbsp;
   <div class="container">
     <div class="navbar-header">
       <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar2">
