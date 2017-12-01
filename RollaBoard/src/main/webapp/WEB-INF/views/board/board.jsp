@@ -272,8 +272,12 @@ $(document).ready(function() {
 <!-- MODAL 참조보드 -->
 <div class="modal fade" id="myModal2" role="dialog">
 	<div class="modal-dialog" style="margin:55px auto; width:90%">
-		<div class="modal-content" id="content_ref">
-		</div> 
+		<div align=right style="margin-bottom:10px">
+		<button type="button" class="btn btn-default" data-dismiss="modal" align=right>Close</button>
+		</div>
+		
+		<div class="modal-content" id="content_ref" style="background-color:#1294AB;">
+		</div>
 	</div>
 </div>
 

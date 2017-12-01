@@ -167,6 +167,7 @@ body {
   .btn.btn-info {
   	background-color:#1294AB;
   }
+  
 </style>
 
 <script>
