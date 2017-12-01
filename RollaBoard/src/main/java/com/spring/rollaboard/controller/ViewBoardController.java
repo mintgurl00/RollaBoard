@@ -143,7 +143,7 @@ public class ViewBoardController {
     	
     	int board_id = Integer.parseInt( (String) request.getParameter( "board_id" ) ) ;
     	String keyword = (String) request.getParameter( "keyword" ) ;
-    	String filter = (String) request.getParameter( "filter" ) ;
+    	String filter = (String) request.getParameter( "filter" ) ; //선택된 checkBox의 name ex)due, priority, due priority
     	String[] filters = null ;
     	String[] orders = null ;	// 나중에 해야함
     	if( filter != null ){
@@ -152,7 +152,7 @@ public class ViewBoardController {
 	    	filters = new String[ st.countTokens() ] ; 
 	    	for( int i = 0 ; i < filters.length ; i++ ){
 	    		// st.hasMoreTokens() ;
-	    		filters[ i ] = st.nextToken() ;
+	    		filters[ i ] = st.nextToken() ; //filters배열에는 선택된 필터들이 저장됨 ex)due, priority, due/priority
 	    	}
 	    	System.out.println( "전달된 필터 : " + filters.length +"개" );
 	    	for( String filterString : filters ){
@@ -181,7 +181,7 @@ public class ViewBoardController {
     	if( filters == null && orders == null ){
     		taskList = taskDAOService.getTasksByBoard2( board_id , keyword ) ;	// sql문에서 섹션별로 그룹해야 편할듯 + 섹션순서번호 정렬
     	} else {
-    		taskList = taskDAOService.getTasksByBoard2( board_id , keyword , filters , orders ) ;	
+    		taskList = taskDAOService.getTasksByBoard2( board_id , keyword , filters , orders ) ; //filters배열에는 선택된 필터들이 저장됨 ex)due, priority, due/priority
     	}
     	//ArrayList<TaskVO> taskList = taskDAOService.getTasksByBoard( board_id ) ;
     	System.out.println("태스크리스트추출 끝");

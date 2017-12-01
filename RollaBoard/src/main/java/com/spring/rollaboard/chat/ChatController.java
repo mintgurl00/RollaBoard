@@ -115,7 +115,7 @@ public class ChatController {
     }
 	
 	// 채팅 룸 생성
-	@RequestMapping("createChatList.so")
+	@RequestMapping("createChatRoom.so")
 	public ModelAndView createChatList(HttpServletRequest request, HttpSession session){
 		ModelAndView result = new ModelAndView();
 		ChatRoomVO crvo = new ChatRoomVO();
@@ -123,6 +123,7 @@ public class ChatController {
 		crvo.setCreMemId(session.getAttribute("id").toString());
 		crvo.setDescription(request.getParameter("description"));
 		crvo.setType(request.getParameter("type"));
+		crvo.setName(request.getParameter("name"));
 		crvo.setVisibility(request.getParameter("visibility"));
 		chatRoomDAOService.createChatRoom(crvo);
 		System.out.print("채팅 룸 생성");

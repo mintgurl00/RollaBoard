@@ -84,5 +84,12 @@ public class ChatListDAOService implements ChatListDAO {
 		return chatList;
 	}
 
+	@Override
+	public void updatePublicChLi(int chId) {
+		ChatListMapper chatListMapper = sqlSession.getMapper( ChatListMapper.class ) ;
+		chatListMapper.updatePublicChLi(chId);
+		
+	}
+
 
 }

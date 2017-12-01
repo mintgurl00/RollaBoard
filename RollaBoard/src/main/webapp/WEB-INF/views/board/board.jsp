@@ -144,16 +144,16 @@ function inputEnterToSearch(){
  */
 
 function filterResult( obj ){	// 필터버튼 클릭
-	/* alert( obj.name + ' : ' + obj.value ) ; */
+	//alert( obj.name + ' : ' + obj.value ) ;
 	// 01 필터 버튼에 값 설정
 	if( obj.value == 'FALSE' )
 		obj.value = 'TRUE' ;
 	else
 		obj.value = 'FALSE' ;
 	// 02 전체 필터버튼의 값 확인해서 전달 필터 String 작성
-	/* alert( obj.name + ' : ' + obj.value ) ; */
+	//alert( obj.name + ' : ' + obj.value ) ;
 	var filter = getFilter() ;
-	/* alert( '필터스트링 : ' + filter ) ; */
+	//alert( '필터스트링 : ' + filter ) ;
 	// 03 페이지 로드
 	$('#work_board').load("searchresult.do", {
 		board_id: '<%=boardVO.getId() %>',
@@ -166,7 +166,7 @@ function getFilter(){
 	$( ".filter" ).each( function(){
 /* 		alert( '필터' + $( this ).prop( "name" ) ) ; */
 		if( $( this ).val() == 'TRUE' )
-			filterString += $( this ).prop( "name" ) + " " ;
+			filterString += $( this ).prop( "name" ) + " " ; //filterString에는 선택된 checkBox의 name이 저장됨 ex) due, priority, due priority
 	} ) ;
 	return filterString
 }
@@ -252,10 +252,12 @@ $(document).ready(function() {
 			        </div>
 				</div> 
 				<div id = "filtering" align = "right">
-					<input type="checkbox" class="filter" id="chk_duedate" name="due" value="FALSE" onclick="javascript:filterResult(this)"/>
+					<input type="radio" class="filter" id="chk_duedate" name="due" value="FALSE" onclick="javascript:filterResult(this)"/>
 					<span>마감일순 보기</span>
+					<input type="radio" class="filter" id="chk_priority" name="priority" value="FALSE" onclick="javascript:filterResult(this)"/>
+					<span>중요도순 보기</span>
 					<a href="./chattest.so">채팅테스트ㅜ</a>
-				</div>	
+				</div>
 			</div>
 		</div>
 	</div>
@@ -281,8 +283,6 @@ $(document).ready(function() {
 		</div>
 	</div>
 </div>
-
-
 
 <div class="boards">
 	<!-- 보드 -->

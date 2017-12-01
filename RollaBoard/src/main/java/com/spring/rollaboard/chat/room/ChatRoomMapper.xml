@@ -15,10 +15,13 @@
 	
 	<!-- createChatRoom -->
 	<insert id="createChatRoom" parameterType="com.spring.rollaboard.chat.room.ChatRoomVO">
+		<selectKey keyProperty="id" resultType="int">
+			SELECT SEQ_CH.NEXTVAL FROM DUAL
+		</selectKey>
 		INSERT INTO chatroom0 (id, name, description, board_id, visibility, type, cre_mem_id) 
 		VALUES (SEQ_CH.NEXTVAL, #{name}, #{description}, #{boardId}, #{visibility}, #{type}, #{creMemId})
 	</insert>
-	
+	  
 	<!-- deleteChatRoom -->
 	<delete id="deleteChatRoom" parameterType="int">
 		DELETE FROM chatroom0 WHERE ID=#{id}
@@ -32,9 +35,9 @@
 	</update>
 	
 	<!-- getCurrentChId -->
-	<select id="getCurrentChId" resultType="int">
+<!-- 	<select id="getCurrentChId" resultType="int">
 		SELECT SEQ_CH.CURRVAL
 		FROM DUAL;
-	</select>
+	</select> -->
 	
 </mapper>

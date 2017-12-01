@@ -2,6 +2,8 @@ package com.spring.rollaboard.chat.list;
 
 import java.util.ArrayList;
 
+import org.apache.ibatis.annotations.Param;
+
 public interface ChatListDAO {
 	
 	// 사용자 조작
@@ -22,5 +24,6 @@ public interface ChatListDAO {
 	
 	public void readChatList(int chId, String memID);	// 읽기. 마지막으로 읽은 시간 갱신
 	//public void updateChatRoom(ChatRoomVO chatRoomVO);
+	public void updatePublicChLi(int chId);	// PUBLIC 채팅방 개설로 보드 멤버 전원에게 리스트 추가
 	
 }

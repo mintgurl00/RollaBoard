@@ -128,7 +128,7 @@ public class TaskDAOService implements TaskDAO {
 				case F_PRIORITY :	// **우선순위 필터
 					condition += sql.get( filter ) ;
 					if( orders == null ){	// 정렬이 비어있으면
-						orders = new TaskFilter[]{ TaskFilter.PRIORITY_ASC } ;	// 우선순위가 1에 가까운 것부터 정렬
+						orders = new TaskFilter[]{ TaskFilter.PRIORITY_DESC } ;	// 중요도가 높은 것부터 정렬
 					}
 					break ;
 				case F_DUEDATE :	// **마감일 우선 보기

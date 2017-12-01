@@ -15,4 +15,5 @@ public interface ChatListMapper {
 	public void deleteChatList(@Param("chId") int chId, @Param("memId") String memId);
 	public void updateRecentDate(@Param("chId") int chId, @Param("memId") String memId);	
 	
+	public void updatePublicChLi(@Param("chId") int chId);
 }
