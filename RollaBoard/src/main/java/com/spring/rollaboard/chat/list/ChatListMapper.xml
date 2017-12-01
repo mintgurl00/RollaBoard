@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.spring.rollaboard.chat.list.ChatListMapper">
+
+	<resultMap type="ChatListVO" id="ChatListResultMap">
+		<result property="memId" column="MEM_ID"/>
+		<result property="chId" column="CH_ID"/>
+		<result property="visibility" column="VISIBILITY"/>
+		<result property="status" column="STATUS"/>
+		<result property="recentDate" column="RECENT_DATE"/>
+	</resultMap>
+	<resultMap type="ChatListVO2" id="ChatListResultMap2">
+		<result property="chName" column="CH_NAME"/>
+		<result property="chId" column="CH_ID"/>
+		<result property="visibility" column="VISIBILITY"/>
+		<result property="status" column="STATUS"/>
+		<result property="notReadCount" column="NOT_READ_COUNT"/>
+	</resultMap>
+	
+	<!-- getChatList -->
+	<select id="getChatList" parameterType="map" resultMap="ChatListResultMap">
+		SELECT chli.*
+		FROM chat_list0 chli
+		    INNER JOIN chatroom0 chrm
+		    ON chli.ch_id=chrm.id
+		WHERE chli.mem_id=#{memId} AND chrm.board_id=#{boardId} 
+	</select>
+	
+	<!-- getChatList2 -->
+	<select id="getChatList2" parameterType="map" resultMap="ChatListResultMap">
+		SELECT chrm.name ch_name, chli.ch_id ch_id, chli.visibility visibility, 
+		    chli.status status,(
+		        SELECT COUNT(*)
+		        FROM message0 me
+		        WHERE me.ch_id=chli.ch_id
+		            AND cre_date > chli.recent_date 
+		    ) not_read_count
+		FROM chat_list0 chli
+		    LEFT JOIN chatroom0 chrm
+		    ON chli.ch_id=chrm.id    
+		WHERE chli.mem_id=#{memId} AND chrm.board_id=#{boardId} 
+	</select>
+	
+	<!-- createChatList -->
+	<insert id="createChatList" parameterType="com.spring.rollaboard.chat.list.ChatListVO">
+		INSERT INTO chat_list0(mem_id, ch_id, visibility, status, recent_date)
+		VALUES(#{memId}, #{chId}, #{visibility}, #{status}, SYSTIMESTAMP)
+	</insert>
+	
+	<!-- updateChatList -->
+	<update id="updateChatList" parameterType="com.spring.rollaboard.chat.list.ChatListVO">
+		UPDATE chat_list0
+		<trim prefix="SET" suffixOverrides=",">
+			<if test="visibility != null">
+				visibility=#{visibility},
+			</if>
+			<if test="status != null">
+				status=#{status}
+			</if>
+		</trim>
+		WHERE mem_id=#{memId} AND ch_id=#{chId}
+	</update>
+	
+	<!-- deleteChatList -->
+	<delete id="deleteChatList" parameterType="map">
+		DELETE chat_list0
+		WHERE mem_id=#{memId} AND ch_id=#{chId}
+	</delete>
+	
+	<!-- updateRecentDate -->
+	<update id="updateRecentDate" parameterType="map">
+		UPDATE chat_list0
+		SET recent_date = SYSTIMESTAMP
+		WHERE mem_id=#{memId} AND ch_id=#{chId}
+	</update>
+	
+</mapper>

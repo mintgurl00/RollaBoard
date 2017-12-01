@@ -53,6 +53,11 @@
 	font-size:20px;
 	margin-left:10px;
 }
+
+.glyphicon.glyphicon-cog:hover {
+	color:black;
+}
+
 </style>
 <script src="js/board.js"></script>
 
@@ -71,8 +76,13 @@ window.onload = function(){
 	initRefBoard( "ref_board_select" ) ;
 	initBoard();
 	inputEnterToSearch();
-	$( "#ref_board" ).click( function(){showRefBoard()} ) ;
 }
+
+function showRefBoard1() {
+	var ref_board_id = $("#ref_board_select option:selected").val();
+	alert('선택한 참조보드 아이디' + ref_board_id);
+}
+
 /*
  * 참조보드 select태그에 넣기 
  */
@@ -169,20 +179,23 @@ function getFilter(){
 /*
  * 참조 보드 부르기
  */
-function showRefBoard(){
-	var ref_board_id = $( "#ref_board_select option:selected" ).val() ;
-	if( ref_board_id != $("#current_ref_board").val() ){
-		ref_board_id != $("#current_ref_board").prop( "value" , ref_board_id ) ;
-		alert( '참조보드 : ' + ref_board_id ) ;
-		
-		$("#content_ref").load("referenceboard.do", {
-			board_id: '<%=boardVO.getId() %>',
-			ref_board_id:ref_board_id
-		}) ;
-		
-		alert( '작업 시작' ) ;
-	}
-}
+ 
+ //참조보드 선택 시 부르기 .수민
+$(document).ready(function() {
+	 $('#ref_board_select').change(function() {
+		 var ref_board_id = $(this).val();
+		 
+		 alert(ref_board_id);
+		 
+		 $("#content_ref").load("referenceboard.do", {
+				board_id: '<%=boardVO.getId() %>',
+				ref_board_id:ref_board_id,
+				keyword:''
+		 }) ;
+		 $("#myModal2").modal();
+	 });
+ });
+ 
 
 </script>
 </head>
@@ -248,13 +261,13 @@ function showRefBoard(){
 				<div id = "filtering" align = "right">
 					<input type="checkbox" class="filter" id="chk_duedate" name="due" value="FALSE" onclick="javascript:filterResult(this)"/>
 					<span>마감일순 보기</span>
+					<a href="./chattest.so">채팅테스트ㅜ</a>
 				</div>	
 			</div>
 		</div>
 	</div>
 	</nav>
-
-
+	
 
 <!-- MODAL TASK -->
 <div class="modal fade" id="myModal" role="dialog">
@@ -264,13 +277,19 @@ function showRefBoard(){
 	</div>
 </div>
 
+<!-- MODAL 참조보드 -->
+<div class="modal fade" id="myModal2" role="dialog">
+	<div class="modal-dialog" style="margin:55px auto; width:90%">
+		<div class="modal-content" id="content_ref">
+		</div> 
+	</div>
+</div>
+
+
+
 <div class="boards">
 	<!-- 보드 -->
 	<div id="work_board" style="background-color:#1294AB">		
-	</div>
-	
-	<!-- 참조 보드 -->
-	<div id="content_ref">
 	</div>
 </div>
 
@@ -297,18 +316,8 @@ function showRefBoard(){
 		</form>
 	</div>
 </div>
-
-
-
-
-
-
-
-
-
-
-
 </body>
+
 <script>
 $(".selectBox02 select").change(function () {
 	var changeTxt = $(this).find("option:selected").text();

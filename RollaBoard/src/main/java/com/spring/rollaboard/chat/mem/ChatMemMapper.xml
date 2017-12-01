@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.spring.rollaboard.chat.mem.ChatMemMapper">
+
+<!-- 	<resultMap type="ChatMemVO" id="ChatMemResultMap">
+	</resultMap> -->
+	
+	<resultMap type="ChatMemVOEx" id="ChatMemResultMap2">
+		<result property="memId" column="MEM_ID"/>
+		<result property="roleId" column="ROLE_ID"/>
+		<result property="memName" column="MEM_NAME"/>
+		<result property="roleName" column="ROLE_NAME"/>
+	</resultMap>
+	
+	<!-- getChatMemEx -->
+	<select id='getChatMemEx' parameterType="map" resultMap="ChatMemResultMap2">
+		SELECT chme.mem_id mem_id, me.name mem_name, chme.role_id role_id, ro.name role_name
+		FROM chat_mem0 chme
+		    LEFT JOIN mem me
+		    ON chme.mem_id=me.id
+		    LEFT JOIN role ro
+		    ON chme.role_id=ro.id
+		WHERE chme.ch_id=#{chId}
+	</select>
+	
+	<!-- createChatMem -->
+	<insert id="createChatMem" parameterType="map">
+		INSERT INTO chat_mem0(ch_id, mem_id, role_id)
+		<if test="memId != null">
+			VALUES(#{chId}, #{memId}, 0)
+		</if>
+		<if test="roleId != 0">
+			VALUES(#{chId}, 0 ,#{roleId})
+		</if>
+	</insert>
+	
+	<!-- deleteChatMem -->
+	<delete id="deleteChatMem" parameterType="map">
+		DELETE FROM chat_mem0 
+		WHERE ID=#{id} 
+		<if test="memId != null">
+			AND memId=#{memId}
+		</if>
+		<if test="roleId != 0">
+			AND roleId=#{roleId}
+		</if>
+	</delete>
+	
+</mapper>

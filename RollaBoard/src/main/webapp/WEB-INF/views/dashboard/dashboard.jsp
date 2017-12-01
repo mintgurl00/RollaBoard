@@ -94,8 +94,8 @@ width:700px; /* optional, though better have one */
 </nav>
 
 <!-- MODAL TASK -->
-<div class="w3-modal" id="myModal2" role="dialog">
-	<div class="w3-modal-content w3-animate-opacity w3-card-4" style="max-width:550px;">
+<div class="modal fade" id="myModal2" role="dialog">
+	<div class="modal-dialog" style="margin:55px auto;">
 		<div class="modal-content" id="taskViewArea2">
 		</div> 
 	</div>

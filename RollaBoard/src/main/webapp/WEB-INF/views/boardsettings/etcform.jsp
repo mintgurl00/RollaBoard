@@ -173,12 +173,11 @@ function radio_chk() {
   	<div class = "col-xs-2"><input type = "submit" class = "btn btn-info" value = "저장" onclick="javascript:radio_chk()"></div>
   </div>
   </form>
-</div>  
-  <br/><br/>
+</div>
   
  
     	
-<div class="container">
+<div class="container" style="margin-top:150px">
   <h2>참조보드 목록</h2>
   <p>당신의 BOARD가 참조하고 있는 BOARD 목록입니다. 참조할 BOARD를 자유롭게 추가/삭제하세요.</p>            
   <table class="table table-striped">

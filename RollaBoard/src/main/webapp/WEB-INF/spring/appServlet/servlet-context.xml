@@ -33,8 +33,9 @@
 	<!-- WebSocket에 사용할 핸들러 객체 맵핑 -->
 	<websocket:handlers>
 		<websocket:mapping path="/broadcasting" handler="socketHandler" />
+		<websocket:handshake-interceptors><!-- 이 부분은 웹소켓 세션에 세션 정보를 넣는 부분 -->
+   			<beans:bean class="org.springframework.web.socket.server.support.HttpSessionHandshakeInterceptor"/>
+   		</websocket:handshake-interceptors>
 	</websocket:handlers>
-	
-	
 	
 </beans:beans>

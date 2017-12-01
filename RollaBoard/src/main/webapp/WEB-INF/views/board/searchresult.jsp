@@ -19,8 +19,7 @@
 	ArrayList<SectionVO> sectionList = (ArrayList<SectionVO>) request.getAttribute( "sectionList" ) ; 
 	ArrayList<ArrayList<ArrayList<RoleAndTaskVO>>> roleAndTaskList = 
 			(ArrayList<ArrayList<ArrayList<RoleAndTaskVO>>>) request.getAttribute( "roleAndTaskList" ) ;
-%>
-<%
+	
 	String board_id = (String) request.getAttribute( "board_id" ) ;
 	String keyword = (String) request.getAttribute( "keyword" ) ;
 	Date dt = new Date();
@@ -35,7 +34,7 @@ keyword : <%=keyword %> <br />
 
 <!-- TASK클릭 시 함수 -->
 <script>
-function clicktask(id) {/* 
+function clicktaskinBoard(id) {/* 
 	window.open("./taskview.do?task_id=" + id,
 			"TASK",
 			"resizeable = yes, menubar=no, width = 470, height = 800, left = 10, right = 10"); */
@@ -75,12 +74,19 @@ function clickModalcancel(cnt) {
 	// window.location.reload();
 }
 </script>
+
 <style>
 .fa.fa-plus-circle {
 	font-size: 30px;
 	color: #ABABAB;
 	padding:20px;
 }
+
+.fa.fa-plus-circle:hover {
+	color: black;
+}
+
+
 
 </style>
 <link href="css/task.css" rel="stylesheet" type="text/css" >
@@ -125,7 +131,7 @@ for( int i = 0 ; i < sectionSize ; i++ ){
 <div id="section" style="text-align:left">
 	<!-- 섹션 표시줄 -->
 	<div class = "row origin<%=sectionList.get(i).getId() %>" style = "display:block; cursor:pointer" <%if ( id.equals(boardVO.getAdmin()) ) {%> onclick = "javascript:flip(<%=sectionList.get(i).getId() %>)" <%} %>>
-		<div style="padding-top:10px; padding-left:30px; padding-bottom:15px">
+		<div style="padding-top:10px; padding-left:30px; padding-bottom:15px" onMouseover="this.style.color='#1294AB';" onMouseout="this.style.color='black';">
 			<h5><b><%=sectionList.get(i).getName() %></b></h5>
 		</div>
 	</div>
@@ -155,7 +161,7 @@ for( int i = 0 ; i < sectionSize ; i++ ){
 	%>
 		<div method ="post" 
 		class="task <%=status %>" 
-		onclick="javascript:clicktask('<%=taskViewList.get( i ).get( j ).getId() %>')">
+		onclick="javascript:clicktaskinBoard('<%=taskViewList.get( i ).get( j ).getId() %>')">
 
 			<div class="task_title" style="text-align:left;padding-bottom:10px">
 				<span style = "font-family: Montserrat, sans-serif; font-size:15"><b><%=taskViewList.get( i ).get( j ).getName() %></b></span>
