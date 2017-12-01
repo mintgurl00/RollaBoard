@@ -86,7 +86,7 @@ body {
       margin-bottom: 0;
       background-color: #1294AB;
       z-index: 9999;
-      border: 0;
+      border: 1;
       font-size: 12px !important;
       line-height: 1.42857143 !important;
       letter-spacing: 4px;
@@ -94,15 +94,15 @@ body {
       font-family: Montserrat, sans-serif;
   }
   .navbar li a, .navbar .navbar-brand {
-      color: #1294AB !important;
+      color: #000;
   }
   .navbar-nav li a:hover, .navbar-nav li.active a {
-      color: #1294AB !important;
-      background-color: #1294AB !important;
+      color: #1294AB;
+      background-color: #fff;
   }
   .navbar-default .navbar-toggle {
-      border-color: #1294AB;
-      color: #1294AB !important;
+      border-color: #fff;
+      color: #fff;
   }
   footer .glyphicon {
       font-size: 20px;
@@ -145,11 +145,6 @@ body {
     .btn-lg {
         width: 100%;
         margin-bottom: 35px;
-    }
-  }
-  @media screen and (max-width: 480px) {
-    .logo {
-        font-size: 150px;
     }
   }
   .boxing {
@@ -198,6 +193,8 @@ function ETCPage() {
 function updating() {
 	document.getElementById("updating").submit();
 }
+
+
 </script>
 
 <!-- 글자수제한 스크립트 -->
@@ -212,10 +209,10 @@ function updating() {
 <a style = "color: #fff;margin-top:5px;margin-left:5px" class="navbar-brand" href="./dashboard.do" >ROLLA<br>BOARD</a>&nbsp;&nbsp;&nbsp;
   <div class="container">
     <div class="navbar-header">
-      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar2">
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>                        
+      <button id = "myToggle" type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar2">
+        <font style = "color:#fff">LIST
+        <i class="fa fa-envelope"></i>  
+        </font>                      
       </button>
     <form id = "updating" action = "updateboardname.do" class = "boxing">
 		<input type = "text" class = "byteLimit form-control" limitbyte="50" name = "board_name" value = "<%=boardVO.getName() %>" placeholder = "Board명을 입력하세요" required>
@@ -244,7 +241,7 @@ function updating() {
 			
 		</li>
 		<li>
-			<a onclick = "ETCPage()" style = "cursor:pointer">기타설정</a>
+			<a onclick = "ETCPage()" style = "cursor:pointer">ETC</a>
 			
         </li>
       </ul>
@@ -300,6 +297,16 @@ function clickcancel() {
 	document.getElementById('id01').style.display='none';
 	window.location.reload();
 }
+
+$("#myToggle").click(function(event){
+	event.stopPropagation();
+	$('#myNavbar2').toggle();
+});
+
+ 
+$(document).click(function(){
+    $('#myNavbar2').hide();
+});
 </script>
 
 </html>

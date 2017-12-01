@@ -31,4 +31,10 @@
 		WHERE id=#{id}
 	</update>
 	
+	<!-- getCurrentChId -->
+	<select id="getCurrentChId" resultType="int">
+		SELECT SEQ_CH.CURRVAL
+		FROM DUAL;
+	</select>
+	
 </mapper>

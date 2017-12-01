@@ -10,6 +10,13 @@
 		<result property="status" column="STATUS"/>
 		<result property="recentDate" column="RECENT_DATE"/>
 	</resultMap>
+	<resultMap type="ChatListVO2" id="ChatListResultMap2">
+		<result property="chName" column="CH_NAME"/>
+		<result property="chId" column="CH_ID"/>
+		<result property="visibility" column="VISIBILITY"/>
+		<result property="status" column="STATUS"/>
+		<result property="notReadCount" column="NOT_READ_COUNT"/>
+	</resultMap>
 	
 	<!-- getChatList -->
 	<select id="getChatList" parameterType="map" resultMap="ChatListResultMap">
@@ -17,6 +24,21 @@
 		FROM chat_list0 chli
 		    INNER JOIN chatroom0 chrm
 		    ON chli.ch_id=chrm.id
+		WHERE chli.mem_id=#{memId} AND chrm.board_id=#{boardId} 
+	</select>
+	
+	<!-- getChatList2 -->
+	<select id="getChatList2" parameterType="map" resultMap="ChatListResultMap">
+		SELECT chrm.name ch_name, chli.ch_id ch_id, chli.visibility visibility, 
+		    chli.status status,(
+		        SELECT COUNT(*)
+		        FROM message0 me
+		        WHERE me.ch_id=chli.ch_id
+		            AND cre_date > chli.recent_date 
+		    ) not_read_count
+		FROM chat_list0 chli
+		    LEFT JOIN chatroom0 chrm
+		    ON chli.ch_id=chrm.id    
 		WHERE chli.mem_id=#{memId} AND chrm.board_id=#{boardId} 
 	</select>
 	

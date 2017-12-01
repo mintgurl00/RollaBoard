@@ -254,6 +254,7 @@ $(document).ready(function() {
 				<div id = "filtering" align = "right">
 					<input type="checkbox" class="filter" id="chk_duedate" name="due" value="FALSE" onclick="javascript:filterResult(this)"/>
 					<span>마감일순 보기</span>
+					<a href="./chattest.so">채팅테스트ㅜ</a>
 				</div>	
 			</div>
 		</div>
@@ -291,7 +292,7 @@ $(document).ready(function() {
 
 <!-- Modal창으로 회원정보수정 출력 -->
 <div id="updateMember" class="w3-modal">
-	<div class="w3-modal-content w3-animate-top w3-card-4" style = "max-width:550px">
+	<div class="w3-modal-content w3-animate-top w3-card-4" style = "max-width:550px; z-index:9999;">
 		<header class="w3-container w3-teal">
 			<span onclick="javascript:clickcancel()" class="w3-button w3-display-topright">&times;</span>
 			<h3>회원정보 수정</h3>

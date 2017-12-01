@@ -19,8 +19,7 @@
 	ArrayList<SectionVO> sectionList = (ArrayList<SectionVO>) request.getAttribute( "sectionList" ) ; 
 	ArrayList<ArrayList<ArrayList<RoleAndTaskVO>>> roleAndTaskList = 
 			(ArrayList<ArrayList<ArrayList<RoleAndTaskVO>>>) request.getAttribute( "roleAndTaskList" ) ;
-%>
-<%
+	
 	String board_id = (String) request.getAttribute( "board_id" ) ;
 	String keyword = (String) request.getAttribute( "keyword" ) ;
 	Date dt = new Date();
@@ -35,7 +34,7 @@ keyword : <%=keyword %> <br />
 
 <!-- TASK클릭 시 함수 -->
 <script>
-function clicktask(id) {/* 
+function clicktaskinBoard(id) {/* 
 	window.open("./taskview.do?task_id=" + id,
 			"TASK",
 			"resizeable = yes, menubar=no, width = 470, height = 800, left = 10, right = 10"); */
@@ -162,7 +161,7 @@ for( int i = 0 ; i < sectionSize ; i++ ){
 	%>
 		<div method ="post" 
 		class="task <%=status %>" 
-		onclick="javascript:clicktask('<%=taskViewList.get( i ).get( j ).getId() %>')">
+		onclick="javascript:clicktaskinBoard('<%=taskViewList.get( i ).get( j ).getId() %>')">
 
 			<div class="task_title" style="text-align:left;">
 				<span style = "font-family: Montserrat, sans-serif; font-size:15">

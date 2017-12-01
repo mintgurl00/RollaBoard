@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
 public class ChatListVO {
 
 	private String memId;	//PRIMARY KEY(mem_id, ch_id)
-	private int chId, board_id;
+	private int chId;
 	private String visibility, status;
 	private Date recentDate;
 	
@@ -29,12 +29,6 @@ public class ChatListVO {
 	}
 	public void setChId(int chId) {
 		this.chId = chId;
-	}
-	public int getBoard_id() {
-		return board_id;
-	}
-	public void setBoard_id(int board_id) {
-		this.board_id = board_id;
 	}
 	public String getStatus() {
 		return status;

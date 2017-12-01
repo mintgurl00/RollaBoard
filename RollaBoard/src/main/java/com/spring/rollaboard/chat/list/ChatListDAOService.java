@@ -76,6 +76,13 @@ public class ChatListDAOService implements ChatListDAO {
 		chatList = chatListMapper.getChatList(memId, boardId);
 		return chatList;
 	}
+	@Override
+	public ArrayList<ChatListVO2> getChatList2(String memId, int boardId) {
+		ArrayList<ChatListVO2> chatList = new ArrayList<ChatListVO2>() ;
+		ChatListMapper chatListMapper = sqlSession.getMapper( ChatListMapper.class ) ;
+		chatList = chatListMapper.getChatList2(memId, boardId);
+		return chatList;
+	}
 
 
 }

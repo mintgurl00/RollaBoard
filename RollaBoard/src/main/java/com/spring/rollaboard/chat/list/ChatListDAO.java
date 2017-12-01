@@ -14,6 +14,7 @@ public interface ChatListDAO {
 	public void updateChatList(ChatListVO chatListVO);	// 수정
 	
 	public ArrayList<ChatListVO> getChatList(String memId, int board_id);	// 채팅리스트 불러오기
+	public ArrayList<ChatListVO2> getChatList2(String memId, int board_id);
 	
 	// 내부 접근
 	public void setOutChatList(int chId, String memId);	// 추방됨(?) 처리
