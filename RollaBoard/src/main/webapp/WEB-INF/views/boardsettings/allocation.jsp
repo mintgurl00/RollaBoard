@@ -157,11 +157,11 @@ body {
         <td>
         	<form id = "insertMemToRole" action = "insertmemtorole.do">
         		<input type = "hidden" name = "role_id" value = "<%=roleVO.getId() %>" >
-	        	<input type = "text" class = "form-control" name = "mem_id" placeholder = "맴버아이디 입력" style="width:300px" required>
+	        	<input type = "text" class = "form-control" name = "mem_id" placeholder = "맴버아이디 입력"  required>
 	       		<input type = submit class = "btn btn-info" value = "배정" >
        		</form>
         </td>
-        <td align = right>
+        <td align = "right">
         <form id = "getRoleMembers">
        		<input type = button class = "btn btn-info" value = "배정된 맴버보기" onclick = "members(<%=roleVO.getId()%>)">
         </form>

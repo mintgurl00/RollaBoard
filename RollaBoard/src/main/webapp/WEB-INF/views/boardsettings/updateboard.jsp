@@ -208,9 +208,9 @@ function updating() {
   <div class="container">
     <div class="navbar-header">
       <button id = "myToggle" type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar2">
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>                        
+        <font style = "color:#fff">LIST
+        <i class="fa fa-envelope"></i>  
+        </font>                      
       </button>
     <form id = "updating" action = "updateboardname.do" class = "boxing">
 		<input type = "text" class = "byteLimit form-control" limitbyte="50" name = "board_name" value = "<%=boardVO.getName() %>" placeholder = "Board명을 입력하세요" required>

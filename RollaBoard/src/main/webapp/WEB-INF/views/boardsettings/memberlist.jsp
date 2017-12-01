@@ -168,13 +168,13 @@ function roles(id) {
         
         <td align = right>
         <div class = "row">
+        	<form id = "getMemberRoles">
+	       		<input type = button class = "btn btn-default" value = "ROLE확인" onclick = "javascript:roles('<%=memVO.getId() %>')" >
+	        </form>
 	        <form id = "deletemember<%=i %>" action = "deletemember.do" method = "post">
 	        	<input type = hidden name = "mem_id" value = "<%=memVO.getId() %>">
 	       		<input type = button value = "강퇴" class = "btn btn-default" onclick = "javascript:chkBox(<%=i %>)">
-	   		</form>
-	   		<form id = "getMemberRoles">
-	       		<input type = button class = "btn btn-default" value = "ROLE확인" onclick = "javascript:roles('<%=memVO.getId() %>')" >
-	        </form>
+	   		</form>  		
     	</div>
        	</td>
       </tr>
