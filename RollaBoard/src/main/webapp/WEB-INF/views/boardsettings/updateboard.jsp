@@ -178,10 +178,18 @@ body {
 	}
 	.swInputClicked{
 		background-color: #ffffff !important;
-		border: 2px solid #ffffff !important;
+		border: 2px solid #66aaee !important;
 		color: #222222 !important;
+		border-radius: 7px !important;
 	}
-
+	:-webkit-autofill { background-color: none}
+	.appearance (@value: none) {
+	    -webkit-appearance:     @value;
+	    -moz-appearance:        @value;
+	    -ms-appearance:         @value;
+	    -o-appearance:          @value;
+	    appearance:             @value;
+	}
 </style>
 
 <script>
