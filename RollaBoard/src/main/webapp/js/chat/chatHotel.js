@@ -11,10 +11,13 @@ window.onload = function(){
 	})
 	
 	$("#createChatListBtn").on("click", function(event){
-		$("#none").load("createChatList.so",{
+		alert();
+		$("#none").load("createChatRoom.so",{
+			name:"테스트",
 			description:"기본",
-			type:"PUBLIC",
-			visibility:"MEM_CHN"
+			visibility:"PUBLIC",
+			type:"MEM_CHN"
 		})
+		alert();
 	})
 }

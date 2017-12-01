@@ -193,7 +193,7 @@ $(document).ready(function() {
 </script>
 </head>
 <body>
-	<nav style = "background-color:#1294AB; color: #fff !important; font-family: Montserrat, sans-serif; position:fixed; padding-top:0px; z-index:10">
+	<nav style = "background-color:#1294AB; color: #fff !important; font-family: Montserrat, sans-serif; position:absolute; padding-top:0px; ">
 	<div class="container-fluid" style = "background-color:#1294AB; background-color:rgba{0,0,0,0.5};"> 
 		<div class = "navbar-header" style="padding-top:5px; height:25px">
 			<a style = "color: #fff; padding-top:1px" class="navbar-brand" href="./dashboard.do" >ROLLA<br>BOARD</a>&nbsp;&nbsp;&nbsp;

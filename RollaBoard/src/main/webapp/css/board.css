@@ -60,34 +60,61 @@
 		text-align:center;
 		display: block;
 	}
+	#newsection{
+		overflow-x:hidden; 
+		width:300px;
+
+		border-radius:6px;
+		margin: 0 auto;
+		margin-left:10px;
+		float:left;
+
+		text-align:center;
+		display: block;
+
+		background-color:none;		
+		border:1px solid;
+		border-color:#EAEAEA;
+	}
+	#newsection:hover {
+		background-color:#EAEAEA;
+	}
 }
 
 @media (max-width:768px) {
 	#section{
 		overflow-x:hidden; 
 		width:300px;
-		height:inherit;
+		
 		border-radius:6px;
 		margin: 0 auto;
 		margin-left:10px;
+		margin-bottom:15px;
 		float:left;
 		background-color:#EAEAEA; 
 		text-align:center;
 		display: block;
 	}
+	#newsection{
+		overflow-x:hidden; 
+		width:300px;
+		
+		border-radius:6px;
+		margin: 0 auto;
+		margin-left:10px;
+		margin-bottom:15px;
+		float:left;
+		background-color:none;
+		text-align:center;
+		border:2px solid;
+		border-color:#EAEAEA;
+	}
+	#newsection:hover {
+		background-color:#EAEAEA;
+	}
 }
 
-.section_wrapper{
-	 
-	position: relative;
-	float:left; 
-	width:320px;
-	height:100%;
-	
-	margin:0px 0px 0px 0px;
-	padding: 3px 5px 0px 0px;
-	display: inline-block;
-}
+
 
 .search_bar {
 	background-color: #F44336;

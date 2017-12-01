@@ -142,14 +142,14 @@ width:700px; /* optional, though better have one */
 <div class="w3-main" style="margin-left:340px;margin-right:40px">
 
   <!-- Header -->
-  <div class="w3-container" style="margin-top:40px" id="showcase">
+  <div class="w3-container w3-animate-left" style="margin-top:40px" id="showcase">
     <h1><b>My Tasks</b></h1>
     <hr style="width:50px;border:5px solid orange" class="w3-round">
   </div>
   
   <!-- Photo grid (modal) -->
   <div class="w3-row-padding">
-  	<div >
+  	<div>
   	<% if (taskList.size() == 0) {%>
   		<center><h2>No Tasks</h2></center>
   	<%} else { %>
@@ -157,7 +157,7 @@ width:700px; /* optional, though better have one */
 		TaskVO taskVO = taskList.get(k);
 	%>
 	
-    <div id="task" onclick="javascript:clicktask('<%=taskVO.getId() %>')">
+    <div id="task" onclick="javascript:clicktask('<%=taskVO.getId() %>')" class = "w3-animate-zoom">
     	<br/><h5><b><%=taskVO.getName()%></b></h5>
     	in <%=taskVO.getDescription() %>
     	<br/>

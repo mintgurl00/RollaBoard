@@ -4,18 +4,25 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.spring.rollaboard.chat.list.ChatListDAOService;
+
 @Service
 public class ChatRoomDAOService implements ChatRoomDAO {
 	
 	@Autowired
 	private SqlSession sqlSession;
+	@Autowired
+	private ChatListDAOService chatListDAOService;
 
 	@Override
 	public void createChatRoom(ChatRoomVO chatRoomVO) {
 		ChatRoomMapper chatRoomMapper = sqlSession.getMapper( ChatRoomMapper.class ) ;
-		chatRoomMapper.createChatRoom(chatRoomVO);
+		int chId = chatRoomMapper.createChatRoom(chatRoomVO);
 		// 생성 후에는 그 접근권한이 PUBLIC이라면 보드 멤버 모두에게 채팅 리스트 데이터를 추가해야한다.
-		int chId = chatRoomMapper.getCurrentChId();
+		//int chId = chatRoomMapper.getCurrentChId();
+		if(chatRoomVO.getVisibility().equals("PUBLIC")){
+			chatListDAOService.updatePublicChLi(chId);
+		}
 	}
 
 	@Override
