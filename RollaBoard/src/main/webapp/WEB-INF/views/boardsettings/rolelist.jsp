@@ -200,7 +200,7 @@ function descfadeout(cnt) {
 			    <% } %>
 			       	</div>
 		        	<input type = "text" id = "color<%=roleVO.getId() %>" class = "byteLimit nameview nameview<%=roleVO.getId() %> form-control" 
-		        	limitbyte="100" name = "color" placeholder = "ROLE의 고유 COLOR를 설정해주세요(ex:#1294AB)" value = "<%=roleVO.getColor() %>" style = "display:none" />
+		        	limitbyte="100" name = "color" placeholder = "ex:green, #1294AB" value = "<%=roleVO.getColor() %>" style = "display:none" />
 		        </div>
 		        
 		        <div class = "col-xs-1 col-sm-1 nameview<%=roleVO.getId() %>" align = right style = "display:none">

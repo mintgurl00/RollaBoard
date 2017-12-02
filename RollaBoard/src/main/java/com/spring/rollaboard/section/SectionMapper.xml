@@ -7,6 +7,7 @@
 		<result property = "id" column = "ID"/>
 		<result property = "board_id" column = "BOARD_ID"/>
 		<result property = "name" column = "NAME"/>
+		<result property = "color" column = "COLOR"/>
 	</resultMap>
 	
 	<!-- getSections -->
@@ -21,7 +22,7 @@
 
 	<!-- createSection -->
 	<insert id = "createSection" parameterType = "com.spring.rollaboard.section.SectionVO">
-		INSERT INTO section VALUES (SEQ_SECTION.NEXTVAL, #{board_id}, #{name}, #{seq_num})
+		INSERT INTO section(ID, BOARD_ID, NAME, SEQ_NUM) VALUES (SEQ_SECTION.NEXTVAL, #{board_id}, #{name}, #{seq_num})
 	</insert>
 	
 	<delete id = "deleteSection" parameterType = "int">
@@ -32,8 +33,9 @@
 		SELECT MAX(SEQ_NUM) FROM section WHERE BOARD_ID = #{board_id}
 	</select>
 	
+	<!-- 섹션 컬러 추가. 수민 -->
 	<update id = "updateSection" parameterType = "map">
-		UPDATE SECTION SET NAME = #{section_name} WHERE ID = #{section_id}
+		UPDATE SECTION SET NAME = #{section_name}, COLOR = #{color} WHERE ID = #{section_id}
 	</update>
 
 </mapper>

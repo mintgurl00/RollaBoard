@@ -37,7 +37,7 @@
 	</select>
 	
 	<insert id = "createRole" parameterType = "com.spring.rollaboard.role.RoleVO">
-		INSERT INTO role VALUES 
+		INSERT INTO role (ID, BOARD_ID, NAME, DESCRIPTION) VALUES 
 		(SEQ_ROLE.NEXTVAL, #{board_id, javaType=int}, #{name, jdbcType=VARCHAR}, #{description})
 	</insert>
 	

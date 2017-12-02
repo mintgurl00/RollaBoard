@@ -157,7 +157,7 @@ body {
     <thead>
       <tr>
         <th>SECTION 이름</th>
-        <th></th>
+        <th>SECTION COLOR</th>
       </tr>
     </thead>
     <tbody>
@@ -165,10 +165,18 @@ body {
     	SectionVO section = sectionlist.get(i);
     %>
       <tr>
-        <td>
-        <form id = "updatesection<%=section.getId() %>" action = "updatesection.do">
+       	<form id = "updatesection<%=section.getId() %>" action = "updatesection.do">
+        <td width="400">
         	<input type = "hidden" class = "form-control" name = "section_id" value =  "<%=section.getId() %>">
-        	<input type = "text"  name = "section_name" value = "<%=section.getName() %>" class="byteLimit form-control" limitbyte="30" placeholder = "수정할 Section명을 입력하세요">
+        	<input type = "text"  name = "section_name" value = "<%=section.getName() %>" class="byteLimit form-control" limitbyte="30" style="width:300px" placeholder = "수정할 Section명을 입력하세요">
+        </td>	
+        <td style="width:200px" >
+        	<% if (section.getColor() != null) { %>
+        		<input type="text" name="color" value="<%=section.getColor() %>" placeholder = "ex:green, #1294AB" class="byteLimit form-control" limitbyte="30">
+        	<% } else { %> 
+        		<input type="text" name="color" value="#EAEAEA" placeholder = "ex:green, #1294AB" class="byteLimit form-control" limitbyte="30">
+        	<% } %>
+        </td>
        	</form>
         </td>
         <td align = right>

@@ -127,7 +127,7 @@ for( int i = 0 ; i < sectionSize ; i++ ){
 %>
 
 <div class="w3-animate-left">
-<div id="section" style="text-align:left">
+<div id="section" style="text-align:left;background-color:<%=sectionList.get(i).getColor() %>">
 	<!-- 섹션 표시줄 -->
 	<div class = "row origin<%=sectionList.get(i).getId() %>" style = "display:block; cursor:pointer" <%if ( id.equals(boardVO.getAdmin()) ) {%> onclick = "javascript:flip(<%=sectionList.get(i).getId() %>)" <%} %>>
 		<div style="padding-top:10px; padding-left:30px; padding-bottom:15px" onMouseover="this.style.color='#1294AB';" onMouseout="this.style.color='black';">
@@ -139,7 +139,12 @@ for( int i = 0 ; i < sectionSize ; i++ ){
 			<div class = "col-xs-offset-1 col-xs-5">
 				<form id = "updatesectioninboard<%=sectionList.get(i).getId() %>" action="updatesectioninboard.do">
 					<input type="hidden" name="section_id" 	value="<%=sectionList.get(i).getId() %>" />
-					<input type="text" name="section_name"  class="byteLimit form-control" limitbyte="30" value="<%=sectionList.get(i).getName() %>" placeholder = "SECTION명을 입력하세요." required/>		
+					<input type="text" name="section_name"  class="byteLimit form-control" limitbyte="30" value="<%=sectionList.get(i).getName() %>" placeholder = "SECTION명을 입력하세요." required/>
+					<input type = "text"  name = "color"
+							<% if (sectionList.get(i).getColor() != null) { %>
+								value = "<%=sectionList.get(i).getColor() %>" 
+							<% } %>
+								placeholder = "COLOR" class="byteLimit form-control" limitbyte="30">
 				</form>	
 			</div>
 	

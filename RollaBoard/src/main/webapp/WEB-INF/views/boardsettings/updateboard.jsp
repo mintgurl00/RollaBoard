@@ -190,6 +190,14 @@ body {
 	    -o-appearance:          @value;
 	    appearance:             @value;
 	}
+	
+	#boardNameInput:hover {
+	color:black;
+	}
+
+	#navbar-brand:hover {
+	color:orange;
+	}
 </style>
 
 <script>
@@ -249,7 +257,7 @@ $(document).ready(function(){
         </font>                      
       </button>
     <form id = "updating" action = "updateboardname.do" class = "boxing">
-		<input id="boardNameInput" type = "text" class = "byteLimit form-control swInputN" limitbyte="50" name = "board_name" value = "<%=boardVO.getName() %>" placeholder = "Board명을 입력하세요" required>
+			<input id="boardNameInput" style = "cursor:pointer;" type = "text" class = "byteLimit form-control swInputN" limitbyte="50" name = "board_name" value = "<%=boardVO.getName() %>" placeholder = "Board명을 입력하세요" required>
 	</form>
     </div>
     <div class="collapse navbar-collapse" id="myNavbar2">
