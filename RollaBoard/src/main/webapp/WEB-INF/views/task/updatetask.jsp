@@ -5,6 +5,7 @@
 <%@ page import="com.spring.rollaboard.task.TaskVOLite"%>
 <%@ page import="com.spring.rollaboard.role.RoleVO"%>
 <%@ page import="com.spring.rollaboard.task.RefTaskVO"%>
+<%@ page import = "java.text.SimpleDateFormat"%>
 <%
 // 세션 아이디 체크
 if(session.getAttribute("id") == null) {
@@ -17,7 +18,7 @@ TaskVO taskVO = (TaskVO) request.getAttribute("taskVO");
 ArrayList<RoleVO> roleList = (ArrayList<RoleVO>) request.getAttribute("roleList");
 ArrayList<RoleVO> allocatedRole = (ArrayList<RoleVO>) request.getAttribute("allocatedRole");
 ArrayList<TaskVOLite> taskIdList = (ArrayList<TaskVOLite>) request.getAttribute("taskIdList");
-
+SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 
 
 // 관계 태스크 보여주기 위한 기능
@@ -41,7 +42,7 @@ if (taskVO.getLocation() == null) {
 %>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <style>
-#frame{position:absolute; padding:10px; border-radius:4px; width:600px;height:695px; overflow:auto; background-color:#A2B1DA; margin-right: 10px; text-align:center} 
+#frame{position:absolute; padding:10px; border-radius:4px; width:600px;height:695px; overflow:auto; background-color:whitesmoke; margin-right: 10px; text-align:center} 
 #content{border-radius:4px; width:500px; height:120px; background-color:#FFFFFF;text-align:left}
 #button{margin-top:20px}
 </style>
@@ -135,14 +136,14 @@ function updating() {
 	<tbody>
 		<tr>
 			<td><b>시작일 :</b></td>
-			<td><input type="date" id="start_date" name="start_date" placeholder="yyyy-mm-dd" name ="start_date" value = "<%=taskVO.getStart_date()%>"></td>
+			<td><input type="date" id="start_date" name="start_date" placeholder="yyyy-mm-dd" name ="start_date" value = "<%=sdf.format(taskVO.getCre_date())%>"></td>
 		</tr>
 		<tr>
 			<td><b>마감일 :</b>
-			<td><input type="date" id="due_date" placeholder="yyyy-mm-dd" name = "due_date" value = "<%=taskVO.getDue_date()%>"></td>
+			<td><input type="date" id="due_date" placeholder="yyyy-mm-dd" name = "due_date" value = "<%=sdf.format(taskVO.getDue_date())%>"></td>
 		<tr>
 			<td><b>생성일: </b>
-			<td><input type="date" id="cre_date" placeholder="yyyy-mm-dd" name = "cre_date" value = "<%=taskVO.getCre_date()%>" readonly></td>
+			<td><input type="date" id="cre_date" placeholder="yyyy-mm-dd" name = "cre_date" value = "<%=sdf.format(taskVO.getCre_date())%>" readonly></td>
 		</tr>
 		<tr>
 			<td><b>중요도:</b>

@@ -1,6 +1,9 @@
 package com.spring.rollaboard.controller;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -110,7 +113,7 @@ public class TaskController {
 		
 		// 관계 입력 때문에 태스크 정보도 좀 가져와야 한다.
 		ArrayList<TaskVOLite> taskIdList = taskDAOService.getTaskIdList(board_id);
-		
+		System.out.println("넘겨주기만 하면 됨");
 		// 배정된 롤 리스트도 보여준다.
 		result.addObject("taskIdList", taskIdList);
 		ArrayList<RoleVO> allocatedRole = roleDAOService.getRolesByTask(taskVO.getId());
@@ -123,7 +126,30 @@ public class TaskController {
     
     // 태스크 수정 처리
     @RequestMapping("updatetask.do")
-    public ModelAndView updatetask(String taskToRole, TaskVO taskVO, HttpSession session, HttpServletRequest request) {
+    public ModelAndView updatetask(String taskToRole, HttpSession session, HttpServletRequest request
+    	) throws ParseException {
+    	SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd"); 
+    	
+    	Date creDate = sdf.parse(request.getParameter("cre_date"));
+    	Date dueDate = sdf.parse(request.getParameter("due_date"));
+    	Date startDate = sdf.parse(request.getParameter("start_date"));
+    	int id = Integer.parseInt((String)request.getParameter("id"));
+    	int section_id = Integer.parseInt((String)request.getParameter("section_id"));
+    	String name = request.getParameter("name");
+    	String description = request.getParameter("description");
+    	int priority = Integer.parseInt(request.getParameter("priority"));
+    	String location = (String)request.getParameter("location");
+    	
+    	TaskVO taskVO = new TaskVO();
+    	taskVO.setCre_date(creDate);
+    	taskVO.setDue_date(dueDate);
+    	taskVO.setStart_date(startDate);
+    	taskVO.setId(id);
+    	taskVO.setSection_id(section_id);
+    	taskVO.setName(name);
+    	taskVO.setDescription(description);
+    	taskVO.setPriority(priority);
+    	taskVO.setLocation(location);
     	ModelAndView result = new ModelAndView();
     	System.out.println("태스크에 배정할 롤 이름! : " + taskToRole);
     	System.out.println("업데이트할 task_id : " + taskVO.getId());
@@ -158,18 +184,44 @@ public class TaskController {
 				taskRefDAOService.addPostTask(taskVO.getId(), newPostTaskId);	// 추가
 		}
 		/////////////////////////////////////////
-    	System.out.println("스테이터스 :" + taskVO.getStatus());	
+ 
+    	taskDAOService.updateTask(taskVO);
     	// 롤 이름이 없으면 수행 안한다.
-    	if (taskToRole == null || (taskToRole == "")) {
-    		taskDAOService.updateTask(taskVO);
+    	if (taskToRole == null || (taskToRole == "")) {  		
         	result.setViewName("redirect:board.do");
         	return result;
     		
-    	} else{
+    	} else {
 	    	// 태스크 수정사항 업데이트
 	    	System.out.println("널이아니야!!(롤배정을 설정했어)");
+	    	ArrayList<RoleVO> roleList = roleDAOService.getRoles(board_id);
+	    	int chk = 0;
+	    	for (int i = 0; i < roleList.size(); i++) {
+				String name2 = roleList.get(i).getName();
+				if (taskToRole.equals(name2)) {
+					chk++;
+				}
+				if (chk != 0) {
+					break;
+				}
+			}
+	    	if (chk == 0) {
+	    		result.setViewName("redirect:board.do");
+	        	return result;
+			}
+	    	// 이미 배정되어 있으면 하지 않는다.
+	    	ArrayList<RoleVO> havingList = roleDAOService.getRolesByTask(taskVO.getId());
+	    	for (int i = 0; i < havingList.size(); i++) {
+				String name2 = havingList.get(i).getName();
+				if (taskToRole.equals(name2)) {
+					result.setViewName("redirect:board.do");
+		        	return result;
+				}			
+			}
 	    	// updatetask에서 가져온 롤 이름으로 롤 아이디 찾는다.
 			int role_id = roleDAOService.getRoleIdByName(taskToRole, Integer.parseInt((String)session.getAttribute("board_id")));
+			// 롤 아이디값이 없으면 배정할 수 없다.
+		
 			// 태스크에 롤을 배정한다.
 			taskDAOService.taskToRole(taskVO.getId(), role_id);	
 			result.setViewName("redirect:board.do");
@@ -212,9 +264,23 @@ public class TaskController {
 	
 	// 실제로 만드는 메소드
 	@RequestMapping("inserttask.do")
-	public ModelAndView insertTask(String taskToRole, HttpSession session, TaskVO taskVO, HttpServletRequest request) {
-		System.out.println("만들 태스크의 이름 : " + taskVO.getName());
+	public ModelAndView insertTask(String name, String location, int section_id, HttpSession session, HttpServletRequest request) throws ParseException {
+		System.out.println("만들 태스크의 이름 : " + name);
+		Date dt = new Date();
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd"); 
+		Date asd = sdf.parse(sdf.format(dt));
+		
+		TaskVO taskVO = new TaskVO();
+		taskVO.setName(name);
+		taskVO.setDescription("");
 		taskVO.setStatus("NORMAL");
+		taskVO.setLocation(location);
+		taskVO.setSection_id(section_id);
+		taskVO.setStart_date(asd);
+		taskVO.setDue_date(asd);
+		taskVO.setCre_date(asd);
+		taskVO.setPriority(3);
+		
 		// 태스크를 생성한다.
 		taskDAOService.createTask(taskVO);    	
     	/*if (taskVO.getStatus() == null) {
@@ -233,14 +299,12 @@ public class TaskController {
 	}
 	
 	@RequestMapping("deallocatetask.do")
-	public ModelAndView deallocatetask(int role_id, int task_id) {
-		ModelAndView result = new ModelAndView();
+	public void deallocatetask(int role_id, int task_id) {
 		System.out.println("deallocatetask.do... task_id : " + task_id);
 		roleDAOService.deallocateTask(role_id, task_id);
 		System.out.println("TASK_ROLE 삭제완료");
-		result.addObject("task_id", task_id);
-		result.setViewName("redirect:updatetaskform.do");
-		return result;
+
+		return;
 	}
     
 	// 완료 버튼 처리

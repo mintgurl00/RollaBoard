@@ -75,7 +75,7 @@ body {
       color: #fff !important;
   }
   .navbar-nav li a:hover, .navbar-nav li.active a {
-      color: #F44336 !important;
+      color: #1294AB !important;
       background-color: #fff !important;
   }
   .navbar-default .navbar-toggle {
@@ -125,11 +125,7 @@ body {
         margin-bottom: 35px;
     }
   }
-  @media screen and (max-width: 480px) {
-    .logo {
-        font-size: 150px;
-    }
-  }
+
 </style>
 <script type = "text/javascript" language = "javascript">
 
@@ -172,13 +168,13 @@ function roles(id) {
         
         <td align = right>
         <div class = "row">
+        	<form id = "getMemberRoles">
+	       		<input type = button class = "btn btn-default" value = "ROLE확인" onclick = "javascript:roles('<%=memVO.getId() %>')" >
+	        </form>
 	        <form id = "deletemember<%=i %>" action = "deletemember.do" method = "post">
 	        	<input type = hidden name = "mem_id" value = "<%=memVO.getId() %>">
 	       		<input type = button value = "강퇴" class = "btn btn-default" onclick = "javascript:chkBox(<%=i %>)">
-	   		</form>
-	   		<form id = "getMemberRoles">
-	       		<input type = button class = "btn btn-default" value = "ROLE확인" onclick = "javascript:roles('<%=memVO.getId() %>')" >
-	        </form>
+	   		</form>  		
     	</div>
        	</td>
       </tr>

@@ -19,12 +19,11 @@
 	ArrayList<SectionVO> sectionList = (ArrayList<SectionVO>) request.getAttribute( "sectionList" ) ; 
 	ArrayList<ArrayList<ArrayList<RoleAndTaskVO>>> roleAndTaskList = 
 			(ArrayList<ArrayList<ArrayList<RoleAndTaskVO>>>) request.getAttribute( "roleAndTaskList" ) ;
-%>
-<%
+	
 	String board_id = (String) request.getAttribute( "board_id" ) ;
 	String keyword = (String) request.getAttribute( "keyword" ) ;
 	Date dt = new Date();
-	SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd"); 
+	SimpleDateFormat sdf = new SimpleDateFormat("M/dd"); 
 %>
 
 <!-- 
@@ -35,7 +34,7 @@ keyword : <%=keyword %> <br />
 
 <!-- TASK클릭 시 함수 -->
 <script>
-function clicktask(id) {/* 
+function clicktaskinBoard(id) {/* 
 	window.open("./taskview.do?task_id=" + id,
 			"TASK",
 			"resizeable = yes, menubar=no, width = 470, height = 800, left = 10, right = 10"); */
@@ -75,12 +74,19 @@ function clickModalcancel(cnt) {
 	// window.location.reload();
 }
 </script>
+
 <style>
 .fa.fa-plus-circle {
 	font-size: 30px;
 	color: #ABABAB;
 	padding:20px;
 }
+
+.fa.fa-plus-circle:hover {
+	color: black;
+}
+
+
 
 </style>
 <link href="css/task.css" rel="stylesheet" type="text/css" >
@@ -121,11 +127,11 @@ int sectionSize = sectionList.size() ;
 for( int i = 0 ; i < sectionSize ; i++ ){
 %>
 
-<div class="section_wrapper">
+<div class="w3-animate-left">
 <div id="section" style="text-align:left">
 	<!-- 섹션 표시줄 -->
 	<div class = "row origin<%=sectionList.get(i).getId() %>" style = "display:block; cursor:pointer" <%if ( id.equals(boardVO.getAdmin()) ) {%> onclick = "javascript:flip(<%=sectionList.get(i).getId() %>)" <%} %>>
-		<div style="padding-top:10px; padding-left:30px; padding-bottom:15px">
+		<div style="padding-top:10px; padding-left:30px; padding-bottom:15px" onMouseover="this.style.color='#1294AB';" onMouseout="this.style.color='black';">
 			<h5><b><%=sectionList.get(i).getName() %></b></h5>
 		</div>
 	</div>
@@ -155,12 +161,14 @@ for( int i = 0 ; i < sectionSize ; i++ ){
 	%>
 		<div method ="post" 
 		class="task <%=status %>" 
-		onclick="javascript:clicktask('<%=taskViewList.get( i ).get( j ).getId() %>')">
+		onclick="javascript:clicktaskinBoard('<%=taskViewList.get( i ).get( j ).getId() %>')">
 
-			<div class="task_title" style="text-align:left;padding-bottom:10px">
-				<span style = "font-family: Montserrat, sans-serif; font-size:15"><b><%=taskViewList.get( i ).get( j ).getName() %></b></span>
+			<div class="task_title" style="text-align:left;">
+				<span style = "font-family: Montserrat, sans-serif; font-size:15">
+					<b><%=taskViewList.get( i ).get( j ).getName() %></b>&nbsp;
+					<small style="text-align:right"><%=sdf.format(taskViewList.get( i ).get( j ).getDue_date()) %></small>
+				</span>
 			</div>
-			
 			
 			<!-- 롤 표시 -->
 			<%
@@ -231,8 +239,8 @@ for( int i = 0 ; i < sectionSize ; i++ ){
 				<h3>TASK in <%=sectionList.get(i).getName() %></h3>
 				<p>TASK 생성 후에 수정을 통해 필요한 작업들을 추가로 진행하세요!</p>
 			</header>
-			<form class="w3-container" action="inserttask.do" method = "post">
-				<div class="w3-section">
+			<div class="w3-section">
+			<form class="w3-container" action="inserttask.do" method = "post">			
 					<input type="hidden" id="section_id" name="section_id" value = <%=sectionList.get(i).getId() %> size="40">
 					<input type="hidden" name="status" value="NORMAL" />
 					<label>TASK 제목:</label>
@@ -245,9 +253,9 @@ for( int i = 0 ; i < sectionSize ; i++ ){
 					<label>위치정보:</label>
 					<input type="text" id="location" placeholder="ex)서울시 서초구 잠원동" class = "w3-input w3-border w3-margin-bottom" name="location">
 					<button type="submit" class="w3-button w3-block w3-green w3-section w3-padding"  style="background-color: green"><b>생성하기</b></button>
-					<button onclick="javascript:clickModalcancel('<%=sectionList.get(i).getId()%>')" type="button" class = "w3-button w3-block w3-red"><b>취소</b></button>
-				</div>
+					<button onclick="javascript:clickModalcancel('<%=sectionList.get(i).getId()%>')" type="button" class = "w3-button w3-block w3-red"><b>취소</b></button>			
 			</form>
+			</div>
 		</div>
 	</div>
 
@@ -257,15 +265,11 @@ for( int i = 0 ; i < sectionSize ; i++ ){
 <%
 }
 %>
-
 <%
 if( keyword.equals( "" ) ){	// 검색 결과가 *아니*라면
 	if ( id.equals(boardVO.getAdmin()) ) {%>
-	<div class="section_wrapper">
-		<div id="section">
-			
+		<div id="newsection">			
 			<a href="createsectioninboard.do"><i class="fa fa-plus-circle" aria-hidden="true"></i></a>
 		</div>
-	</div>
 <%	} 
 }%>

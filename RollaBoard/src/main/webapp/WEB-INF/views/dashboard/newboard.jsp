@@ -34,7 +34,7 @@ if(session.getAttribute("id") == null) {
 	<div class = "col-xs-12 col-sm-6">
 		<div class = "thumbnail">
 			<a href ="createboardform.do"> <!-- 수민 -->
-			<img src = "image/light.jpg">
+			<img src = "image/light.jpg" class="w3-animate-left" alt = "CREATE BOARD" height = 700>
 			<center><h2>Workboard 생성</h2></center>
 
 			</a>
@@ -44,7 +44,7 @@ if(session.getAttribute("id") == null) {
 	<div class = "col-xs-12 col-sm-6">
 		<div class = "thumbnail">	
 			<a href ="enterboard.do">
-			<img src = "image/people.jpg" alt = "ENTER BOARD" height = 700>
+			<img src = "image/people.jpg" class="w3-animate-right" alt = "ENTER BOARD" height = 700>
 			<center><h2>Workboard 입장</h2></center>
 			</a>
 		</div>

@@ -53,6 +53,11 @@
 	font-size:20px;
 	margin-left:10px;
 }
+
+.glyphicon.glyphicon-cog:hover {
+	color:black;
+}
+
 </style>
 <script src="js/board.js"></script>
 
@@ -71,8 +76,8 @@ window.onload = function(){
 	initRefBoard( "ref_board_select" ) ;
 	initBoard();
 	inputEnterToSearch();
-	$( "#ref_board" ).click( function(){showRefBoard()} ) ;
 }
+
 /*
  * 참조보드 select태그에 넣기 
  */
@@ -139,16 +144,16 @@ function inputEnterToSearch(){
  */
 
 function filterResult( obj ){	// 필터버튼 클릭
-	/* alert( obj.name + ' : ' + obj.value ) ; */
+	//alert( obj.name + ' : ' + obj.value ) ;
 	// 01 필터 버튼에 값 설정
 	if( obj.value == 'FALSE' )
 		obj.value = 'TRUE' ;
 	else
 		obj.value = 'FALSE' ;
 	// 02 전체 필터버튼의 값 확인해서 전달 필터 String 작성
-	/* alert( obj.name + ' : ' + obj.value ) ; */
+	//alert( obj.name + ' : ' + obj.value ) ;
 	var filter = getFilter() ;
-	/* alert( '필터스트링 : ' + filter ) ; */
+	//alert( '필터스트링 : ' + filter ) ;
 	// 03 페이지 로드
 	$('#work_board').load("searchresult.do", {
 		board_id: '<%=boardVO.getId() %>',
@@ -161,7 +166,7 @@ function getFilter(){
 	$( ".filter" ).each( function(){
 /* 		alert( '필터' + $( this ).prop( "name" ) ) ; */
 		if( $( this ).val() == 'TRUE' )
-			filterString += $( this ).prop( "name" ) + " " ;
+			filterString += $( this ).prop( "name" ) + " " ; //filterString에는 선택된 checkBox의 name이 저장됨 ex) due, priority, due priority
 	} ) ;
 	return filterString
 }
@@ -169,25 +174,26 @@ function getFilter(){
 /*
  * 참조 보드 부르기
  */
-function showRefBoard(){
-	var ref_board_id = $( "#ref_board_select option:selected" ).val() ;
-	if( ref_board_id != $("#current_ref_board").val() ){
-		ref_board_id != $("#current_ref_board").prop( "value" , ref_board_id ) ;
-		alert( '참조보드 : ' + ref_board_id ) ;
-		
-		$("#content_ref").load("referenceboard.do", {
-			board_id: '<%=boardVO.getId() %>',
-			ref_board_id:ref_board_id
-		}) ;
-		
-		alert( '작업 시작' ) ;
-	}
-}
+ 
+ //참조보드 선택 시 부르기 .수민
+$(document).ready(function() {
+	 $('#ref_board_select').change(function() {
+		 var ref_board_id = $(this).val();
+		 
+		 $("#content_ref").load("referenceboard.do", {
+				board_id: '<%=boardVO.getId() %>',
+				ref_board_id:ref_board_id,
+				keyword:''
+		 }) ;
+		 $("#myModal2").modal();
+	 });
+ });
+ 
 
 </script>
 </head>
 <body>
-	<nav style = "background-color:#1294AB; color: #fff !important; font-family: Montserrat, sans-serif; position:fixed; padding-top:0px; z-index:10">
+	<nav style = "background-color:#1294AB; color: #fff !important; font-family: Montserrat, sans-serif; position:absolute; padding-top:0px; ">
 	<div class="container-fluid" style = "background-color:#1294AB; background-color:rgba{0,0,0,0.5};"> 
 		<div class = "navbar-header" style="padding-top:5px; height:25px">
 			<a style = "color: #fff; padding-top:1px" class="navbar-brand" href="./dashboard.do" >ROLLA<br>BOARD</a>&nbsp;&nbsp;&nbsp;
@@ -246,15 +252,17 @@ function showRefBoard(){
 			        </div>
 				</div> 
 				<div id = "filtering" align = "right">
-					<input type="checkbox" class="filter" id="chk_duedate" name="due" value="FALSE" onclick="javascript:filterResult(this)"/>
+					<input type="radio" class="filter" id="chk_duedate" name="due" value="FALSE" onclick="javascript:filterResult(this)"/>
 					<span>마감일순 보기</span>
-				</div>	
+					<input type="radio" class="filter" id="chk_priority" name="priority" value="FALSE" onclick="javascript:filterResult(this)"/>
+					<span>중요도순 보기</span>
+					<a href="./chattest.so">채팅테스트ㅜ</a>
+				</div>
 			</div>
 		</div>
 	</div>
 	</nav>
-
-
+	
 
 <!-- MODAL TASK -->
 <div class="modal fade" id="myModal" role="dialog">
@@ -264,19 +272,27 @@ function showRefBoard(){
 	</div>
 </div>
 
+<!-- MODAL 참조보드 -->
+<div class="modal fade" id="myModal2" role="dialog">
+	<div class="modal-dialog" style="margin:55px auto; width:90%">
+		<div align=right style="margin-bottom:10px">
+		<button type="button" class="btn btn-default" data-dismiss="modal" align=right>Close</button>
+		</div>
+		
+		<div class="modal-content" id="content_ref" style="background-color:#1294AB;">
+		</div>
+	</div>
+</div>
+
 <div class="boards">
 	<!-- 보드 -->
 	<div id="work_board" style="background-color:#1294AB">		
-	</div>
-	
-	<!-- 참조 보드 -->
-	<div id="content_ref">
 	</div>
 </div>
 
 <!-- Modal창으로 회원정보수정 출력 -->
 <div id="updateMember" class="w3-modal">
-	<div class="w3-modal-content w3-animate-top w3-card-4" style = "max-width:550px">
+	<div class="w3-modal-content w3-animate-top w3-card-4" style = "max-width:550px; z-index:9999;">
 		<header class="w3-container w3-teal">
 			<span onclick="javascript:clickcancel()" class="w3-button w3-display-topright">&times;</span>
 			<h3>회원정보 수정</h3>
@@ -297,18 +313,8 @@ function showRefBoard(){
 		</form>
 	</div>
 </div>
-
-
-
-
-
-
-
-
-
-
-
 </body>
+
 <script>
 $(".selectBox02 select").change(function () {
 	var changeTxt = $(this).find("option:selected").text();

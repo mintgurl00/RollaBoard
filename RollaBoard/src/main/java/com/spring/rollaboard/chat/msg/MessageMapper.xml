@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.spring.rollaboard.chat.msg.MessageMapper">
+
+	<resultMap type="MessageVO" id="MessageResultMap">
+		<result property="id" column="ID"/>
+		<result property="chId" column="CH_ID"/>
+		<result property="memId" column="MEM_ID"/>
+		<result property="roleId" column="ROLE_ID"/>
+		<result property="text" column="TEXT"/>
+		<result property="creDate" column="CRE_DATE"/>
+	</resultMap>
+	
+	
+	<!-- getMessageList -->
+	<select id="getMessageList" parameterType="map" resultMap="MessageResultMap">
+		SELECT *
+		FROM message0
+		WHERE ch_id=#{chId}
+	</select>
+	
+	<!-- insertMessage -->
+	<insert id="insertMessage" parameterType="com.spring.rollaboard.chat.msg.MessageVO">
+		INSERT INTO message0 (id, ch_id, mem_id, role_id, text, cre_date) 
+		VALUES (SEQ_MSG.NEXTVAL, #{chId}, #{memId}, #{roleId}, #{text}, SYSTIMESTAMP)
+	</insert>
+	
+</mapper>

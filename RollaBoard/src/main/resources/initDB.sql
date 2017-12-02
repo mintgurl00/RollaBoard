@@ -157,6 +157,73 @@ Create table task_conn (
     );
     
 -----------------------------------------------------------------------------------------------------------------------
+-----------------------아래는 채팅 기능에 필요한 DB
+------------------------------수정 중
+-------채팅 룸
+DROP TABLE chatroom0;
+CREATE TABLE chatroom0 (
+    id NUMBER PRIMARY KEY,
+    name VARCHAR2(50),
+    description VARCHAR2(500),
+    board_id NUMBER, -- REFERENCES board(id) ON DELETE CASCADE
+    visibility varchar2(10) default 'PUBLIC' not null 
+        CONSTRAINT chk_ch_visib CHECK ( visibility in ('PUBLIC', 'PRIVATE', 'PROTECTED')),
+    type varchar2(15) default 'MEM_CHN' not null 
+        CONSTRAINT chk_ch_type CHECK ( type in ('MEM_CHN', 'ROLE_CHN', 'MESSAGE')),
+    cre_mem_id VARCHAR2(20)
+);
+SELECT * FROM chatroom0 ;
+
+-- 채팅 룸 아이디 시퀀스
+drop sequence seq_ch;
+Create sequence seq_ch
+start with 1
+increment by 1
+maxvalue 5000;
+
+------채팅 멤버
+DROP TABLE chat_mem0;
+CREATE TABLE chat_mem0 (
+    ch_id NUMBER, -- REFERENCES chatroom(id) ON DELETE CASCADE
+    mem_id VARCHAR2(20), -- REFERENCES mem(id) ON DELETE CASCADE
+    role_id NUMBER, -- REFERENCES role(id) ON DELETE CASCADE
+    PRIMARY KEY(ch_id, mem_id, role_id)
+);
+SELECT * FROM chat_mem0;
+
+-------메시지
+DROP TABLE message0;
+CREATE TABLE message0 (
+    id NUMBER PRIMARY KEY,
+    ch_id NUMBER, -- REFERENCES chatroom(id) ON DELETE CASCADE
+    mem_id VARCHAR2(20), -- REFERENCES mem(id) ON DELETE CASCADE
+    role_id NUMBER, -- REFERENCES role(id) ON DELETE CASCADE
+    text VARCHAR2(500),
+    cre_date DATE -- SYSTIMESTAMP
+);
+SELECT * FROM message0;
+-- 메시지 시퀀스
+drop sequence seq_msg;
+Create sequence seq_msg
+start with 1
+increment by 1
+maxvalue 50000;
+
+-------채팅 룸 리스트
+DROP TABLE chat_list0 ;
+CREATE TABLE chat_list0 (
+    mem_id VARCHAR2(20), -- REFERENCES mem(id) ON DELETE CASCADE
+    ch_id NUMBER, -- REFERENCES chatroom(id) ON DELETE CASCADE
+    visibility VARCHAR2(10) default 'VISIBLE'
+        CONSTRAINT chk_chlist_visib CHECK ( visibility in ('VISIBLE', 'HIDDEN') ),
+    status VARCHAR2(5) default 'IN'
+        CONSTRAINT chk_chlist_stat CHECK ( status in ('IN', 'OUT') ),
+    recent_date DATE, -- SYSTIMESTAMP
+    PRIMARY KEY(mem_id, ch_id)
+) ;
+SELECT * FROM chat_list0;
+    
+-----------------------------------------------------------------------------------------------------------------------
 -- 여기까지 테이블, 시퀀스 생성
 -- --테이블 바꿀 때에는 반드시 공유파일(DB모델링)에 기록할 것.
 -- 아래부터 샘플 데이터 삽입

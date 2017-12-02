@@ -19,6 +19,7 @@ public class TaskFilterSQL {
 	private void initTaskFilter() {
 		taskFilter = new HashMap<String, TaskFilter>() ;
 		taskFilter.put( "due" , TaskFilter.F_DUEDATE ) ;
+		taskFilter.put( "priority" , TaskFilter.F_PRIORITY ) ;
 	}
 
 	public static TaskFilterSQL getInstance(){

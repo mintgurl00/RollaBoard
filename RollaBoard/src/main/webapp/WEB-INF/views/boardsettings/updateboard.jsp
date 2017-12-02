@@ -86,7 +86,7 @@ body {
       margin-bottom: 0;
       background-color: #1294AB;
       z-index: 9999;
-      border: 0;
+      border: 1;
       font-size: 12px !important;
       line-height: 1.42857143 !important;
       letter-spacing: 4px;
@@ -94,15 +94,15 @@ body {
       font-family: Montserrat, sans-serif;
   }
   .navbar li a, .navbar .navbar-brand {
-      color: #1294AB !important;
+      color: #000;
   }
   .navbar-nav li a:hover, .navbar-nav li.active a {
-      color: #1294AB !important;
-      background-color: #1294AB !important;
+      color: #1294AB;
+      background-color: #fff;
   }
   .navbar-default .navbar-toggle {
-      border-color: #1294AB;
-      color: #1294AB !important;
+      border-color: #fff;
+      color: #fff;
   }
   footer .glyphicon {
       font-size: 20px;
@@ -147,11 +147,6 @@ body {
         margin-bottom: 35px;
     }
   }
-  @media screen and (max-width: 480px) {
-    .logo {
-        font-size: 150px;
-    }
-  }
   .boxing {
 	  width: 300px;
 	  height: 50px;
@@ -163,6 +158,38 @@ body {
 	  -moz-border-radius: 5px;
 	  border-radius: 10px;
   }
+  
+  .btn.btn-info {
+  	background-color:#1294AB;
+  }
+  
+  input[type="text"], input[type="password"], input[type="email"],
+   input[type="search"], input[type="image"],input[type="tel"], 
+   textarea {-webkit-appearance:none;
+   -webkit-border-radius:0;
+   border:0;
+   -webkit-box-shadow: 0 0 0 1000px #00000000 inset;
+   } 
+	#boardNameInput{
+		background-color: #00000000;
+		border: 0px solid #00000000;
+		color: #ffffff;
+		font-size: 25px;
+	}
+	.swInputClicked{
+		background-color: #ffffff !important;
+		border: 2px solid #66aaee !important;
+		color: #222222 !important;
+		border-radius: 7px !important;
+	}
+	:-webkit-autofill { background-color: none}
+	.appearance (@value: none) {
+	    -webkit-appearance:     @value;
+	    -moz-appearance:        @value;
+	    -ms-appearance:         @value;
+	    -o-appearance:          @value;
+	    appearance:             @value;
+	}
 </style>
 
 <script>
@@ -193,6 +220,15 @@ function ETCPage() {
 function updating() {
 	document.getElementById("updating").submit();
 }
+
+$(document).ready(function(){
+	$("#boardNameInput").on("focus",function(){
+		$("#boardNameInput").addClass("swInputClicked");
+	});
+	$("#boardNameInput").on("blur",function(){
+		$("#boardNameInput").removeClass("swInputClicked");
+	});
+});
 </script>
 
 <!-- 글자수제한 스크립트 -->
@@ -204,15 +240,16 @@ function updating() {
 <div class="whole_wrapper">
 <div class="upper_wrapper">
 <nav class="navbar navbar-fixed-top">
+<a style = "color: #fff;margin-top:5px;margin-left:5px" class="navbar-brand" href="./dashboard.do" >ROLLA<br>BOARD</a>&nbsp;&nbsp;&nbsp;
   <div class="container">
     <div class="navbar-header">
-      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar2">
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>                        
+      <button id = "myToggle" type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar2">
+        <font style = "color:#fff">LIST
+        <i class="fa fa-envelope"></i>  
+        </font>                      
       </button>
     <form id = "updating" action = "updateboardname.do" class = "boxing">
-		<input type = "text" class = "byteLimit form-control" limitbyte="50" name = "board_name" value = "<%=boardVO.getName() %>" placeholder = "Board명을 입력하세요" required>
+		<input id="boardNameInput" type = "text" class = "byteLimit form-control swInputN" limitbyte="50" name = "board_name" value = "<%=boardVO.getName() %>" placeholder = "Board명을 입력하세요" required>
 	</form>
     </div>
     <div class="collapse navbar-collapse" id="myNavbar2">
@@ -238,7 +275,7 @@ function updating() {
 			
 		</li>
 		<li>
-			<a onclick = "ETCPage()" style = "cursor:pointer">기타설정</a>
+			<a onclick = "ETCPage()" style = "cursor:pointer">ETC</a>
 			
         </li>
       </ul>
@@ -294,6 +331,16 @@ function clickcancel() {
 	document.getElementById('id01').style.display='none';
 	window.location.reload();
 }
+
+$("#myToggle").click(function(event){
+	event.stopPropagation();
+	$('#myNavbar2').toggle();
+});
+
+ 
+$(document).click(function(){
+    $('#myNavbar2').hide();
+});
 </script>
 
 </html>

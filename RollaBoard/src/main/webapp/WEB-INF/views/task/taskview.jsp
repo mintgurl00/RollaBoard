@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page import="com.spring.rollaboard.task.TaskVO"%>
 <%@ page import="com.spring.rollaboard.task.RefTaskVO"%>
+<%@ page import = "java.text.SimpleDateFormat"%>
 <%
 // 세션 아이디 체크
 if(session.getAttribute("id") == null) {
@@ -19,6 +20,7 @@ if(session.getAttribute("id") == null) {
 	if (taskVO.getDescription() == null) {
 		taskVO.setDescription("");
 	}
+	SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd"); 
 %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -87,16 +89,25 @@ if(session.getAttribute("id") == null) {
       .completeBtn:hover {background-color:#4CAF50;color:white;border-radius: 12px;}
       .completeCancelBtn:hover {background-color:orange;color:white;border-radius: 12px;}
       .blockedBtn:hover {background-color:black;color:white;border-radius: 12px;}
-      #frame{position:absolute; padding:10px; border-radius:6px; width:600px;height:600px; overflow:auto; background-color:whitesmoke; margin-right: 10px; text-align:center; box-shadow: 1px 1px 5px #000; }
-	  #content{border-radius:4px; width:500px; height:120px; background-color:#FFFFFF; margin-left:50px;text-align:left}
-	  #button{margin-top:20px}
+  @media (min-width:768px) {
+  	#frame{position:absolute; padding:10px; border-radius:6px; width:600px;height:600px; overflow:auto; background-color:whitesmoke; margin-right: 10px; text-align:center; box-shadow: 1px 1px 5px #000; }
+  	#content{border-radius:4px; width:500px; height:120px; background-color:#FFFFFF; margin-left:50px;text-align:left}
+  	#completeArea{margin-left:450px;}
+  }
+  @media (max-width:768px) {
+  	#frame{position:absolute; padding:10px; border-radius:6px; width:300px;height:600px; overflow:auto; background-color:whitesmoke; margin-left: 9px; text-align:center; box-shadow: 1px 1px 5px #000; }
+  	#content{border-radius:4px; width:250px; height:120px; background-color:#FFFFFF; margin-left:50px;text-align:left}
+  	#completeArea{margin-left:185px;}
+  }
+	
+	#button{margin-top:20px}
 </style>
 
 <title>태스크보기</title>
 
 <script src="js/taskview.js"></script>
 
-<script>
+<script type="text/javascript">
 
 //처음 맵 상태
 function initMap() {
@@ -106,7 +117,6 @@ function initMap() {
   }); */
 	  	
   var address = document.getElementById('addr1').value; //검색창에 입력한 주소를 address에 저장
-  alert('위치:' + address);
   
   var map = new google.maps.Map(document.getElementById('map'), { //구글맵을 불러와 map에 저장
     zoom: 13
@@ -160,7 +170,21 @@ function locationview() {
 	 $('#taskLocationButton').css("display", "none");
 	 initMap();
 }
-
+ 
+//잠김 버튼 마우스 오버 시 선행태스크 강조
+function onMouseover() {
+	
+	var task_status = document.getElementById('task_status').value;
+	if (task_status == "BLOCKED") {
+		//alert('선행 TASK를 COMPLETE해야 잠김이 풀립니다');
+		
+		/* setInterval(function() {
+			$("#blink").toggle();
+		}, 250); */
+	}
+}
+ 
+document.getElementById('completeArea').addEventListener('mouseover', onMouseover);
 
 </script>
 </head>
@@ -171,33 +195,35 @@ function locationview() {
 <div id = "frame">
 	
 	<h2><%=taskVO.getName() %></h2>
-	<div id="completeArea" align = "right"></div>
+	<div id="completeArea" align = "right" ></div>
 	<hr/>
+	
 	<div style = "font-family: Montserrat, sans-serif;">
-		<b><textarea id="content" style = "font-family:Montserrat, sans-serif;resize:none; margin-left:10px;border:0" readonly><%=taskVO.getDescription() %></textarea>
-	</b>
+		<b><textarea id="content" style = "font-family:Montserrat, sans-serif;resize:none; margin-left:10px;border:0" readonly><%=taskVO.getDescription() %></textarea></b>
 	</div>
 	<br/>
+	
 	<table class="table" style = "font-family: Montserrat, sans-serif; font-size:14px;">
 	<tbody>
 		<tr>
-			<td><b><span class="glyphicon glyphicon-equalizer"> 상태 :  </b></td>
+			<td><b><span class="glyphicon glyphicon-equalizer"></span> 상태 :  </b></td>
 			<td><%=taskVO.getStatus() %> </td>
+			<input type="hidden" id="task_status" value=<%=taskVO.getStatus() %>>
 		</tr>
 		<tr>
-			<td><b><span class="glyphicon glyphicon-calendar"> 생성일 :</b></td>
-			<td><%=taskVO.getCre_date() %> </td>
+			<td><b><span class="glyphicon glyphicon-calendar"></span> 생성일 :</b></td>
+			<td><%=sdf.format(taskVO.getCre_date()) %> </td>
 		</tr>
 		<tr>
-			<td><b><span class="glyphicon glyphicon-calendar"> 시작일 :</b></td>
-			<td><%=taskVO.getStart_date() %> </td>
+			<td><b><span class="glyphicon glyphicon-calendar"></span> 시작일 :</b></td>
+			<td><%=sdf.format(taskVO.getStart_date()) %> </td>
 		</tr>
 		<tr>
-			<td><b><span class="glyphicon glyphicon-time"> 마감일 :</b></td>
-			<td><%=taskVO.getDue_date() %> </td>
+			<td><b><span class="glyphicon glyphicon-time"></span> 마감일 :</b></td>
+			<td><%=sdf.format(taskVO.getDue_date()) %> </td>
 		</tr>
 		<tr>
-			<td><b><span class="glyphicon glyphicon-exclamation-sign"> 중요도 :</b></td>
+			<td><b><span class="glyphicon glyphicon-exclamation-sign"></span> 중요도 :</b></td>
 			<td><%=taskVO.getPriority() %> </td>
 		</tr>
 		
@@ -206,13 +232,13 @@ function locationview() {
 	<% if(preTaskVO != null || postTaskVO != null) { %>			
 		<% if(preTaskVO != null) { %>
 			<tr>
-				<td><b><span class="glyphicon glyphicon-arrow-left"> 선행TASK :</b></td>
-				<td><%=preTaskVO.getRefTaskName() %></td>
+				<td><b><span class="glyphicon glyphicon-arrow-left"></span> 선행TASK :</b></td>
+				<td id="blink"><%=preTaskVO.getRefTaskName() %></td>
 			</tr>
 		<% } %>		
 		<% if(postTaskVO != null) { %>	
 			<tr>
-				<td><b><span class="glyphicon glyphicon-arrow-right"> 후행TASK :</b></td>
+				<td><b><span class="glyphicon glyphicon-arrow-right"></span> 후행TASK :</b></td>
 				<td><%=postTaskVO.getRefTaskName() %></td>	
 			</tr>
 		<% } 
@@ -220,7 +246,7 @@ function locationview() {
 	
 		<% if (taskVO.getLocation() != null) { %>
 			<tr>
-				<td><b><span class="glyphicon glyphicon-map-marker"> 위치 :</b></td>
+				<td><b><span class="glyphicon glyphicon-map-marker"></span> 위치 :</b></td>
 				<td><%=taskVO.getLocation() %> </td>
 			</tr>
 		<% } %>	
@@ -232,10 +258,10 @@ function locationview() {
 	if (taskVO.getLocation() != null) {
 	%>
 	<a id = "taskLocationButton" href="javascript:locationview()" style = "display:block">
-      <span class="glyphicon glyphicon-map-marker" style = "font-size:15px">지도보기</span>
+      <span class="glyphicon glyphicon-map-marker" style = "font-size:15px;margin-top:30px">지도보기</span>
     </a>
 	<div id = "taskLocation" style = "display:none">
-		<div id="status">
+		<div id="status" style="margin-top:30px">
 			위치: <%=taskVO.getLocation() %>
 		</div>
 	 
@@ -244,7 +270,7 @@ function locationview() {
       		<input id="submit" type="button" value="search">
     	</div>
     	 
-		<div id="map"></div>
+		<div id="map" style="margin-top:10px"></div>
 	</div>
 	<%
 	}
@@ -252,14 +278,14 @@ function locationview() {
 	<div id="button" style="margin-top:70px">
 
 	<%if (session.getAttribute("board_id") != null) {%>
-		<input type=button class = "btn btn-default" value="확인" onclick = "location.href='./board.do';">&nbsp;&nbsp;&nbsp;
+		<input type="button" class = "btn btn-default" data-dismiss="modal" value="확인" >&nbsp;
 		<% if (!taskVO.getStatus().equals("COMPLETE")) {%>
-			<input type=button class = "btn btn-default" value="수정" id="goUpdateBtn">&nbsp;&nbsp;&nbsp;
+			<input type=button class = "btn btn-default" value="수정" id="goUpdateBtn">&nbsp;
 		<%} %>
 <!-- 	<input type=button value="수정" onclick = "javascript:updateTask()"> -->
 		<input type=button class = "btn btn-default" value="삭제" onclick = "javascript:deleteTask()">
 	<%} else { %>
-		<input type=button class = "btn btn-default" value="확인" onclick = "location.href='./dashboard.do'">
+		<input type="button" class = "btn btn-default" data-dismiss="modal" value="확인" >
 	<%} %>
 		
 	</div>

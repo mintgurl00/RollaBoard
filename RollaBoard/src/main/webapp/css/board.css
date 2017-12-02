@@ -4,8 +4,8 @@
 #filter{float:left; width:1860px; height:50px; background-color:#DAD9FF; text-align:right}
 /* #content{overflow:scroll; float:none; width:inherit; height:inherit; margin-top:0px;} */
 
-.selectBox02 {position:relative;display:inline-block;width:20px;height:20px;background-color:#F44336;padding-left:0px;}
-.selectBox02 .txt {width:200px;height:48px;padding-left:1px;line-height:50px;text-align:center;color:#AAA}
+.selectBox02 {position:relative;display:inline-block;width:20px;height:20px;padding-left:0px;align:left;}
+.selectBox02 .txt {width:20px;height:48px;padding-left:1px;text-align:center;color:#AAA}
 .selectBox02 select {position:absolute;right:-14px;top:-14px;width:50px;padding-left:1px;height:50px;opacity:0;z-index:10;
 	appearance:none; /* 기본 스타일 없애기 */
 	-webkit-appearance:none;
@@ -54,10 +54,30 @@
 
 		border-radius:6px;
 		margin: 0 auto;
+		margin-left:10px;
 		float:left;
 		background-color:#EAEAEA; 
 		text-align:center;
 		display: block;
+	}
+	#newsection{
+		overflow-x:hidden; 
+		width:300px;
+
+		border-radius:6px;
+		margin: 0 auto;
+		margin-left:10px;
+		float:left;
+
+		text-align:center;
+		display: block;
+
+		background-color:none;		
+		border:1px solid;
+		border-color:#EAEAEA;
+	}
+	#newsection:hover {
+		background-color:#EAEAEA;
 	}
 }
 
@@ -65,27 +85,36 @@
 	#section{
 		overflow-x:hidden; 
 		width:300px;
-		height:inherit;
+		
 		border-radius:6px;
 		margin: 0 auto;
+		margin-left:10px;
+		margin-bottom:15px;
 		float:left;
 		background-color:#EAEAEA; 
 		text-align:center;
 		display: block;
 	}
+	#newsection{
+		overflow-x:hidden; 
+		width:300px;
+		
+		border-radius:6px;
+		margin: 0 auto;
+		margin-left:10px;
+		margin-bottom:15px;
+		float:left;
+		background-color:none;
+		text-align:center;
+		border:2px solid;
+		border-color:#EAEAEA;
+	}
+	#newsection:hover {
+		background-color:#EAEAEA;
+	}
 }
 
-.section_wrapper{
-	 
-	position: relative;
-	float:left; 
-	width:320px;
-	height:100%;
-	
-	margin:0px 0px 0px 0px;
-	padding: 3px 5px 0px 0px;
-	display: inline-block;
-}
+
 
 .search_bar {
 	background-color: #F44336;
