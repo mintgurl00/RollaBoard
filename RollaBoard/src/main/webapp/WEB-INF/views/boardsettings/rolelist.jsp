@@ -191,12 +191,13 @@ function descfadeout(cnt) {
 		        	limitbyte="100" name = "description" placeholder = "수정할 정보 입력(설명)" value = "<%=roleVO.getDescription() %>" style = "display:none" />
 		        </div>
 		        <div class = "col-xs-3 col-sm-4"">
-			        <div class= "origin<%=roleVO.getId() %>" style = "display:block">
-			        <% if (roleVO.getColor() != null) { %>
+		        <% if (roleVO.getColor() != null) { %>
+			        <div class= "origin<%=roleVO.getId() %>" style = "display:block;color:<%=roleVO.getColor() %>">
 			        	<%=roleVO.getColor() %>
-			        <% } else {%>
+			    <% } else {%>
+			   		 <div class= "origin<%=roleVO.getId() %>" style = "display:block;">
 			        	<small>ROLE 이름을 눌러 ROLE COLOR를 설정할 수 있습니다.</small>
-			        <% } %>
+			    <% } %>
 			       	</div>
 		        	<input type = "text" id = "color<%=roleVO.getId() %>" class = "byteLimit nameview nameview<%=roleVO.getId() %> form-control" 
 		        	limitbyte="100" name = "color" placeholder = "ROLE의 고유 COLOR를 설정해주세요(ex:#1294AB)" value = "<%=roleVO.getColor() %>" style = "display:none" />
