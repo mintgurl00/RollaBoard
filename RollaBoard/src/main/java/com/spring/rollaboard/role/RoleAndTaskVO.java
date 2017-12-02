@@ -6,7 +6,7 @@ import org.springframework.stereotype.Component;
 public class RoleAndTaskVO {
 	
 	private int taskId, roleId, memId;
-	private String roleName, memName;
+	private String roleName, memName, roleColor;
 	
 	public int getTaskId() {
 		return taskId;
@@ -37,6 +37,12 @@ public class RoleAndTaskVO {
 	}
 	public void setMemName(String memName) {
 		this.memName = memName;
+	}
+	public String getRoleColor() {
+		return roleColor;
+	}
+	public void setRoleColor(String roleColor) {
+		this.roleColor = roleColor;
 	}
 
 }

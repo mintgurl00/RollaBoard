@@ -106,6 +106,7 @@ public class RoleController {
     	System.out.println("id : " + updateRoleInfo.getId());
     	System.out.println("Name : " + updateRoleInfo.getName());
     	System.out.println("Desc : " + updateRoleInfo.getDescription());
+    	System.out.println("Color : " + updateRoleInfo.getColor());
     	int board_id;
     	if (session.getAttribute("board_id") == null) {
 			result.setViewName("index");

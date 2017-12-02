@@ -15,6 +15,7 @@
 	}
 	String id = (String) session.getAttribute("id");
 	BoardVO boardVO = (BoardVO) request.getAttribute("boardVO");
+	
 	ArrayList<ArrayList<TaskVO>> taskViewList = (ArrayList<ArrayList<TaskVO>>) request.getAttribute( "taskViewList" ) ;
 	ArrayList<SectionVO> sectionList = (ArrayList<SectionVO>) request.getAttribute( "sectionList" ) ; 
 	ArrayList<ArrayList<ArrayList<RoleAndTaskVO>>> roleAndTaskList = 
@@ -85,8 +86,6 @@ function clickModalcancel(cnt) {
 .fa.fa-plus-circle:hover {
 	color: black;
 }
-
-
 
 </style>
 <link href="css/task.css" rel="stylesheet" type="text/css" >
@@ -177,7 +176,7 @@ for( int i = 0 ; i < sectionSize ; i++ ){
 				<div align = "left">
 				<%
 				for( int k = 0 ; k < roleAndTaskList.get( i ).get( j ).size() ; k++ ){%>
-					<span class="badge role_badge">
+					<span class="badge role_badge" style="background-color:<%=roleAndTaskList.get( i ).get( j ).get( k ).getRoleColor() %>">
 						<b><%=roleAndTaskList.get( i ).get( j ).get( k ).getRoleName() %> : </b>
 						<%=roleAndTaskList.get( i ).get( j ).get( k ).getMemName() %>
 						<br/>

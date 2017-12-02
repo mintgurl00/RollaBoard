@@ -166,6 +166,7 @@ function descfadeout(cnt) {
 	<div class = "row" >
 		<div class = "col-xs-4 col-sm-3" ><h3>ROLE 이름</h3></div>
 		<div class = "col-xs-4 col-sm-3"><h3>설명</h3></div>
+		<div class = "col-xs-4 col-sm-3"><h3>ROLE COLOR</h3></div>
 		<div></div>
 	</div>
     <%for(int i = 0; i < roleList.size(); i++) {
@@ -182,12 +183,23 @@ function descfadeout(cnt) {
 		        	<input type = "text" id = "focus<%=roleVO.getId() %>" class = "byteLimit nameview<%=roleVO.getId() %> form-control" 
 		        	 limitbyte="20" name = "name" placeholder = "수정할 정보 입력(이름)" value = "<%=roleVO.getName() %>" style = "display:none" required />
 		        </div>
-		        <div class = "col-xs-5 col-sm-4">
+		        <div class = "col-xs-3 col-sm-5">
 			        <div class= "origin<%=roleVO.getId() %>" style = "display:block">
 			        	<%=roleVO.getDescription() %>
 			       	</div>
 		        	<input type = "text" id = "desc<%=roleVO.getId() %>" class = "byteLimit nameview nameview<%=roleVO.getId() %> form-control" 
 		        	limitbyte="100" name = "description" placeholder = "수정할 정보 입력(설명)" value = "<%=roleVO.getDescription() %>" style = "display:none" />
+		        </div>
+		        <div class = "col-xs-3 col-sm-4"">
+			        <div class= "origin<%=roleVO.getId() %>" style = "display:block">
+			        <% if (roleVO.getColor() != null) { %>
+			        	<%=roleVO.getColor() %>
+			        <% } else {%>
+			        	<small>ROLE 이름을 눌러 ROLE COLOR를 설정할 수 있습니다.</small>
+			        <% } %>
+			       	</div>
+		        	<input type = "text" id = "color<%=roleVO.getId() %>" class = "byteLimit nameview nameview<%=roleVO.getId() %> form-control" 
+		        	limitbyte="100" name = "color" placeholder = "ROLE의 고유 COLOR를 설정해주세요(ex:#1294AB)" value = "<%=roleVO.getColor() %>" style = "display:none" />
 		        </div>
 		        
 		        <div class = "col-xs-1 col-sm-1 nameview<%=roleVO.getId() %>" align = right style = "display:none">
