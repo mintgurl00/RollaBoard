@@ -210,12 +210,12 @@ for( int i = 0 ; i < sectionSize ; i++ ){
 			<%
 			
 			if( status.equals("BLOCKED")){%>
-				<div class="task_status_blocked" style="margin-top:10px">
+				<div class="task_status_blocked" style="margin-top:20px">
 					BLOCKED <i class="fa fa-lock" aria-hidden="true"></i>
 				</div>				
 				<%
 			}else if( status.equals("COMPLETE") ){%>
-				<div class="task_status_complete" style="margin-top:10px">
+				<div class="task_status_complete" style="margin-top:20px">
 					COMPLETE <i class="fa fa-check" aria-hidden="true"></i>
 				</div>
 				<%
