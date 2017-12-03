@@ -52,6 +52,7 @@
 		WHERE ta.SECTION_ID=se.id
     		AND board_id=#{board_id}
     		AND (ta.name LIKE '%'||#{keyword}||'%' OR ta.description LIKE '%'||#{keyword}||'%')
+    	ORDER BY DECODE(STATUS, 'COMPLETE', 1, 2 ) DESC 
 	</select>
 	
 	<!-- getTasksByBoard3(condition & sort) -->
@@ -182,5 +183,18 @@
 		FROM task 
 		WHERE id=#{task_id} 
 			AND status=#{cond_status}
+	</select>
+	
+	
+	<!-- getConnectionTasks -->
+	<select id="getConnectionTasks" parameterType="map" resultMap="TaskResultMap">
+		SELECT ta.id id, ta.name name, ta.status status, ta.start_date start_date, ta.due_date due_date,
+			ta.cre_date cre_date, ta.priority priority, ta.location location,
+			taco.root_task_id section_id, se.name description
+		FROM task ta, section se, task_conn taco
+		WHERE ta.SECTION_ID=se.id AND ta.id=taco.task_id 
+			AND board_id=#{board_id}
+			AND (ta.name LIKE '%'||#{keyword}||'%' OR ta.description LIKE '%'||#{keyword}||'%') 
+		ORDER BY taco.root_task_id ASC, taco.ref_level ASC
 	</select>
 </mapper>

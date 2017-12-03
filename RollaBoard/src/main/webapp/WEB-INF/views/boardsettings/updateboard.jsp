@@ -215,10 +215,11 @@ body {
 	.BoardNameChangePannel{
 		padding: 4px 10px;
 		background-color: #ffffff;
-		border: 0.2px solid #999999;
+		border: 0.5px solid #cccccc;
    		font-family: 'Nanum Gothic', sans-serif;
-   		box-shadow: 0 6px 12px rgba(0,0,0,.175);
+   		box-shadow: 2px 4px 5px rgba(0,0,0,.175);
    		display: none;
+   		border-radius: 4px;
 	}
 	.BoardNameChangePannel span{
 		letter-spacing: 1px;
@@ -278,26 +279,22 @@ $(document).ready(function(){
 </script>
 
 <!-- 글자수제한 스크립트 -->
-  <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
-  <script src = "js/rolelist.js"></script>
-
+<script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+<script src = "js/rolelist.js"></script>
 </head>
 <body>
 <div class="whole_wrapper">
 <div class="upper_wrapper">
 <nav class="navbar navbar-fixed-top">
 <a style = "color: #fff; padding-top:1px" class="navbar-brand" href="board.do?board_id=<%=boardVO.getId()%>" >ROLLA<br>BOARD</a>
-
 	<div class="container">
 		<div class="navbar-header">
-
 			<button id = "myToggle" type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar2">
 				<font style = "color:#fff">
 					LIST
 					<i class="fa fa-envelope"></i>  
 				</font>                      
 			</button>
-			
 			<form id="updating" action="updateboardname.do" class="boxing">
 				<input type="hidden" id="oldBoardName" value="<%=boardVO.getName() %>"/>
 				<div>
@@ -340,7 +337,6 @@ $(document).ready(function(){
 	</div>
 </nav>
 </div>
-
 <div id=resultBlock class="wrapper" style = "padding-top:100px">
 	<%if (chkVal == null) {%>
 	<jsp:include page = "rolelist.jsp" flush = "false" >
@@ -374,7 +370,6 @@ $(document).ready(function(){
 	</jsp:include>
 	<%} %>
 </div>
-
 <footer class="container-fluid text-center">
 	<!-- <input type = "submit" class = "btn btn-info" value = "확인" onclick = "javascript:updating()" >&nbsp;  -->
 	<input type = "button" class = "btn btn-info" value = "돌아가기" onclick = "location.href='board.do?board_id=<%=boardVO.getId()%>'">

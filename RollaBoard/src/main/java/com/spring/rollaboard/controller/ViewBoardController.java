@@ -146,6 +146,7 @@ public class ViewBoardController {
     	String filter = (String) request.getParameter( "filter" ) ; //선택된 checkBox의 name ex)due, priority, due priority
     	String[] filters = null ;
     	String[] orders = null ;	// 나중에 해야함
+    	String specialFilter = "NONE";	// ex) connection
     	if( filter != null ){
 	    	System.out.println( "필터 값 : " + filter ); // test
 	    	StringTokenizer st = new StringTokenizer(filter," ");
@@ -157,6 +158,8 @@ public class ViewBoardController {
 	    	System.out.println( "전달된 필터 : " + filters.length +"개" );
 	    	for( String filterString : filters ){
 	    		System.out.print( filterString + " ");
+	    		if(filterString.equals("connection"))	// 특별 필터 정보 확인☆
+	    			specialFilter = filterString ;
 	    	}
 	    	System.out.println() ;
     	}else{
@@ -172,20 +175,32 @@ public class ViewBoardController {
     	
     	// 01. 참조 보드 리스트 추출...은 할 필요 없고
     	// 02. 섹션 리스트 추출
-    	ArrayList<SectionVO> sectionList = sectionDAOService.getSections( board_id ) ;
-    	System.out.println("섹션리스트추출");
-    	
+    	ArrayList<SectionVO> sectionList = null ;
+    	if(specialFilter.equals("NONE")){
+    		sectionList = sectionDAOService.getSections( board_id ) ;
+    		System.out.println("섹션리스트추출");
+    	}else{
+    		// 03. 태스크 리스트 추출과 함께 할 예정
+    	}
     	
     	// 03. 태스크 리스트 추출
-    	ArrayList<TaskVO> taskList ;
-    	if( filters == null && orders == null ){
-    		taskList = taskDAOService.getTasksByBoard2( board_id , keyword ) ;	// sql문에서 섹션별로 그룹해야 편할듯 + 섹션순서번호 정렬
-    	} else {
-    		taskList = taskDAOService.getTasksByBoard2( board_id , keyword , filters , orders ) ; //filters배열에는 선택된 필터들이 저장됨 ex)due, priority, due/priority
+    	ArrayList<TaskVO> taskList = null ;
+    	if(specialFilter.equals("NONE")){	// 일반 필터일 때
+	    	if( filters == null && orders == null ){
+	    		taskList = taskDAOService.getTasksByBoard2( board_id , keyword ) ;	// sql문에서 섹션별로 그룹해야 편할듯 + 섹션순서번호 정렬
+	    	} else {
+	    		taskList = taskDAOService.getTasksByBoard2( board_id , keyword , filters , orders ) ; //filters배열에는 선택된 필터들이 저장됨 ex)due, priority, due/priority
+	    	}
+    	}else{	// 특별 필터일 때 수행하는 내용
+    		if(specialFilter.equals("connection")){
+    			taskList = taskDAOService.getConnectionTasks(board_id, keyword, filters) ;
+    			sectionList = sectionDAOService.getConnSecList(board_id);
+    		}
     	}
     	//ArrayList<TaskVO> taskList = taskDAOService.getTasksByBoard( board_id ) ;
     	System.out.println("태스크리스트추출 끝");
     	System.out.println("보드id:" + board_id + ", 키워드:" + keyword );
+    	
     	// 04. 롤 배치 리스트 추출
     	HashMap<Integer, ArrayList<RoleAndTaskVO>> ratHashMap = roleDAOService.getRATByTasks( board_id ) ;
     	ArrayList<ArrayList<ArrayList<RoleAndTaskVO>>> roleAndTaskList = new ArrayList<ArrayList<ArrayList<RoleAndTaskVO>>>() ;
@@ -238,7 +253,7 @@ public class ViewBoardController {
     	//result.addObject( "rat_hasmap" , ratHashMap ) ;
     	BoardVO boardVO = boardDAOService.getBoardInfo(board_id);
     	result.addObject("boardVO", boardVO);
-    	
+    	result.addObject("specialFilter", specialFilter);
     	result.addObject( "board_id" , board_id + "" ) ;
     	result.addObject( "keyword" , keyword ) ;
     	result.setViewName("board/searchresult");
