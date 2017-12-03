@@ -53,7 +53,7 @@ if(session.getAttribute("id") == null) {
 </div>
 <div class = "row">
 	<div class = col-xs-12>
-		<center> <input type="button" class="btn btn-info" onclick = "location.href='dashboard.do'" value="돌아가기"></center>	
+		<center> <input type="button" class="btn btn-info" style="background-color:#1294AB" onclick = "location.href='dashboard.do'" value="돌아가기"></center>	
 	</div>
 </div>
 <br/>

@@ -73,7 +73,8 @@ Create table ROLE (
     id number primary key,
     board_id references board(id) on delete cascade,
     name varchar2(20),
-    description varchar2(100)
+    description varchar2(100),
+    color varchar2(10) --alter table role add (color varchar2(10)); 이거로 컬럼추가하시면 됩니다
     );
     
 -- 롤-사람

@@ -111,11 +111,11 @@ public class SectionController {
     
     //섹션 수정
     @RequestMapping("updatesection.do")
-    public ModelAndView updatesection(int section_id, String section_name) {
+    public ModelAndView updatesection(int section_id, String section_name, String color) {
     	
     	System.out.println("수정할 섹션 아이디: " + section_id);
     	ModelAndView result = new ModelAndView();
-    	sectionDAOService.updateSection(section_id, section_name);
+    	sectionDAOService.updateSection(section_id, section_name, color);
     	// 현재 페이지에 머물 수 있는 앵커값 : chkVal
     	String chkVal = "section";
     	result.addObject("chkVal", chkVal);
@@ -126,10 +126,10 @@ public class SectionController {
     
     // board.jsp에서 섹션 수정
     @RequestMapping("updatesectioninboard.do")
-    public ModelAndView updatesectioninboard(int section_id, String section_name) {
+    public ModelAndView updatesectioninboard(int section_id, String section_name, String color) {
     	ModelAndView result = new ModelAndView();
     	System.out.println("updatesection section_id : " + section_id);
-    	sectionDAOService.updateSection(section_id, section_name);
+    	sectionDAOService.updateSection(section_id, section_name, color);
 
     	result.setViewName("redirect:board.do");
     	return result;

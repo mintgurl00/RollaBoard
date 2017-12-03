@@ -9,6 +9,7 @@ public class SectionVO {
 	private int board_id;
 	private String name;
 	private int seq_num;
+	private String color;
 	
 	public int getId() {
 		return id;
@@ -33,6 +34,12 @@ public class SectionVO {
 	}
 	public void setSeq_num(int seq_num) {
 		this.seq_num = seq_num;
+	}
+	public String getColor() {
+		return color;
+	}
+	public void setColor(String color) {
+		this.color = color;
 	}
 
 }

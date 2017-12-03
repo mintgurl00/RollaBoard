@@ -15,6 +15,7 @@
 	}
 	String id = (String) session.getAttribute("id");
 	BoardVO boardVO = (BoardVO) request.getAttribute("boardVO");
+	
 	ArrayList<ArrayList<TaskVO>> taskViewList = (ArrayList<ArrayList<TaskVO>>) request.getAttribute( "taskViewList" ) ;
 	ArrayList<SectionVO> sectionList = (ArrayList<SectionVO>) request.getAttribute( "sectionList" ) ; 
 	ArrayList<ArrayList<ArrayList<RoleAndTaskVO>>> roleAndTaskList = 
@@ -86,8 +87,6 @@ function clickModalcancel(cnt) {
 	color: black;
 }
 
-
-
 </style>
 <link href="css/task.css" rel="stylesheet" type="text/css" >
 <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
@@ -128,7 +127,7 @@ for( int i = 0 ; i < sectionSize ; i++ ){
 %>
 
 <div class="w3-animate-left">
-<div id="section" style="text-align:left">
+<div id="section" style="text-align:left;background-color:<%=sectionList.get(i).getColor() %>">
 	<!-- 섹션 표시줄 -->
 	<div class = "row origin<%=sectionList.get(i).getId() %>" style = "display:block; cursor:pointer" <%if ( id.equals(boardVO.getAdmin()) ) {%> onclick = "javascript:flip(<%=sectionList.get(i).getId() %>)" <%} %>>
 		<div style="padding-top:10px; padding-left:30px; padding-bottom:15px" onMouseover="this.style.color='#1294AB';" onMouseout="this.style.color='black';">
@@ -140,7 +139,12 @@ for( int i = 0 ; i < sectionSize ; i++ ){
 			<div class = "col-xs-offset-1 col-xs-5">
 				<form id = "updatesectioninboard<%=sectionList.get(i).getId() %>" action="updatesectioninboard.do">
 					<input type="hidden" name="section_id" 	value="<%=sectionList.get(i).getId() %>" />
-					<input type="text" name="section_name"  class="byteLimit form-control" limitbyte="30" value="<%=sectionList.get(i).getName() %>" placeholder = "SECTION명을 입력하세요." required/>		
+					<input type="text" name="section_name"  class="byteLimit form-control" limitbyte="30" value="<%=sectionList.get(i).getName() %>" placeholder = "SECTION명을 입력하세요." required/>
+					<input type = "text"  name = "color"
+							<% if (sectionList.get(i).getColor() != null) { %>
+								value = "<%=sectionList.get(i).getColor() %>" 
+							<% } %>
+								placeholder = "COLOR" class="byteLimit form-control" limitbyte="30">
 				</form>	
 			</div>
 	
@@ -177,7 +181,7 @@ for( int i = 0 ; i < sectionSize ; i++ ){
 				<div align = "left">
 				<%
 				for( int k = 0 ; k < roleAndTaskList.get( i ).get( j ).size() ; k++ ){%>
-					<span class="badge role_badge">
+					<span class="badge role_badge" style="background-color:<%=roleAndTaskList.get( i ).get( j ).get( k ).getRoleColor() %>">
 						<b><%=roleAndTaskList.get( i ).get( j ).get( k ).getRoleName() %> : </b>
 						<%=roleAndTaskList.get( i ).get( j ).get( k ).getMemName() %>
 						<br/>
