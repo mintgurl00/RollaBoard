@@ -154,6 +154,13 @@ function descfadeout(cnt) {
         margin-bottom: 35px;
     }
   }
+  
+  h2 {
+      font-size: 24px;
+      text-transform: uppercase;
+      color: #303030;
+      font-weight: 600;
+      margin-bottom: 30px;
 
 </style>
 </head>

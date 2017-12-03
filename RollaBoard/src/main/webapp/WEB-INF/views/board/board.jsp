@@ -55,7 +55,7 @@
 }
 
 .glyphicon.glyphicon-cog:hover {
-	color:black;
+	color:orange;
 }
 
 </style>
