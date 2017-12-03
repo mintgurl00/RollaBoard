@@ -280,7 +280,9 @@ for( int i = 0 ; i < sectionSize ; i++ ){
 <%
 }
 %>
+<!-- 섹션 추가 부분 -->
 <%
+
 if( keyword.equals( "" ) && specialFilter.equals("NONE") ){	// 검색 결과가 *아니*라면
 	if ( id.equals(boardVO.getAdmin()) ) {%>
 		<div id="newsection">			
