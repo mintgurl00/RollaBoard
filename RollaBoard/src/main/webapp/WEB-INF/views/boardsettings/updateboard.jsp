@@ -33,16 +33,16 @@
 %>
 <html lang="en">
 <head>
-  <title>updateboard</title>
-  <meta charset="utf-8" >
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link href="reset.css">
-  <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-  <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet" type="text/css">
-  <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet" type="text/css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	<title>updateboard</title>
+	<meta charset="utf-8" >
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" type="text/css" href="css/reset.css" >
+	<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	<link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet" type="text/css">
+	<link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet" type="text/css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <style>
 body {
       font: 400 15px Lato, sans-serif;
@@ -172,15 +172,15 @@ body {
    } 
 	#boardNameInput{
 		background-color: #00000000;
-		border: 0px solid #00000000;
+		border: 2px solid #00000000;
 		color: #ffffff;
 		font-size: 25px;
+		border-radius: 7px;
 	}
 	.swInputClicked{
 		background-color: #ffffff !important;
 		border: 2px solid #66aaee !important;
 		color: #222222 !important;
-		border-radius: 7px !important;
 	}
 	:-webkit-autofill { background-color: none}
 	.appearance (@value: none) {
@@ -192,11 +192,36 @@ body {
 	}
 	
 	#boardNameInput:hover {
-	color:black;
+		color:#ffcc44;
+		border: 2px solid #ffcc44 !important;
+	}
+	#boardNameSubmitBtn{
 	}
 
 	#navbar-brand:hover {
 	color:orange;
+	}
+	
+	#updating{
+		position: relative;
+	}
+	
+	.btn_small{
+		padding: 0px 3px !important;
+		font-size: 13px !important;
+	}
+@import url(//fonts.googleapis.com/earlyaccess/nanumgothic.css);
+	.BoardNameChangePannel{
+		padding: 4px 10px;
+		background-color: #ffffff;
+		border: 0.2px solid #999999;
+   		font-family: 'Nanum Gothic', sans-serif;
+   		box-shadow: 0 6px 12px rgba(0,0,0,.175);
+   		display: none;
+	}
+	.BoardNameChangePannel span{
+		letter-spacing: 1px;
+		font-size: 15px;
 	}
 </style>
 
@@ -230,11 +255,20 @@ function updating() {
 }
 
 $(document).ready(function(){
+	//$("#boardNameSubmitBtn").css("display", "none");
 	$("#boardNameInput").on("focus",function(){
 		$("#boardNameInput").addClass("swInputClicked");
 	});
 	$("#boardNameInput").on("blur",function(){
 		$("#boardNameInput").removeClass("swInputClicked");
+		if($("#boardNameInput").val() != $("#oldBoardName").val())
+			$(".BoardNameChangePannel").css("display", "block");
+		else
+			$(".BoardNameChangePannel").css("display", "none");
+	});
+	$("#boardNameResetBtn").on("click", function(){
+		$("#boardNameInput").val($("#oldBoardName").val());
+		$(".BoardNameChangePannel").css("display", "none");
 	});
 });
 </script>
@@ -257,9 +291,22 @@ $(document).ready(function(){
         </font>                      
       </button>
     <form id = "updating" action = "updateboardname.do" class = "boxing">
-			<input id="boardNameInput" style = "cursor:pointer;" type = "text" class = "byteLimit form-control swInputN" limitbyte="50" name = "board_name" value = "<%=boardVO.getName() %>" placeholder = "Board명을 입력하세요" required>
+   		<input type="hidden" id="oldBoardName" value="<%=boardVO.getName() %>"/>
+   		<div>
+   			<ul>
+				<li>
+					<input id="boardNameInput" type = "text" class = "byteLimit form-control swInputN" limitbyte="50" name = "board_name" value = "<%=boardVO.getName() %>" placeholder = "Board명을 입력하세요" required>
+				</li>
+				<li class="BoardNameChangePannel">
+					<span>보드 이름을 수정할까요?
+						<input id="boardNameSubmitBtn" type="button" class="btn btn-warning btn_small" value="수정" onclick="javascript:updating()" />
+						<input id="boardNameResetBtn" type="button" class="btn btn-default btn_small" value="취소" />
+					</span>
+				</li>
+			</ul>
+		</div>		
 	</form>
-    </div>
+	 </div>
     <div class="collapse navbar-collapse" id="myNavbar2">
       <ul class="nav navbar-nav navbar-right">
         <li>
@@ -327,7 +374,7 @@ $(document).ready(function(){
 </div>
 
 <footer class="container-fluid text-center">
-	<input type = "submit" class = "btn btn-info" value = "확인" onclick = "javascript:updating()" >&nbsp; 
+	<!-- <input type = "submit" class = "btn btn-info" value = "확인" onclick = "javascript:updating()" >&nbsp;  -->
 	<input type = "button" class = "btn btn-info" value = "돌아가기" onclick = "location.href='board.do?board_id=<%=boardVO.getId()%>'">
 </footer>
 <br/>
