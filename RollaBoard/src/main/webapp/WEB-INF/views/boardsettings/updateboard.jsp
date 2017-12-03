@@ -41,6 +41,7 @@
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 	<link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet" type="text/css">
 	<link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet" type="text/css">
+	<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <style>
@@ -210,7 +211,7 @@ body {
 		padding: 0px 3px !important;
 		font-size: 13px !important;
 	}
-@import url(//fonts.googleapis.com/earlyaccess/nanumgothic.css);
+	@import url(//fonts.googleapis.com/earlyaccess/nanumgothic.css);
 	.BoardNameChangePannel{
 		padding: 4px 10px;
 		background-color: #ffffff;
@@ -222,6 +223,9 @@ body {
 	.BoardNameChangePannel span{
 		letter-spacing: 1px;
 		font-size: 15px;
+	}
+	.backBtn{
+		
 	}
 </style>
 
@@ -282,60 +286,58 @@ $(document).ready(function(){
 <div class="whole_wrapper">
 <div class="upper_wrapper">
 <nav class="navbar navbar-fixed-top">
-<a style = "color: #fff;margin-top:5px;margin-left:5px" class="navbar-brand" href="./dashboard.do" >ROLLA<br>BOARD</a>&nbsp;&nbsp;&nbsp;
-  <div class="container">
-    <div class="navbar-header">
-      <button id = "myToggle" type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar2">
-        <font style = "color:#fff">LIST
-        <i class="fa fa-envelope"></i>  
-        </font>                      
-      </button>
-    <form id = "updating" action = "updateboardname.do" class = "boxing">
-   		<input type="hidden" id="oldBoardName" value="<%=boardVO.getName() %>"/>
-   		<div>
-   			<ul>
+<a style = "color: #fff; padding-top:1px" class="navbar-brand" href="board.do?board_id=<%=boardVO.getId()%>" >ROLLA<br>BOARD</a>
+
+	<div class="container">
+		<div class="navbar-header">
+
+			<button id = "myToggle" type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar2">
+				<font style = "color:#fff">
+					LIST
+					<i class="fa fa-envelope"></i>  
+				</font>                      
+			</button>
+			
+			<form id="updating" action="updateboardname.do" class="boxing">
+				<input type="hidden" id="oldBoardName" value="<%=boardVO.getName() %>"/>
+				<div>
+					<ul>
+						<li>
+							<input id="boardNameInput" type = "text" class = "byteLimit form-control swInputN" limitbyte="50" name = "board_name" value = "<%=boardVO.getName() %>" placeholder = "Board명을 입력하세요" required>
+						</li>
+						<li class="BoardNameChangePannel">
+							<span>보드 이름을 수정할까요?
+								<input id="boardNameSubmitBtn" type="button" class="btn btn-warning btn_small" value="수정" onclick="javascript:updating()" />
+								<input id="boardNameResetBtn" type="button" class="btn btn-default btn_small" value="취소" />
+							</span>
+						</li>
+					</ul>
+				</div>		
+			</form>
+		</div>
+		<div class="collapse navbar-collapse" id="myNavbar2">
+			<ul class="nav navbar-nav navbar-right">
 				<li>
-					<input id="boardNameInput" type = "text" class = "byteLimit form-control swInputN" limitbyte="50" name = "board_name" value = "<%=boardVO.getName() %>" placeholder = "Board명을 입력하세요" required>
+					<a onclick = "rolePage()" style = "cursor:pointer">ROLE관리</a>
 				</li>
-				<li class="BoardNameChangePannel">
-					<span>보드 이름을 수정할까요?
-						<input id="boardNameSubmitBtn" type="button" class="btn btn-warning btn_small" value="수정" onclick="javascript:updating()" />
-						<input id="boardNameResetBtn" type="button" class="btn btn-default btn_small" value="취소" />
-					</span>
+				<li>
+					<a onclick = "allocatePage()" style = "cursor:pointer">ROLE배정</a>
+				</li>
+				<li>
+					<a onclick = "memberPage()" style = "cursor:pointer">MEMBER관리</a>
+				</li>
+				<li>
+					<a onclick = "admitPage()" style = "cursor:pointer">MEMBER승인</a>
+				</li>
+				<li>
+					<a onclick = "sectionPage()" style = "cursor:pointer">SECTION관리</a>
+				</li>
+				<li>
+					<a onclick = "ETCPage()" style = "cursor:pointer">ETC</a>
 				</li>
 			</ul>
-		</div>		
-	</form>
-	 </div>
-    <div class="collapse navbar-collapse" id="myNavbar2">
-      <ul class="nav navbar-nav navbar-right">
-        <li>
-        	<a onclick = "rolePage()" style = "cursor:pointer">ROLE관리</a>
-        	
-		</li>
-        <li>
-        	<a onclick = "allocatePage()" style = "cursor:pointer">ROLE배정</a>
-        	
-		</li>
-        <li>
-        	<a onclick = "memberPage()" style = "cursor:pointer">MEMBER관리</a>
-        	
-		</li>
-		<li>
-			<a onclick = "admitPage()" style = "cursor:pointer">MEMBER승인</a>
-			
-		</li>
-		<li>
-			<a onclick = "sectionPage()" style = "cursor:pointer">SECTION관리</a>
-			
-		</li>
-		<li>
-			<a onclick = "ETCPage()" style = "cursor:pointer">ETC</a>
-			
-        </li>
-      </ul>
-    </div>
-  </div>
+		</div>
+	</div>
 </nav>
 </div>
 
