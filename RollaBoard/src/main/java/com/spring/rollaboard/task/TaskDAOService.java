@@ -268,6 +268,13 @@ public class TaskDAOService implements TaskDAO {
 			return false ;
 	}
 
+	public ArrayList<TaskVO> getConnectionTasks(int board_id, String keyword, String[] filters) {
+		ArrayList<TaskVO> taskList = new ArrayList<TaskVO>() ;
+		TaskMapper taskMapper = sqlSession.getMapper( TaskMapper.class ) ;
+		taskList = taskMapper.getConnectionTasks( board_id , keyword) ;
+		return taskList;
+	}
+
 	
 	
 }

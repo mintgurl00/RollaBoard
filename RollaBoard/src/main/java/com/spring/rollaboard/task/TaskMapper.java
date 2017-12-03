@@ -51,4 +51,8 @@ public interface TaskMapper {
 	//public void turnBlockPostTask(@Param("task_id") int task_id);	//
 	//public void cancelComplete(@Param("task_id") int task_id);	// 석원 complete->normal
 	
+
+	public ArrayList<TaskVO> getConnectionTasks(
+			@Param("board_id") int board_id, @Param("keyword") String keyword );
+	
 }
