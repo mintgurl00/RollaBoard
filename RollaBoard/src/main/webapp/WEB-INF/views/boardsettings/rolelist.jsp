@@ -163,7 +163,7 @@ function descfadeout(cnt) {
 		<h2>ROLE 관리</h2>
 		<p>당신의 BOARD에서 업무수행을 지시할 ROLE을 관리해주세요</p>
 	</div>
-	<div class = "row" >
+	<div class = "row" style="margin-bottom:50px;" >
 		<div class = "col-xs-4 col-sm-3" ><h3>ROLE 이름</h3></div>
 		<div class = "col-xs-4 col-sm-3"><h3>설명</h3></div>
 		<div class = "col-xs-4 col-sm-3"><h3>ROLE COLOR</h3></div>
