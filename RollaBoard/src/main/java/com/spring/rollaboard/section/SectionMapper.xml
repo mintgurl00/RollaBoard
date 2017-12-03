@@ -37,5 +37,19 @@
 	<update id = "updateSection" parameterType = "map">
 		UPDATE SECTION SET NAME = #{section_name}, COLOR = #{color} WHERE ID = #{section_id}
 	</update>
+	
+	<!-- getConnSecList -->
+	<select id="getConnSecList" resultMap="SectionResultMap">
+		SELECT taco1.*, ROWNUM seq_num
+		FROM(
+			SELECT DISTINCT taco.root_task_id id, #{board_id, javaType=int} board_id, 'conn' name
+			FROM task_conn taco
+				LEFT JOIN task ta
+				ON taco.task_id=ta.id
+				LEFT JOIN section se
+				ON ta.section_id=se.id
+			WHERE se.board_id=#{board_id, javaType=int}
+		) taco1
+	</select>
 
 </mapper>
