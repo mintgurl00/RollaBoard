@@ -14,6 +14,8 @@ public interface SectionMapper {
 	
 	public String getMaxSeqNum(@Param("board_id") int board_id);
 	
-	public void updateSection(@Param("section_id") int section_id, @Param("section_name") String section_name);
+	public void updateSection(@Param("section_id") int section_id, @Param("section_name") String section_name, @Param("color") String color);
+
+	public ArrayList<SectionVO> getConnSecList(int board_id);
 
 }

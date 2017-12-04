@@ -106,6 +106,7 @@ public class RoleController {
     	System.out.println("id : " + updateRoleInfo.getId());
     	System.out.println("Name : " + updateRoleInfo.getName());
     	System.out.println("Desc : " + updateRoleInfo.getDescription());
+    	System.out.println("Color : " + updateRoleInfo.getColor());
     	int board_id;
     	if (session.getAttribute("board_id") == null) {
 			result.setViewName("index");
@@ -113,20 +114,20 @@ public class RoleController {
 		}
     	board_id = Integer.parseInt((String)session.getAttribute("board_id"));
     	// 롤 이름이 중복되는 값이면 만들어지지 않게 한다.
-    	ArrayList<RoleVO> roleList = roleDAOService.getRoles(board_id);	
-    	for (int i = 0; i < roleList.size(); i++) {
-    		RoleVO role = roleList.get(i);
-    		if (role.getName().equals(updateRoleInfo.getName())) {
-    			// alert처리단
-    			response.setContentType("text/html; charset-utf-8");
-    			PrintWriter out = response.getWriter();
-    	        out.println("<script>alert('ROLE이름이 중복됩니다! 변경할 수 없습니다.');</script>");
-    	        out.flush(); 
-    			result.addObject("chkVal", "role");
-    			result.setViewName("main/subMenu");
-    			return result;
-			}
-    	}
+//    	ArrayList<RoleVO> roleList = roleDAOService.getRoles(board_id);	
+//    	for (int i = 0; i < roleList.size(); i++) {
+//    		RoleVO role = roleList.get(i);
+//    		if (role.getName().equals(updateRoleInfo.getName())) {
+//    			// alert처리단
+//    			response.setContentType("text/html; charset-utf-8");
+//    			PrintWriter out = response.getWriter();
+//    	        out.println("<script>alert('ROLE이름이 중복됩니다! 변경할 수 없습니다.');</script>");
+//    	        out.flush(); 
+//    			result.addObject("chkVal", "role");
+//    			result.setViewName("main/subMenu");
+//    			return result;
+//			}
+//    	}
     	roleDAOService.updateRole(updateRoleInfo);
 
         String chkVal = "role";

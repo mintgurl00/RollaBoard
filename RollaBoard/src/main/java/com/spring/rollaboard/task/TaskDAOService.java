@@ -141,6 +141,9 @@ public class TaskDAOService implements TaskDAO {
 					System.out.println( "롤별 태스크 보기 만들어야 함");
 					break ;
 				default:
+					if( orders == null ){	// 정렬이 비어있으면
+						orders = new TaskFilter[]{ TaskFilter.STATUS_AC } ;	// 완료 맨 뒤로
+					}
 					break;
 				}
 			}
@@ -169,7 +172,9 @@ public class TaskDAOService implements TaskDAO {
 				else
 					break ;
 			} while ( true ) ;
-		}
+		}/*else{
+			sort = sql.get(TaskFilter.STATUS_AC);
+		}*/
 		if( ! sort.equals( "" ) ){
 			if( ! condition.equals( "") ){	// 조건, 정렬 모두 있음
 				taskList = taskMapper.getTasksByBoard3( board_id , keyword , condition , sort ) ;
@@ -266,6 +271,13 @@ public class TaskDAOService implements TaskDAO {
 			return true ;
 		else
 			return false ;
+	}
+
+	public ArrayList<TaskVO> getConnectionTasks(int board_id, String keyword, String[] filters) {
+		ArrayList<TaskVO> taskList = new ArrayList<TaskVO>() ;
+		TaskMapper taskMapper = sqlSession.getMapper( TaskMapper.class ) ;
+		taskList = taskMapper.getConnectionTasks( board_id , keyword) ;
+		return taskList;
 	}
 
 	

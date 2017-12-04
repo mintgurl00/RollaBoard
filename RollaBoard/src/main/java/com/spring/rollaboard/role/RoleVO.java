@@ -9,6 +9,7 @@ public class RoleVO {
 	private int board_id;
 	private String name;
 	private String description;
+	private String color;
 	
 	public int getId() {
 		return id;
@@ -33,6 +34,12 @@ public class RoleVO {
 	}
 	public void setDescription(String description) {
 		this.description = description;
+	}
+	public String getColor() {
+		return color;
+	}
+	public void setColor(String color) {
+		this.color = color;
 	}
 	
 

@@ -15,8 +15,8 @@
 	
 	<!-- createChatRoom -->
 	<insert id="createChatRoom" parameterType="com.spring.rollaboard.chat.room.ChatRoomVO">
-		<selectKey keyProperty="id" resultType="int">
-			SELECT SEQ_CH.NEXTVAL FROM DUAL
+		<selectKey keyProperty="seq_id" resultType="int">
+			SELECT SEQ_CH.NEXTVAL seq_id FROM DUAL
 		</selectKey>
 		INSERT INTO chatroom0 (id, name, description, board_id, visibility, type, cre_mem_id) 
 		VALUES (SEQ_CH.NEXTVAL, #{name}, #{description}, #{boardId}, #{visibility}, #{type}, #{creMemId})

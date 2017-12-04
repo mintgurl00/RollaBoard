@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page import="java.util.*"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ page import="com.spring.rollaboard.task.TaskVO"%>
 <%@ page import="com.spring.rollaboard.board.BoardVO"%>
 <%@ page import="com.spring.rollaboard.section.SectionVO"%>
@@ -15,6 +16,7 @@
 	}
 	String id = (String) session.getAttribute("id");
 	BoardVO boardVO = (BoardVO) request.getAttribute("boardVO");
+	
 	ArrayList<ArrayList<TaskVO>> taskViewList = (ArrayList<ArrayList<TaskVO>>) request.getAttribute( "taskViewList" ) ;
 	ArrayList<SectionVO> sectionList = (ArrayList<SectionVO>) request.getAttribute( "sectionList" ) ; 
 	ArrayList<ArrayList<ArrayList<RoleAndTaskVO>>> roleAndTaskList = 
@@ -22,6 +24,7 @@
 	
 	String board_id = (String) request.getAttribute( "board_id" ) ;
 	String keyword = (String) request.getAttribute( "keyword" ) ;
+	String specialFilter = (String) request.getAttribute("specialFilter");
 	Date dt = new Date();
 	SimpleDateFormat sdf = new SimpleDateFormat("M/dd"); 
 %>
@@ -78,15 +81,13 @@ function clickModalcancel(cnt) {
 <style>
 .fa.fa-plus-circle {
 	font-size: 30px;
-	color: #ABABAB;
+	color: #484848;
 	padding:20px;
 }
 
 .fa.fa-plus-circle:hover {
-	color: black;
+	color: orange;
 }
-
-
 
 </style>
 <link href="css/task.css" rel="stylesheet" type="text/css" >
@@ -128,43 +129,58 @@ for( int i = 0 ; i < sectionSize ; i++ ){
 %>
 
 <div class="w3-animate-left">
-<div id="section" style="text-align:left">
+<div id="section" style="text-align:left;margin-left:20px;background-color:<%=sectionList.get(i).getColor() %>">
+	
 	<!-- 섹션 표시줄 -->
-	<div class = "row origin<%=sectionList.get(i).getId() %>" style = "display:block; cursor:pointer" <%if ( id.equals(boardVO.getAdmin()) ) {%> onclick = "javascript:flip(<%=sectionList.get(i).getId() %>)" <%} %>>
-		<div style="padding-top:10px; padding-left:30px; padding-bottom:15px" onMouseover="this.style.color='#1294AB';" onMouseout="this.style.color='black';">
-			<h5><b><%=sectionList.get(i).getName() %></b></h5>
-		</div>
-	</div>
-	<%if ( id.equals(boardVO.getAdmin()) ) {%>
-		<div class = "row nameview<%=sectionList.get(i).getId() %>" style = "display:none">
-			<div class = "col-xs-offset-1 col-xs-5">
-				<form id = "updatesectioninboard<%=sectionList.get(i).getId() %>" action="updatesectioninboard.do">
-					<input type="hidden" name="section_id" 	value="<%=sectionList.get(i).getId() %>" />
-					<input type="text" name="section_name"  class="byteLimit form-control" limitbyte="30" value="<%=sectionList.get(i).getName() %>" placeholder = "SECTION명을 입력하세요." required/>		
-				</form>	
+	<c:choose>
+		<c:when test="${specialFilter=='NONE'}">
+			<div class = "row origin<%=sectionList.get(i).getId() %>" style = "display:block; cursor:pointer" <%if ( id.equals(boardVO.getAdmin()) ) {%> onclick = "javascript:flip(<%=sectionList.get(i).getId() %>)" <%} %>>
+				<div style="padding-top:10px; padding-left:30px; padding-bottom:15px" onMouseover="this.style.color='#1294AB';" onMouseout="this.style.color='black';">
+					<h4><b><%=sectionList.get(i).getName() %></b></h4>
+				</div>
 			</div>
-	
-			<input type="button" onclick = "javascript:updatesectioninboard(<%=sectionList.get(i).getId() %>)" value="수정" class="btn btn-default" />
-			<input type="button" onclick = "javascript:deletesectioninboard(<%=sectionList.get(i).getId() %>)" value="삭제" class="btn btn-default"/>
-	
-		</div>
-		<div style = "display:none">
-		<form id = "deletesectioninboard<%=sectionList.get(i).getId() %>" action="deletesectioninboard.do">
-			<input type="hidden" name="section_id" value="<%=sectionList.get(i).getId() %>" />	
-		</form>
-		</div>
-	<%} %>
+			<%if ( id.equals(boardVO.getAdmin()) ) {%>
+				<div class = "row nameview<%=sectionList.get(i).getId() %>" style = "display:none">
+					<div class = "col-xs-offset-1 col-xs-5">
+						<form id = "updatesectioninboard<%=sectionList.get(i).getId() %>" action="updatesectioninboard.do">
+							<input type="hidden" name="section_id" 	value="<%=sectionList.get(i).getId() %>" />
+							<input type="text" name="section_name"  class="byteLimit form-control" limitbyte="30" value="<%=sectionList.get(i).getName() %>" placeholder = "SECTION명을 입력하세요." required/>
+							<input type = "text"  name = "color"
+									<% if (sectionList.get(i).getColor() != null) { %>
+										value = "<%=sectionList.get(i).getColor() %>" 
+									<% } %>
+										placeholder = "COLOR" class="byteLimit form-control" limitbyte="30">
+						</form>	
+					</div>
+			
+					<input type="button" onclick = "javascript:updatesectioninboard(<%=sectionList.get(i).getId() %>)" value="수정" class="btn btn-default" />
+					<input type="button" onclick = "javascript:deletesectioninboard(<%=sectionList.get(i).getId() %>)" value="삭제" class="btn btn-default"/>
+			
+				</div>
+				<div style = "display:none">
+				<form id = "deletesectioninboard<%=sectionList.get(i).getId() %>" action="deletesectioninboard.do">
+					<input type="hidden" name="section_id" value="<%=sectionList.get(i).getId() %>" />	
+				</form>
+				</div>
+			<%} %>
+		</c:when>
+		<c:when test="${specialFilter == 'connection' }">
+			<div style="padding-top:5px; padding-left:30px; padding-bottom:5px" >
+			&nbsp;
+			</div>
+		</c:when>
+		<c:otherwise></c:otherwise>
+	</c:choose>
 	<!-- 태스크 표시 -->
 	<%
 	for( int j = 0 ; j < taskViewList.get( i ).size() ; j++ ){
 		String status = taskViewList.get( i ).get( j ).getStatus();	// 태스크 상태
 	%>
-		<div method ="post" 
-		class="task <%=status %>" 
+		<div method ="post" class="task <%=status %>" 
 		onclick="javascript:clicktaskinBoard('<%=taskViewList.get( i ).get( j ).getId() %>')">
 
 			<div class="task_title" style="text-align:left;">
-				<span style = "font-family: Montserrat, sans-serif; font-size:15">
+				<span style = "font-family: Montserrat, sans-serif; font-size:18">
 					<b><%=taskViewList.get( i ).get( j ).getName() %></b>&nbsp;
 					<small style="text-align:right"><%=sdf.format(taskViewList.get( i ).get( j ).getDue_date()) %></small>
 				</span>
@@ -177,7 +193,7 @@ for( int i = 0 ; i < sectionSize ; i++ ){
 				<div align = "left">
 				<%
 				for( int k = 0 ; k < roleAndTaskList.get( i ).get( j ).size() ; k++ ){%>
-					<span class="badge role_badge">
+					<span class="badge role_badge" style="background-color:<%=roleAndTaskList.get( i ).get( j ).get( k ).getRoleColor() %>">
 						<b><%=roleAndTaskList.get( i ).get( j ).get( k ).getRoleName() %> : </b>
 						<%=roleAndTaskList.get( i ).get( j ).get( k ).getMemName() %>
 						<br/>
@@ -194,12 +210,12 @@ for( int i = 0 ; i < sectionSize ; i++ ){
 			<%
 			
 			if( status.equals("BLOCKED")){%>
-				<div class="task_status_blocked" style="margin-top:10px">
+				<div class="task_status_blocked" style="margin-top:20px">
 					BLOCKED <i class="fa fa-lock" aria-hidden="true"></i>
 				</div>				
 				<%
 			}else if( status.equals("COMPLETE") ){%>
-				<div class="task_status_complete" style="margin-top:10px">
+				<div class="task_status_complete" style="margin-top:20px">
 					COMPLETE <i class="fa fa-check" aria-hidden="true"></i>
 				</div>
 				<%
@@ -220,17 +236,16 @@ for( int i = 0 ; i < sectionSize ; i++ ){
 	
 	<!-- 새 태스크 추가 -->
 	<br />
-	<div id = "letsMakeTask" >
-
-		<input type="hidden" name="section_id" value = "<%=sectionList.get(i).getId() %>" required></input>
-		<%-- <input type="hidden" name="task_id" value = "<%= %>" required></input> --%>
-		
-		<div style="text-align:center">
-			<a href="javascript:createTask(<%=sectionList.get(i).getId()%>)"><i class="fa fa-plus-circle" aria-hidden="true"></i></a>	
+	<c:if test="${specialFilter == 'NONE' }">
+		<div id = "letsMakeTask" >	
+			<input type="hidden" name="section_id" value = "<%=sectionList.get(i).getId() %>" required></input>
+			<%-- <input type="hidden" name="task_id" value = "<%= %>" required></input> --%>
+			
+			<div style="text-align:center">
+				<a href="javascript:createTask(<%=sectionList.get(i).getId()%>)"><i class="fa fa-plus-circle" aria-hidden="true"></i></a>	
+			</div>
 		</div>
-		
-	    
-	</div>
+	</c:if>
 	<!-- Modal창으로 새로운 TASK생성 -->
 	<div id="modalCreate<%=sectionList.get(i).getId()%>" class="w3-modal">
 		<div class="w3-modal-content w3-animate-top w3-card-4" style = "max-width:550px">
@@ -265,8 +280,10 @@ for( int i = 0 ; i < sectionSize ; i++ ){
 <%
 }
 %>
+<!-- 섹션 추가 부분 -->
 <%
-if( keyword.equals( "" ) ){	// 검색 결과가 *아니*라면
+
+if( keyword.equals( "" ) && specialFilter.equals("NONE") ){	// 검색 결과가 *아니*라면
 	if ( id.equals(boardVO.getAdmin()) ) {%>
 		<div id="newsection">			
 			<a href="createsectioninboard.do"><i class="fa fa-plus-circle" aria-hidden="true"></i></a>
