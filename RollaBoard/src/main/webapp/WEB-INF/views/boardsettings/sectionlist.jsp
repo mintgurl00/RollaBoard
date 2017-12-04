@@ -19,7 +19,7 @@ ArrayList<SectionVO> sectionlist = (ArrayList<SectionVO>)request.getAttribute("s
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <title>memberadmit</title>
+  <title>sectionlist</title>
   <meta charset="utf-8" Encoding = "UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
@@ -158,6 +158,7 @@ body {
       <tr>
         <th>SECTION 이름</th>
         <th>SECTION COLOR</th>
+        <th></th>
       </tr>
     </thead>
     <tbody>
@@ -166,11 +167,11 @@ body {
     %>
       <tr>
        	<form id = "updatesection<%=section.getId() %>" action = "updatesection.do">
-        <td width="400">
+        <td>
         	<input type = "hidden" class = "form-control" name = "section_id" value =  "<%=section.getId() %>">
-        	<input type = "text"  name = "section_name" value = "<%=section.getName() %>" class="byteLimit form-control" limitbyte="30" style="width:300px" placeholder = "수정할 Section명을 입력하세요">
+        	<input type = "text"  name = "section_name" value = "<%=section.getName() %>" class="byteLimit form-control" limitbyte="30" placeholder = "수정할 Section명을 입력하세요">
         </td>	
-        <td style="width:200px" >
+        <td >
         	<% if (section.getColor() != null) { %>
         		<input type="text" name="color" value="<%=section.getColor() %>" placeholder = "ex:green, #1294AB" class="byteLimit form-control" limitbyte="30">
         	<% } else { %> 
@@ -178,7 +179,6 @@ body {
         	<% } %>
         </td>
        	</form>
-        </td>
         <td align = right>
        		<form id = "deletesection<%=section.getId() %>" action = "deletesection.do">
        			<input type = "hidden" class = "form-control" name = "section_id" value =  "<%=section.getId() %>">

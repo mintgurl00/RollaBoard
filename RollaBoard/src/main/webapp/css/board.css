@@ -84,7 +84,7 @@
 @media (max-width:768px) {
 	#section{
 		overflow-x:hidden; 
-		width:300px;
+		width:290px;
 		
 		border-radius:6px;
 		margin: 0 auto;
@@ -97,7 +97,7 @@
 	}
 	#newsection{
 		overflow-x:hidden; 
-		width:300px;
+		width:290px;
 		
 		border-radius:6px;
 		margin: 0 auto;

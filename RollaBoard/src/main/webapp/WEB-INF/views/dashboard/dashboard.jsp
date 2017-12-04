@@ -72,7 +72,7 @@ width:700px; /* optional, though better have one */
 	#task{
 		float:left;
 		width:250px;
-		height:100px;
+		height:80px;
 		margin-left:20px;
 		margin-top:10px;
 		padding-left:10px;

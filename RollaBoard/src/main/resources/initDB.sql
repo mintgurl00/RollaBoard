@@ -114,7 +114,7 @@ maxvalue 20000;
 Create table task (
     id number primary key,
     name varchar2(30),
-    description varchar2(100),
+    description varchar2(500), --ALTER TABLE task MODIFY description varchar2(500);  100에서 500으로 용량 높임. 
     status varchar2(10) default 'NORMAL' not null CONSTRAINT chk_status CHECK (status in ('BLOCKED', 'NORMAL', 'COMPLETE')),
     section_id number references section(id) on delete cascade,
     start_date date,
