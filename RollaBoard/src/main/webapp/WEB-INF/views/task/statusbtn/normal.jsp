@@ -5,7 +5,7 @@
 
 <script>
 $("#completeBtn").click(function(){
-	alert("완료버튼 클릭함");
+	alert("완료하였습니다");
 	$('#completeArea').load("complete.go.do", {
 		task_id: $("#task_id").val()
 	});

@@ -6,7 +6,7 @@
 
 <script>
 $("#completeCancelBtn").click(function(){
-	alert("완료취소버튼 클릭함");
+	alert("완료가 취소되었습니다");
 	$('#completeArea').load("completecancel.go.do", {
 		task_id: $("#task_id").val()
 	});
