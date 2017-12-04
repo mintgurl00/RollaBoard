@@ -143,21 +143,31 @@ for( int i = 0 ; i < sectionSize ; i++ ){
 			</div>
 			<%if ( id.equals(boardVO.getAdmin()) ) {%>
 				<div class = "row nameview<%=sectionList.get(i).getId() %>" style = "display:none">
-					<div class = "col-xs-offset-1 col-xs-5">
+					<div class = "row">
+					<div class = "col-xs-offset-1 col-xs-11">
 						<form id = "updatesectioninboard<%=sectionList.get(i).getId() %>" action="updatesectioninboard.do">
 							<input type="hidden" name="section_id" 	value="<%=sectionList.get(i).getId() %>" />
-							<input type="text" name="section_name"  class="byteLimit form-control" limitbyte="30" value="<%=sectionList.get(i).getName() %>" placeholder = "SECTION명을 입력하세요." required/>
-							<input type = "text"  name = "color"
-									<% if (sectionList.get(i).getColor() != null) { %>
-										value = "<%=sectionList.get(i).getColor() %>" 
-									<% } %>
-										placeholder = "COLOR" class="byteLimit form-control" limitbyte="30">
+							<div class = "col-xs-7">
+								<input type="text" name="section_name"  class="byteLimit form-control" limitbyte="30" value="<%=sectionList.get(i).getName() %>" placeholder = "SECTION명을 입력하세요." required/>
+							</div>
+							<div class = "col-xs-4">
+								<input type = "text"  name = "color"
+										<% if (sectionList.get(i).getColor() != null) { %>
+											value = "<%=sectionList.get(i).getColor() %>" 
+										<% } %>
+											placeholder = "COLOR" class="byteLimit form-control" limitbyte="30">
+							</div>
 						</form>	
 					</div>
-					<div style = "font-size:22px;" >
-						<a onclick = "javascript:updatesectioninboard(<%=sectionList.get(i).getId() %>)"><i class="fa fa-check"></i></a>&nbsp;
-						<a onclick = "javascript:deletesectioninboard(<%=sectionList.get(i).getId() %>)"><i class="fa fa-trash-o"></i></a>&nbsp;
-						<a onclick = "javascript:flip(<%=sectionList.get(i).getId() %>)" ><i class="fa fa-times"></i></a>
+					</div>
+					<div class = "row">
+					<div class = "col-xs-offset-7">
+						<div style = "font-size:22px; cursor:pointer;" >
+							<a onclick = "javascript:updatesectioninboard(<%=sectionList.get(i).getId() %>)"><i class="fa fa-check"></i></a>&nbsp;
+							<a onclick = "javascript:deletesectioninboard(<%=sectionList.get(i).getId() %>)"><i class="fa fa-trash-o"></i></a>&nbsp;
+							<a onclick = "javascript:flip(<%=sectionList.get(i).getId() %>)" ><i class="fa fa-times"></i></a>
+						</div>
+					</div>
 					</div>
 				</div>
 				<div style = "display:none">
