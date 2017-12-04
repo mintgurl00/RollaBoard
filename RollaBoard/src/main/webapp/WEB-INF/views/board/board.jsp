@@ -252,11 +252,11 @@ $(document).ready(function() {
 			        </div>
 				</div> 
 				<div id = "filtering" align = "right">
-					<input type="radio" class="filter" id="chk_duedate" name="due" value="FALSE" onclick="javascript:filterResult(this)"/>
+					<input type="checkbox" class="filter" id="chk_duedate" name="due" value="FALSE" onclick="javascript:filterResult(this)"/>
 					<span>마감일순 보기</span>
-					<input type="radio" class="filter" id="chk_priority" name="priority" value="FALSE" onclick="javascript:filterResult(this)"/>
+					<input type="checkbox" class="filter" id="chk_priority" name="priority" value="FALSE" onclick="javascript:filterResult(this)"/>
 					<span>중요도순 보기</span>
-					<input type="radio" class="filter" id="chk_connection" name="connection" value="FALSE" onclick="javascript:filterResult(this)"/>
+					<input type="checkbox" class="filter" id="chk_connection" name="connection" value="FALSE" onclick="javascript:filterResult(this)"/>
 					<span>관계 보기</span>
 					<!-- <a href="./chattest.so">채팅테스트ㅜ</a> -->
 				</div>

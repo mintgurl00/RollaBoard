@@ -181,7 +181,7 @@ function descfadeout(cnt) {
     	RoleVO roleVO = roleList.get(i);
     %>
     <form id = "none"></form>
-      <div class = "row" style="margin-bottom:50px; border-bottom:1px solid;">
+      <div class = "row" style="margin-bottom:50px; border-bottom:1px solid; border-right:1px solid">
       	<div class = "col-xs-12 col-sm-12">
 	      	<form id = "updateRole<%=roleVO.getId() %>" action = "updaterole.do">
 		        <div class = "col-xs-4 col-sm-3"  >
