@@ -150,6 +150,9 @@ function filterResult( obj ){	// 필터버튼 클릭
 		obj.value = 'TRUE' ;
 	else
 		obj.value = 'FALSE' ;
+	
+	//doOpenCheck();
+	
 	// 02 전체 필터버튼의 값 확인해서 전달 필터 String 작성
 	//alert( obj.name + ' : ' + obj.value ) ;
 	var filter = getFilter() ;
@@ -170,6 +173,16 @@ function getFilter(){
 	} ) ;
 	return filterString
 }
+
+//체크박스 하나만 선택되게
+/* function doOpenCheck(chk) {
+	var obj = document.getElementByName("task_filter");
+	for (var i = 0; i < obj.length, i++) {
+		if (obj[i] ! = chk) {
+			obj[i].checked = false;
+		}
+	}
+} */
 
 /*
  * 참조 보드 부르기
