@@ -208,10 +208,11 @@ $(document).ready(function() {
 <body>
 	<nav style = "background-color:#1294AB; color: #fff !important; font-family: Montserrat, sans-serif; position:absolute; padding-top:0px;">
 	<div class="container-fluid" style = "background-color:#1294AB; background-color:rgba{0,0,0,0.5};"> 
-		<div class = "navbar-header" style="padding-top:5px; height:25px">
+		<div class = "navbar-header" style="padding-top:1px; height:25px">
 			<a style = "color: #fff; padding-top:1px" class="navbar-brand" href="./dashboard.do" >ROLLA<br>BOARD</a>
 
 			<font size = "5px" color = "white"><%=boardVO.getName() %></font>
+			
 			<% if (id.equals(boardVO.getAdmin())) {%>
 			<a style = "color: #fff; cursor:pointer" onClick="document.getElementById('boardSetting').submit()" style="cursor: pointer"><span class="glyphicon glyphicon-cog"></span></a>
 			<form id="boardSetting" action="updateboard.do" method="post" style="margin-top: 5px;" hidden>
@@ -222,12 +223,12 @@ $(document).ready(function() {
 				<input type="hidden" name="chkVal" value="role">
 			</form>
 			<% } %>
-
+			
 
 		</div>
-		<div>
-			<ul class="nav navbar-nav navbar-right" style="background-color:#1294AB">			
-				<li>
+		<div class = "myclass">
+			<ul class="nav navbar-nav navbar-right" style="background-color:#1294AB; padding-bottom:10px;">			
+				<li> 
 					<a style = "color:#fff; cursor:pointer">
 					<!-- 참조 보드 선택 -->
 					<div class = "selectBox02" style="background-color:#1294AB">
@@ -240,7 +241,7 @@ $(document).ready(function() {
 					</a>
 				</li>
 				<li>
-					<a style = "color: #fff; cursor:pointer" onClick="document.getElementById('updateMember').style.display='block'"><span class="glyphicon glyphicon-user"></span></a>
+					<a align = "left" style = "color: #fff; cursor:pointer" onClick="document.getElementById('updateMember').style.display='block'"><span class="glyphicon glyphicon-user"></span></a>
 				</li>
 				<li>
 					<a style = "color: #fff; cursor:pointer" href="logout.do"><span class="glyphicon glyphicon-log-out"></span></a>
@@ -265,11 +266,11 @@ $(document).ready(function() {
 			        </div>
 				</div> 
 				<div id = "filtering" align = "right">
-					<input type="radio" class="filter" id="chk_duedate" name="due" value="FALSE" onclick="javascript:filterResult(this)"/>
-					<span>마감일순 보기</span>
-					<input type="radio" class="filter" id="chk_priority" name="priority" value="FALSE" onclick="javascript:filterResult(this)"/>
-					<span>중요도순 보기</span>
-					<input type="radio" class="filter" id="chk_connection" name="connection" value="FALSE" onclick="javascript:filterResult(this)"/>
+					<input type="checkbox" class="filter" id="chk_duedate" name="due" value="FALSE" onclick="javascript:filterResult(this)"/>
+					<span>마감일순 </span>
+					<input type="checkbox" class="filter" id="chk_priority" name="priority" value="FALSE" onclick="javascript:filterResult(this)"/>
+					<span>중요도순 </span>
+					<input type="checkbox" class="filter" id="chk_connection" name="connection" value="FALSE" onclick="javascript:filterResult(this)"/>
 					<span>관계 보기</span>
 					<!-- <a href="./chattest.so">채팅테스트ㅜ</a> -->
 				</div>
