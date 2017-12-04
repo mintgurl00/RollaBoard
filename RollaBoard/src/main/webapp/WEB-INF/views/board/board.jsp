@@ -55,7 +55,7 @@
 }
 
 .glyphicon.glyphicon-cog:hover {
-	color:black;
+	color:orange;
 }
 
 </style>
@@ -193,10 +193,10 @@ $(document).ready(function() {
 </script>
 </head>
 <body>
-	<nav style = "background-color:#1294AB; color: #fff !important; font-family: Montserrat, sans-serif; position:absolute; padding-top:0px; ">
+	<nav style = "background-color:#1294AB; color: #fff !important; font-family: Montserrat, sans-serif; position:absolute; padding-top:0px;">
 	<div class="container-fluid" style = "background-color:#1294AB; background-color:rgba{0,0,0,0.5};"> 
 		<div class = "navbar-header" style="padding-top:5px; height:25px">
-			<a style = "color: #fff; padding-top:1px" class="navbar-brand" href="./dashboard.do" >ROLLA<br>BOARD</a>&nbsp;&nbsp;&nbsp;
+			<a style = "color: #fff; padding-top:1px" class="navbar-brand" href="./dashboard.do" >ROLLA<br>BOARD</a>
 
 			<font size = "5px" color = "white"><%=boardVO.getName() %></font>
 			<% if (id.equals(boardVO.getAdmin())) {%>
@@ -241,7 +241,7 @@ $(document).ready(function() {
 		<div class = "row" style="padding-top:1px"> 
 	
 			<div style = "padding-right:30px;">
-				<div class="input-group form" style = " font-family: Montserrat, sans-serif;" align=right>		
+				<div class="input-group form" style = " font-family: Montserrat, sans-serif;margin-bottom:7px" align=right>		
 					<input type="text" name="keyword" id="keyword" class="form-control" placeholder="검색할 TASK 입력" style="width:170px">
 					<input type="hidden" name="written_keyword" id="written_keyword" value=""/>
 					<input type ="hidden" name="board_id" value="<%=boardVO.getId()%>" />
@@ -256,7 +256,9 @@ $(document).ready(function() {
 					<span>마감일순 보기</span>
 					<input type="radio" class="filter" id="chk_priority" name="priority" value="FALSE" onclick="javascript:filterResult(this)"/>
 					<span>중요도순 보기</span>
-					<a href="./chattest.so">채팅테스트ㅜ</a>
+					<input type="radio" class="filter" id="chk_connection" name="connection" value="FALSE" onclick="javascript:filterResult(this)"/>
+					<span>관계 보기</span>
+					<!-- <a href="./chattest.so">채팅테스트ㅜ</a> -->
 				</div>
 			</div>
 		</div>
@@ -286,7 +288,7 @@ $(document).ready(function() {
 
 <div class="boards">
 	<!-- 보드 -->
-	<div id="work_board" style="background-color:#1294AB">		
+	<div id="work_board" style="background-color:#1294AB; padding-top:20px">		
 	</div>
 </div>
 

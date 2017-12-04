@@ -59,14 +59,39 @@ width:700px; /* optional, though better have one */
 
 #task{
 	float:left;
-	width:250px;
-	height:250px;
+	width:200px;
+	height:200px;
 	margin-left:40px;
 	margin-top:40px;
 	padding-left:30px;
 	background-color:#E1E1E1;
 	cursor:pointer;
 	border-radius:10px;
+}
+@media (max-width:768px) {
+	#task{
+		float:left;
+		width:250px;
+		height:100px;
+		margin-left:20px;
+		margin-top:10px;
+		padding-left:10px;
+		background-color:#E1E1E1;
+		cursor:pointer;
+		border-radius:10px;
+		overflow:hidden;
+	}
+	#task span {
+		text-align:center;
+	}
+	#task b.completing {
+		text-decoration:line-through;
+		color:gray;
+	}
+	#task b.blocking{
+		color:red;
+	}
+
 }
 
 .fa.fa-plus-circle {
@@ -156,17 +181,21 @@ width:700px; /* optional, though better have one */
 	<% for (int k = 0; k < taskList.size(); k++) {
 		TaskVO taskVO = taskList.get(k);
 	%>
-	
     <div id="task" onclick="javascript:clicktask('<%=taskVO.getId() %>')" class = "w3-animate-zoom">
-    	<br/><h5><b><%=taskVO.getName()%></b></h5>
-    	in <%=taskVO.getDescription() %>
-    	<br/>
+    	<% if( taskVO.getStatus().equals("COMPLETE")){%>
+    	<h5><b class = "completing"><%=taskVO.getName()%></b></h5>
+    	<%} else if( taskVO.getStatus().equals("BLOCKED")) { %>
+    	<h5><b class = "blocking"><%=taskVO.getName()%></b><i class="fa fa-lock" aria-hidden="true"></i></h5>
+    	<%} else {%>
+    	<h5><b><%=taskVO.getName()%></b></h5>
+    	<%} %>
+    	<span>in <%=taskVO.getDescription() %></span>
     <% if( taskVO.getStatus().equals("BLOCKED")){%>
-		<div class="task_status_blocked" style="margin-top:60px; margin-left:30px" align=center>
+		<div class="task_status_blocked" style="margin-top:30px; margin-left:20px" align=center>
 			BLOCKED <i class="fa fa-lock" aria-hidden="true"></i>
 		</div>				
 	<% } else if ( taskVO.getStatus().equals("COMPLETE")) {%>
-		<div class="task_status_complete" style="margin-top:60px;; margin-left:30px" align=center>
+		<div class="task_status_complete" style="margin-top:30px;; margin-left:30px" align=center>
 			COMPLETE <i class="fa fa-check" aria-hidden="true"></i>
 		</div> 
 	<% } %>
@@ -197,6 +226,15 @@ width:700px; /* optional, though better have one */
 <div style="margin-top:430px;padding-right:40px"><p class="w3-right"><b>Rollaboard</b> all rights reserved </p></div>
 
 <script>
+// 화면 동적 변환
+$(document).ready (function(){
+	var windowWidth = $( window ).width();
+	if(windowWidth < 768) {
+	} else {
+	//창 가로 크기가 768보다 클 경우
+	}
+})
+
 // Script to open and close sidebar
 function w3_open() {
     document.getElementById("mySidebar").style.display = "block";

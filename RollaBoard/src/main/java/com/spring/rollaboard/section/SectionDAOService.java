@@ -49,9 +49,16 @@ public class SectionDAOService implements SectionDAO {
 	}
 
 	@Override
-	public void updateSection(int section_id, String section_name) {
+	public void updateSection(int section_id, String section_name, String color) {
 		SectionMapper sectionMapper = sqlSession.getMapper(SectionMapper.class);
-		sectionMapper.updateSection(section_id, section_name);
+		sectionMapper.updateSection(section_id, section_name, color);
 		
+	}
+
+	public ArrayList<SectionVO> getConnSecList(int board_id) {
+		ArrayList<SectionVO> sectionList = new ArrayList<SectionVO>() ;
+		SectionMapper sectionMapper = sqlSession.getMapper( SectionMapper.class ) ;
+		sectionList = sectionMapper.getConnSecList(board_id) ;
+		return sectionList ;
 	}
 }

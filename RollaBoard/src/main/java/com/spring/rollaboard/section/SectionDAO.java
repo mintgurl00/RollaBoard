@@ -13,5 +13,5 @@ public interface SectionDAO {
 
 	public void deleteSection(int section_id);
 	
-	public void updateSection(int section_id, String section_name);
+	public void updateSection(int section_id, String section_name, String color);
 }
