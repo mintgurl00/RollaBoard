@@ -166,11 +166,11 @@ function descfadeout(cnt) {
 </head>
 <body>
 <div class="container">
-	<div class = "page-header">
+	<div class = "page-header" style="margin-bottom:30px">
 		<h2>ROLE 관리</h2>
 		<p>당신의 BOARD에서 업무수행을 지시할 ROLE을 관리해주세요</p>
 	</div>
-	<div class = "row" style="margin-bottom:50px; border-bottom:1px solid;" >
+	<div class = "row" style="margin-bottom:30px; padding-bottom:10px; border-bottom:1px solid; border-color:#CFCFCF" >
 		<div class = "col-xs-4 col-sm-3" ><h3>ROLE 이름</h3></div>
 		<div class = "col-xs-4 col-sm-3"><h3>설명</h3></div>
 		<div class = "col-xs-2 col-sm-2"><h3>COLOR</h3></div>
@@ -181,7 +181,7 @@ function descfadeout(cnt) {
     	RoleVO roleVO = roleList.get(i);
     %>
     <form id = "none"></form>
-      <div class = "row" style="margin-bottom:50px; border-bottom:1px solid;">
+      <div class = "row" style="margin-top:30px; border-bottom:1px solid; border-color:#CFCFCF">
       	<div class = "col-xs-12 col-sm-12">
 	      	<form id = "updateRole<%=roleVO.getId() %>" action = "updaterole.do">
 		        <div class = "col-xs-4 col-sm-3"  >
@@ -205,7 +205,7 @@ function descfadeout(cnt) {
 			        	</div>
 			    <% } else {%>
 			   		 <div class= "origin<%=roleVO.getId() %>" style = "display:block;">
-			        	<small>ROLE 이름을 눌러 ROLE COLOR를 설정할 수 있습니다.</small>
+			        	<small>COLOR 선택 안함</small>
 			        	</div>
 			    <% } %>
 			       	
@@ -224,7 +224,7 @@ function descfadeout(cnt) {
 	        <div class = "col-xs-4 col-sm-1">
 	        <form id = "deleteRole<%=roleVO.getId() %>" action = "deleteRole.do">       
 	        	<input type = "text" name = "id" value = "<%=roleVO.getId() %>" hidden>
-	       		<input type = button class = "btn btn-default"  value = "삭제" onclick="javascript:chkBox(<%=roleVO.getId() %>)">      	
+	       		<input type = button class = "btn btn-default" style="margin-bottom:25px; margin-left:250px" value = "삭제" onclick="javascript:chkBox(<%=roleVO.getId() %>)">      	
 	       	</form>
 	       	</div> 
         </div>     
