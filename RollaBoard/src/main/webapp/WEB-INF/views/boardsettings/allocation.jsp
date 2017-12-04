@@ -169,7 +169,7 @@ body {
         </td>
         <td align = "right">
         <form id = "getRoleMembers">
-       		<input type = button class = "btn btn-info" value = "배정된 맴버보기" onclick = "members(<%=roleVO.getId()%>)">
+       		<button type = button class = "btn btn-default" onclick = "members(<%=roleVO.getId()%>)"><i class ="fa fa-list-ul" style = "font-size:20px; cursor:pointer;"></i></buton>
         </form>
        	</td>
       </tr>
