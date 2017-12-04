@@ -222,8 +222,8 @@ function descfadeout(cnt) {
 	        		<input type = "button" class = "btn btn-default"  value = "취소" onclick = "javascript:fadeout('<%=roleVO.getId() %>')" >
 	        	</div>
 	        </form>
-	        <div class = "col-xs-4 col-sm-1">
-	        <form id = "deleteRole<%=roleVO.getId() %>" action = "deleteRole.do" align = "right">       
+	        <div class = "col-xs-12 col-sm-1" align = "right">
+	        <form id = "deleteRole<%=roleVO.getId() %>" action = "deleteRole.do" >       
 	        	<input type = "text" name = "id" value = "<%=roleVO.getId() %>" hidden>
 	       		<input type = button class = "btn btn-default" style="margin-bottom:25px; " value = "삭제" onclick="javascript:chkBox(<%=roleVO.getId() %>)">      	
 	       	</form>
