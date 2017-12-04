@@ -100,31 +100,61 @@ function check_input() {
 }
 
 </script>
-<body style = "background-color:lightblue">
-<form action="insertMember.do" name="joinform">
- <div class="container-fluid">
-	<h2>회원가입</h2>
-    <label><b>ID</b></label>
-    <input type="text" placeholder="Enter ID" name="id" required>
-    <label><b>Password</b></label>
-    <input type="password" placeholder="Enter Password" name="password" required>
-    
-    <label><b>Password 확인</b></label>
-    <input type="password" placeholder="Enter Password" name="password2" required >
-
-    <label><b>이름</b></label>
-    <input type="text" placeholder="이름" name="name" required>
-    
-    <label><b>Email</b></label>
-    <input type="text" placeholder="Enter Email" name="email" >
-  
-    <div class="clearfix" align = center>
-      <button type="reset" class="btn btn-default">다시 작성</button>
-      <button type="submit" class="btn btn-default"  onclick="javascript:check_input()" >회원가입</button>
-      <button type="button" class="btn btn-default" onclick="location.href='index.do'">돌아가기 </button>
-    </div>
+<body style = "background-color:#1294AB">
+<div class="container-fluid" style="margin-top:10%">
+ <br> <br> <br> 
+  <div class = "row">
+	<div class = "col-sm-offset-2" style="margin-bottom:50px">
+  	<h1> JOIN </h1>
   </div>
-</form>
+  </div>
+  <form class="form-horizontal" action="insertMember.do" name = "joinform">
+    <div class="form-group">
+      <label class="control-label col-sm-2" for="text">ID </label>
+      <div class="col-sm-3">
+        <input type="text" class="form-control" id="id" placeholder="Enter ID" name="id" required>
+      </div>
+    </div>
+    
+    <div class="form-group">
+      <label class="control-label col-sm-2" for="pwd">Password</label>
+      <div class="col-sm-3">          
+        <input type="password" class="form-control" id="pwd" placeholder="Enter password" name="password" required>
+      </div>
+    </div>
+    
+    <div class="form-group">
+      <label class="control-label col-sm-2" for="pwd">Password 확인</label>
+      <div class="col-sm-3">          
+        <input type="password" class="form-control" id="pwd" placeholder="Enter password" name="password2" required>
+      </div>
+    </div>
+    
+    <div class="form-group">
+      <label class="control-label col-sm-2" for="pwd">이름</label>
+      <div class="col-sm-3">          
+        <input type="text" class="form-control" id="pwd" placeholder="이름" name="name" required>
+      </div>
+    </div>
+    
+    <div class="form-group">
+      <label class="control-label col-sm-2" for="pwd">Email</label>
+      <div class="col-sm-3">          
+        <input type="text" class="form-control" id="pwd" placeholder="Enter Email" name="email" required>
+      </div>
+    </div>
+    
+    <div class="form-group" style="margin-top:40px">        
+      <div class="col-sm-offset-2 col-sm-10">
+     	<button type="submit" class="btn btn-default" onclick="javascript:check_input()" >JOIN</button>
+      	<button type="reset" class="btn btn-default">RESET</button>
+        <button type="button" class="btn btn-default" onclick="location.href='index.do'">BACK</button>
+      </div>
+    </div>
+     
+  </form>
+</div>
+
 
 </body>
 </html>
