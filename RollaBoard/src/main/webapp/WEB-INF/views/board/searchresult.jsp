@@ -59,9 +59,11 @@ function deletesectioninboard(cnt) {
 <script>
 function flip(cnt) {
 	if( $('.nameview' + cnt).css("display") == "none") {
-		$('.nameview' + cnt).css("display", "block");
-		
-	} 
+		$('.nameview' + cnt).css("display", "block");		
+	}  else {
+		$('.nameview' + cnt).css("display", "none");
+	}
+	
 	if( $('.origin' + cnt).css("display") == "none") {
 		$('.origin' + cnt).css("display", "block");
 	} else {
@@ -152,10 +154,11 @@ for( int i = 0 ; i < sectionSize ; i++ ){
 										placeholder = "COLOR" class="byteLimit form-control" limitbyte="30">
 						</form>	
 					</div>
-			
-					<input type="button" onclick = "javascript:updatesectioninboard(<%=sectionList.get(i).getId() %>)" value="수정" class="btn btn-default" />
-					<input type="button" onclick = "javascript:deletesectioninboard(<%=sectionList.get(i).getId() %>)" value="삭제" class="btn btn-default"/>
-			
+					<div style = "font-size:22px;" >
+						<a onclick = "javascript:updatesectioninboard(<%=sectionList.get(i).getId() %>)"><i class="fa fa-check"></i></a>&nbsp;
+						<a onclick = "javascript:deletesectioninboard(<%=sectionList.get(i).getId() %>)"><i class="fa fa-trash-o"></i></a>&nbsp;
+						<a onclick = "javascript:flip(<%=sectionList.get(i).getId() %>)" ><i class="fa fa-times"></i></a>
+					</div>
 				</div>
 				<div style = "display:none">
 				<form id = "deletesectioninboard<%=sectionList.get(i).getId() %>" action="deletesectioninboard.do">
