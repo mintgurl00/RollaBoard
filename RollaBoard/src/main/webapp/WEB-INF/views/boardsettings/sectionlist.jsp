@@ -153,7 +153,7 @@ body {
 		<h2>SECTION 관리</h2>
 		<p>당신의 BOARD에 있는 SECTION 리스트입니다</p>  
  	</div>     
-  <table class="table table-striped">
+  <table class="table table-condensed">
     <thead>
       <tr>
         <th>SECTION 이름</th>

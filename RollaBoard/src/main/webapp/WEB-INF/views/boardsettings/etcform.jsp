@@ -158,15 +158,15 @@ function radio_chk() {
   	<div class = "col-xs-4">공개여부</div>
   	<%if (visible.equals("TRUE")) {%>
   	<div class = "col-xs-3"><input type = "radio" name = "visibility" value = "TRUE" checked>공개</div>
-  	<div class = "col-xs-3"><input type = "radio" name = "visibility" value = "FALSE">비공개</div>
+  	<div class = "col-xs-4"><input type = "radio" name = "visibility" value = "FALSE">비공개</div>
   	<%} else if (visible.equals("FALSE")) {%>
   	<div class = "col-xs-3"><input type = "radio" name = "visibility" value = "TRUE" >공개</div>
-  	<div class = "col-xs-3"><input type = "radio" name = "visibility" value = "FALSE" checked>비공개</div>
+  	<div class = "col-xs-4"><input type = "radio" name = "visibility" value = "FALSE" checked>비공개</div>
   	<%} else { %>
   	<div class = "col-xs-3"><input type = "radio" name = "visibility" value = "TRUE" >공개</div>
-  	<div class = "col-xs-3"><input type = "radio" name = "visibility" value = "FALSE">비공개</div>
+  	<div class = "col-xs-4"><input type = "radio" name = "visibility" value = "FALSE">비공개</div>
   	<%} %>
-  	<div class = "col-xs-2"><input type = "submit" class = "btn btn-info" value = "저장" onclick="javascript:radio_chk()"></div>
+  	<div class = "col-xs-1"><input type = "submit" class = "btn btn-info" value = "저장" onclick="javascript:radio_chk()"></div>
   </div>
   </form>
 </div>

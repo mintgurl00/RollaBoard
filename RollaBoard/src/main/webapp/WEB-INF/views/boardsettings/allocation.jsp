@@ -141,7 +141,7 @@ body {
 		<h2>ROLE 배정</h2>
 		<p>ROLE에 MEMBER를 배정하세요.</p>
 	</div>        
-  <table class="table table-striped">
+  <table class="table table-condensed">
     <thead>
       <tr>
         <th>ROLE 명단</th>
@@ -155,9 +155,15 @@ body {
       <tr>
         <td><%=roleVO.getName() %> </td>
         <td>
-        	<form id = "insertMemToRole" action = "insertmemtorole.do">
+        	<form id = "insertMemToRole" action = "insertmemtorole.do" method = "post">
         		<input type = "hidden" name = "role_id" value = "<%=roleVO.getId() %>" >
-	        	<input type = "text" class = "form-control" name = "mem_id" placeholder = "맴버아이디 입력"  required>
+        		<input list = "mem_id" class = "form-control" name = "mem_id" placeholder = "맴버아이디 입력"  required>
+        		<datalist id = "mem_id">
+        		<%for(int j = 0; j < boardMemberList.size(); j++) {
+        			MemVO memVO = boardMemberList.get(j);%>
+	        		<option value="<%=memVO.getId() %>"></option>
+        		<%} %>		
+        		</datalist>
 	       		<input type = submit class = "btn btn-info" value = "배정" >
        		</form>
         </td>
