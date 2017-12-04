@@ -74,7 +74,7 @@ Create table ROLE (
     board_id references board(id) on delete cascade,
     name varchar2(20),
     description varchar2(100),
-    color varchar2(10) --alter table role add (color varchar2(10)); 이거로 컬럼추가하시면 됩니다
+    color varchar2(10) --alter table role add (color varchar2(10)); 이거로 컬럼추가하시면 됩니다 뒤에부터는 디폴트 색 지정: alter table role modify (color default '#7A7A7A');
     );
     
 -- 롤-사람
@@ -99,6 +99,7 @@ Create table section (
     board_id references board(id),
     name varchar2(30),
     seq_num number
+    color varchar(2) --alter table section add (color varchar2(10)); 뒤에부터는 디폴트 색 지정 : alter table section modify (color default '#EAEAEA');
     );
 
 -- 태스크 아이디에 사용될 시퀀스
