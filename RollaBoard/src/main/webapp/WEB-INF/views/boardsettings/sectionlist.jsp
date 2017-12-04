@@ -169,7 +169,7 @@ body {
        	<form id = "updatesection<%=section.getId() %>" action = "updatesection.do">
         <td>
         	<input type = "hidden" class = "form-control" name = "section_id" value =  "<%=section.getId() %>">
-        	<input type = "text"  name = "section_name" value = "<%=section.getName() %>" class="byteLimit form-control" limitbyte="30" style="width:300px" placeholder = "수정할 Section명을 입력하세요">
+        	<input type = "text"  name = "section_name" value = "<%=section.getName() %>" class="byteLimit form-control" limitbyte="30" placeholder = "수정할 Section명을 입력하세요">
         </td>	
         <td >
         	<% if (section.getColor() != null) { %>
