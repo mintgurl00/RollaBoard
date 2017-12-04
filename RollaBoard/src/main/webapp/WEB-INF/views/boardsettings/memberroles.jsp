@@ -18,7 +18,7 @@
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <title>Insert title here</title>
 </head>
-<body>
+<body style = "background-color:#EFEFEF;">
 
 <div class="container-fluid" style="margin-top:10%; margin-left:10%">
 	<h2>'<%=mem_name %>'님 ROLE</h2>

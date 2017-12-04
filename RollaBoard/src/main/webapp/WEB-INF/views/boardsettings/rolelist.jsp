@@ -164,7 +164,7 @@ function descfadeout(cnt) {
 
 </style>
 </head>
-<body>
+<body style = "background-color:#EFEFEF;">
 <div class="container">
 	<div class = "page-header" style="margin-bottom:30px">
 		<h2>ROLE 관리</h2>
