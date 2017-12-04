@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.spring.rollaboard.board.BoardDAOService;
+import com.spring.rollaboard.board.BoardVO;
 import com.spring.rollaboard.cmt.CmtDAOService;
 import com.spring.rollaboard.mem.MemDAOService;
 import com.spring.rollaboard.role.RoleDAOService;
@@ -299,12 +300,14 @@ public class TaskController {
 	}
 	
 	@RequestMapping("deallocatetask.do")
-	public void deallocatetask(int role_id, int task_id) {
+	public ModelAndView deallocatetask(int role_id, int task_id) {
+		ModelAndView result = new ModelAndView();
 		System.out.println("deallocatetask.do... task_id : " + task_id);
 		roleDAOService.deallocateTask(role_id, task_id);
 		System.out.println("TASK_ROLE 삭제완료");
 
-		return;
+		result.setViewName("redirect:board.do");
+		return result;
 	}
     
 	// 완료 버튼 처리
