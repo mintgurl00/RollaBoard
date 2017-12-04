@@ -42,9 +42,16 @@ if (taskVO.getLocation() == null) {
 %>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <style>
-#frame{position:absolute; padding:10px; border-radius:4px; width:600px;height:695px; overflow:auto; background-color:whitesmoke; margin-right: 10px; text-align:center} 
-#content{border-radius:4px; width:500px; height:120px; background-color:#FFFFFF;text-align:left}
-#button{margin-top:20px}
+@media (min-width:768px) {
+	#frame{position:absolute; padding:10px; border-radius:4px; width:600px;height:695px; overflow:auto; background-color:whitesmoke; margin-right: 10px; text-align:center} 
+	#content{border-radius:4px; width:500px; height:120px; background-color:#FFFFFF;text-align:left}
+	#button{margin-top:20px}
+}
+@media (max-width:768px) {
+  	#frame{position:absolute; padding:10px; border-radius:6px; width:300px;height:695px; overflow:auto; background-color:whitesmoke; margin-left: 9px; text-align:center; box-shadow: 1px 1px 5px #000; }
+  	#content{border-radius:4px; width:250px; height:120px; background-color:#FFFFFF; margin-left:50px;text-align:left}
+  	#completeArea{margin-left:185px;}
+}
 </style>
 
 <!-- 테스크 제목, 설명 입력 바이트 수 제한 --> 

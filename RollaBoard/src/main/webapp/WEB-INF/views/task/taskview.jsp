@@ -34,6 +34,21 @@ if(session.getAttribute("id") == null) {
 
 
 <style>
+body,h1,h2,h3,h4,h5 {font-family: "Poppins", sans-serif}
+body {font-size:16px;}
+.w3-half img{margin-bottom:-6px;margin-top:16px;opacity:0.8;cursor:pointer}
+.w3-half img:hover{opacity:1}
+.image {
+position:relative;
+float:left; /* optional */
+}
+.image .text {
+position:absolute;
+top:20px; /* in conjunction with left property, decides the text position */
+left:25px;
+width:700px; /* optional, though better have one */
+}
+
       /* Always set the map height explicitly to define the size of the div
        * element that contains the map. */
       #map {
@@ -42,11 +57,7 @@ if(session.getAttribute("id") == null) {
         width: 60%;
       }
       /* Optional: Makes the sample page fill the window. */
-      html, body {
-        height: 100%;
-        margin: 0;
-        padding: 0;
-      }
+
       #floating-panel {
         position: absolute;
         top: 10px;
@@ -285,7 +296,7 @@ document.getElementById('completeArea').addEventListener('mouseover', onMouseove
 <!-- 	<input type=button value="수정" onclick = "javascript:updateTask()"> -->
 		<input type=button class = "btn btn-default" value="삭제" onclick = "javascript:deleteTask()">
 	<%} else { %>
-		<input type="button" class = "btn btn-default" data-dismiss="modal" value="확인" >
+		<input type="button" class = "btn btn-default" data-dismiss="modal" value="확인" onclick = "location.href='./dashboard.do'">
 	<%} %>
 		
 	</div>
