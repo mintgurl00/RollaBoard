@@ -4,6 +4,7 @@ import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
@@ -112,8 +113,8 @@ public class SectionController {
     //섹션 수정
     @RequestMapping("updatesection.do")
     public ModelAndView updatesection(int section_id, String section_name, String color) {
-    	
-    	System.out.println("수정할 섹션 아이디: " + section_id);
+    	System.out.println("섹션 아이디 int : "+section_id);
+    	System.out.println("섹션 네임 : " + section_name);
     	ModelAndView result = new ModelAndView();
     	sectionDAOService.updateSection(section_id, section_name, color);
     	// 현재 페이지에 머물 수 있는 앵커값 : chkVal

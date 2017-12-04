@@ -157,7 +157,6 @@ body {
     <thead>
       <tr>
         <th>SECTION 이름</th>
-        <th>SECTION COLOR</th>
         <th></th>
       </tr>
     </thead>
@@ -165,27 +164,21 @@ body {
     <%for(int i = 0; i < sectionlist.size(); i++) {
     	SectionVO section = sectionlist.get(i);
     %>
-      <tr>
-       	<form id = "updatesection<%=section.getId() %>" action = "updatesection.do">
+      <tr>    
         <td>
+        	<form id = "updatesection<%=section.getId() %>" action = "updatesection.do">
         	<input type = "hidden" class = "form-control" name = "section_id" value =  "<%=section.getId() %>">
         	<input type = "text"  name = "section_name" value = "<%=section.getName() %>" class="byteLimit form-control" limitbyte="30" placeholder = "수정할 Section명을 입력하세요">
-        </td>	
-        <td >
-        	<% if (section.getColor() != null) { %>
-        		<input type="text" name="color" value="<%=section.getColor() %>" placeholder = "ex:green, #1294AB" class="byteLimit form-control" limitbyte="30">
-        	<% } else { %> 
-        		<input type="text" name="color" value="#EAEAEA" placeholder = "ex:green, #1294AB" class="byteLimit form-control" limitbyte="30">
-        	<% } %>
-        </td>
-       	</form>
+        	<input type = "hidden" class = "form-control" name = "color" value =  "<%=section.getColor() %>">
+        </form>
+        </td>     	
         <td align = right>
        		<form id = "deletesection<%=section.getId() %>" action = "deletesection.do">
        			<input type = "hidden" class = "form-control" name = "section_id" value =  "<%=section.getId() %>">
        			
        		</form>
-       		<input type = submit class = "btn btn-info" value = "수정" onclick = "javascript:updatesection(<%=section.getId() %>)">
-       		<input type = submit class = "btn btn-default" value = "삭제" onclick = "javascript:deletesection(<%=section.getId() %>)" >
+       		<input type = button class = "btn btn-info" value = "수정" onclick = "javascript:updatesection('<%=section.getId() %>')">
+       		<input type = button class = "btn btn-default" value = "삭제" onclick = "javascript:deletesection('<%=section.getId() %>')" >
        	</td>
       </tr>
    <%} %>	
