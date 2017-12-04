@@ -102,43 +102,42 @@ function check_input() {
 </script>
 <body style = "background-color:#1294AB">
 <div class="container-fluid" style="margin-top:10%">
- <br> <br> <br> 
   <div class = "row">
-	<div class = "col-sm-offset-2" style="margin-bottom:50px">
-  	<h1> JOIN </h1>
+	<div class = "col-sm-offset-2">
+  	<h2><b> JOIN </b></h2>
   </div>
   </div>
   <form class="form-horizontal" action="insertMember.do" name = "joinform">
     <div class="form-group">
-      <label class="control-label col-sm-2" for="text">ID </label>
+      <label class="control-label col-sm-2" for="text" style = "color: white">ID </label>
       <div class="col-sm-3">
         <input type="text" class="form-control" id="id" placeholder="Enter ID" name="id" required>
       </div>
     </div>
     
     <div class="form-group">
-      <label class="control-label col-sm-2" for="pwd">Password</label>
+      <label class="control-label col-sm-2" for="pwd" style = "color: white">Password</label>
       <div class="col-sm-3">          
         <input type="password" class="form-control" id="pwd" placeholder="Enter password" name="password" required>
       </div>
     </div>
     
     <div class="form-group">
-      <label class="control-label col-sm-2" for="pwd">Password 확인</label>
+      <label class="control-label col-sm-2" for="pwd" style = "color: white">Password 확인</label>
       <div class="col-sm-3">          
         <input type="password" class="form-control" id="pwd" placeholder="Enter password" name="password2" required>
       </div>
     </div>
     
     <div class="form-group">
-      <label class="control-label col-sm-2" for="pwd">이름</label>
+      <label class="control-label col-sm-2" for="pwd" style = "color: white">이름</label>
       <div class="col-sm-3">          
         <input type="text" class="form-control" id="pwd" placeholder="이름" name="name" required>
       </div>
     </div>
     
     <div class="form-group">
-      <label class="control-label col-sm-2" for="pwd">Email</label>
+      <label class="control-label col-sm-2" for="pwd" style = "color: white">Email</label>
       <div class="col-sm-3">          
         <input type="text" class="form-control" id="pwd" placeholder="Enter Email" name="email" required>
       </div>
