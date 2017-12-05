@@ -34,7 +34,7 @@ body {
       font: 400 15px Lato, sans-serif;
       height:inherit;
       line-height: 1.8;
-	style = "background-color:#EFEFEF;"
+	  background-color:#EFEFEF;
   }
   h2 {
       font-size: 24px;
