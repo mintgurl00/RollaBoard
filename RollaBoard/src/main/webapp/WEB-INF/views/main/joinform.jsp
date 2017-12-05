@@ -139,7 +139,7 @@ function check_input() {
     <div class="form-group">
       <label class="control-label col-sm-2" for="pwd" style = "color: white">Email</label>
       <div class="col-sm-3">          
-        <input type="text" class="form-control" id="pwd" placeholder="Enter Email" name="email" required>
+        <input type="text" class="form-control" id="pwd" placeholder="Enter Email" name="email" >
       </div>
     </div>
     
