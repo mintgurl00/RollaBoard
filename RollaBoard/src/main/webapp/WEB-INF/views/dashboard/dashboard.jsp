@@ -35,14 +35,19 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <script src="https://use.fontawesome.com/e39dcf78fa.js"></script> <!-- Font Awesome 사용. 수민 -->
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins">
 <link href="css/task.css" rel="stylesheet" type="text/css" >
-<link href="reset.css">
+<link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet" type="text/css">
+<link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet" type="text/css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<link rel="stylesheet" type="text/css" href="css/board.css" >
 <style>
 body,h1,h2,h3,h4,h5 {font-family: "Poppins", sans-serif}
-body {font-size:16px;}
+
 .w3-half img{margin-bottom:-6px;margin-top:16px;opacity:0.8;cursor:pointer}
 .w3-half img:hover{opacity:1}
 .image {
@@ -210,14 +215,7 @@ width:700px; /* optional, though better have one */
     </div>
   </div>
 
-  <!-- Modal for full size images on click-->
-  <div id="modal01" class="w3-modal w3-black" style="padding-top:0" onclick="this.style.display='none'">
-    <span class="w3-button w3-black w3-xxlarge w3-display-topright">×</span>
-    <div class="w3-modal-content w3-animate-zoom w3-center w3-transparent w3-padding-64">
-      <img id="img01" class="w3-image">
-      <p id="caption"></p>
-    </div>
-  </div>
+ 
 
 <!-- End page content -->
 </div>
@@ -246,13 +244,6 @@ function w3_close() {
     document.getElementById("myOverlay").style.display = "none";
 }
 
-// Modal Image Gallery
-function onClick(element) {
-  document.getElementById("img01").src = element.src;
-  document.getElementById("modal01").style.display = "block";
-  var captionText = document.getElementById("caption");
-  captionText.innerHTML = element.alt;
-}
 
 // 태스크 보기
 function viewTask (cnt) {

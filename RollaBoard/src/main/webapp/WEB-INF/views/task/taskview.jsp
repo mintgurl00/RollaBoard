@@ -22,10 +22,9 @@ if(session.getAttribute("id") == null) {
 	}
 	SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd"); 
 %>
-<head>
-<link href="reset.css">
+
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    
     
 <style>
 
@@ -178,7 +177,6 @@ function onMouseover() {
 document.getElementById('completeArea').addEventListener('mouseover', onMouseover);
 
 </script>
-</head>
 
 <div id = "frame">
 	
