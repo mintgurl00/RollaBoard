@@ -152,6 +152,10 @@ public class TaskController {
     	taskVO.setPriority(priority);
     	taskVO.setLocation(location);
     	ModelAndView result = new ModelAndView();
+    	if (session.getAttribute("id") == null) {
+			result.setViewName("redirect:index.do");
+			return result;
+		}
     	System.out.println("태스크에 배정할 롤 이름! : " + taskToRole);
     	System.out.println("업데이트할 task_id : " + taskVO.getId());
     	System.out.println("로케이션 : " + taskVO.getLocation());
@@ -231,10 +235,13 @@ public class TaskController {
     }
     
     @RequestMapping("deletetask.do")
-    public ModelAndView deletetask(int task_id, HttpServletRequest request) {
+    public ModelAndView deletetask(int task_id, HttpServletRequest request, HttpSession session) {
     	System.out.println("지울 task_id : " + task_id);
     	ModelAndView result = new ModelAndView();
-
+    	if (session.getAttribute("id") == null) {
+			result.setViewName("redirect:index.do");
+			return result;
+		}
     	//////관계를 일단 먼저 삭제하는 중
     	if(taskRefDAOService.isConnectedTask(task_id)){
     		// 일단 관계 브레이크로 구현
@@ -266,6 +273,11 @@ public class TaskController {
 	// 실제로 만드는 메소드
 	@RequestMapping("inserttask.do")
 	public ModelAndView insertTask(String name, String location, int section_id, HttpSession session, HttpServletRequest request) throws ParseException {
+		ModelAndView result = new ModelAndView();
+		if (session.getAttribute("id") == null) {
+			result.setViewName("redirect:index.do");
+			return result;
+		}
 		System.out.println("만들 태스크의 이름 : " + name);
 		Date dt = new Date();
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd"); 
@@ -288,7 +300,7 @@ public class TaskController {
 			taskVO.setStatus("NORMAL");
 		}*/
 
-		ModelAndView result = new ModelAndView();
+		
 		result.setViewName("redirect:board.do");
 		return result;	
     	
@@ -300,8 +312,12 @@ public class TaskController {
 	}
 	
 	@RequestMapping("deallocatetask.do")
-	public ModelAndView deallocatetask(int role_id, int task_id) {
+	public ModelAndView deallocatetask(int role_id, int task_id, HttpSession session) {
 		ModelAndView result = new ModelAndView();
+		if (session.getAttribute("id") == null) {
+			result.setViewName("redirect:index.do");
+			return result;
+		}
 		System.out.println("deallocatetask.do... task_id : " + task_id);
 		roleDAOService.deallocateTask(role_id, task_id);
 		System.out.println("TASK_ROLE 삭제완료");

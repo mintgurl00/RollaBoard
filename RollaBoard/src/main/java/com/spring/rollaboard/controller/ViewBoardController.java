@@ -64,11 +64,16 @@ public class ViewBoardController {
     	 * */
     	
     	ModelAndView result = new ModelAndView();
+    	if (session.getAttribute("id") == null) {
+			result.setViewName("redirect:index.do");
+			return result;
+		}
     	int board_id = 0;
     	System.out.println("세션 보드아이디 : " + session.getAttribute("board_id"));
     	System.out.println("리쿼스트 보드아이디 : " + request.getParameter("board_id"));
     	if (request.getParameter("board_id") == null) {
     		if (session.getAttribute("board_id") == null) {
+    			
     			List<BoardVO> boardList = boardDAOService.getBoards((String)(session.getAttribute("id"))); //수민. 대시보드로 갈 때 보드리스트 받아옴
     			result.addObject("boardList", boardList);
 				result.setViewName("dashboard/dashboard");

@@ -99,6 +99,10 @@ public class RoleController {
     @RequestMapping("updaterole.do")
 	public ModelAndView updaterole(RoleVO updateRoleInfo, HttpServletResponse response, HttpSession session) throws Exception {
     	ModelAndView result = new ModelAndView();
+    	if (session.getAttribute("id") == null) {
+			result.setViewName("redirect:index.do");
+			return result;
+		}
     	if (updateRoleInfo.getName() == null || updateRoleInfo.getName().equals("")) {
 			updateRoleInfo.setName("No Name");
 		}
@@ -137,8 +141,12 @@ public class RoleController {
 	}
     
     @RequestMapping("deleteRole.do")
-    public ModelAndView deleteRole(int id, HttpServletResponse response) throws Exception {
+    public ModelAndView deleteRole(int id, HttpServletResponse response, HttpSession session) throws Exception {
 		ModelAndView result = new ModelAndView();
+		if (session.getAttribute("id") == null) {
+			result.setViewName("redirect:index.do");
+			return result;
+		}
     	System.out.println("딜리트 롤 id : " + id);
 		
 		roleDAOService.deleteRole(id);
@@ -152,8 +160,12 @@ public class RoleController {
 	}
     
     @RequestMapping("allocation.do")
-    public ModelAndView allocation(String board_id) {
+    public ModelAndView allocation(String board_id, HttpSession session) {
     	ModelAndView result = new ModelAndView();
+    	if (session.getAttribute("id") == null) {
+			result.setViewName("redirect:index.do");
+			return result;
+		}
     	int board_id1 = Integer.parseInt(board_id);
     	// 보드에 가입된 맴버 가져옴
     	ArrayList<MemVO> boardMemberList = memDAOService.getBoardMembers(board_id1); 
@@ -184,6 +196,10 @@ public class RoleController {
     public ModelAndView rolemember(int role_id, String mem_id, HttpSession session, HttpServletResponse response) throws Exception {
     	System.out.println("roleId : " + role_id + "  memId : " + mem_id);
     	ModelAndView result = new ModelAndView();
+    	if (session.getAttribute("id") == null) {
+			result.setViewName("redirect:index.do");
+			return result;
+		}
     	// 받아온 아이디가 우리 보드의 맴버인지 확인
     	
     	// 보드에 등록되어있는지 확인한다.
@@ -239,8 +255,12 @@ public class RoleController {
 	}
     
     @RequestMapping("deletememtorole.do")
-    public ModelAndView deletememtorole (HttpServletRequest request) {
+    public ModelAndView deletememtorole (HttpServletRequest request, HttpSession session) {
     	ModelAndView result = new ModelAndView();
+    	if (session.getAttribute("id") == null) {
+			result.setViewName("redirect:index.do");
+			return result;
+		}
     	String mem_id = (String)request.getParameter("id");
     	int role_id = Integer.parseInt((String)request.getParameter("role_id"));
     	System.out.println("배정 해제할 롤의 아이디 : " + role_id);

@@ -63,6 +63,10 @@ public class SectionController {
     @RequestMapping("createsection.do")
     public ModelAndView createsection(String section_name, HttpSession session) {
     	ModelAndView result = new ModelAndView();
+    	if (session.getAttribute("id") == null) {
+			result.setViewName("redirect:index.do");
+			return result;
+		}
     	int board_id = Integer.parseInt((String) session.getAttribute("board_id"));
     	int maxNum;
     	System.out.println("맥스넘 나온거 : "+sectionDAOService.getMaxSeqNum(board_id));
@@ -90,7 +94,12 @@ public class SectionController {
     // board.jsp에서 섹션 만들기
     @RequestMapping("createsectioninboard.do")
     public ModelAndView createsectioninboard(HttpSession session) {
+    	
     	ModelAndView result = new ModelAndView();
+    	if (session.getAttribute("id") == null) {
+			result.setViewName("redirect:index.do");
+			return result;
+		}
     	int board_id = Integer.parseInt((String) session.getAttribute("board_id"));
     	int maxNum;
     	System.out.println("맥스넘 나온거 : "+sectionDAOService.getMaxSeqNum(board_id));
@@ -112,10 +121,14 @@ public class SectionController {
     
     //섹션 수정
     @RequestMapping("updatesection.do")
-    public ModelAndView updatesection(int section_id, String section_name, String color) {
+    public ModelAndView updatesection(int section_id, String section_name, String color, HttpSession session) {
     	System.out.println("섹션 아이디 int : "+section_id);
     	System.out.println("섹션 네임 : " + section_name);
     	ModelAndView result = new ModelAndView();
+    	if (session.getAttribute("id") == null) {
+			result.setViewName("redirect:index.do");
+			return result;
+		}
     	sectionDAOService.updateSection(section_id, section_name, color);
     	// 현재 페이지에 머물 수 있는 앵커값 : chkVal
     	String chkVal = "section";
@@ -127,8 +140,12 @@ public class SectionController {
     
     // board.jsp에서 섹션 수정
     @RequestMapping("updatesectioninboard.do")
-    public ModelAndView updatesectioninboard(int section_id, String section_name, String color) {
+    public ModelAndView updatesectioninboard(int section_id, String section_name, String color, HttpSession session) {
     	ModelAndView result = new ModelAndView();
+    	if (session.getAttribute("id") == null) {
+			result.setViewName("redirect:index.do");
+			return result;
+		}
     	System.out.println("updatesection section_id : " + section_id);
     	sectionDAOService.updateSection(section_id, section_name, color);
 

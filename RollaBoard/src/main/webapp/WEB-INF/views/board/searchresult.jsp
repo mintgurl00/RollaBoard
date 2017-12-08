@@ -157,6 +157,7 @@ for( int i = 0 ; i < sectionSize ; i++ ){
 										<% } %>
 											placeholder = "COLOR" class="byteLimit form-control" limitbyte="30">
 							</div>
+							
 						</form>	
 					</div>
 					</div>

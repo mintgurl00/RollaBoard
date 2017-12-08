@@ -22,32 +22,12 @@ if(session.getAttribute("id") == null) {
 	}
 	SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd"); 
 %>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
 <head>
 <link href="reset.css">
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-
-
+    
 <style>
-body,h1,h2,h3,h4,h5 {font-family: "Poppins", sans-serif}
-body {font-size:16px;}
-.w3-half img{margin-bottom:-6px;margin-top:16px;opacity:0.8;cursor:pointer}
-.w3-half img:hover{opacity:1}
-.image {
-position:relative;
-float:left; /* optional */
-}
-.image .text {
-position:absolute;
-top:20px; /* in conjunction with left property, decides the text position */
-left:25px;
-width:700px; /* optional, though better have one */
-}
 
       /* Always set the map height explicitly to define the size of the div
        * element that contains the map. */
@@ -200,9 +180,6 @@ document.getElementById('completeArea').addEventListener('mouseover', onMouseove
 </script>
 </head>
 
-<body>
-
-
 <div id = "frame">
 	
 	<h2><%=taskVO.getName() %></h2>
@@ -347,5 +324,3 @@ $("#goUpdateBtn").click(function(){
 	});
 });
 </script>
-</body>
-</html>

@@ -92,6 +92,10 @@ public class BoardSettingController {
 	@RequestMapping("updateboardname.do")
     public ModelAndView updateboardname(String board_name, HttpSession session) {
     	ModelAndView result = new ModelAndView();
+    	if (session.getAttribute("id") == null) {
+			result.setViewName("redirect:index.do");
+			return result;
+		}
     	System.out.println("업데이트 보드 네임 : " + board_name);
     	BoardVO boardVO = new BoardVO();
     	boardVO.setId(Integer.parseInt((String)session.getAttribute("board_id")));
@@ -102,10 +106,14 @@ public class BoardSettingController {
     }
 	
 	@RequestMapping("memberadmitform.do")
-    public ModelAndView memberadmitform(String board_id) {
+    public ModelAndView memberadmitform(String board_id, HttpSession session) {
     	System.out.println("멤버승인으로 이동");
     	System.out.println("보드아이디" + board_id);
     	ModelAndView result = new ModelAndView();
+    	if (session.getAttribute("id") == null) {
+			result.setViewName("redirect:index.do");
+			return result;
+		}
     	ArrayList<MemVO> boardMemberList = memDAOService.waitingMembers(Integer.parseInt(board_id));
     	
     	result.addObject("boardWaitingList", boardMemberList);
@@ -120,6 +128,10 @@ public class BoardSettingController {
     @RequestMapping("etcform.do")
     public ModelAndView etcform(HttpSession session) {
     	ModelAndView result = new ModelAndView();
+    	if (session.getAttribute("id") == null) {
+			result.setViewName("redirect:index.do");
+			return result;
+		}
     	System.out.println("참조보드로 이동");
     	int board_id = Integer.parseInt((String) session.getAttribute("board_id"));
     	ArrayList<BoardVO> refBoardList = boardDAOService.getRefBoards(board_id);
@@ -137,6 +149,10 @@ public class BoardSettingController {
     @RequestMapping("visibility.do")
     public ModelAndView visibility(HttpServletRequest request, HttpSession session) {
     	ModelAndView result = new ModelAndView();
+    	if (session.getAttribute("id") == null) {
+			result.setViewName("redirect:index.do");
+			return result;
+		}
     	String visibility = request.getParameter("visibility");
     	String board_id = (String) session.getAttribute("board_id");
 
@@ -156,6 +172,10 @@ public class BoardSettingController {
     @RequestMapping("addrefboard.do")
     public ModelAndView addrefboard(HttpServletRequest request, HttpSession session, HttpServletResponse response) throws Exception {
     	ModelAndView result = new ModelAndView();
+    	if (session.getAttribute("id") == null) {
+			result.setViewName("redirect:index.do");
+			return result;
+		}
     	System.out.println("addrefboard.do 진입했는지 확인");
     	System.out.println("내 보드 아이디: " + Integer.parseInt((String)session.getAttribute("board_id")));
     	int board_id = Integer.parseInt((String)session.getAttribute("board_id"));
@@ -194,7 +214,10 @@ public class BoardSettingController {
     @RequestMapping("deleterefboard.do")
     public ModelAndView deleterefboard(HttpSession session, HttpServletRequest request) {
     	ModelAndView result = new ModelAndView();
-    	
+    	if (session.getAttribute("id") == null) {
+			result.setViewName("redirect:index.do");
+			return result;
+		}
     	System.out.println("참조보드 아이디: " + Integer.parseInt((String)request.getParameter("ref_id")));
     	System.out.println("내 보드 아이디: " + Integer.parseInt((String)session.getAttribute("board_id")));
     	
