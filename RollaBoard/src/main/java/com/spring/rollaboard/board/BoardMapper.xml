@@ -25,7 +25,7 @@
 	
 	<!-- getBoards -->
 	<select id = "getBoards" resultMap = "BoardResultMap">
-		SELECT A.id, A.name
+		SELECT A.id, A.name, A.admin
 		FROM board A INNER JOIN board_mem B ON A.id = B.board_id INNER JOIN mem C on B.mem_id = C.id
 		WHERE C.id = #{id}
 	</select>
@@ -46,6 +46,10 @@
 			INTO board_mem VALUES (seq_board.NEXTVAL, #{mem_id}, 'TRUE', 'TRUE')
 				SELECT * FROM DUAL
 	</insert>
+	
+	<delete id = "deleteBoard" parameterType = "int">
+		DELETE FROM board WHERE ID = #{id}
+	</delete>
 
 	<select id = "getBoardInfo" resultMap = "BoardResultMap">
 		SELECT * FROM board WHERE ID = #{board_id}

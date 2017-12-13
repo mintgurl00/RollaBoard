@@ -105,6 +105,35 @@ public class BoardSettingController {
         return result;
     }
 	
+	@RequestMapping("deleteboard.do")
+    public ModelAndView deleteboard(int board_id, HttpSession session, HttpServletResponse response) throws Exception {
+    	ModelAndView result = new ModelAndView();
+    	if (session.getAttribute("id") == null) {
+			result.setViewName("redirect:index.do");
+			return result;
+		}
+    	System.out.println("Form에서 넘겨받은 워크보드 아이디 : " + board_id);
+    	System.out.println("세션의 워크보드 아이디 : " + session.getAttribute("board_id"));
+    	// 확인절차 : 위의 두 워크보드 아이디가 같아야 한다.
+    	if (board_id == Integer.parseInt((String) session.getAttribute("board_id"))) {
+			boardDAOService.deleteBoard(board_id);
+			
+			result.setViewName("index");
+			response.setContentType("text/html; charset-utf-8");
+    		PrintWriter out = response.getWriter();
+            out.println("<script>alert('정상적으로 삭제되었습니다!');</script>");
+            out.println("<script>alert('다시 로그인 해주세요');</script>");
+            out.flush(); 
+		} else {
+			result.setViewName("index");
+			response.setContentType("text/html; charset-utf-8");
+    		PrintWriter out = response.getWriter();
+            out.println("<script>alert('Failed !!!');</script>");
+            out.flush(); 
+		}
+        return result;
+    }
+	
 	@RequestMapping("memberadmitform.do")
     public ModelAndView memberadmitform(String board_id, HttpSession session) {
     	System.out.println("멤버승인으로 이동");
@@ -132,11 +161,14 @@ public class BoardSettingController {
 			result.setViewName("redirect:index.do");
 			return result;
 		}
+    	System.out.println("워크보드 아이디 : " + session.getAttribute("board_id"));
+    	String board_name = boardDAOService.getBoardInfo(Integer.parseInt((String)session.getAttribute("board_id"))).getName();
     	System.out.println("참조보드로 이동");
     	int board_id = Integer.parseInt((String) session.getAttribute("board_id"));
     	ArrayList<BoardVO> refBoardList = boardDAOService.getRefBoards(board_id);
     	// 공개, 비공개의 현재값 가져오기
     	String visible = boardDAOService.getVisibility(board_id);
+    	result.addObject("boardName", board_name);
     	result.addObject("visible", visible);
     	result.addObject("refBoardList" , refBoardList) ;
     	result.setViewName("boardsettings/etcform");

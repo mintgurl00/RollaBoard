@@ -51,7 +51,12 @@ function updatesectioninboard(cnt) {
 }
 
 function deletesectioninboard(cnt) {
-	document.getElementById("deletesectioninboard" + cnt).submit();
+	var r = confirm("정말 삭제하시겠습니까?");
+	if (r != true) {
+		return;
+	} else {
+		document.getElementById("deletesectioninboard" + cnt).submit();
+	}
 }
 
 </script>
@@ -110,8 +115,7 @@ if( sectionList.size() == 0) {	// 태스크가 없을 때
 		<%=keyword %>에 대한 검색 결과가 없습니다.
 	<%
 	}else{%>
-		새 태스크를 만들어보세요.<br />
-		디폴트 섹션과 태스크 추가 버튼을 만들어 두자.
+	<br />
 	<%
 	}
 }else{	// 태스크가 있을 때

@@ -59,7 +59,8 @@ public class BoardDAOService implements BoardDAO {
 
 	@Override
 	public void deleteBoard(int id) {
-		// TODO Auto-generated method stub
+		BoardMapper boardMapper = sqlSession.getMapper(BoardMapper.class);
+		boardMapper.deleteBoard(id);
 		
 	}
 

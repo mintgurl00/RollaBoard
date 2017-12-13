@@ -8,6 +8,7 @@ if(session.getAttribute("id") == null) {
 	out.println("location.href='index.do'");
 	out.println("</script>");
 }
+String boardName = (String) request.getAttribute("boardName");
 ArrayList<BoardVO> refBoardList = (ArrayList<BoardVO>)request.getAttribute("refBoardList");
 String visible = (String) request.getAttribute("visible");
 %>
@@ -141,8 +142,15 @@ function radio_chk() {
 			document.getElementById("visibility").submit(); //submit하면 etc.do로
 		}
 	}
-	
-	
+		
+}
+function deleteChecking() {
+	var r = confirm("삭제시 복구가 불가능합니다. 워크보드를 삭제하시겠습니까?");
+	if (r == true) {
+		document.getElementById("deleteWorkboard").submit();
+	} else {
+		return;
+	}
 }
 </script>
 </head>
@@ -173,7 +181,7 @@ function radio_chk() {
   
  
     	
-<div class="container" style="margin-top:150px">
+<div class="container" style="margin-top:100px">
   <h2>참조보드 목록</h2>
   <p>당신의 BOARD가 참조하고 있는 BOARD 목록입니다. 참조할 BOARD를 자유롭게 추가/삭제하세요.</p>            
   <table class="table table-striped">
@@ -209,8 +217,27 @@ function radio_chk() {
        	</td>
       </tbody>
      </table>
-   </form>
-  
+   </form> 
 </div>
+
+<div class="container" style="margin-top:100px">
+  <h2>워크보드 삭제</h2>
+  <p>WorkBoard를 삭제합니다. 관련된 내용들 또한 모두 삭제됩니다.</p>            
+  <table class="table table-striped">
+  <thead>
+      <tr>
+        <th>워크보드명</th>
+      </tr>
+      <tr></tr>
+  </thead>
+    <tbody>
+    <tr>
+    	<td><%=boardName %></td>
+    	<td align = "right">
+    		<form id = "deleteWorkboard" action = "deleteboard.do">
+    		<input type = "hidden" name = "board_id" value = "<%=session.getAttribute("board_id") %>">
+    		<input type = "button" class = "btn btn-danger" value = "삭제" onclick = "javascript:deleteChecking()">
+    		</form>
+   		</td>
 </body>
 </html>

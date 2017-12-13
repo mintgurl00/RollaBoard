@@ -10,7 +10,7 @@
 		out.println("location.href='index.do'");
 		out.println("</script>");
 	}
-
+	String id = (String) session.getAttribute("id");
 
 	request.setCharacterEncoding("utf-8");
 	
@@ -107,16 +107,18 @@ width:700px; /* optional, though better have one */
 <body>
 
 <!-- Sidebar/menu -->
-<nav class="w3-sidebar w3-collapse w3-top w3-large w3-padding mycolor" style="z-index:3;width:270px;font-weight:bold; background-color: #1294AB; color:white;" id="mySidebar"><br>
-  <a href="javascript:void(0)" onclick="w3_close()" class="w3-button w3-hide-large w3-display-topleft" style="width:100%;font-size:19px">Close Menu</a>
-  <p class="w3-display-topleft w3-hide-medium w3-hide-small" style="font-size:15px;cursor:pointer"><a onclick="document.getElementById('id01').style.display='block'">&nbsp;&nbsp;&nbsp;<i class="fa fa-user"></i></a>&nbsp;&nbsp;&nbsp;<a href="logout.do" style="text-decoration:none">logout</a></p>
+<nav class="w3-sidebar w3-collapse w3-top w3-large w3-padding" style="z-index:3;width:270px;font-weight:bold; background-color: #1294AB; color:white;" id="mySidebar"><br>
+  <a href="javascript:void(0)" onclick="w3_close()" class="w3-button w3-hide-large w3-display-topleft" style="width:100%;font-size:19px;text-decoration:none">Close Menu</a>
+  <span class="w3-display-topleft w3-hide-medium w3-hide-small" style="font-size:15px;cursor:pointer;">&nbsp;&nbsp;&nbsp;<a onclick="document.getElementById('id01').style.display='block'"><i class="fa fa-user" style="color:white;text-decoration:none"></i></a>&nbsp;<a href="logout.do" style="color:white;text-decoration:none">logout</a></span>
   <div class="w3-container">
     <h2 class="w3-padding-64"><b>My<br>Board</b></h2>
   </div>
   <div class="w3-bar-block">
   	<% for (int i = 0; i < boardList.size(); i++) {
 				BoardVO board = boardList.get(i); %>
-	<a onclick = "location.href='./board.do?board_id=<%=board.getId()%>'" class="w3-bar-item w3-button w3-hover-white"><%=board.getName()%></a>
+	<a onclick = "location.href='./board.do?board_id=<%=board.getId()%>'" class="w3-bar-item w3-button w3-hover-white" style="text-decoration:none">
+	<%=board.getName()%> <%if (board.getAdmin().equals(id)) { %><b>*</b><%} %>
+	</a>
     <% }%>
     <br/>
 	<p align="center"><a href = "newboard.do" class="w3-bar-item w3-center w3-button w3-hover-white"><i class="fa fa-plus-circle"></i></a></p>
@@ -156,12 +158,12 @@ width:700px; /* optional, though better have one */
 </div>
   
 <!-- Top menu on small screens -->
-<header class="w3-container w3-top w3-hide-large w3-xlarge w3-padding w3-opacity" style = "background-color: #1294AB; color:white;">
-  <a href="javascript:void(0)" class="w3-button w3-margin-right" onclick="w3_open()">☰</a>
-  <p class="w3-display-topleft w3-hide-medium w3-hide-small" style="font-size:15px"><a onClick = "openPop();" class = "w3-button"><i class="fa fa-user"></i></a>&nbsp;&nbsp;&nbsp;<a href="logout.do" class = "w3-button">logout</a></p>
+<header class="w3-container w3-top w3-hide-large w3-xlarge w3-padding" style = "background-color: #1294AB; color:white;">
+  <a href="javascript:void(0)" class="w3-button w3-margin-right" onclick="w3_open()" style = "text-decoration:none;">☰</a>
+  
   <span>MY BOARD</span>
   <span class = "w3-display-topright">
-  	<a onclick="document.getElementById('id01').style.display='block'" style="cursor:pointer;padding-right:10px; padding-top:10px;"><i class="fa fa-user"></i></a>&nbsp;<a href="logout.do" style="cursor:pointer;text-decoration:none; padding-right:10px; padding-top:10px">logout</a>
+  	<a class = "w3-button" onclick="document.getElementById('id01').style.display='block'" style="cursor:pointer;padding-right:10px; padding-top:10px;"><i class="fa fa-user" style = "color:white;"></i></a>&nbsp;<a class = "w3-button" href="logout.do" style="cursor:pointer;text-decoration:none; padding-right:10px; padding-top:10px; color:white;">logout</a>
   </span>
 </header>
 
