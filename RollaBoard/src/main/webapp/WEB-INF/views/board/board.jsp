@@ -58,6 +58,14 @@
 	color:orange;
 }
 
+
+@media (max-width:768px) {
+	body .myclass ul .refref {
+		display:none;
+	}
+}
+
+
 </style>
 <script src="js/board.js"></script>
 
@@ -228,7 +236,7 @@ $(document).ready(function() {
 		</div>
 		<div class = "myclass">
 			<ul class="nav navbar-nav navbar-right" style="background-color:#1294AB; padding-bottom:10px;">			
-				<li> 
+				<li class = "refref"> 
 					<a style = "color:#fff; cursor:pointer">
 					<!-- 참조 보드 선택 -->
 					<div class = "selectBox02" style="background-color:#1294AB">
@@ -349,7 +357,7 @@ $(document).ready(function(){
 
 // 회원정보수정 캔슬클릭시
 function clickcancel() {
-	document.getElementById('id01').style.display='none';
+	document.getElementById('updateMember').style.display='none';
 	window.location.reload();
 }
 </script>

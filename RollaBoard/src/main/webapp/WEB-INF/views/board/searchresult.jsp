@@ -37,6 +37,61 @@ keyword : <%=keyword %> <br />
 
 <!-- TASK클릭 시 함수 -->
 <script>
+$(document).ready( function() {
+    //글자 byte 수 제한
+    $('.byteLimit').blur(function(){
+                      
+        var thisObject = $(this);
+          
+        var limit = thisObject.attr("limitbyte"); //제한byte를 가져온다.
+        var str = thisObject.val();
+        var strLength = 0;
+        var strTitle = "";
+        var strPiece = "";
+        var check = false;
+                  
+        for (i = 0; i < str.length; i++){
+            var code = str.charCodeAt(i);
+            var ch = str.substr(i,1).toUpperCase();
+            //체크 하는 문자를 저장
+            strPiece = str.substr(i,1)
+              
+            code = parseInt(code);
+              
+            if ((ch < "0" || ch > "9") && (ch < "A" || ch > "Z") && ((code > 255) || (code < 0)) ){
+                strLength = strLength + 3; //UTF-8 3byte 로 계산
+            }else{
+                strLength = strLength + 1;
+            }
+              
+            if(strLength>limit){ //제한 길이 확인
+                check = true;
+                break;
+            }else{
+                strTitle = strTitle+strPiece; //제한길이 보다 작으면 자른 문자를 붙여준다.
+            }
+              
+        }
+          
+        if(check){
+            alert(limit+"byte 초과된 문자는 잘려서 입력 됩니다.");
+        }
+          
+        thisObject.val(strTitle);
+          
+    });
+    
+    $(".checkDiff > input").blur(function(){
+    	var oldVal = $(this).parent().children("input[type='hidden']").val() ;
+    	var newVal = $(this).parent().children("input[type='text']").val() ;
+    	if(oldVal!=newVal){
+    		$(this).css("background-color", "#ff0000");
+    	}else{
+    		$(this).css("background-color", "#ffffff");
+    	}
+    });
+});
+
 function clicktaskinBoard(id) {/* 
 	window.open("./taskview.do?task_id=" + id,
 			"TASK",
@@ -284,7 +339,7 @@ for( int i = 0 ; i < sectionSize ; i++ ){
 					<input type="date" id="cre_date" placeholder="yyyy-mm-dd" class = "w3-input w3-border w3-margin-bottom" name = "cre_date" value = "<%=sdf.format(dt).toString()%>" style = "display:none">
 					<input type="hidden" id="priority" placeholder="1~5중에 하나를 입력해주세요" class = "w3-input w3-border w3-margin-bottom" name="priority" value = "3">
 					<label>위치정보:</label>
-					<input type="text" id="location" placeholder="ex)서울시 서초구 잠원동" class = "w3-input w3-border w3-margin-bottom" name="location">
+					<input type="text" id="location" placeholder="ex)서울시 서초구 잠원동" class = "w3-input w3-border w3-margin-bottom byteLimit" limitbyte = "40" name="location">
 					<button type="submit" class="w3-button w3-block w3-green w3-section w3-padding"  style="background-color: green"><b>생성하기</b></button>
 					<button onclick="javascript:clickModalcancel('<%=sectionList.get(i).getId()%>')" type="button" class = "w3-button w3-block w3-red"><b>취소</b></button>			
 			</form>

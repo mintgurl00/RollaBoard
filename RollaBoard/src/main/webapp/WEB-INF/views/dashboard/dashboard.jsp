@@ -46,7 +46,7 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <link rel="stylesheet" type="text/css" href="css/board.css" >
 <style>
-body,h1,h2,h3,h4,h5 {font-family: "Poppins", sans-serif}
+body {font-family: "Poppins", sans-serif}
 
 .w3-half img{margin-bottom:-6px;margin-top:16px;opacity:0.8;cursor:pointer}
 .w3-half img:hover{opacity:1}
@@ -109,7 +109,7 @@ width:700px; /* optional, though better have one */
 <!-- Sidebar/menu -->
 <nav class="w3-sidebar w3-collapse w3-top w3-large w3-padding" style="z-index:3;width:270px;font-weight:bold; background-color: #1294AB; color:white;" id="mySidebar"><br>
   <a href="javascript:void(0)" onclick="w3_close()" class="w3-button w3-hide-large w3-display-topleft" style="width:100%;font-size:19px;text-decoration:none">Close Menu</a>
-  <span class="w3-display-topleft w3-hide-medium w3-hide-small" style="font-size:15px;cursor:pointer;">&nbsp;&nbsp;&nbsp;<a onclick="document.getElementById('id01').style.display='block'"><i class="fa fa-user" style="color:white;text-decoration:none"></i></a>&nbsp;<a href="logout.do" style="color:white;text-decoration:none">logout</a></span>
+  <span class="w3-display-topleft w3-hide-medium w3-hide-small" style="font-size:20px;cursor:pointer;">&nbsp;<a onclick="document.getElementById('id01').style.display='block'"><i class="fa fa-user" style="color:white;text-decoration:none"></i></a>&nbsp;&nbsp;<a href="logout.do" style="color:white;text-decoration:none">logout</a></span>
   <div class="w3-container">
     <h2 class="w3-padding-64"><b>My<br>Board</b></h2>
   </div>
@@ -161,9 +161,9 @@ width:700px; /* optional, though better have one */
 <header class="w3-container w3-top w3-hide-large w3-xlarge w3-padding" style = "background-color: #1294AB; color:white;">
   <a href="javascript:void(0)" class="w3-button w3-margin-right" onclick="w3_open()" style = "text-decoration:none;">☰</a>
   
-  <span>MY BOARD</span>
+  
   <span class = "w3-display-topright">
-  	<a class = "w3-button" onclick="document.getElementById('id01').style.display='block'" style="cursor:pointer;padding-right:10px; padding-top:10px;"><i class="fa fa-user" style = "color:white;"></i></a>&nbsp;<a class = "w3-button" href="logout.do" style="cursor:pointer;text-decoration:none; padding-right:10px; padding-top:10px; color:white;">logout</a>
+  	<a class = "w3-button" onclick="document.getElementById('id01').style.display='block'" style="cursor:pointer;padding-right:10px; padding-top:10px;"><i class="fa fa-user" style = "color:white;"></i></a><a class = "w3-button" href="logout.do" style="cursor:pointer;text-decoration:none; padding-right:10px; padding-top:10px; color:white;">logout</a>
   </span>
 </header>
 
@@ -190,13 +190,15 @@ width:700px; /* optional, though better have one */
 	%>
     <div id="task" onclick="javascript:clicktask('<%=taskVO.getId() %>')" class = "w3-animate-zoom">
     	<% if( taskVO.getStatus().equals("COMPLETE")){%>
-    	<h5><b class = "completing"><%=taskVO.getName()%></b></h5>
+    	<span style = "font-size:24px;"><b class = "completing"><%=taskVO.getName()%></b></span>
     	<%} else if( taskVO.getStatus().equals("BLOCKED")) { %>
-    	<h5><b class = "blocking"><%=taskVO.getName()%></b><i class="fa fa-lock" aria-hidden="true"></i></h5>
+    	<span style = "font-size:24px;"><b class = "blocking"><%=taskVO.getName()%></b><i class="fa fa-lock" aria-hidden="true"></i></span>
     	<%} else {%>
-    	<h5><b><%=taskVO.getName()%></b></h5>
+    	<span style = "font-size:24px;"><b><%=taskVO.getName()%></b></span>
     	<%} %>
-    	<span>in <%=taskVO.getDescription() %></span>
+    	<br/>
+    	<span>in <b><%=taskVO.getDescription() %></b></span>
+    	<br/>
     <% if( taskVO.getStatus().equals("BLOCKED")){%>
 		<div class="task_status_blocked" style="margin-top:30px; margin-left:20px" align=center>
 			BLOCKED <i class="fa fa-lock" aria-hidden="true"></i>

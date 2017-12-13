@@ -271,7 +271,7 @@ document.getElementById('completeArea').addEventListener('mouseover', onMouseove
 <!-- 	<input type=button value="수정" onclick = "javascript:updateTask()"> -->
 		<input type=button class = "btn btn-default" value="삭제" onclick = "javascript:deleteTask()">
 	<%} else { %>
-		<input type="button" class = "btn btn-default" data-dismiss="modal" value="확인" onclick = "location.href='./dashboard.do'">
+		<input type="button" class = "btn btn-default" data-dismiss="modal" value="확인">
 	<%} %>
 		
 	</div>
